@@ -1,0 +1,185 @@
+@import "assets/css/1 - base/colors"
+@import "assets/css/1 - base/vars"
+
+body, html
+   margin: 0
+   background-color: $project-page-list-background-color
+   background-position: center
+   background-repeat: repeat
+   background-size: contain
+   background-attachment: fixed
+
+.project-page-wrap
+   .project-list-title-wrap
+      display: flex
+      flex-direction: row
+      justify-content: center
+      padding-top: 20px
+
+      h2.project-list-title
+         display: inline-block
+         padding: 30px
+         margin: 50px 0 0 0
+         color: $project-page-portfolio-item-color
+         text-transform: uppercase
+         font-size: 2.5em
+         font-weight: lighter
+         text-align: center
+         clear: both
+
+         border:
+            color: $project-page-portfolio-item-color
+            style: solid
+
+   .project-list-wrap
+      margin: 40px auto
+      max-width: 550px
+      padding: 20px
+      padding-bottom: 10px
+
+      .portfolio-item
+         display: flex
+         flex-direction: row-reverse
+         background-color: $project-page-portfolio-item-background-color
+         margin: 20px
+         min-height: 190px
+         height: auto
+         transition: ease-in-out 0.2s
+
+         &:hover
+            transition: ease-in-out 0.2s
+            box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.2)
+            transform: scale(1.01)
+
+
+         .image-wrap
+            display: block
+            width: 40%
+            height: calc(100%-1px)
+
+            img.portfolio-image
+               display: block
+               height: 100%
+               width: 100%
+               background-size: cover
+               background-repeat: no-repeat
+               background-position: center
+
+         .portfolio-meta
+            display: block
+            width: 60%
+            height: 100%
+            padding-top: 20px
+            padding-bottom: 20px
+
+            .project-item-name
+               font-size: 1.62em
+               font-weight: bold
+               font-style: normal
+               color: $project-page-portfolio-item-color
+               display: inline-block
+               padding-right: 15px
+               margin-right: 35px
+               padding-left: 25px
+               width: 87%
+
+            .project-item-category
+               font-size: 1.3em
+               margin-top: 20px
+               margin-left: 20px
+               color: $project-page-portfolio-item-color
+
+            .project-item-date
+               font-size: 1.3em
+               font-weight: lighter
+               font-style: italic
+               margin-left: 20px
+               color: $project-page-portfolio-item-color
+
+   .back-to-top
+      display: none
+
+@media (max-width: 600px)
+
+   .project-page-wrap
+      .project-list-header
+         h2.page-title
+            font-size: 3.3em
+            text-align: center
+
+
+      .project-list-wrap
+         display: block
+         width: 80vw
+         height: auto
+         padding-left: 0
+         padding-right: 0
+         margin: 0 auto
+         padding-bottom: 20px
+
+         .portfolio-item
+            flex-direction: column
+            height: auto
+            width: 100%
+            margin-left: 0
+            transition: ease-in-out 0.2s
+
+            .image-wrap
+               height: 210px
+               width: 100%
+               img.portfolio-image
+                  height: 100%
+                  width: 100%
+                  background-size: cover
+                  background-repeat: no-repeat
+                  background-position: center center
+
+            .portfolio-meta
+               width: 100%
+               margin: 0
+               padding: 0
+               padding-bottom: 20px
+               display: flex
+               flex-direction: column
+               align-items: center
+               justify-content: center
+               overflow: hidden
+
+               .project-item-name
+                  padding: 0
+                  margin: 0
+                  padding-top: 20px
+                  text-align: center
+                  background-color: $project-page-accent-color
+                  font-size: 1.5em
+
+               .project-item-category
+                  padding: 5px 10px
+                  margin: 0
+                  text-align: center
+
+               .project-item-date
+                  margin: 0
+                  padding: 0
+                  padding-top: 5px 10px
+                  text-align: center
+
+      .back-to-top
+         display: flex
+         flex-direction: row
+         justify-content: center
+         font-size: 1.5em
+         padding-bottom: 60px
+         padding-top: 20px
+
+         a
+            color: $project-page-portfolio-item-color
+
+// Breakpoint for very small devices <350px
+@media (max-width: 350px)
+   .project-list-title-wrap
+      display: block
+      margin: 0 auto
+      padding-left: 20px
+      padding-right: 20px
+      padding-top: 0

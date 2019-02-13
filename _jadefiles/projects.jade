@@ -1,0 +1,18 @@
+section.projects#work
+
+   .projects-section-center
+      .right-col
+         .title-wrap
+            h2.title Portfolio
+            h4.work-desc Some of the cool things I've done :)
+            a(href="./projects-list-index.html").all-works-button See All
+
+      .work-grid
+         |  {% for post in site.categories.projects limit: 4 %}
+         .work-item
+            img(src=".{{post.thumbnail}}").work-thumb
+            .work-info
+               h4.work-title {{post.title}}
+               h4.work-category {{post.project-category}}
+               a(href=".{{post.url}}").project-link
+         |  {% endfor %}

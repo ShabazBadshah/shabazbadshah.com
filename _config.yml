@@ -1,0 +1,8 @@
+name: Shabaz Badshah's Website
+markdown: kramdown
+highlighter: rouge # or rouge or null
+exclude: ["node_modules", "gulpfile.js", "package.json"]
+# If you are serving to gh-pages, change baseurl to repository name with a /
+# i.e.  /PersonalWebsite from ""
+baseurl: "/PersonalWebsiteV1"
+github-url: "https://shabazbadshah.github.io"
