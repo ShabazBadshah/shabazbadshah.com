@@ -7,3 +7,38 @@
 body, html {
   height: 100%;
 }
+
+#index-wrap {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+#header-wrap {
+}
+
+header#nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 20px;
+}
+
+ul#nav-items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  color: black;
+}
+
+li#nav-item {
+  margin: 15px 0;
+}
+
+#content-wrap {
+  background-color: lightcoral;
+  flex: 1;
+  height: 100%;
+}

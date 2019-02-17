@@ -20,7 +20,24 @@
    </head>
    <body>
 
-    {{ content }}
+      <div id="index-wrap">
+         <div id="header-wrap">
+            <header id="nav-header">
+               <nav>
+                  <ul id="nav-items-list">
+                     <li id="nav-item"><a href="/">shabazbadshah.com</a></li>
+                     <li id="nav-item"><a href="#about">about</a></li>
+                     <li id="nav-item"><a href="#blog">blog</a></li>
+                     <li id="nav-item"><a href="#projects">projects</a></li>
+                  </ul>
+               </nav>
+            </header>
+         </div>
+
+         <div id="content-wrap">
+            {{ content }}
+         </div>
+      </div>
 
    </body>
 </html>
