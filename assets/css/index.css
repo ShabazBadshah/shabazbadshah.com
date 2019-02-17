@@ -1,10 +1,16 @@
 @font-face {
-  font-family: 'Roboto';
+  font-family: 'roboto';
   src: url('../fonts/Roboto-Regular.ttf');
-  color: white;
+  color: black;
+}
+
+* {
+  box-sizing: border-box;
+  position: relative;
 }
 
 body, html {
+  font-family: 'roboto';
   height: 100%;
 }
 
@@ -14,7 +20,18 @@ body, html {
   height: 100vh;
 }
 
-#header-wrap {
+header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+header img#brand-logo {
+  width: 100px;
+  position: relative;
+  right: 28px;
+  top: 0;
+  margin-bottom: 50px;
 }
 
 header#nav-header {
@@ -31,6 +48,16 @@ ul#nav-items-list {
   padding: 0;
   font-size: 16px;
   color: black;
+}
+
+li#nav-item a {
+  color: black;
+  padding: 8px;
+}
+
+li#nav-item a:hover {
+  border-radius: 4px;
+  background-color: #f2f2f2;
 }
 
 li#nav-item {
