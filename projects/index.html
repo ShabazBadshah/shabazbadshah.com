@@ -6,9 +6,11 @@ permalink: /projects/
 
 <div id="project-wrapper">
   <h1 id="project-page-title">projects</h1>
+  <p id="project-page-blurb">
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias adipisci ducimus nulla corrupti laudantium modi quia maiores quidem voluptatibus dolore iure in reprehenderit, voluptas corporis. Blanditiis animi facere odio similique.
+  </p>
   <div id="project-list-wrapper">
     <ul id="project-list">
-
       {% for post in site.categories.projects %}
         <li id="project-list-item">
           <div id="project-info-wrapper">
@@ -31,7 +33,8 @@ permalink: /projects/
           <p id="project-blurb"> {{ post.project-blurb }} </p>
         </li>
       {% endfor %}
-
     </ul>
   </div>
 </div>
+
+<h5 id="footer-copyright">Made by <b>Shabaz Badshah</b></h5>

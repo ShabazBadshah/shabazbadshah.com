@@ -62,7 +62,6 @@ li#nav-item a {
 
 li#nav-item a:hover {
   border-radius: 4px;
-  background-color: #f2f2f2;
   transition: all ease-in-out 0.2s;
   background-color: #4df1b7;
 }
@@ -239,3 +238,20 @@ p#project-blurb {
   font-size: 1.15rem;
   line-height: 1.75rem;
 }
+
+p#project-page-blurb {
+  padding-left: 100px;
+  padding-right: 200px;
+}
+
+#footer-copyright {
+  padding-left: 100px;
+  margin-top: 50px;
+  margin-bottom: 40px;
+  font-weight: normal;
+}
+
+#footer-copyright b {
+  color: #05c582;
+}
+
