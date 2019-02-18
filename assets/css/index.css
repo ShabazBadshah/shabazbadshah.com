@@ -12,6 +12,7 @@
 body, html {
   font-family: 'roboto';
   height: 100%;
+  color: black;
 }
 
 #index-wrap {
@@ -34,6 +35,7 @@ header #header-position {
 
 header {
   width: 200px;
+  border-right: solid #eee 1px;
 }
 
 header img#brand-logo {
@@ -67,12 +69,71 @@ li#nav-item {
 }
 
 #content-wrap {
-  background-color: lightcoral;
   flex: 1;
 }
 
 #wrapper {
-  background-color: lightgoldenrodyellow;
-  padding: 20px 40px;
+  /* background-color: lightgoldenrodyellow; */
+  padding: 20px 100px;
   height: 100%;
+}
+
+h1 {
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 3rem;
+  font-weight: normal;
+}
+
+h3 {
+  font-size: 1.625rem;
+  font-weight: normal;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+p {
+  margin-top: 40px;
+  font-size: 1.15rem;
+  line-height: 2.25rem;
+}
+
+p#about-blurb {
+  letter-spacing: 0.02rem;
+  width: 50%;
+  margin-top: 20px;
+}
+
+img#profile-pic {
+  border-radius: 300px;
+  width: 120px;
+}
+
+#social-media-links-wrapper {
+  margin-top: 80px;
+}
+
+img#social-media-icon {
+  width: 30px;
+  margin: 0 10px;
+}
+
+img#social-media-icon:first-child {
+  margin-left: 0;
 }

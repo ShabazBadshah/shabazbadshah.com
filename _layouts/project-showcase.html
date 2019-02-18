@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      {% seo %}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>{{ page.title }}</title>
+      <link rel="shortcut icon" type="image/png" href="{{site.baseurl}}/assets/images/"/>
+
+      <!-- SEO opt meta -->
+      <meta name="description" content="{{site.description}}">
+      <meta name="keywords" content="Shabaz, Badshah, Shabaz Badshah, shabazbadshah.com, shabazbadshah.github.io">
+      <meta name="author" content="Shabaz Badshah">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+      <!-- styles -->
+      <link rel="stylesheet" href="{{site.baseurl}}/assets/css/normalize.min.css">
+      <link rel="stylesheet" href="{{site.baseurl}}/assets/css/index.css">
+   </head>
+   <body>
+
+      <div id="index-wrap">
+         
+         
+         <header>
+            <div id="header-position">
+               <a href="/">
+                  <img id="brand-logo" src="{{site.baseurl}}/assets/images/shabaz-badshah-logo.svg" alt="" srcset=""/>
+               </a>
+               <nav>
+                  <ul id="nav-items-list">
+                     <li id="nav-item"><a href="/">shabazbadshah.com</a></li>
+                     <li id="nav-item"><a href="/about">about</a></li>
+                     <li id="nav-item"><a href="/blog">the changelog</a></li>
+                     <li id="nav-item"><a href="/projects">projects</a></li>
+                  </ul>
+               </nav>
+            </div>
+         </header>
+
+         <div id="content-wrap">
+            {{ content }}
+         </div>
+      </div>
+
+   </body>
+</html>
