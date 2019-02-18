@@ -11,21 +11,24 @@ permalink: /projects/
 
       {% for post in site.categories.projects %}
         <li id="project-list-item">
-          <a href="{{ post.url }}">
-            <h4 id="project-title">{{ post.title }}</h4>
-          </a>
-          <div id="metadata-wrap">
-            <h5>{{post.date | date: "%B %-d, %Y"}}</h5>
-            <div id="project-links-wrap">
-              {% if post.repo_link %}
-              <a href="{{post.repo_link}}""><h6>Source Code</h6></a>
-              {% endif %}
-              
-              {% if post.website %}
-              <a href="{{post.website}}""><h6>Website</h6></a>
+          <div id="project-info-wrapper">
+            <a href="{{ post.url }}">
+              <h4 id="project-title">{{ post.title }}</h4>
+            </a>
+            <div id="metadata-wrap">
+              <h5>{{post.date | date: "%B %-d, %Y"}}</h5>
+              <div id="project-links-wrap">
+                {% if post.repo_link %}
+                  <a href="{{post.repo_link}}""><h6>Source Code</h6></a>
+                {% endif %}
+                
+                {% if post.website %}
+                  <a href="{{post.website}}""><h6>Website</h6></a>
+                {% endif %}
+              </div>
             </div>
-            {% endif %}
           </div>
+          <p id="project-blurb"> {{ post.project-blurb }} </p>
         </li>
       {% endfor %}
 
