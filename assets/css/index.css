@@ -9,6 +9,10 @@
   position: relative;
 }
 
+::selection {
+  background: #4df1b7;
+}
+
 body, html {
   font-family: 'roboto';
   height: 100%;
@@ -36,14 +40,19 @@ header #header-position {
 header {
   width: 200px;
   border-right: solid #eee 1px;
+  box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
+
 }
 
 header img#brand-logo {
-  width: 100px;
+  width: 80px;
   position: relative;
   right: 28px;
   top: 0;
   margin-bottom: 50px;
+  background-color: #4df1b7;
+  border-radius: 50px;
+  padding: 10px;
 }
 
 ul#nav-items-list {
@@ -166,14 +175,23 @@ img#social-media-icon:first-child {
 ul#project-list {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 li#project-list-item {
-  border-top: solid 1px #e8e8e8;
+  border-bottom: solid 1px #e8e8e8;
+  border-right: solid 1px #e8e8e8;
   display: flex;
   flex-direction: column;
-  padding: 20px 200px;
-  padding-left: 100px;
+  width: 50%;
+  min-height: 300px;
+  padding: 20px 100px;
+}
+
+li#project-list-item:first-child, li#project-list-item:nth-child(2) {
+  border-top: solid 1px #e8e8e8;
 }
 
 li#project-list-item:hover {
@@ -234,7 +252,7 @@ h4#project-title {
 }
 
 p#project-blurb {
-  margin-top: 20px;
+  margin-top: 40px;
   font-size: 1.15rem;
   line-height: 1.75rem;
 }
