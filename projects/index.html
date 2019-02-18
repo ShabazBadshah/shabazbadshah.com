@@ -4,6 +4,18 @@ title: projects - shabazbadshah.com
 permalink: /projects/
 ---
 
-<div id="wrapper">
-  Projects
+<div id="project-wrapper">
+  <h1 id="project-page-title">projects</h1>
+  <div id="project-list-wrapper">
+    <ul id="project-list">
+
+      {% for post in site.categories.projects %}
+      <li id="project-list-item">
+        <h4 id="project-title">{{ post.title }}</h4>
+        <h6>{{post.date | date: "%B %-d, %Y"}}</h6>
+      </li>
+      {% endfor %}
+
+    </ul>
+  </div>
 </div>
