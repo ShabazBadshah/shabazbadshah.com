@@ -57,11 +57,14 @@ ul#nav-items-list {
 li#nav-item a {
   color: black;
   padding: 8px;
+  transition: all ease-in-out 0.2s;
 }
 
 li#nav-item a:hover {
   border-radius: 4px;
   background-color: #f2f2f2;
+  transition: all ease-in-out 0.2s;
+  background-color: #4df1b7;
 }
 
 li#nav-item {
@@ -73,7 +76,6 @@ li#nav-item {
 }
 
 #wrapper {
-  /* background-color: lightgoldenrodyellow; */
   padding: 20px 100px;
   height: 100%;
 }
@@ -118,10 +120,18 @@ ul {
   font-size: 1.15rem;
 }
 
+#page-title {
+  color: #05c582;
+}
+
 p#about-blurb {
   letter-spacing: 0.02rem;
   width: 50%;
   margin-top: 20px;
+}
+
+p#about-blurb b {
+  color: #05c582;
 }
 
 img#profile-pic {
@@ -134,8 +144,16 @@ img#profile-pic {
 }
 
 img#social-media-icon {
-  width: 30px;
-  margin: 0 10px;
+  width: 40px;
+  margin: 0 25px;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: #f2f2f2;
+  transition: all ease-in-out 0.1s;
+}
+
+img#social-media-icon:hover {
+  background-color: #e6e6e6;
 }
 
 img#social-media-icon:first-child {
@@ -152,7 +170,7 @@ ul#project-list {
 }
 
 li#project-list-item {
-  border-top: solid 1px #f2f2f2;
+  border-top: solid 1px #e8e8e8;
   display: flex;
   flex-direction: column;
   padding: 20px 200px;
@@ -178,6 +196,7 @@ li#project-list-item:last-child {
 #project-page-title {
   padding-left: 100px;
   padding-top: 20px;
+  color: #05c582;
 }
 
 h4#project-title {
@@ -185,10 +204,8 @@ h4#project-title {
   margin-top: 2px;
   letter-spacing: 0.08rem;
   font-size: 1.20rem;
-}
+  border-bottom: 2px solid #05c582;
 
-h4#project-title {
-  cursor: pointer;
 }
 
 #project-links-wrap {
@@ -197,6 +214,11 @@ h4#project-title {
 
 #project-links-wrap h6 {
   margin-left: 20px;
+  border-bottom: 2px solid #05c582;
+}
+
+#project-links-wrap h6:hover {
+  color: black;
 }
 
 #metadata-wrap {
