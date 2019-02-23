@@ -45,14 +45,9 @@ header {
 }
 
 header img#brand-logo {
-  width: 80px;
-  position: relative;
-  right: 28px;
-  top: 0;
+  width: 60px;
+  right: 44px;
   margin-bottom: 50px;
-  background-color: #4df1b7;
-  border-radius: 50px;
-  padding: 10px;
 }
 
 ul#nav-items-list {
