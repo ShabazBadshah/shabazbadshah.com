@@ -33,8 +33,8 @@ April 22, 2017 {#date}
 There was minimal planning for this project, it didn't require any. I finished the site in about 2 days which included redoing the CSS, throwing some javascript in the site for some dynamic content, and moving all my old works from my previous site to this new one. Below are the only two mockups I created for my site.
 
 <div id="center-image-container">
-  <img class="override-width" src="/assets/project-assets/project-0/mockup_1.png" alt="" srcset=""/>
-  <img class="override-width" src="/assets/project-assets/project-0/mockup_2.png" alt="" srcset=""/>
+  <img class="override-width" src="/assets/project-assets/my-personal-website-v2/mockup_1.png" alt="" srcset=""/>
+  <img class="override-width" src="/assets/project-assets/my-personal-website-v2/mockup_2.png" alt="" srcset=""/>
 </div>
 
 ## Challenges, Issues, and their Resolutions

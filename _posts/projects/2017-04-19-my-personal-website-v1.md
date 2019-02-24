@@ -4,13 +4,16 @@ title: My Personal Website V1
 date: 2017-05-01
 category: "projects"
 project-category: "Static Website Development"
-repo_link: https://github.com/ShabazBadshah/PersonalWebsiteV2
+repo_link: https://github.com/ShabazBadshah/PersonalWebsiteV1
 project-blurb: "This is the second iteration of my website. I streamlined the appearance significantly and removed some redundent aspects from the previous version. This site was done completely in CSS, HTML, jQuery, and Jekyll to ultimately keep it very simple. Feel free to use it as a template if you want (some parts of it are messy)."
 ---
 
 # My Personal Website V1
 
 May 1, 2017 {#date}
+----
+
+[Source Code](https://github.com/ShabazBadshah/PersonalWebsiteV1) {#project-links}
 ----
 
 ## Project Synopsis
@@ -37,20 +40,20 @@ My general workflow for this project went along the lines of, plan and draft web
 
 This initial drafting stage was vital for this project, because from previous web development experience its really difficult to create a site when you're making things up as you go. So, I got out a piece of paper and starting drawing whatever came to mind. I had decided that my homepage had to be very modular in design; so, I used a "block" system to create each of the individual sections. This would allow me (in the future) to add and remove sections I needed with minimal to no modification of the markup/CSS. Furthermore, each section could have its own distinct style if needed without modification required to any other section. Below are the sketches I created as a basis for the design and layout of the site. I spent about 3 days thinking about and drafting the site.
 
-![Planning Mockup 1](/assets/project-assets/project-4/mockup_1.png)
-![Planning Mockup 2](/assets/project-assets/project-4/mockup_2.png)
-![Planning Mockup 3](/assets/project-assets/project-4/mockup_3.png)
-![Planning Mockup 4](/assets/project-assets/project-4/mockup_4.png)
-![Planning Mockup 5](/assets/project-assets/project-4/mockup_5.png)
+![Planning Mockup 1](/assets/project-assets/my-personal-website-v1/mockup_1.png)
+![Planning Mockup 2](/assets/project-assets/my-personal-website-v1/mockup_2.png)
+![Planning Mockup 3](/assets/project-assets/my-personal-website-v1/mockup_3.png)
+![Planning Mockup 4](/assets/project-assets/my-personal-website-v1/mockup_4.png)
+![Planning Mockup 5](/assets/project-assets/my-personal-website-v1/mockup_5.png)
 
 
 Once the initial drafts were complete, I moved onto the photoshop mockups of the ones that I preferred. This was the newest stage I added to my workflow, and it was without a doubt the most referenced and helpful stage in the creation of my site. As I created mockups, I took parts of what I liked about the previous designs/mockups and added them to the new ones. Below are the photoshop mockups that I designed/created.
 
 The Photoshop mockups of the possible final designs of the website
 
-![Photoshop Mockup 2](/assets/project-assets/project-4/psd_2.png)
-![Photoshop Mockup 1](/assets/project-assets/project-4/psd_1.png)
-![Photoshop Mockup 3](/assets/project-assets/project-4/psd_3.png)
+![Photoshop Mockup 2](/assets/project-assets/my-personal-website-v1/psd_2.png)
+![Photoshop Mockup 1](/assets/project-assets/my-personal-website-v1/psd_1.png)
+![Photoshop Mockup 3](/assets/project-assets/my-personal-website-v1/psd_3.png)
 
 ## Website Creation and My Tooling System
 
