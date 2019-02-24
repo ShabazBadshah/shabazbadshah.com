@@ -7,15 +7,30 @@ ul#project-list {
   padding-left: 100px;
 }
 
+a#project-article-link {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+a#project-link {
+  z-index: 2;
+}
+
 li#project-list-item {
   display: flex;
   flex-direction: column;
-  border: 1px solid #f0eeee;
+  border: 1px solid #f9f9f9;
   width: 45%;
   min-height: 300px;
   padding: 50px 80px;
-  box-shadow: 0 3px 10px rgba(50,50,50,0.05);
+  box-shadow: 0 3px 10px rgba(55,55,55,0.06);
   margin: 10px;
+  border-radius: 5px;
 }
 
 li#project-list-item:hover {
@@ -80,6 +95,7 @@ p#project-blurb {
   margin-top: 30px;
   font-size: 1.15rem;
   line-height: 1.75rem;
+  z-index: 0;
 }
 
 p#project-page-blurb {
