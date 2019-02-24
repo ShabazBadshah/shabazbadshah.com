@@ -39,8 +39,8 @@ header #header-position {
 
 header {
   width: 200px;
-  border-right: solid #eee 1px;
-  box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
+  /* border-right: solid #eee 1px; */
+  /* box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2); */
 
 }
 
@@ -48,6 +48,8 @@ header img#brand-logo {
   width: 60px;
   right: 44px;
   margin-bottom: 50px;
+  background-color: #4df1b7;
+  border-radius: 4px;
 }
 
 ul#nav-items-list {
@@ -168,7 +170,6 @@ img#social-media-icon:first-child {
 }
 
 #footer-copyright {
-  padding-left: 100px;
   margin-top: 50px;
   margin-bottom: 40px;
   font-weight: normal;
@@ -176,5 +177,14 @@ img#social-media-icon:first-child {
 
 #footer-copyright b {
   color: #05c582;
+}
+
+#footer-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding-bottom: 30px;
 }
 
