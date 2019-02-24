@@ -30,6 +30,8 @@ li#project-list-item {
   padding: 50px 80px;
   box-shadow: 0 3px 10px rgba(55,55,55,0.06);
   margin: 10px;
+  margin-left: 0;
+  margin-right: 20px;
   border-radius: 5px;
 }
 
@@ -45,10 +47,18 @@ li#project-list-item h6 {
   color: #888;
 }
 
-#project-page-title {
-  padding-left: 100px;
-  padding-top: 20px;
-  color: #0051ff;
+h2#project-page-title {
+  margin-left: 100px;
+  margin-top: 80px;
+  background-color: #0051ff;
+  width: fit-content;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-anchor: middle;
+  box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
 }
 
 h4#project-title {

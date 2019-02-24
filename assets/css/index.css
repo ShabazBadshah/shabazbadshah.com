@@ -41,7 +41,6 @@ header {
   width: 200px;
   border-right: solid #eee 1px;
   box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
-
 }
 
 header img#brand-logo {
@@ -127,8 +126,18 @@ ul {
   font-size: 1.15rem;
 }
 
-#page-title {
-  color: #0051ff;
+h2#page-title {
+  margin-top: 60px;
+  margin-bottom: 35px;
+  background-color: #0051ff;
+  width: fit-content;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-anchor: middle;
+  box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
 }
 
 p#about-blurb {
