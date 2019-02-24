@@ -4,9 +4,20 @@ title: blog - shabazbadshah.com
 permalink: /blog/
 ---
 
-<div id="wrapper">
-  <h1 id="page-title">the changelog</h1>
-  <p id="about-blurb">
-    I'm a developer and product manager from Toronto who loves to share what he's learned with the rest of the world through writing. This site catalogs everything I learn, find interesting, or anything cool I'm working on. There's no ads or any distractions here.
-  </p>
-</div>
+<div id="project-wrapper">
+    <h2 id="blog-page-title">the changelog</h2>
+    <div id="blog-list-wrapper">
+      <ul id="blog-list">
+        {% for post in site.categories.projects %}
+          <li id="blog-list-item">
+            <a id="blog-title-link" href="{{ post.url }}">{{ post.title }}</a>
+            <div id="metadata-wrap">
+              <h5 id="blog-date"> {{post.date | date: "%B %-d, %Y"}}</h5>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  
+  {% include footer.html %}
