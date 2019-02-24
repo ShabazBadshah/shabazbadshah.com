@@ -65,7 +65,8 @@ h2#project-links a {
   font-size: 1.2rem;
   margin-top: 0;
   color: #888;
-  border-bottom: 2px solid #0051ff;
+  text-decoration: underline;
+  text-decoration-color: #0051ff;
   width: fit-content;
 }
 
