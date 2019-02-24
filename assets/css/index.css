@@ -48,8 +48,8 @@ header img#brand-logo {
   width: 60px;
   right: 44px;
   margin-bottom: 50px;
-  background-color: #4df1b7;
-  border-radius: 4px;
+  background-color: #0051ff;
+  border-radius: 5px;
 }
 
 ul#nav-items-list {
@@ -69,7 +69,9 @@ li#nav-item a {
 li#nav-item a:hover {
   border-radius: 4px;
   transition: all ease-in-out 0.2s;
-  background-color: #4df1b7;
+  background-color: #0051ff;
+  color: white;
+  font-weight: bold;
 }
 
 li#nav-item {
@@ -126,7 +128,7 @@ ul {
 }
 
 #page-title {
-  color: #05c582;
+  color: #0051ff;
 }
 
 p#about-blurb {
@@ -136,7 +138,7 @@ p#about-blurb {
 }
 
 p#about-blurb b {
-  color: #05c582;
+  color: #0051ff;
 }
 
 img#profile-pic {
@@ -176,7 +178,7 @@ img#social-media-icon:first-child {
 }
 
 #footer-copyright b {
-  color: #05c582;
+  color: #0051ff;
 }
 
 #footer-wrapper {
