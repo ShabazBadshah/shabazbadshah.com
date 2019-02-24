@@ -5,6 +5,7 @@ date: 2017-05-01
 category: "projects"
 project-category: "Static Website Development"
 repo_link: https://github.com/ShabazBadshah/PersonalWebsiteV1
+website: http://shabazbadshah.com/PersonalWebsiteV1/
 project-blurb: "This is the second iteration of my website. I streamlined the appearance significantly and removed some redundent aspects from the previous version. This site was done completely in CSS, HTML, jQuery, and Jekyll to ultimately keep it very simple. Feel free to use it as a template if you want (some parts of it are messy)."
 ---
 
@@ -14,6 +15,9 @@ May 1, 2017 {#date}
 ----
 
 [Source Code](https://github.com/ShabazBadshah/PersonalWebsiteV1) {#project-links}
+----
+
+[Website](http://shabazbadshah.com/PersonalWebsiteV1/) {#project-links}
 ----
 
 ## Project Synopsis
