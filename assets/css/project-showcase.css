@@ -72,3 +72,7 @@ h2#project-links a {
 h2#project-links a:hover {
   color: black;
 }
+
+#youtube {
+  border: #0051ff 3px solid;
+}
