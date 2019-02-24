@@ -39,14 +39,14 @@ header #header-position {
 
 header {
   width: 200px;
-  /* border-right: solid #eee 1px; */
-  /* box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2); */
+  border-right: solid #eee 1px;
+  box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
 
 }
 
 header img#brand-logo {
   width: 60px;
-  right: 44px;
+  right: 25px;
   margin-bottom: 50px;
   background-color: #0051ff;
   border-radius: 5px;
@@ -139,6 +139,18 @@ p#about-blurb {
 
 p#about-blurb b {
   color: #0051ff;
+}
+
+a#resume-link {
+  font-weight: bold;
+  color: #0051ff;
+  text-decoration: underline;
+  text-decoration-color: black;
+}
+
+a#resume-link:hover {
+  color: #0051ff;
+  
 }
 
 img#profile-pic {
