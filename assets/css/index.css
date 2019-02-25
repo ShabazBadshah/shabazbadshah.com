@@ -232,3 +232,15 @@ img#social-media-icon:first-child {
     width: 95%;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  p#about-blurb {
+    width: 90%;
+  }
+}
+
+@media (max-width:1024px) and (min-width:768px) {
+  p#about-blurb {
+    width: 50%;
+  }
+}
