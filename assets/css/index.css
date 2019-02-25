@@ -21,32 +21,27 @@ body, html {
 
 #index-wrap {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-header #header-position {
+header {
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
-  width: inherit;
+  right: 0;
+  z-index: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
-}
-
-header {
-  width: 200px;
-  border-right: solid #eee 1px;
-  box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
+  border-bottom: 2px solid #eee;
+  padding: 5px;
 }
 
 header img#brand-logo {
-  width: 60px;
-  right: 25px;
-  margin-bottom: 50px;
+  width: 40px;
+  margin: 10px;
+  margin-bottom: 5px;
   background-color: #0051ff;
   border-radius: 5px;
 }
@@ -55,8 +50,13 @@ ul#nav-items-list {
   list-style: none;
   margin: 0;
   padding: 0;
+  height: 100%;
   font-size: 16px;
   color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 li#nav-item a {
@@ -74,11 +74,11 @@ li#nav-item a:hover {
 }
 
 li#nav-item {
-  margin: 15px 0;
+  margin: 15px;
 }
 
 #content-wrap {
-  flex: 1;
+  top: 50px;
 }
 
 #wrapper {
