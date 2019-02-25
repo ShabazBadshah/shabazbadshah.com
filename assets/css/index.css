@@ -19,12 +19,6 @@ body, html {
   color: black;
 }
 
-#index-wrap {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
 header {
   position: fixed;
   top: 0;
@@ -34,6 +28,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   border-bottom: 2px solid #eee;
   padding: 5px;
   background-color: white;
@@ -65,6 +60,8 @@ li#nav-item a {
   color: black;
   padding: 8px;
   transition: all ease-in-out 0.2s;
+  text-align: center;
+  text-anchor: middle;
 }
 
 li#nav-item a:hover {
@@ -77,15 +74,15 @@ li#nav-item a:hover {
 
 li#nav-item {
   margin: 15px;
+  display: flex;
+  align-items: center;
 }
 
 #content-wrap {
   top: 50px;
-}
-
-#wrapper {
-  padding: 20px 100px;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -129,7 +126,7 @@ ul {
 }
 
 h2#page-title {
-  margin-top: 60px;
+  margin-top: 100px;
   margin-bottom: 80px;
   background-color: #0051ff;
   width: fit-content;
@@ -144,8 +141,9 @@ h2#page-title {
 
 p#about-blurb {
   letter-spacing: 0.02rem;
-  width: 50%;
+  width: 30%;
   margin-top: 20px;
+  text-align: center;
 }
 
 p#about-blurb b {
@@ -190,10 +188,6 @@ img#social-media-icon:first-child {
   margin-left: 0;
 }
 
-#project-list-wrapper {
-  margin-top: 80px;
-}
-
 #footer-copyright {
   margin-top: 50px;
   margin-bottom: 40px;
@@ -213,3 +207,28 @@ img#social-media-icon:first-child {
   padding-bottom: 30px;
 }
 
+@media only screen and (max-width: 400px) {
+  header {
+    flex-direction: column;
+  }
+
+  header img#brand-logo {
+    width: 60px;
+  }
+
+  li#nav-item {
+    margin: 0 15px;
+  }
+
+  #content-wrap {
+    top: 160px;
+  }
+
+  h2#page-title {
+    margin: 50px auto;
+  }
+
+  p#about-blurb {
+    width: 95%;
+  }
+}

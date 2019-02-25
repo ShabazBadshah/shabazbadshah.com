@@ -4,20 +4,18 @@ title: blog - shabazbadshah.com
 permalink: /blog/
 ---
 
-<div id="project-wrapper">
-  <h2 id="blog-page-title">the changelog</h2>
-  <div id="blog-list-wrapper">
-    <ul id="blog-list">
-      {% for post in site.categories.blog %}
-        <li id="blog-list-item">
-          <a id="blog-title-link" href="{{ post.url }}">{{ post.title }}</a>
-          <div id="metadata-wrap">
-            <h5 id="blog-date"> {{post.date | date: "%B %-d, %Y"}}</h5>
-          </div>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
+<h2 id="page-title">the changelog</h2>
+<div id="blog-list-wrapper">
+  <ul id="blog-list">
+    {% for post in site.categories.blog %}
+      <li id="blog-list-item">
+        <a id="blog-title-link" href="{{ post.url }}">{{ post.title }}</a>
+        <div id="metadata-wrap">
+          <h5 id="blog-date"> {{post.date | date: "%B %-d, %Y"}}</h5>
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
 </div>
-  
-  {% include footer.html %}
+
+{% include footer.html %}
