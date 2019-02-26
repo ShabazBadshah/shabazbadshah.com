@@ -99,11 +99,12 @@ h2#project-links a:hover {
   #project-showcase-content-wrap {
     padding: 0;
     width: 90%;
+    padding-top: 50px;
   }
 
   #project-showcase-content-wrap h1 {
     margin-top: 50px;
-    line-height: 5.5rem;
+    line-height: 6rem;
   }
 
   #project-showcase-content-wrap img {
