@@ -2,16 +2,13 @@
 <html>
    {% include header.html %}
    <body>
-      <div id="index-wrap">
-         {% include nav.html %}
-         </header>
-         <div id="content-wrap">
-            <div id="project-showcase-content-wrap">
-               {{ content }}
-            </div>
-            {% include footer.html %}
+      {% include nav.html %}
+      </header>
+      <div id="content-wrap">
+         <div id="project-showcase-content-wrap">
+            {{ content }}
          </div>
-
+         {% include footer.html %}
       </div>
    </body>
 </html>

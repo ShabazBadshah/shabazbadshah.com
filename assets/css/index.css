@@ -17,37 +17,28 @@ body, html {
   font-family: 'roboto';
   height: 100%;
   color: black;
-}
-
-#index-wrap {
-  display: flex;
-  flex-direction: row;
-  min-height: 100vh;
-}
-
-header #header-position {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: inherit;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
 }
 
 header {
-  width: 200px;
-  /* border-right: solid #eee 1px; */
-  /* box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2); */
-
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 2px solid #eee;
+  background-color: white;
+  box-shadow: 0 3px 10px rgba(50,50,50,0.05);
 }
 
 header img#brand-logo {
-  width: 60px;
-  right: 44px;
-  margin-bottom: 50px;
+  width: 40px;
+  margin: 10px;
+  margin-bottom: 5px;
   background-color: #0051ff;
   border-radius: 5px;
 }
@@ -56,14 +47,21 @@ ul#nav-items-list {
   list-style: none;
   margin: 0;
   padding: 0;
+  height: 100%;
   font-size: 16px;
   color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 li#nav-item a {
   color: black;
   padding: 8px;
   transition: all ease-in-out 0.2s;
+  text-align: center;
+  text-anchor: middle;
 }
 
 li#nav-item a:hover {
@@ -75,16 +73,16 @@ li#nav-item a:hover {
 }
 
 li#nav-item {
-  margin: 15px 0;
+  margin: 5px;
+  display: flex;
+  align-items: center;
 }
 
 #content-wrap {
-  flex: 1;
-}
-
-#wrapper {
-  padding: 20px 100px;
-  height: 100%;
+  top: 65px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -127,18 +125,41 @@ ul {
   font-size: 1.15rem;
 }
 
-#page-title {
-  color: #0051ff;
+h2#page-title {
+  margin-top: 100px;
+  margin-bottom: 80px;
+  background-color: #0051ff;
+  width: fit-content;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  text-anchor: middle;
+  box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
 }
 
 p#about-blurb {
   letter-spacing: 0.02rem;
-  width: 50%;
+  width: 30%;
   margin-top: 20px;
+  text-align: center;
 }
 
 p#about-blurb b {
   color: #0051ff;
+}
+
+a#resume-link {
+  font-weight: bold;
+  color: #0051ff;
+  text-decoration: underline;
+  text-decoration-color: black;
+}
+
+a#resume-link:hover {
+  color: #0051ff;
+  
 }
 
 img#profile-pic {
@@ -167,10 +188,6 @@ img#social-media-icon:first-child {
   margin-left: 0;
 }
 
-#project-list-wrapper {
-  margin-top: 80px;
-}
-
 #footer-copyright {
   margin-top: 50px;
   margin-bottom: 40px;
@@ -190,3 +207,40 @@ img#social-media-icon:first-child {
   padding-bottom: 30px;
 }
 
+@media only screen and (max-width: 400px) {
+  header {
+    flex-direction: column;
+  }
+
+  header img#brand-logo {
+    width: 60px;
+  }
+
+  li#nav-item {
+    margin: 0 15px;
+  }
+
+  #content-wrap {
+    top: 160px;
+  }
+
+  h2#page-title {
+    margin: 50px auto;
+  }
+
+  p#about-blurb {
+    width: 95%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  p#about-blurb {
+    width: 90%;
+  }
+}
+
+@media (max-width:1024px) and (min-width:768px) {
+  p#about-blurb {
+    width: 50%;
+  }
+}
