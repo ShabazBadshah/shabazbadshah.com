@@ -31,7 +31,6 @@ header {
   justify-content: center;
   align-items: center;
   border-bottom: 2px solid #eee;
-  padding: 5px;
   background-color: white;
   box-shadow: 0 3px 10px rgba(50,50,50,0.05);
 }
@@ -74,13 +73,13 @@ li#nav-item a:hover {
 }
 
 li#nav-item {
-  margin: 15px;
+  margin: 5px;
   display: flex;
   align-items: center;
 }
 
 #content-wrap {
-  top: 50px;
+  top: 65px;
   display: flex;
   flex-direction: column;
   align-items: center;
