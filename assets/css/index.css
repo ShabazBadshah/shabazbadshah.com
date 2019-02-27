@@ -158,10 +158,12 @@ table td {
 
 pre.highlight {
   border-radius: 6px;
-  padding: 30px 40px;
-  overflow: auto;
+  padding: 5px 10px;
+  overflow: scroll;
   background-color: rgb(240, 240, 240);
   box-shadow: 0 3px 10px rgba(50,50,50,0.05);
+  font-size: 1.1rem;
+  font-family: 'roboto';
 }
 
 h2#page-title {
