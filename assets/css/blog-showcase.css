@@ -11,7 +11,7 @@
 
 #blog-showcase-content-wrap img {
   max-width: 100%;
-  max-height: 300px;
+  max-height: 500px;
   overflow: auto;
   display: block;
   margin: 0 auto;
@@ -53,13 +53,14 @@
   font-size: 1.2rem;
 }
 
-h2#date {
+#blog-showcase-content-wrap h2#date {
   font-size: 1.25rem;
   margin-top: 40px;
   margin-bottom: 20px;
   font-weight: bold;
   color: #999;
   background-color: transparent;
+  padding: 0;
 }
 
 #blog-showcase-content-wrap li {
