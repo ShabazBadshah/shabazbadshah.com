@@ -4,8 +4,10 @@
 }
 
 #blog-showcase-content-wrap img {
-  max-width: 400px;
-  display: inline-block;
+  max-width: 100%;
+  max-height: 300px;
+  overflow: auto;
+  display: block;
   margin: 0 auto;
 }
 
