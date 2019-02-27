@@ -5,7 +5,7 @@ highlighter: rouge # or rouge or null
 exclude: ["node_modules", "gulpfile.js", "package.json"]
 # If you are serving to gh-pages, change baseurl to repository name with a /
 # i.e.  /PersonalWebsite from ""
-baseurl: ""
+baseurl: "/shabazbadshah.github.io"
 github-url: "https://shabazbadshah.github.io"
 permalink: '/:categories/:title/'
 plugins:
