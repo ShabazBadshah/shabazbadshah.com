@@ -3,6 +3,12 @@
   padding-bottom: 20px;
 }
 
+#blog-showcase-content-wrap a {
+  color: #0051ff;
+  text-decoration: underline;
+  text-decoration-color: #0051ff;
+}
+
 #blog-showcase-content-wrap img {
   max-width: 100%;
   max-height: 300px;
