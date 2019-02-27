@@ -156,6 +156,14 @@ table td {
   font-size: 1.1rem;
 }
 
+pre.highlight {
+  border-radius: 6px;
+  padding: 30px 40px;
+  overflow: auto;
+  background-color: rgb(240, 240, 240);
+  box-shadow: 0 3px 10px rgba(50,50,50,0.05);
+}
+
 h2#page-title {
   margin-top: 100px;
   margin-bottom: 80px;
