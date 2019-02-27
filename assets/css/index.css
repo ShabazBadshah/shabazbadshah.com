@@ -97,16 +97,19 @@ h2 {
 
 h3 {
   font-size: 1.625rem;
-  font-weight: normal;
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 10px;
 }
 
 h4 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: bold;
+  margin-top: 30px;
 }
 
 h5 {
-  font-size: 1.125rem;
+  font-size: 1.15rem;
   font-weight: bold;
 }
 
@@ -116,13 +119,51 @@ h6 {
 }
 
 p {
-  margin-top: 40px;
-  font-size: 1.15rem;
-  line-height: 2.25rem;
+  margin-top: 30px;
+  font-size: 1.1rem;
+  line-height: 2.2rem;
 }
 
 ul {
+  font-size: 1.1rem;
+  padding-left: 20px;
+}
+
+li {
+  margin: 5px auto;
+  line-height: 1.7rem;
+}
+
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 100%;
+  overflow: scroll; 
+  overflow-y: hidden;
+  margin: 30px auto;
+}
+
+table th {
+  border: 1px solid black;
+  padding: 10px 10px;
   font-size: 1.15rem;
+}
+
+table td {
+  border: 1px solid black;
+  padding: 5px 10px;
+  overflow-x: scroll;
+  font-size: 1.1rem;
+}
+
+pre.highlight {
+  border-radius: 6px;
+  padding: 5px 10px;
+  overflow: scroll;
+  background-color: rgb(240, 240, 240);
+  box-shadow: 0 3px 10px rgba(50,50,50,0.05);
+  font-size: 1.1rem;
+  font-family: 'roboto';
 }
 
 h2#page-title {
