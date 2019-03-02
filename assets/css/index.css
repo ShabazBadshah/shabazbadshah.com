@@ -213,7 +213,7 @@ img#profile-pic {
 
 img#social-media-icon {
   width: 40px;
-  margin: 0 25px;
+  margin: 0 15px;
   border-radius: 4px;
   padding: 8px;
   background-color: #f2f2f2;
@@ -222,10 +222,6 @@ img#social-media-icon {
 
 img#social-media-icon:hover {
   background-color: #e6e6e6;
-}
-
-img#social-media-icon:first-child {
-  margin-left: 0;
 }
 
 #footer-copyright {
