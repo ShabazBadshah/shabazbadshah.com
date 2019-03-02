@@ -250,6 +250,7 @@ img#social-media-icon:first-child {
 @media only screen and (max-width: 400px) {
   header {
     flex-direction: column;
+    padding-bottom: 10px;
   }
 
   header img#brand-logo {
