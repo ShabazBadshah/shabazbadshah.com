@@ -138,8 +138,7 @@ table {
   border: 1px solid black;
   border-collapse: collapse;
   width: 100%;
-  overflow: scroll; 
-  overflow-y: hidden;
+  overflow: auto; 
   margin: 30px auto;
 }
 
@@ -152,16 +151,16 @@ table th {
 table td {
   border: 1px solid black;
   padding: 5px 10px;
-  overflow-x: scroll;
+  overflow-x: auto;
   font-size: 1.1rem;
 }
 
 pre.highlight {
   border-radius: 6px;
   padding: 5px 10px;
-  overflow: scroll;
+  overflow: auto;
   background-color: rgb(240, 240, 240);
-  box-shadow: 0 3px 10px rgba(50,50,50,0.05);
+  box-shadow: 0 3px 10px rgba(50,50,50,0.03);
   font-size: 1.1rem;
   font-family: 'roboto';
 }
