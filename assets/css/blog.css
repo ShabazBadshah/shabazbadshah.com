@@ -16,7 +16,7 @@ h2#blog-page-title {
 ul#blog-list {
   list-style: none;
   padding: 0;
-  display: flex;
+  /* display: flex; */
   flex-direction: column;
   width: 100%;
 }
@@ -72,6 +72,15 @@ h5#blog-date {
 }
 
 @media only screen and (max-width: 450px) { 
+
+  ul#blog-list {
+    display: flex;
+  }
+
+  a#blog-title-link {
+    text-align: center;
+    margin-bottom: 10px;
+  }
 
   h5#blog-date {
     margin-left: 0;
