@@ -8,6 +8,7 @@
   color: #0051ff;
   text-decoration: underline;
   text-decoration-color: #0051ff;
+  word-wrap: break-word;
 }
 
 #blog-showcase-content-wrap img {
@@ -31,7 +32,6 @@
   margin-bottom: 30px;
   color: black;
   font-weight: bold;
-  box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
   text-anchor: middle;
   line-height: 2.4rem;
 }
