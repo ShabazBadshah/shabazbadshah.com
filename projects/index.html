@@ -11,7 +11,7 @@ permalink: /projects/
       <li id="project-list-item">
         <a id="project-article-link" href="{{ post.url }}">
           <div id="project-info-wrapper">
-            <a href="{{ post.url }}"> <h4 id="project-title">{{ post.title }}</h4></a>
+            <a href="{{ post.url }}" aria-label="{{ post.title }}"> <h4 id="project-title">{{ post.title }}</h4></a>
             <div id="metadata-wrap">
               <h5 id="project-date"> {{post.date | date: "%B %-d, %Y"}}</h5>
               <div id="project-links-wrap">

@@ -1,12 +1,16 @@
 #project-showcase-content-wrap {
-  padding: 100px 400px;
+  padding: 100px auto;
+  max-width: 800px;
   padding-bottom: 20px;
 }
 
 #project-showcase-content-wrap img {
-  max-width: 400px;
-  display: inline-block;
-  margin: 0 auto;
+  max-width: 100%;
+  max-height: 500px;
+  overflow: auto;
+  display: block;
+  margin: 10px auto;
+  border: 1px solid #0051ff;
 }
 
 #project-showcase-content-wrap h1 {
@@ -16,9 +20,14 @@
 }
 
 #project-showcase-content-wrap h2 {
-  font-size: 2rem;
-  margin-top: 80px;
+  font-size: 2.4rem;
+  margin-top: 70px;
   margin-bottom: 30px;
+  color: black;
+  font-weight: bold;
+  box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
+  text-anchor: middle;
+  line-height: 2.4rem;
 }
 
 #project-showcase-content-wrap p {
