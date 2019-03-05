@@ -1,6 +1,7 @@
 // Base
-@import "base/normalize";
+@import "base/_normalize.scss";
 @import "base/_base.sass";
 
 // Components
 @import "components/header.sass";
+@import "components/footer.sass";

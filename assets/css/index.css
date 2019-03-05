@@ -166,39 +166,7 @@ img#social-media-icon:hover {
   background-color: #e6e6e6;
 }
 
-#footer-copyright {
-  margin-top: 50px;
-  margin-bottom: 40px;
-  font-weight: normal;
-}
-
-#footer-copyright b {
-  color: #0051ff;
-}
-
-#footer-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding-bottom: 30px;
-}
-
 @media only screen and (max-width: 400px) {
-  header {
-    flex-direction: column;
-    padding-bottom: 10px;
-  }
-
-  header img#brand-logo {
-    width: 60px;
-  }
-
-  li#nav-item {
-    margin: 0 20px;
-  }
-
   #content-wrap {
     top: 160px;
   }
