@@ -121,51 +121,6 @@ h2#page-title {
   box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2);
 }
 
-p#about-blurb {
-  letter-spacing: 0.02rem;
-  width: 30%;
-  margin-top: 20px;
-  text-align: center;
-}
-
-p#about-blurb b {
-  color: #0051ff;
-}
-
-a#resume-link {
-  font-weight: bold;
-  color: #0051ff;
-  text-decoration: underline;
-  text-decoration-color: black;
-}
-
-a#resume-link:hover {
-  color: #0051ff;
-  
-}
-
-img#profile-pic {
-  border-radius: 300px;
-  width: 120px;
-}
-
-#social-media-links-wrapper {
-  margin-top: 80px;
-}
-
-img#social-media-icon {
-  width: 40px;
-  margin: 0 15px;
-  border-radius: 4px;
-  padding: 8px;
-  background-color: #f2f2f2;
-  transition: all ease-in-out 0.1s;
-}
-
-img#social-media-icon:hover {
-  background-color: #e6e6e6;
-}
-
 @media only screen and (max-width: 400px) {
   #content-wrap {
     top: 160px;
@@ -173,21 +128,5 @@ img#social-media-icon:hover {
 
   h2#page-title {
     margin: 50px auto;
-  }
-
-  p#about-blurb {
-    width: 95%;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  p#about-blurb {
-    width: 90%;
-  }
-}
-
-@media (max-width:1024px) and (min-width:768px) {
-  p#about-blurb {
-    width: 50%;
   }
 }
