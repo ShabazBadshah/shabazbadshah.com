@@ -4,7 +4,6 @@
   flex-direction: column
   align-items: center
 
-
 ul#project-list
   list-style: none
   padding: 0
@@ -12,7 +11,6 @@ ul#project-list
   flex-direction: row
   flex-wrap: wrap
   justify-content: center
-
 
 a.project-article-link
   height: 100%
@@ -23,10 +21,8 @@ a.project-article-link
   border-radius: 5px
   z-index: 1
 
-
 a.project-link
   z-index: 2
-
 
 li.project-list-item
   display: flex
@@ -39,18 +35,14 @@ li.project-list-item
   margin: 10px
   border-radius: 5px
 
-
 li.project-list-item:hover
   background-color: #f2f2f2f2
-
 
 li.project-list-item *
   margin: 0
 
-
 li.project-list-item h6
   color: #888
-
 
 h4.project-title
   margin: 0
@@ -61,15 +53,12 @@ h4.project-title
   color: #0051ff
   z-index: 1
 
-
 h4.project-title:hover
   text-decoration: underline
   text-decoration-color: #0051ff
 
-
 h5.project-date
   font-weight: normal
-
 
 .project-links-wrap
   display: flex
@@ -77,27 +66,22 @@ h5.project-date
   align-items: flex-end
   margin-top: 5px !important
 
-
 .project-links-wrap h6
   text-decoration: underline
   text-decoration-color: #0051ff
 
-
 .project-links-wrap h6:hover
   color: black
-
 
 .metadata-wrap
   display: flex
   flex-direction: column
-
 
 .project-info-wrapper
   display: flex
   flex-direction: row
   justify-content: space-between
   width: 100%
-
 
 p.project-blurb
   margin-top: 30px
@@ -106,78 +90,44 @@ p.project-blurb
   z-index: 0
 
 
-@media only screen and (max-width: 767px)
 
+@media only screen and (max-width: 1200px)
   #project-page-content-wrap
     padding: 0
     margin: 0
-  
 
-  #project-page-content-wrap h2.page-title
-    margin-bottom: 40px
+  .project-info-wrapper
+    flex-direction: column
+    align-items: flex-start
   
+  .project-links-wrap
+    align-items: flex-start
 
+  .metadata-wrap
+    flex-direction: column
+    align-items: flex-start  
+
+  h5.project-date
+    margin-top: 10px !important
+
+
+  
+@media only screen and (max-width: 767px)
   ul#project-list
     flex-direction: column
     align-items: center
   
-
   li.project-list-item
     width: 90%
-    margin: 15px 0
+    margin: 10px 0
     padding: 30px 35px
-  
 
-  .project-info-wrapper
-    flex-direction: column
-    align-items: flex-start
-  
-
-  .project-links-wrap
-    align-items: flex-start
-  
-
-  .metadata-wrap
-    flex-direction: column
-    align-items: flex-start
-  
-
-  h5.project-date
-    margin-top: 10px !important
-  
 
 
 @media (max-width:1200px) and (min-width:768px)
-  #project-page-content-wrap
-    padding: 0
-    margin: 0
-  
-
-  #project-page-content-wrap h2.page-title
-    margin-bottom: 40px
-  
 
   li.project-list-item
     padding: 30px 40px
     width: 45%
-    margin: 15px
+    margin: 10px
     min-height: 350px
-  
-
-  .project-info-wrapper
-    flex-direction: column
-    align-items: flex-start
-  
-
-  .project-links-wrap
-    align-items: flex-start
-  
-
-  .metadata-wrap
-    flex-direction: column
-    align-items: flex-start
-  
-
-  h5.project-date
-    margin-top: 10px !important
-  
