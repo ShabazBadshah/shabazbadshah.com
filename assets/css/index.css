@@ -107,7 +107,7 @@ pre.highlight {
   font-family: 'roboto';
 }
 
-h2#page-title {
+h2.page-title {
   margin-top: 100px;
   margin-bottom: 80px;
   background-color: #0051ff;
@@ -126,7 +126,7 @@ h2#page-title {
     top: 160px;
   }
 
-  h2#page-title {
+  h2.page-title {
     margin: 50px auto;
   }
 }
