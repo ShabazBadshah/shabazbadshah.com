@@ -11,13 +11,12 @@ header
   border-bottom: 2px solid #eee
   background-color: white;
   box-shadow: 0 3px 10px rgba(50,50,50,0.05)
-
   
-header img#brand-logo 
-  width: 40px
-  margin: 10px
-  background-color: #0051ff
-  border-radius: 5px
+  img#brand-logo 
+    width: 40px
+    margin: 10px
+    background-color: #0051ff
+    border-radius: 5px
 
 
 ul#nav-items-list 
@@ -32,27 +31,24 @@ ul#nav-items-list
   justify-content: center
   align-items: center
 
+  li.nav-item
+    margin: 5px 10px
+    display: flex
+    align-items: center
 
-li.nav-item a 
-  color: black
-  padding: 8px
-  transition: all ease-in-out 0.2s
-  text-align: center
-  text-anchor: middle
+    a 
+      color: black
+      padding: 8px
+      transition: all ease-in-out 0.2s
+      text-align: center
+      text-anchor: middle
 
-
-li.nav-item a:hover 
-  border-radius: 4px
-  transition: all ease-in-out 0.2s
-  background-color: #0051ff
-  color: white
-  font-weight: bold
-
-
-li.nav-item 
-  margin: 5px 10px
-  display: flex
-  align-items: center
+      &:hover 
+        border-radius: 4px
+        transition: all ease-in-out 0.2s
+        background-color: #0051ff
+        color: white
+        font-weight: bold
 
 
 @media only screen and (max-width: 400px) 
