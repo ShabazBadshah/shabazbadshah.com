@@ -4,31 +4,29 @@ title: projects - shabazbadshah.com
 permalink: /projects/
 ---
 
-<div id="project-page-content-wrap">
-  <h2 class="page-title">projects</h2>
-  <ul id="project-list">
-    {% for post in site.categories.projects %}
-      <li class="project-list-item">
-        <a class="project-article-link" href="{{ post.url }}">
-          <div class="project-info-wrapper">
-            <a href="{{ post.url }}" aria-label="{{ post.title }}"> <h4 class="project-title">{{ post.title }}</h4></a>
-            <div class="metadata-wrap">
-              <h5 class="project-date"> {{post.date | date: "%B %-d, %Y"}}</h5>
-              <div class="project-links-wrap">
-                {% if post.repo_link %}
-                  <a class="project-link" href="{{post.repo_link}}""><h6>Source Code</h6></a>
-                {% endif %}
-                
-                {% if post.website %}
-                  <a class="project-link" href="{{post.website}}""><h6>Website</h6></a>
-                {% endif %}
-              </div>
+<h2 class="page-title">projects</h2>
+
+<ul id="project-list">
+  {% for post in site.categories.projects %}
+    <li class="project-list-item">
+      <a class="project-article-link" href="{{ post.url }}">
+        <div class="project-info-wrapper">
+          <a href="{{ post.url }}" aria-label="{{ post.title }}"> <h4 class="project-title">{{ post.title }}</h4></a>
+          <div class="metadata-wrap">
+            <h5 class="project-date"> {{post.date | date: "%B %-d, %Y"}}</h5>
+            <div class="project-links-wrap">
+              {% if post.repo_link %}
+                <a class="project-link" href="{{post.repo_link}}""><h6>Source Code</h6></a>
+              {% endif %}
+              
+              {% if post.website %}
+                <a class="project-link" href="{{post.website}}""><h6>Website</h6></a>
+              {% endif %}
             </div>
           </div>
-          <p class="project-blurb"> {{ post.project-blurb }} </p>
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
-{% include footer.html %}
+        </div>
+        <p class="project-blurb"> {{ post.project-blurb }} </p>
+      </a>
+    </li>
+  {% endfor %}
+</ul>

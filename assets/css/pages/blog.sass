@@ -1,63 +1,54 @@
-#blog-info-wrapper
-  display: flex
-  flex-direction: row
-  justify-content: space-between
-  width: 100%
-
 ul#blog-list
   list-style: none
   padding: 0
   flex-direction: column
   width: 100%
 
-li.blog-list-item
-  display: flex
-  flex-direction: row
-  align-items: center
-  justify-content: space-between
-  border-bottom: none
-  padding: 15px 30px
+  li.blog-list-item
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+    border-bottom: none
+    padding: 10px 30px
+    margin: 5px auto
 
-li.blog-list-item *
-  margin: 0
+    h6
+      color: #888
 
-li.blog-list-item h6
-  color: #888
+    h5.blog-date
+      font-weight: normal
+      font-size: 1rem
+      margin: 0
+      margin-left: 100px
 
-a.blog-title-link
-  margin: 0
-  margin-top: 2px
-  letter-spacing: 0.08rem
-  font-size: 1.1rem
-  font-weight: bold
-  color: #0051ff
+    a.blog-title-link
+      margin: 0
+      margin-top: 2px
+      letter-spacing: 0.08rem
+      font-size: 1.1rem
+      font-weight: bold
+      color: #0051ff
 
-a.blog-title-link:hover
-  text-decoration: underline
-  text-decoration-color: #0051ff
+      &:hover
+        text-decoration: underline
+        text-decoration-color: #0051ff
+        
   
-h5.blog-date
-  font-weight: normal
-  font-size: 1rem
-  margin-left: 100px
-
 
 
 @media only screen and (max-width: 450px)
   ul#blog-list
     display: flex
   
-  a.blog-title-link
-    text-align: center
-    margin-bottom: 10px
-  
-  h5.blog-date
-    margin-left: 0
-  
-  li.blog-list-item
-    flex-direction: column
-    justify-content: center
-  
-  a.blog-title-link
-    font-size: 1.3rem
-  
+    li.blog-list-item
+      flex-direction: column
+      justify-content: center
+    
+      a.blog-title-link
+        text-align: center
+        margin-bottom: 10px
+        font-size: 1.3rem
+      
+      h5.blog-date
+        margin-left: 0
