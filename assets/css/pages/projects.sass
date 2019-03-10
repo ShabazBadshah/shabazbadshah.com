@@ -6,121 +6,129 @@ ul#project-list
   flex-wrap: wrap
   justify-content: center
 
-a.project-article-link
-  height: 100%
-  width: 100%
-  position: absolute
-  top: 0
-  left: 0
-  border-radius: 5px
-  z-index: 1
+  li.project-list-item
+    display: flex
+    flex-direction: column
+    border: 1px solid #f9f9f9
+    width: 48%
+    min-height: 280px
+    padding: 40px 70px
+    box-shadow: 0 3px 10px rgba(55,55,55,0.1)
+    margin: 10px
+    border-radius: 5px
 
-a.project-link
-  z-index: 2
+    *
+      margin: 0
 
-li.project-list-item
-  display: flex
-  flex-direction: column
-  border: 1px solid #f9f9f9
-  width: 48%
-  min-height: 280px
-  padding: 40px 70px
-  box-shadow: 0 3px 10px rgba(55,55,55,0.1)
-  margin: 10px
-  border-radius: 5px
+    &:hover
+      background-color: #f2f2f2f2
 
-li.project-list-item:hover
-  background-color: #f2f2f2f2
+    h6
+      color: #888
 
-li.project-list-item *
-  margin: 0
+    a.project-article-link
+      height: 100%
+      width: 100%
+      position: absolute
+      top: 0
+      left: 0
+      border-radius: 5px
+      z-index: 1
 
-li.project-list-item h6
-  color: #888
+    .project-info-wrapper
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+      width: 100%
 
-h4.project-title
-  margin: 0
-  margin-top: 2px
-  letter-spacing: 0.08rem
-  font-size: 1.5rem
-  font-weight: bold
-  color: #0051ff
-  z-index: 1
+      a
+        h4.project-title
+          margin: 0
+          margin-top: 2px
+          letter-spacing: 0.08rem
+          font-size: 1.5rem
+          font-weight: bold
+          color: #0051ff
+          z-index: 1
 
-h4.project-title:hover
-  text-decoration: underline
-  text-decoration-color: #0051ff
+          &:hover
+            text-decoration: underline
+            text-decoration-color: #0051ff
 
-h5.project-date
-  font-weight: normal
+      .metadata-wrap
+        display: flex
+        flex-direction: column
 
-.project-links-wrap
-  display: flex
-  flex-direction: column
-  align-items: flex-end
-  margin-top: 5px !important
+        h5.project-date
+          font-weight: normal
 
-.project-links-wrap h6
-  text-decoration: underline
-  text-decoration-color: #0051ff
+        .project-links-wrap
+          display: flex
+          flex-direction: column
+          align-items: flex-end
+          margin-top: 5px !important
 
-.project-links-wrap h6:hover
-  color: black
+          a.project-link
+            z-index: 2
 
-.metadata-wrap
-  display: flex
-  flex-direction: column
+            h6
+              text-decoration: underline
+              text-decoration-color: #0051ff
+              
+              &:hover
+                color: black
 
-.project-info-wrapper
-  display: flex
-  flex-direction: row
-  justify-content: space-between
-  width: 100%
-
-p.project-blurb
-  margin-top: 30px
-  font-size: 1.15rem
-  line-height: 1.75rem
-  z-index: 0
+    p.project-blurb
+      margin-top: 30px
+      font-size: 1.15rem
+      line-height: 1.75rem
+      z-index: 0
 
 
 
 @media only screen and (max-width: 1200px)
-  #project-page-content-wrap
-    padding: 0
-    margin: 0
+  ul#project-list
+    li.project-list-item
+      a.project-article-link
+        height: 100%
+        width: 100%
+        position: absolute
+        top: 0
+        left: 0
+        border-radius: 5px
+        z-index: 1
 
-  .project-info-wrapper
-    flex-direction: column
-    align-items: flex-start
+      .project-info-wrapper
+        flex-direction: column
+        align-items: flex-start
+
+        .metadata-wrap
+          flex-direction: column
+          align-items: flex-start
+
+          h5.project-date
+            margin-top: 10px !important
+
+          .project-links-wrap
+            align-items: flex-start
+
+
   
-  .project-links-wrap
-    align-items: flex-start
-
-  .metadata-wrap
-    flex-direction: column
-    align-items: flex-start  
-
-  h5.project-date
-    margin-top: 10px !important
-
-
-
 @media only screen and (max-width: 767px)
   ul#project-list
     align-items: center
-  
-  li.project-list-item
-    width: 90%
-    margin: 10px 0
-    padding: 30px 35px
+
+    li.project-list-item
+      width: 90%
+      margin: 10px 0
+      padding: 30px 35px
 
 
 
 @media (max-width:1200px) and (min-width:768px)
-
-  li.project-list-item
-    padding: 30px 40px
-    width: 45%
-    margin: 10px
-    min-height: 350px
+  ul#project-list
+    li.project-list-item
+      padding: 30px 40px
+      width: 45%
+      margin: 10px
+      min-height: 350px
