@@ -44,10 +44,12 @@ gulp.task('browser-sync', ['sass', 'jekyll-build'], function() {
  */
 gulp.task('sass', function () {
     return gulp.src('assets/css/main.scss')
-        .pipe(sass({
-            includePaths: ['css'],
-            onError: browserSync.notify
-        }))
+        .pipe(sass())
+        .on('error', function(error) {
+            // https://scotch.io/tutorials/prevent-errors-from-crashing-gulp-watch
+            console.log(error.toString());
+            this.emit('end');
+        })
         .pipe(prefix(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
         .pipe(gulp.dest('_site/assets/css'))
         .pipe(browserSync.reload({stream:true}))
