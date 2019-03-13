@@ -3043,18 +3043,12 @@ header {
 #footer-wrapper {
   position: static;
   margin: 0;
-  margin-top: 80px; }
+  margin-top: 40px;
+  margin-bottom: 10px; }
   #footer-wrapper #footer-copyright {
     font-weight: normal; }
   #footer-wrapper b {
     color: #0051ff; }
-
-@media only screen and (max-width: 400px) {
-  #footer-wrapper {
-    padding-top: 0;
-    margin-top: 80px; }
-    #footer-wrapper #footer-copyright {
-      margin-top: 0; } }
 
 p.about-blurb {
   letter-spacing: 0.02rem;
