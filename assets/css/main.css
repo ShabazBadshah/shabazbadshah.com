@@ -2914,17 +2914,6 @@ table td {
   overflow-x: auto;
   font-size: 1.1rem; }
 
-pre.highlight {
-  -webkit-border-radius: 6px;
-          border-radius: 6px;
-  padding: 5px 10px;
-  overflow: auto;
-  background-color: #1d1d1d;
-  -webkit-box-shadow: 0 3px 10px rgba(50, 50, 50, 0.03);
-          box-shadow: 0 3px 10px rgba(50, 50, 50, 0.03);
-  font-size: 1.1rem;
-  font-family: 'roboto'; }
-
 h2.page-title {
   margin-top: 70px;
   margin-bottom: 50px;
