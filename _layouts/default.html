@@ -2,8 +2,15 @@
    {% include header.html %}
    <body>
       {% include nav.html %}
-      <div id="content-wrap">
-         {{ content }}
+      <div id="body-wrap">
+         {% case page.category %}
+            {% when "blog" %}
+               <div id="blog-showcase-content-wrap"> {{ content }} </div>
+            {% when "projects" %}
+               <div id="project-showcase-content-wrap"> {{ content }} </div>
+            {% else %}
+               <div id="content-wrap"> {{ content }} </div>
+         {% endcase %}
       </div>
    </body>
 </html>

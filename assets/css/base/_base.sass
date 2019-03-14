@@ -1,0 +1,140 @@
+@font-face
+  font-family: 'roboto'
+  src: url('../fonts/Roboto-Regular.ttf')
+  color: black
+
+
+*
+  box-sizing: border-box
+  position: relative
+
+
+::selection
+  background: rgb(197, 197, 197)
+
+
+body, html
+  font-family: 'roboto'
+  height: 100%
+  width: 100%
+  color: black
+  display: flex
+  flex-direction: column
+  align-items: center
+  -webkit-tap-highlight-color: transparent
+  
+#body-wrap
+  width: 100%
+
+#content-wrap
+  top: 60px
+  display: flex
+  flex-direction: column
+  align-items: center
+  max-width: 2000px
+
+
+h1
+  font-size: 5rem
+  font-weight: bold
+
+
+h2
+  font-size: 3rem
+  font-weight: normal
+
+
+h3
+  font-size: 1.625rem
+  font-weight: bold
+  margin-top: 40px
+  margin-bottom: 10px
+
+
+h4
+  font-size: 1.3rem
+  font-weight: bold
+  margin-top: 30px
+
+
+h5
+  font-size: 1.15rem
+  font-weight: bold
+
+
+h6
+  font-size: 1rem
+  font-weight: normal
+
+
+p
+  margin-top: 30px
+  font-size: 1.1rem
+  line-height: 2.2rem
+
+
+ul
+  font-size: 1.1rem
+  padding-left: 20px
+
+
+li
+  margin: 5px auto
+  line-height: 1.7rem
+
+
+table
+  border: 1px solid black
+  border-collapse: collapse
+  width: 100%
+  overflow: auto 
+  margin: 30px auto
+
+
+table th
+  border: 1px solid black
+  padding: 10px 10px
+  font-size: 1.15rem
+
+
+table td
+  border: 1px solid black
+  padding: 5px 10px
+  overflow-x: auto
+  font-size: 1.1rem
+
+
+// pre.highlight
+//   border-radius: 6px
+//   padding: 5px 10px
+//   overflow: auto
+//   background-color: #1d1d1d
+//   box-shadow: 0 3px 10px rgba(50,50,50,0.03)
+//   font-size: 1.1rem
+//   font-family: 'roboto'
+
+
+h2.page-title
+  margin-top: 70px
+  margin-bottom: 50px
+  background-color: #0051ff
+  width: fit-content
+  padding: 10px 20px
+  border-radius: 4px
+  color: white
+  font-weight: bold
+  text-align: center
+  text-anchor: middle
+  box-shadow: 3px 0px 15px -10px rgba(0,0,0,0.2)
+
+
+
+
+@media only screen and (max-width: 400px)
+  #content-wrap
+    top: 120px
+  
+  h2.page-title
+    margin: 0
+    margin-bottom: 50px
+  

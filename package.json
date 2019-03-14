@@ -12,7 +12,8 @@
   "devDependencies": {
     "browser-sync": "^2.24.5",
     "gulp": "^3.8.8",
-    "gulp-autoprefixer": "5.0.0"
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-sass": "^4.0.2"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
   },
   "homepage": "https://github.com/shakyShane/jekyll-gulp-sass-browser-sync",
   "dependencies": {
+    "gulp-jade": "^1.1.0",
     "gulp-util": "^3.0.8"
   }
 }

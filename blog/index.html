@@ -4,13 +4,13 @@ title: blog - shabazbadshah.com
 permalink: /blog/
 ---
 
-<h2 id="blog-page-title">the changelog</h2>
+<h2 class="page-title">the changelog</h2>
 <div id="blog-list-wrapper">
   <ul id="blog-list">
     {% for post in site.categories.blog %}
-      <li id="blog-list-item">
-        <a id="blog-title-link" href="{{ post.url }}" aria-label="{{ post.title }}">{{ post.title }}</a>
-        <h5 id="blog-date"> {{post.date | date: "%B %-d, %Y"}}</h5>
+      <li class="blog-list-item">
+        <a class="blog-title-link" href="{{ post.url }}" aria-label="{{ post.title }}">{{ post.title }}</a>
+        <h5 class="blog-date"> {{post.date | date: "%B %-d, %Y"}}</h5>
       </li>
     {% endfor %}
   </ul>
