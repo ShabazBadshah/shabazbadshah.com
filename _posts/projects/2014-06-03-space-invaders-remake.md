@@ -1,5 +1,5 @@
 ---
-layout: project-showcase
+layout: article
 title: A Space Invaders Remake
 date: 2014-06-03
 category: "projects"

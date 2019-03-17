@@ -1,5 +1,5 @@
 ---
-layout: project-showcase
+layout: article
 title: My Personal Website V2
 date: 2018-04-22
 category: "projects"
