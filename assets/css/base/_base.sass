@@ -1,3 +1,5 @@
+$site-theme-color: #0051ff
+
 @font-face
   font-family: 'roboto'
   src: url('../fonts/Roboto-Regular.ttf')
@@ -27,16 +29,29 @@ body, html
 #body-wrap
   width: 100%
   height: 100%
+  display: flex
+  justify-content: center
 
   
 #content-wrap
-  top: 60px
   display: flex
   flex-direction: column
   align-items: center
   width: 100%
   max-width: 2000px
 
+img#dark-mode-switch
+  width: 40px
+  margin: 10px
+  position: fixed
+  bottom: 5px
+  right: 5px
+  background-color: $site-theme-color
+  padding: 8px
+  border-radius: 5px
+
+  &:hover
+    cursor: pointer
 
 h1
   font-size: 5rem
@@ -108,9 +123,9 @@ table td
   font-size: 1.1rem
 
 h2.page-title
-  margin-top: 70px
+  margin-top: 130px
   margin-bottom: 50px
-  background-color: #0051ff
+  background-color: $site-theme-color
   width: fit-content
   padding: 10px 20px
   border-radius: 4px

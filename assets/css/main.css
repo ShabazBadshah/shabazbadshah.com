@@ -2838,10 +2838,17 @@ body, html {
 
 #body-wrap {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center; }
 
 #content-wrap {
-  top: 60px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -2857,6 +2864,19 @@ body, html {
           align-items: center;
   width: 100%;
   max-width: 2000px; }
+
+img#dark-mode-switch {
+  width: 40px;
+  margin: 10px;
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+  background-color: #0051ff;
+  padding: 8px;
+  -webkit-border-radius: 5px;
+          border-radius: 5px; }
+  img#dark-mode-switch:hover {
+    cursor: pointer; }
 
 h1 {
   font-size: 5rem;
@@ -2917,7 +2937,7 @@ table td {
   font-size: 1.1rem; }
 
 h2.page-title {
-  margin-top: 70px;
+  margin-top: 130px;
   margin-bottom: 50px;
   background-color: #0051ff;
   width: -webkit-fit-content;
@@ -3009,7 +3029,7 @@ header {
               align-items: center; }
       header ul#nav-items-list li.nav-item a {
         color: black;
-        padding: 8px;
+        padding: 6px;
         -webkit-transition: all ease-in-out 0.2s;
         -o-transition: all ease-in-out 0.2s;
         transition: all ease-in-out 0.2s;
@@ -3384,9 +3404,15 @@ ul#project-list {
     margin-bottom: 0; }
   #article-showcase-wrap p {
     line-height: 2rem;
-    margin-top: 20px;
-    margin-bottom: 0;
+    margin-top: 10px;
+    margin-bottom: 15px;
     font-size: 1.2rem; }
+  #article-showcase-wrap ul {
+    margin-top: 0;
+    margin-bottom: 40px; }
+    #article-showcase-wrap ul li p {
+      margin: 0;
+      margin-top: 10px; }
   #article-showcase-wrap h2#date {
     font-size: 1.25rem;
     margin-top: 15px;
@@ -3400,7 +3426,6 @@ ul#project-list {
     margin: 10px auto;
     font-size: 1.2rem; }
   #article-showcase-wrap img {
-    height: 100%;
     width: auto; }
   #article-showcase-wrap h2#project-links {
     margin-left: 5px;
