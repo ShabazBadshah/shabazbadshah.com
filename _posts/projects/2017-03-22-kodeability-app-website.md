@@ -1,5 +1,5 @@
 ---
-layout: project-showcase
+layout: article
 title: Kodeability App Website
 date: 2017-03-22
 category: "projects"

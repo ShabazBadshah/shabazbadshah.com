@@ -1,5 +1,5 @@
 ---
-layout: project-showcase
+layout: article
 title: A Tetris Remake
 date: 2015-06-03
 category: "projects"
