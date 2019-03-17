@@ -3277,8 +3277,9 @@ header {
   -webkit-box-shadow: 0 3px 10px rgba(50, 50, 50, 0.05);
           box-shadow: 0 3px 10px rgba(50, 50, 50, 0.05); }
   header img#brand-logo {
-    width: 40px;
-    margin: 10px;
+    width: 38px;
+    margin: 5px;
+    top: 3px;
     background-color: #0051ff;
     -webkit-border-radius: 5px;
             border-radius: 5px; }
