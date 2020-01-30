@@ -3385,7 +3385,9 @@ a#resume-link {
   border: 1px solid #0051ff; }
 
 p#sign-off {
-  margin: 10px; }
+  margin: 10px;
+  color: #0051ff;
+  font-weight: bold; }
 
 #social-media-links-wrapper {
   margin-top: 80px; }
