@@ -16,10 +16,19 @@ a#resume-link
   &:hover
     color: black
   
-img#profile-pic
-  border-radius: 300px
-  width: 120px
-  margin-top: 10px
+#profile-img-container
+  display: inline-block
+  position: relative
+  width: 180px
+  height: 180px
+
+#profile-img-container img#profile-pic
+  object-fit: contain
+  object-position: center center
+  width: 100%
+  border-radius: 50%
+  border: 1px solid $site-theme-color
+
 
 p#sign-off
   margin: 10px

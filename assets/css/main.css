@@ -3368,11 +3368,21 @@ a#resume-link {
   a#resume-link:hover {
     color: black; }
 
-img#profile-pic {
-  -webkit-border-radius: 300px;
-          border-radius: 300px;
-  width: 120px;
-  margin-top: 10px; }
+#profile-img-container {
+  display: inline-block;
+  position: relative;
+  width: 180px;
+  height: 180px; }
+
+#profile-img-container img#profile-pic {
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center center;
+     object-position: center center;
+  width: 100%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
+  border: 1px solid #0051ff; }
 
 p#sign-off {
   margin: 10px; }
