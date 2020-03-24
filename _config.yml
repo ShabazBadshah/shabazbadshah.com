@@ -1,5 +1,4 @@
-name: Shabaz Badshah dot com
-description: Hey there, my name is Shabaz Badshah and this is my little home on the internet.
+name: Shabaz Badshah's Website
 markdown: kramdown
 highlighter: rouge # or rouge or null
 exclude: ["node_modules", "gulpfile.js", "package.json"]
@@ -7,11 +6,3 @@ exclude: ["node_modules", "gulpfile.js", "package.json"]
 # i.e.  /PersonalWebsite from ""
 baseurl: ""
 github-url: "https://shabazbadshah.github.io"
-plugins:
-  - jekyll-seo-tag
-
-social:
-  name: Shabaz Badshah
-  links:
-    - http://linkedin.com/in/shabaz-badshah/
-    - https://github.com/ShabazBadshah

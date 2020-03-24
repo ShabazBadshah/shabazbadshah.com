@@ -1,129 +1,19 @@
 ---
 layout: default
-title: Shabaz Badshah dot com
+title: Shabaz's Website
 ---
 
-<div id="wrapper">
+<div class="home-wrap">
 
-    <div id="nav-root-wrapper">
-      <div id="sidebar">
-        <div id="nav-wrap">
-          <div id="logo-holder">
-            <div id="logo">
-              <img src="./assets/images/personal_logo.svg" alt="">
-            </div>
-          </div>
-      
-          <nav>
-            <ul id="nav-list">
-              <li><a href="#home">Home</li>
-              <li><a href="#about">About Me</a></li>
-              <li><a href="#portfolio">Portfolio</a></li>
-              <li><a href="./shabaz-badshah-resume-2018-latex.pdf">Resume</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-  
-      <div id="collapsed-nav-wrap">
-        <div id="nav-toggle-icon">
-          <div class="nav-icon-bar"></div>
-          <div class="nav-icon-bar"></div>
-          <div class="nav-icon-bar"></div>
-        </div>
-      </div>
-    </div>
+   {%  include header.html  %}
 
-    <div class="content-wrap" id="home">
-        <div class="content">
-          <h1 id="big-home">Home</h1>
-          <h2>Shabaz Badshah</h2>
-          <i class="ion-ios-arrow-thin-left link-icon"></i>
-        </div>  
-      </div>
-    
-    <div class="content-wrap" id="about">
-      <div class="content">
+   <div class="home-sections">
 
-        <div class="split-modal">
-          <div class="left-portion">
+      {% include hero.html %}
+      {% include about.html %}
+      {% include projects.html %}
+      {% include footer.html %}
 
-            <h1 id="about-big">About</h1>
-
-            <div class="modal-content">
-
-              <div id="contact-info-holder">
-                  <h2>About.</h2>
-                  <h3>Developing Android and Full Stack Web Applications</h3>
-                  <h4>I'm currently studying Computer Science at the University of Toronto. I've loved computers ever since I started programming. If there's one thing you need to know about me, it's that I'm very process driven. During my spare time I enjoy creating or learning about anything technology, algorithms, math, or programming something cool. My primary development focuses are Android App and Full Stack Web Development.
-                  </h4> 
-                  <div id="sign-off">
-                    <h3>Shabaz Badshah</h3>
-                    <h4>--"Permanently in beta."</h4>
-                  </div>
-              </div>
-              
-            </div>
-          </div>
-          <div class="right-portion">
-            <h1 id="connect-big">Contact</h1>
-            <div id="contact-links-holder">
-                <a href="https://github.com/ShabazBadshah"><i class="ion-social-github link-icon"></i></a>
-                <a href="https://www.linkedin.com/in/shabaz-badshah"><i class="ion-social-linkedin link-icon"></i></a>
-                <a href="mailto:badshah.shabaz@gmail.com"><i class="ion-android-mail link-icon"></i></a>
-            </div>
-
-          </div>
-        </div>
-
-      </div>  
-    </div>
-
-
-    <div class="content-wrap" id="portfolio">
-      <div class="content">
-        <h1 id="big-work">Work</h1>
-
-        <ul class="cards">
-          
-          {% for post in site.categories.projects %}
-            <li class="cards__item">
-                <div class="card">
-                  <div class="card-layout-wrap">
-                    <a href="/.{{post.url}}">
-                      <div class="card__content">
-                        <div class="card-meta-holder">
-                          <div class="card__title">{{post.title}}</div>
-                          <div class="card__category">
-                            <i class="ion-pricetags link-icon"></i>
-                            <h4>{{post.project-category}}</h4>
-                          </div>
-                          <div class="card__date">
-                              <i class="ion-android-time link-icon"></i>
-                              <h4>{{post.date | date: "%B %Y"}}</h4>
-                          </div>
-                        </div>
-              
-                        <p class="card__text">{{post.project-blurb}}</p>
-
-                        <div class="card-link-holder">
-                          {% if post.repo_link %}
-                            <a class="card-github-link" href="{{post.repo_link}}">Github Repo</a>
-                          {% endif %}
-                          {% if post.website %}
-                            <a class="card-website-link" href="{{post.website}}">Website</a>  
-                          {% endif %}
-                        </div>
-
-                      </div>
-                    </a>
-                  </div>
-                </div>
-            </li>
-          {% endfor %}
-        </ul>
-
-      </div>  
-    </div>
-
-  </div>
+   </div>
+</div>
+ 

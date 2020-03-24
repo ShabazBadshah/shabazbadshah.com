@@ -1,11 +1,11 @@
 /*!
- * Lightbox v2.10.0
+ * Lightbox v2.9.0
  * by Lokesh Dhakar
  *
  * More info:
  * http://lokeshdhakar.com/projects/lightbox2/
  *
- * Copyright 2007, 2018 Lokesh Dhakar
+ * Copyright 2007, 2015 Lokesh Dhakar
  * Released under the MIT license
  * https://github.com/lokesh/lightbox2/blob/master/LICENSE
  *
@@ -52,7 +52,7 @@
     resizeDuration: 700,
     showImageNumberLabel: true,
     wrapAround: false,
-    disableScrolling: false,
+    disableScrolling: true,
     /*
     Sanitize Title
     If the caption data is trusted, for example you are hardcoding it in, then leave this to false.
@@ -94,10 +94,6 @@
   // Build html for the lightbox and the overlay.
   // Attach event handlers to the new DOM elements. click click click
   Lightbox.prototype.build = function() {
-    if ($('#lightbox').length > 0) {
-        return;
-    }
-
     var self = this;
     $('<div id="lightboxOverlay" class="lightboxOverlay"></div><div id="lightbox" class="lightbox"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" /><div class="lb-nav"><a class="lb-prev" href="" ></a><a class="lb-next" href="" ></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div>').appendTo($('body'));
 
@@ -212,7 +208,6 @@
 
     function addToAlbum($link) {
       self.album.push({
-        alt: $link.attr('data-alt'),
         link: $link.attr('href'),
         title: $link.attr('data-title') || $link.attr('title')
       });
@@ -256,7 +251,7 @@
 
     // Disable scrolling of the page while open
     if (this.options.disableScrolling) {
-      $('html').addClass('lb-disable-scrolling');
+      $('body').addClass('lb-disable-scrolling');
     }
 
     this.changeImage(imageNumber);
@@ -287,10 +282,7 @@
       var windowHeight;
       var windowWidth;
 
-      $image.attr({
-        'alt': self.album[imageNumber].alt,
-        'src': self.album[imageNumber].link
-      });
+      $image.attr('src', self.album[imageNumber].link);
 
       $preloader = $(preloader);
 
@@ -376,6 +368,9 @@
   Lightbox.prototype.showImage = function() {
     this.$lightbox.find('.lb-loader').stop(true).hide();
     this.$lightbox.find('.lb-image').fadeIn(this.options.imageFadeDuration);
+
+    // Prevents scrolling on the page once the image is open
+    $("html, body").css("overflow", "hidden");
 
     this.updateNav();
     this.updateDetails();
@@ -503,6 +498,9 @@
 
   // Closing time. :-(
   Lightbox.prototype.end = function() {
+     // Restablishes scrolling for the page
+     $("html, body").css("overflow", "visible");
+     
     this.disableKeyboardNav();
     $(window).off('resize', this.sizeOverlay);
     this.$lightbox.fadeOut(this.options.fadeDuration);
@@ -511,7 +509,7 @@
       visibility: 'visible'
     });
     if (this.options.disableScrolling) {
-      $('html').removeClass('lb-disable-scrolling');
+      $('body').removeClass('lb-disable-scrolling');
     }
   };
 

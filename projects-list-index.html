@@ -1,0 +1,38 @@
+---
+layout: project-list
+title: My Portfolio
+---
+
+<link rel="stylesheet" type="text/css" href="{{site.baseurl}}/assets/css/main.css">
+
+<div class="project-page-wrap" style="background-image: url({{site.baseurl}}/assets/img/section-bg/project-list-bg.png)">
+
+   <div class="project-list-title-wrap" id="project-page-title">
+      <h2 class="project-list-title">My Portfolio</h2>
+   </div>
+
+   <div class="project-list-wrap">
+      {% for post in site.categories.projects %}
+         <a href=".{{post.url}}" class="project-link">
+            <div class="portfolio-item">
+
+               <div class="image-wrap">
+                  <img class="portfolio-image" style="background-image:url({{site.baseurl}}{{post.thumbnail}})">
+               </div>
+
+               <div class="portfolio-meta">
+                  <div class="project-item-name"> {{post.title}} </div>
+                  <div class="project-item-category"> {{post.project-category}} </div>
+                  <div class="project-item-date"> {{post.date | date: "%b %d %Y"}} </div>
+               </div>
+
+            </div>
+         </a>
+      {% endfor %}
+   </div>
+
+   <div class="back-to-top">
+      <a href="#project-page-title">Back to Top</a>
+   </div>
+
+</div>

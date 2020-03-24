@@ -1,0 +1,185 @@
+@import "assets/css/1 - base/colors"
+@import "assets/css/1 - base/vars"
+
+.home-wrap
+  header
+    width: $header_width
+    background: $header_background-color
+
+    .header-position
+      position: fixed
+      top: 0
+      left: 0
+      bottom: 10px
+      width: $header_width
+      display: flex
+      flex-direction: column
+      justify-content: space-between
+      box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.15)
+
+    a
+      color: $header-item-color
+      cursor: pointer
+
+      &:hover, &:focus
+        color: $header_item_hover_color
+
+
+    .logo
+      cursor: pointer
+      max-width: $header_width
+      background:
+        image: url(../img/personal_logo.svg)
+        repeat: no-repeat
+        position: center
+        size: contain
+      height: 70px
+      width: 100%
+      margin-top: 20px
+
+    // Desktop Navigation ------------------------------------------------------
+
+
+    // Navigation items in the header
+    nav.site-nav
+      ul
+        list-style: none
+        margin: 20px 0
+        padding: 0 20px 0 0
+        text-align: right
+
+        li.header-item
+          color: white
+          font-size: 1.3em
+          margin-bottom: 10px
+
+        // Last child does not have a bottom margin
+        &:last-child
+          margin-bottom: 0
+
+
+    .email-link
+      display: block
+      text-align: right
+      padding-right: 20px
+      color: white
+      font-size: 1.3em
+      padding-bottom: 10px
+
+
+    // Mobile Expand Navigation Toggle
+    .mobile-nav-toggle
+      display: none
+      width: 50px
+      height: 50px
+      margin-right: 20px
+      align-items: center
+      cursor: pointer
+
+      // The toggle itself, span is center, before is top, and after is the last line in the toggle
+      span,
+      span:before,
+      span:after
+        content: ""
+        display: block
+        height: 2px
+        width: 100%
+        background: $mobile-nav-toggle-color
+        position: relative
+
+        transition: all 0.3s ease-in-out
+
+      span:before
+        top: 15px
+
+      span:after
+        top: -17px
+
+      &.is-open span
+        background: 0
+
+      &.is-open span:before,
+      &.is-open span:after
+        transform-origin: center
+        transform: rotate(45deg)
+        top: 0
+
+      &.is-open span:before
+        transform: rotate(-45deg)
+
+  // Mobile Navigation ---------------------------------------------------------
+  .mobile-nav
+    display: block
+    position: fixed
+    width: 100%
+    z-index: 1
+
+    background: $header_background-color
+
+    padding: 30px 0 20px
+    transform: translateY(-100%)
+    transition: all 0.4s ease-in-out
+
+    a
+      color: $header-item-color
+
+      &:hover, &:active
+        color: $header-item-hover-color
+
+
+    ul
+      list-style: none
+      margin: 0
+      padding: 0
+      padding-top: 80px
+
+      li.header-item
+        text-align: center
+        font-size: 1.5em
+        margin-bottom: 10px
+
+.slide-in-nav
+  animation: 0.5s ease 0s 1 slideInNav
+
+@keyframes slideInNav
+   0%
+      transform: translateX(-100%)
+   100%
+      transform: translateX(0)
+
+// 775px is the approximate breakpoint for an iPad
+@media (max-width: 775px)
+  .home-wrap
+    header
+      width: 100%
+      position: fixed
+      z-index: 1
+      box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.1)
+
+      .header-position
+        width: auto
+        position: relative
+        top: auto
+        bottom: auto
+        left: auto
+        flex-direction: row
+        align-items: center
+        padding: 10px 0
+
+      .site-nav,
+      .email-link
+        display: none
+
+      .logo
+        height: 60px
+        width: 100px
+        margin-top: 0
+        margin-left: 5px
+
+      .mobile-nav-toggle
+        display: flex
+
+    // The mobile navigations dropdown
+    .mobile-nav.is-open
+      display: block
+      transform: translateY(0%)
