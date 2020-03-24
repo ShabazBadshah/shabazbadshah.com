@@ -7,7 +7,6 @@ exclude: ["node_modules", "gulpfile.js", "package.json"]
 # i.e.  /PersonalWebsite from ""
 baseurl: ""
 github-url: "https://shabazbadshah.github.io"
-permalink: '/:categories/:title/'
 plugins:
   - jekyll-seo-tag
 

@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-   {% include header.html %}
+<html>
+   <head>
+      {% seo %}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>{{ page.title }}</title>
+      <link rel="shortcut icon" type="image/png" href="{{site.baseurl}}/assets/images/personal_logo.svg"/>
+
+      <!-- SEO opt meta -->
+      <meta name="description" content="{{site.description}}">
+      <meta name="keywords" content="Shabaz, Badshah, Shabaz Badshah, UTM Shabaz Badshah,
+      shabazbadshah.com, shabazbadshah.github.io">
+      <meta name="author" content="Shabaz Badshah">
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user=scalable=no">
+
+      <!-- styles -->
+      <link rel="stylesheet" href="{{site.baseurl}}/assets/css/normalize.css">
+      <link rel="stylesheet" href="{{site.baseurl}}/assets/icons/css/ionicons.min.css">
+      <link rel="stylesheet" href="{{site.baseurl}}/assets/css/index.css">
+
+      <script src="{{site.baseurl}}/assets/js/jquery-3.2.1.min.js"></script>
+      <script src="{{site.baseurl}}/assets/js/index.js"></script>
+   </head>
    <body>
-      {% include nav.html %}
-      <div id="body-wrap">
-         {% case page.category %}
-            {% when "blog" %}
-               <div id="blog-showcase-content-wrap"> {{ content }} </div>
-            {% when "projects" %}
-               <div id="project-showcase-content-wrap"> {{ content }} </div>
-            {% else %}
-               <div id="content-wrap"> {{ content }} </div>
-         {% endcase %}
-      </div>
+
+    {{ content }}
+
    </body>
 </html>
