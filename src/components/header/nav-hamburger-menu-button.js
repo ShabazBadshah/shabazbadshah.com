@@ -10,8 +10,6 @@ const NavHamburgerMenuButton = ({ backgroundColour, iconColour, diameterPx }) =>
     xmlns="http://www.w3.org/2000/svg"
     width={diameterPx}
     height={diameterPx}
-    stroke={iconColour}
-    strokeWidth="1px"
     viewBox={`0 0 ${diameterPx + 1} ${diameterPx + 1}`}
   >
     <g id="hamburger-menu-icon" transform="translate(-73.8 -517.8)">

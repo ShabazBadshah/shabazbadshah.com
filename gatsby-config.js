@@ -3,6 +3,11 @@ module.exports = {
     title: `shabaz badshah dot com`,
     description: `My little home on the internet.`,
     author: `@shabazbadshah`,
+    contactInfo: {
+      email: `badshah.shabaz@gmail.com`,
+      github: `https://www.github.com/ShabazBadshah`,
+      linkedin: `https://www.linkedin.com/in/shabaz-badshah/`,
+    },
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
