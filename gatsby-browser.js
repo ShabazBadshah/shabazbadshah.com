@@ -5,3 +5,8 @@
  */
 
 // You can delete this file if you're not using it
+
+import React from 'react';
+import GlobalStateContextProvider from './src/contextProviders/GlobalStateContextProvider.js';
+
+export const wrapRootElement = ({ element }) => <GlobalStateContextProvider>{element}</GlobalStateContextProvider>;

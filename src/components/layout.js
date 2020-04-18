@@ -25,8 +25,6 @@ const Layout = ({ children }) => {
 
   return (
     <>
-      <Header headerTitle="shabaz badshah" />
-
       <div
         style={{
           margin: `0 auto`,

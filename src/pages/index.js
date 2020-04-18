@@ -4,13 +4,17 @@ import { Link } from 'gatsby';
 import '../../static/normalize.css';
 import '../assets/base.css';
 
-import Layout from '../components/layout';
-import Image from '../components/image';
-import SEO from '../components/seo';
+import Layout from '../components/layout.js';
+import Image from '../components/image.js';
+import SEO from '../components/seo.js';
+
+import Header from '../components/header/header.js';
 
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />
+    <Header headerTitle="shabaz badshah" />
+
     <h1>Hi people</h1>
     <p>Welcome to your new Gatsby site.</p>
     <p>Now go build something great.</p>
