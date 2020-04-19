@@ -12,7 +12,7 @@ const NavHamburgerMenuButton = ({ backgroundColour, iconColour, diameterPx }) =>
     height={diameterPx}
     viewBox={`0 0 ${diameterPx + 1} ${diameterPx + 1}`}
   >
-    <g id="hamburger-menu-icon" transform="translate(-73.8 -517.8)">
+    <g transform="translate(-73.8 -517.8)">
       <circle cx="30" cy="30" r="30" transform="translate(73.8 517.8)" fill={backgroundColour} />
       <g id="hamburger-menu" transform="translate(88.8 539.3)">
         <rect width="20" height="4" rx="2" transform="translate(10 7)" fill={iconColour} />

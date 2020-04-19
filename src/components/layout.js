@@ -7,39 +7,22 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useStaticQuery, graphql } from 'gatsby';
+import styled from 'styled-components';
+
+import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 
 import Header from './header/header';
 import GithubLogo from './social-media-icons/github-logo';
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
-
   return (
-    <>
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
+    <globalStateContext.Consumer>
+      {(globalState) => (
+        <StyledBody enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+          <main>{children}</main>
+        </StyledBody>
+      )}
+    </globalStateContext.Consumer>
   );
 };
 
@@ -48,3 +31,10 @@ Layout.propTypes = {
 };
 
 export default Layout;
+
+const StyledBody = styled.body`
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 0 1.0875rem 1.45rem;
+  background-color: ${(props) => (props.enableDarkMode ? 'orange' : 'red')};
+`;

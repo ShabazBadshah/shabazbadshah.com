@@ -51,7 +51,7 @@ Header.defaultProps = {
 
 const StyledHeader = styled.header`
   height: 100vh;
-  width: 7rem;
+  width: 6rem;
   position: fixed;
   top: 0;
   bottom: 0;
