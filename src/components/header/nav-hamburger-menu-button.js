@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { globalThemeColor } from '../../assets/globalStyles.js';
+import { globalThemeColor } from '../../assets/globalStyleConstants.js';
 
 const NavHamburgerMenuButton = ({ backgroundColour, iconColour, diameterPx }) => (
   <NavHamburgerMenuButtonContainer

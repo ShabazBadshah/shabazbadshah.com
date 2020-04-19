@@ -3,15 +3,19 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { globalThemeColor } from '../../assets/globalStyles.js';
+import { globalThemeColor, headerWidthPx } from '../../assets/globalStyleConstants.js';
 
 import SocialMediaLinks from '../social-media-icons/social-media-links.js';
-import NavHamburgerMenuIcon from './nav-hamburger-menu-button.js';
+import NavHamburgerMenuButton from './nav-hamburger-menu-button.js';
 import DarkModeSwitchButton from './dark-mode-switch-button.js';
 
 class Header extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isNavDrawerOpen: false,
+    };
 
     this.wordToEmphasize = this.props.headerTitle.substr(0, this.props.headerTitle.indexOf(' '));
     this.remainingString = this.props.headerTitle.slice(
@@ -20,13 +24,17 @@ class Header extends Component {
     );
   }
 
+  toggleNavDrawer = () => {
+    this.setState(!this.state.isNavDrawerOpen);
+    console.log(this.state.isNavDrawerOpen);
+  };
+
   render() {
     return (
       <StyledHeader>
         <HeaderContainer>
-          <NavHamburgerMenuIcon />
+          <NavHamburgerMenuButton onClick={console.log('yo')} />
           <DarkModeSwitchButton />
-
           <StyledHeaderLink to="/">
             <span>{this.wordToEmphasize}</span>
             {this.remainingString}
@@ -51,7 +59,7 @@ Header.defaultProps = {
 
 const StyledHeader = styled.header`
   height: 100vh;
-  width: 6rem;
+  width: ${headerWidthPx}px;
   position: fixed;
   top: 0;
   bottom: 0;

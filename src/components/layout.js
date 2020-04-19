@@ -7,8 +7,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
+import '../../static/normalize.css';
+import '../assets/base.css';
+
+import { headerWidthPx, darkModeThemeColor } from '../assets/globalStyleConstants.js';
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 
 import Header from './header/header';
@@ -18,9 +22,11 @@ const Layout = ({ children }) => {
   return (
     <globalStateContext.Consumer>
       {(globalState) => (
-        <StyledBody enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+        <React.Fragment>
+          <GlobalStyle enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
+          <Header />
           <main>{children}</main>
-        </StyledBody>
+        </React.Fragment>
       )}
     </globalStateContext.Consumer>
   );
@@ -33,8 +39,17 @@ Layout.propTypes = {
 export default Layout;
 
 const StyledBody = styled.body`
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 0 1.0875rem 1.45rem;
-  background-color: ${(props) => (props.enableDarkMode ? 'orange' : 'red')};
+  min-height: 100%;
+  margin-left: ${headerWidthPx}px;
+  padding: 50px 100px;
+  background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColor : '#FFFFFF')};
+`;
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    min-height: 100%;
+    margin-left: ${headerWidthPx}px;
+    padding: 50px 100px;
+    background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColor : '#FFFFFF')};
+  }
 `;

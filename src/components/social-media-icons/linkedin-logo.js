@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { globalThemeColor } from '../../assets/globalStyles.js';
+import { globalThemeColor } from '../../assets/globalStyleConstants.js';
 
 const LinkedinLogo = ({ colour }) => {
   return (

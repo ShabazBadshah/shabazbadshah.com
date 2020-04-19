@@ -2,7 +2,7 @@ import { Link } from 'gatsby';
 import React, { Component, useContext } from 'react';
 import styled from 'styled-components';
 
-import { globalThemeColor } from '../../assets/globalStyles.js';
+import { globalThemeColor } from '../../assets/globalStyleConstants.js';
 import { globalStateContext } from '../../contextProviders/global-state-context-provider.js';
 
 const DarkModeSwitchButton = () => {
