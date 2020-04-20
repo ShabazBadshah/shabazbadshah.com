@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 
-export const globalStateContext = React.createContext();
+// Need initial globalState to successfully build Gatsby bundle (see: https://github.com/gatsbyjs/gatsby/issues/19255)
+let defaultState = {
+  darkMode: {
+    isDarkModeEnabled: false,
+    toggleDarkMode: () => {},
+  },
+};
+
+export const globalStateContext = React.createContext(defaultState);
 
 const GlobalStateContextProvider = (props) => {
-  const [isDarkModeEnabled, toggleDarkMode] = useState(false);
+  const [isDarkModeEnabled, toggleDarkMode] = useState(defaultState.darkMode.isDarkModeEnabled);
 
   const globalState = {
     darkMode: {
