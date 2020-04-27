@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
       {(globalState) => (
         <React.Fragment>
           <GlobalStyle enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-          <Header />
+          <Header headerTitle="shabaz badshah" />
           <main>{children}</main>
         </React.Fragment>
       )}

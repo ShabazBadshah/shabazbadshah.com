@@ -13,7 +13,13 @@
       "single"
     ],
     "no-unused-vars": [
-      1
+      "error", 
+      { 
+        "vars": "all", 
+        "args": "after-used", 
+        "ignoreRestSiblings": false,
+        "caughtErrors": "all"
+      }
     ],
     "react/jsx-filename-extension": [
       1,

@@ -1,6 +1,6 @@
 import { Link } from 'gatsby';
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { globalThemeColor, headerWidthPx } from '../../assets/globalStyleConstants.js';
@@ -14,7 +14,7 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      isNavDrawerOpen: false,
+      isNavDrawerOpen: true,
     };
 
     this.wordToEmphasize = this.props.headerTitle.substr(0, this.props.headerTitle.indexOf(' '));
@@ -25,23 +25,27 @@ class Header extends Component {
   }
 
   toggleNavDrawer = () => {
-    this.setState(!this.state.isNavDrawerOpen);
-    console.log(this.state.isNavDrawerOpen);
+    this.setState({ isNavDrawerOpen: !this.state.isNavDrawerOpen });
   };
 
   render() {
     return (
-      <StyledHeader>
-        <HeaderContainer>
-          <NavHamburgerMenuButton onClick={console.log('yo')} />
+      <StyledHeader isNavDrawerOpen={this.state.isNavDrawerOpen}>
+        {!this.state.isNavDrawerOpen && (
+          <StyledExpandedDesktopHeaderContainer>
+            <StyledNavLink to="/">about</StyledNavLink>
+            <StyledNavLink to="/">work</StyledNavLink>
+            <StyledNavLink to="/">blog</StyledNavLink>
+          </StyledExpandedDesktopHeaderContainer>
+        )}
+        <StyledCollapsedDesktopHeaderContainer>
+          <NavHamburgerMenuButton onClickCallback={this.toggleNavDrawer} isNavDrawerOpen={this.state.isNavDrawerOpen} />
           <DarkModeSwitchButton />
           <StyledHeaderLink to="/">
-            <span>{this.wordToEmphasize}</span>
-            {this.remainingString}
+            <span>{this.wordToEmphasize}</span> {this.remainingString}{' '}
           </StyledHeaderLink>
-
           <SocialMediaLinks />
-        </HeaderContainer>
+        </StyledCollapsedDesktopHeaderContainer>
       </StyledHeader>
     );
   }
@@ -57,20 +61,43 @@ Header.defaultProps = {
   headerTitle: 'shabaz badshah',
 };
 
-const StyledHeader = styled.header`
-  height: 100vh;
-  width: ${headerWidthPx}px;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
+const StyledExpandedDesktopHeaderContainer = styled.div`
+  padding: 30px 0 40px 40px;
+  height: inherit;
+  background-color: ${globalThemeColor};
+  z-index: 1;
 `;
 
-const HeaderContainer = styled.div`
-  background-color: #008cff;
-  box-shadow: 5px 0px 30px 0px rgba(0, 0, 0, 0.2);
+const StyledNavLink = styled(Link)`
+  color: white;
+  font-size: 4rem;
+  font-weight: bold;
+  margin: 10px 0;
+  text-decoration: none;
+
+  /* Allow Link anchor tags to take up a single line */
+  float: left;
+  clear: both;
+
+  &:first-child {
+    margin-top: 0;
+  }
+`;
+
+const StyledHeader = styled.header`
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+`;
+
+const StyledCollapsedDesktopHeaderContainer = styled.div`
+  background-color: ${globalThemeColor};
+  box-shadow: 10px 0 50px 0 rgba(0, 0, 0, 0.15);
   height: 100%;
-  width: 100%;
+  width: ${headerWidthPx}px;
   padding: 40px 0 40px 0;
   display: flex;
   flex-direction: column;
@@ -78,7 +105,7 @@ const HeaderContainer = styled.div`
 `;
 
 const StyledHeaderLink = styled(Link)`
-  /* Display text sideways */
+  /* Display text vertically */
   writing-mode: vertical-lr;
   text-orientation: sideways;
   transform: scale(-1, -1);

@@ -64,9 +64,10 @@ export default DarkModeSwitchButton;
 
 const DarkModeSwitchButtonContainer = styled.svg`
   /* border-radius: 50%; */
-  position: absolute;
-  top: 105px;
-  left: 75%;
+  position: relative;
+  /* top: 105px; */
+  top: -34%;
+  left: 70%;
 
   transition: all 0.1s ease-in-out;
 
