@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-// Need initial globalState to successfully build Gatsby bundle (see: https://github.com/gatsbyjs/gatsby/issues/19255)
-let defaultState = {
-  darkMode: {
-    isDarkModeEnabled: false,
-    toggleDarkMode: () => {},
-  },
-};
-
-export const globalStateContext = React.createContext(defaultState);
+export const globalStateContext = React.createContext();
 
 const GlobalStateContextProvider = (props) => {
-  const [isDarkModeEnabled, toggleDarkMode] = useState(defaultState.darkMode.isDarkModeEnabled);
+  const IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY = 'isDarkModeEnabled';
+
+  const [isDarkModeEnabled, __toggleDarkMode] = useState(
+    JSON.parse(localStorage.getItem(IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY))
+  );
 
   const globalState = {
     darkMode: {
       isDarkModeEnabled,
-      toggleDarkMode: () => toggleDarkMode(!isDarkModeEnabled),
+      toggleDarkMode: () => {
+        // Save site dark mode state to local storage synchronously and return updated state
+        localStorage.setItem(
+          IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY,
+          JSON.stringify(!isDarkModeEnabled),
+          __toggleDarkMode(!isDarkModeEnabled)
+        );
+        return !isDarkModeEnabled;
+      },
     },
   };
 
