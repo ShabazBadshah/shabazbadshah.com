@@ -6,7 +6,7 @@ const GlobalStateContextProvider = (props) => {
   const IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY = 'isDarkModeEnabled';
 
   const [isDarkModeEnabled, __toggleDarkMode] = useState(
-    JSON.parse(localStorage.getItem(IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY))
+    JSON.parse(true || localStorage.getItem(IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY))
   );
 
   const globalState = {

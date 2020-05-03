@@ -12,6 +12,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 import '../../static/normalize.css';
 import '../assets/base.css';
 
+import { device } from '../../static/media-query-sizes.js';
+
 import { headerWidthPx, darkModeThemeColor } from '../assets/globalStyleConstants.js';
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 
@@ -44,5 +46,11 @@ const GlobalStyle = createGlobalStyle`
     margin-left: ${headerWidthPx}px;
     padding: 50px 100px;
     background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColor : '#f9f8f7')};
+
+    @media ${device.laptop} {
+      margin-left: 0;
+      padding: 20px 12px;
+      margin-top: 60px;
+    }
   }
 `;

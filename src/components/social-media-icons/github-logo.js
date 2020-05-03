@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { globalThemeColor } from '../../assets/globalStyleConstants.js';
+import { globalThemeColour } from '../../assets/globalStyleConstants.js';
 
 const GithubLogo = ({ colour }) => {
   return (
@@ -21,5 +21,5 @@ GithubLogo.propTypes = {
 };
 
 GithubLogo.defaultProps = {
-  colour: globalThemeColor,
+  colour: globalThemeColour,
 };

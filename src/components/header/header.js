@@ -2,8 +2,11 @@ import { Link } from 'gatsby';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled, { keyframes } from 'styled-components';
+import { bounceIn } from 'react-animations';
 
-import { globalThemeColor, darkModeThemeColor, headerWidthPx } from '../../assets/globalStyleConstants.js';
+import { device } from '../../../static/media-query-sizes.js';
+
+import { globalThemeColour, darkModeThemeColor, headerWidthPx } from '../../assets/globalStyleConstants.js';
 
 import { globalStateContext } from '../../contextProviders/global-state-context-provider.js';
 
@@ -36,31 +39,35 @@ class Header extends Component {
         {(globalState) => (
           <StyledHeader isNavDrawerOpen={this.state.isNavDrawerOpen}>
             <StyledCollapsedDesktopHeaderContainer enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-              <NavHamburgerMenuButton
-                onClickCallback={this.toggleNavDrawer}
-                isNavDrawerOpen={this.state.isNavDrawerOpen}
-              />
-              <DarkModeSwitchButton />
+              <StyledHeaderButtonWrap>
+                <NavHamburgerMenuButton
+                  onClickCallback={this.toggleNavDrawer}
+                  isNavDrawerOpen={this.state.isNavDrawerOpen}
+                />
+                <DarkModeSwitchButton />
+              </StyledHeaderButtonWrap>
               <StyledHeaderLink to="/">
                 <span>{this.wordToEmphasize}</span> {this.remainingString}
               </StyledHeaderLink>
-              <SocialMediaLinks />
+              <SocialMediaLinks enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
             </StyledCollapsedDesktopHeaderContainer>
-
-            <StyledExpandedDesktopHeaderContainer
-              isNavDrawerOpen={this.state.isNavDrawerOpen}
-              enableDarkMode={globalState.darkMode.isDarkModeEnabled}
-            >
-              <StyledNavLink to="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-                about
-              </StyledNavLink>
-              <StyledNavLink to="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-                work
-              </StyledNavLink>
-              <StyledNavLink to="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-                blog
-              </StyledNavLink>
-            </StyledExpandedDesktopHeaderContainer>
+            <StyledHeaderBackgroundBlur isNavDrawerOpen={this.state.isNavDrawerOpen} />
+            {this.state.isNavDrawerOpen && (
+              <StyledExpandedDesktopHeaderContainer
+                isNavDrawerOpen={this.state.isNavDrawerOpen}
+                enableDarkMode={globalState.darkMode.isDarkModeEnabled}
+              >
+                <StyledNavLink to="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+                  about
+                </StyledNavLink>
+                <StyledNavLink to="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+                  work
+                </StyledNavLink>
+                <StyledNavLink to="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+                  blog
+                </StyledNavLink>
+              </StyledExpandedDesktopHeaderContainer>
+            )}
           </StyledHeader>
         )}
       </globalStateContext.Consumer>
@@ -78,32 +85,68 @@ Header.defaultProps = {
   headerTitle: 'shabaz badshah',
 };
 
+const StyledHeaderButtonWrap = styled.div`
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+  position: fixed;
+  top: 70px;
+  left: 35px;
+  z-index: 100;
+
+  @media ${device.laptop} {
+    flex-direction: row;
+    align-items: flex-start;
+    top: 10px;
+    left: 10px;
+  }
+`;
+
+const StyledHeaderBackgroundBlur = styled.div`
+  position: fixed;
+  z-index: -1000;
+  background-color: rgba(0, 0, 0, 0.25);
+  opacity: ${(props) => (props.isNavDrawerOpen ? 0.85 : 0)};
+  transition: opacity 250ms ease-in;
+  width: ${(props) => (props.isNavDrawerOpen ? '100vw' : 0)};
+  height: ${(props) => (props.isNavDrawerOpen ? '100vh' : 0)};
+`;
+
 const StyledExpandedDesktopHeaderContainer = styled.div`
-  position: relative;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
+  position: fixed;
+  top: 145px;
+  border-radius: 4px;
+  left: 80px;
+  z-index: 9;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 
-  padding-left: 60px;
+  border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : 'none')};
 
-  width: ${(props) => (props.isNavDrawerOpen ? '100vw' : 0)};
-  opacity: ${(props) => (props.isNavDrawerOpen ? 0.85 : 0)};
+  padding: 20px 50px;
+  box-shadow: 10px 0 50px 0 rgba(0, 0, 0, 0.04);
 
-  transition: width 0.2s ease-in, opacity 0.2s ease-in;
+  height: fit-content;
 
-  background-color: ${(props) => (props.enableDarkMode ? '#2d2d2d' : '#F0F3F5')};
+  animation: ${keyframes`${bounceIn}`} 700ms ease-in-out;
+  transform-origin: left top;
+
+  background-color: ${(props) => (props.enableDarkMode ? '#2d2d2d' : 'white')};
+
+  @media ${device.laptop} {
+    top: 60px;
+    left: 40px;
+    padding: 30px 30px;
+  }
 `;
 
 const StyledNavLink = styled(Link)`
-  transition: color 0.1s linear;
+  transition: color 0.2s linear;
   color: ${(props) => (props.enableDarkMode ? '#FFFFFF' : '#2d2d2d')};
-  font-size: 4rem;
+  font-size: 1.9rem;
   margin: 10px 0;
   text-decoration: none;
   width: fit-content;
@@ -113,8 +156,9 @@ const StyledNavLink = styled(Link)`
   clear: both;
 
   &:hover {
-    color: ${globalThemeColor};
+    color: ${globalThemeColour};
     transition: color 0.1s linear;
+    cursor: pointer;
   }
 
   &:first-child {
@@ -140,6 +184,12 @@ const StyledCollapsedDesktopHeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
+  @media ${device.laptop} {
+    display: block;
+    width: 0;
+    padding: 0;
+  }
 `;
 
 const StyledHeaderLink = styled(Link)`
@@ -153,7 +203,7 @@ const StyledHeaderLink = styled(Link)`
 
   align-self: center;
 
-  color: ${globalThemeColor};
+  color: ${globalThemeColour};
   text-decoration: none;
   font-size: 1.3rem;
 
@@ -161,5 +211,9 @@ const StyledHeaderLink = styled(Link)`
     font-style: normal;
     font-weight: 900;
     margin-bottom: 0.4rem; /* spacing between first word and remainder of string*/
+  }
+
+  @media ${device.laptop} {
+    display: none;
   }
 `;
