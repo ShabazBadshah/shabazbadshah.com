@@ -38,18 +38,11 @@ Layout.propTypes = {
 
 export default Layout;
 
-const StyledBody = styled.body`
-  min-height: 100%;
-  margin-left: ${headerWidthPx}px;
-  padding: 50px 100px;
-  background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColor : '#FFFFFF')};
-`;
-
 const GlobalStyle = createGlobalStyle`
   body {
     min-height: 100%;
     margin-left: ${headerWidthPx}px;
     padding: 50px 100px;
-    background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColor : '#FFFFFF')};
+    background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColor : '#f9f8f7')};
   }
 `;

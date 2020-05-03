@@ -1,9 +1,11 @@
 import { Link } from 'gatsby';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-import { globalThemeColor, headerWidthPx } from '../../assets/globalStyleConstants.js';
+import { globalThemeColor, darkModeThemeColor, headerWidthPx } from '../../assets/globalStyleConstants.js';
+
+import { globalStateContext } from '../../contextProviders/global-state-context-provider.js';
 
 import SocialMediaLinks from '../social-media-icons/social-media-links.js';
 import NavHamburgerMenuButton from './nav-hamburger-menu-button.js';
@@ -14,7 +16,7 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      isNavDrawerOpen: true,
+      isNavDrawerOpen: false,
     };
 
     this.wordToEmphasize = this.props.headerTitle.substr(0, this.props.headerTitle.indexOf(' '));
@@ -30,23 +32,38 @@ class Header extends Component {
 
   render() {
     return (
-      <StyledHeader isNavDrawerOpen={this.state.isNavDrawerOpen}>
-        {!this.state.isNavDrawerOpen && (
-          <StyledExpandedDesktopHeaderContainer>
-            <StyledNavLink to="/">about</StyledNavLink>
-            <StyledNavLink to="/">work</StyledNavLink>
-            <StyledNavLink to="/">blog</StyledNavLink>
-          </StyledExpandedDesktopHeaderContainer>
+      <globalStateContext.Consumer>
+        {(globalState) => (
+          <StyledHeader isNavDrawerOpen={this.state.isNavDrawerOpen}>
+            <StyledCollapsedDesktopHeaderContainer enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+              <NavHamburgerMenuButton
+                onClickCallback={this.toggleNavDrawer}
+                isNavDrawerOpen={this.state.isNavDrawerOpen}
+              />
+              <DarkModeSwitchButton />
+              <StyledHeaderLink to="/">
+                <span>{this.wordToEmphasize}</span> {this.remainingString}
+              </StyledHeaderLink>
+              <SocialMediaLinks />
+            </StyledCollapsedDesktopHeaderContainer>
+
+            <StyledExpandedDesktopHeaderContainer
+              isNavDrawerOpen={this.state.isNavDrawerOpen}
+              enableDarkMode={globalState.darkMode.isDarkModeEnabled}
+            >
+              <StyledNavLink to="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+                about
+              </StyledNavLink>
+              <StyledNavLink to="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+                work
+              </StyledNavLink>
+              <StyledNavLink to="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+                blog
+              </StyledNavLink>
+            </StyledExpandedDesktopHeaderContainer>
+          </StyledHeader>
         )}
-        <StyledCollapsedDesktopHeaderContainer>
-          <NavHamburgerMenuButton onClickCallback={this.toggleNavDrawer} isNavDrawerOpen={this.state.isNavDrawerOpen} />
-          <DarkModeSwitchButton />
-          <StyledHeaderLink to="/">
-            <span>{this.wordToEmphasize}</span> {this.remainingString}{' '}
-          </StyledHeaderLink>
-          <SocialMediaLinks />
-        </StyledCollapsedDesktopHeaderContainer>
-      </StyledHeader>
+      </globalStateContext.Consumer>
     );
   }
 }
@@ -62,25 +79,46 @@ Header.defaultProps = {
 };
 
 const StyledExpandedDesktopHeaderContainer = styled.div`
-  padding: 30px 0 40px 40px;
-  height: inherit;
-  background-color: ${globalThemeColor};
-  z-index: 1;
+  position: relative;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding-left: 60px;
+
+  width: ${(props) => (props.isNavDrawerOpen ? '100vw' : 0)};
+  opacity: ${(props) => (props.isNavDrawerOpen ? 0.85 : 0)};
+
+  transition: width 0.2s ease-in, opacity 0.2s ease-in;
+
+  background-color: ${(props) => (props.enableDarkMode ? '#2d2d2d' : '#F0F3F5')};
 `;
 
 const StyledNavLink = styled(Link)`
-  color: white;
+  transition: color 0.1s linear;
+  color: ${(props) => (props.enableDarkMode ? '#FFFFFF' : '#2d2d2d')};
   font-size: 4rem;
-  font-weight: bold;
   margin: 10px 0;
   text-decoration: none;
+  width: fit-content;
 
   /* Allow Link anchor tags to take up a single line */
   float: left;
   clear: both;
 
+  &:hover {
+    color: ${globalThemeColor};
+    transition: color 0.1s linear;
+  }
+
   &:first-child {
-    margin-top: 0;
+    margin-top: none;
   }
 `;
 
@@ -94,8 +132,8 @@ const StyledHeader = styled.header`
 `;
 
 const StyledCollapsedDesktopHeaderContainer = styled.div`
-  background-color: ${globalThemeColor};
-  box-shadow: 10px 0 50px 0 rgba(0, 0, 0, 0.15);
+  background-color: ${(props) => (props.enableDarkMode ? '#2d2d2d' : '#FFFFFF')};
+  box-shadow: 10px 0 50px 0 rgba(0, 0, 0, 0.01);
   height: 100%;
   width: ${headerWidthPx}px;
   padding: 40px 0 40px 0;
@@ -105,6 +143,9 @@ const StyledCollapsedDesktopHeaderContainer = styled.div`
 `;
 
 const StyledHeaderLink = styled(Link)`
+  position: relative;
+  bottom: 60px;
+
   /* Display text vertically */
   writing-mode: vertical-lr;
   text-orientation: sideways;
@@ -112,13 +153,13 @@ const StyledHeaderLink = styled(Link)`
 
   align-self: center;
 
-  color: white;
+  color: ${globalThemeColor};
   text-decoration: none;
-  font-size: 2em;
+  font-size: 1.3rem;
 
   & span:first-of-type {
     font-style: normal;
     font-weight: 900;
-    margin-bottom: 0.4em; /* spacing between first word and remainder of string*/
+    margin-bottom: 0.4rem; /* spacing between first word and remainder of string*/
   }
 `;

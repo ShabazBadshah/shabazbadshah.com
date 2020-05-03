@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
-import { Tooltip, OverlayTrigger, Button } from 'react-bootstrap';
+import { globalThemeColour } from '../../assets/globalStyleConstants.js';
 
 import GithubLogo from './github-logo.js';
 import LinkedinLogo from './linkedin-logo.js';
@@ -30,15 +30,15 @@ const SocialMediaLinks = () => {
     <SocialMediaLinksContainer>
       <a target="_blank" href={contactInfo.site.siteMetadata.contactInfo.github}>
         {' '}
-        <GithubLogo colour="#ffffff" />{' '}
+        <GithubLogo colour={globalThemeColour} />
       </a>
 
       <a target="_blank" href={contactInfo.site.siteMetadata.contactInfo.linkedin}>
-        <LinkedinLogo colour="#ffffff" />
+        <LinkedinLogo colour={globalThemeColour} />
       </a>
 
       <a target="_blank" href={`mailto:${contactInfo.site.siteMetadata.contactInfo.email}Subject=Hey%20Shabaz`}>
-        <EmailContactIcon colour="#ffffff" />
+        <EmailContactIcon colour={globalThemeColour} />
       </a>
     </SocialMediaLinksContainer>
   );
