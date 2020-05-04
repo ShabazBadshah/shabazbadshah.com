@@ -35,47 +35,44 @@ export default class Header extends Component {
 
   render() {
     return (
-      <globalStateContext.Consumer>
-        {(globalState) => (
-          <StyledHeader>
-            <StyledCollapsedHeader enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-              <StyledHeaderButtonWrap>
-                <NavHamburgerMenuButton
-                  onClickCallback={this.toggleNavDrawer}
-                  isNavDrawerOpen={this.state.isNavDrawerOpen}
-                />
-                <DarkModeSwitchButton />
-              </StyledHeaderButtonWrap>
-              <StyledHeaderLink to="/">
-                <span>{this.wordToEmphasize}</span> {this.remainingString}
-              </StyledHeaderLink>
-              <SocialMediaLinks enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-            </StyledCollapsedHeader>
+      <StyledHeader>
+        <StyledCollapsedHeader enableDarkMode={this.props.enableDarkMode}>
+          <StyledHeaderButtonWrap>
+            <NavHamburgerMenuButton
+              onClickCallback={this.toggleNavDrawer}
+              isNavDrawerOpen={this.state.isNavDrawerOpen}
+            />
+            <DarkModeSwitchButton />
+          </StyledHeaderButtonWrap>
+          <StyledHeaderLink to="/">
+            <span>{this.wordToEmphasize}</span> {this.remainingString}
+          </StyledHeaderLink>
+          <SocialMediaLinks enableDarkMode={this.props.enableDarkMode} />
+        </StyledCollapsedHeader>
 
-            <StyledHeaderBackgroundBlur isNavDrawerOpen={this.state.isNavDrawerOpen} />
+        <StyledHeaderBackgroundBlur isNavDrawerOpen={this.state.isNavDrawerOpen} />
 
-            {this.state.isNavDrawerOpen && (
-              <StyledExpandedHeader enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-                <StyledNavLink state={{ enableDarkMode: globalState.darkMode.isDarkModeEnabled }} to="/">
-                  about
-                </StyledNavLink>
-                <StyledNavLink state={{ enableDarkMode: globalState.darkMode.isDarkModeEnabled }} to="/">
-                  work
-                </StyledNavLink>
-                <StyledNavLink state={{ enableDarkMode: globalState.darkMode.isDarkModeEnabled }} to="/">
-                  blog
-                </StyledNavLink>
-              </StyledExpandedHeader>
-            )}
-          </StyledHeader>
+        {this.state.isNavDrawerOpen && (
+          <StyledExpandedHeader enableDarkMode={this.props.enableDarkMode}>
+            <StyledNavLink state={{ enableDarkMode: this.props.enableDarkMode }} to="/">
+              about
+            </StyledNavLink>
+            <StyledNavLink state={{ enableDarkMode: this.props.enableDarkMode }} to="/">
+              work
+            </StyledNavLink>
+            <StyledNavLink state={{ enableDarkMode: this.props.enableDarkMode }} to="/">
+              blog
+            </StyledNavLink>
+          </StyledExpandedHeader>
         )}
-      </globalStateContext.Consumer>
+      </StyledHeader>
     );
   }
 }
 
 Header.propTypes = {
   headerTitle: PropTypes.string,
+  enableDarkMode: PropTypes.bool.isRequired,
 };
 
 Header.defaultProps = {

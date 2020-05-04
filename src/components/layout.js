@@ -13,13 +13,13 @@ import { globalStateContext } from '../contextProviders/global-state-context-pro
 import Header from './header/header.js';
 import GithubLogo from './social-media-icons/github-logo.js';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, pageTitle }) => {
   return (
     <globalStateContext.Consumer>
       {(globalState) => (
         <React.Fragment>
           <GlobalStyle enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-          <Header headerTitle="shabaz badshah" />
+          <Header headerTitle={pageTitle} enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
           <main>{children}</main>
         </React.Fragment>
       )}
@@ -29,6 +29,7 @@ const Layout = ({ children }) => {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  pageTitle: PropTypes.string,
 };
 
 export default Layout;
