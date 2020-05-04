@@ -2,7 +2,7 @@
   "name": "shabazbadshah.github.io",
   "private": true,
   "description": "My personal blog/portfolio site migrated to Gatsby",
-  "version": "0.1.0",
+  "version": "4.0.0",
   "author": "Shabaz Badshah <badshah.shabaz@gmail.com>",
   "dependencies": {
     "bootstrap": "^4.4.1",

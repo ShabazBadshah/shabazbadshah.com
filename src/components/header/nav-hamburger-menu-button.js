@@ -4,13 +4,11 @@ import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
 import bounceOut from 'react-animations';
 
-import { device } from '../../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
 
-import { globalThemeColour } from '../../assets/globalStyleConstants.js';
-import zoomIn from 'react-animations/lib/zoom-in';
-import bounceIn from 'react-animations/lib/bounce-in';
+import { globalThemeColour } from '../../assets/global-style-constants.js';
 
-export const NavHamburgerMenuButton = ({ onClickCallback, isNavDrawerOpen }) =>
+const NavHamburgerMenuButton = ({ onClickCallback, isNavDrawerOpen }) =>
   isNavDrawerOpen ? (
     <NavHamburgerMenuButtonContainer
       xmlns="http://www.w3.org/2000/svg"
@@ -62,8 +60,8 @@ const NavHamburgerMenuButtonContainer = styled.svg`
     transition: all 0.1s ease-in-out;
   }
 
-  @media ${device.laptop} {
+  @media ${deviceMaxWidth.laptop} {
     margin-top: 0;
-    margin-right: 15px;
+    margin-right: 10px;
   }
 `;

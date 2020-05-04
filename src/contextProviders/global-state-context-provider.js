@@ -4,9 +4,10 @@ export const globalStateContext = React.createContext();
 
 const GlobalStateContextProvider = (props) => {
   const IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY = 'isDarkModeEnabled';
+  const IS_DARK_MODE_ENABLED_DEFAULT = false;
 
   const [isDarkModeEnabled, __toggleDarkMode] = useState(
-    JSON.parse(true || localStorage.getItem(IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY))
+    JSON.parse(IS_DARK_MODE_ENABLED_DEFAULT || localStorage.getItem(IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY))
   );
 
   const globalState = {

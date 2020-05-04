@@ -1,4 +1,4 @@
-export const device = {
+export const deviceMaxWidth = {
   mobileS: `(max-width: 320px)`,
   mobileM: `(max-width: 375px)`,
   mobileL: `(max-width: 425px)`,

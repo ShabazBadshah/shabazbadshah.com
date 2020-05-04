@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { device } from '../../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
-import { globalThemeColour } from '../../assets/globalStyleConstants.js';
+import { globalThemeColour } from '../../assets/global-style-constants.js';
 
 import GithubLogo from './github-logo.js';
 import LinkedinLogo from './linkedin-logo.js';
@@ -61,7 +61,7 @@ const SocialMediaLinksContainer = styled.div`
     margin-top: 30px;
   }
 
-  @media ${device.laptop} {
+  @media ${deviceMaxWidth.laptop} {
     position: fixed;
     flex-direction: row;
     justify-content: center;
@@ -71,8 +71,8 @@ const SocialMediaLinksContainer = styled.div`
     box-shadow: 10px 0 50px 0 rgba(0, 0, 0, 0.05);
     background-color: ${(props) => (props.enableDarkMode ? '#2d2d2d' : '#FFFFFF')};
     bottom: unset;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     padding: 10px 10px 8px 10px;
     z-index: 1;
 
