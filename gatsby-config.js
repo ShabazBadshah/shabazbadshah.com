@@ -29,7 +29,7 @@ module.exports = {
         background_color: `#FFFFFF`,
         theme_color: `#008CFF`,
         display: `minimal-ui`,
-        icon: `static/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `static/favicon.svg`, // This path is relative to the root of the site.
         theme_color_in_head: false, // This will avoid adding theme-color meta tag.
       },
     },
