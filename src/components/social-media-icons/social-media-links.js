@@ -1,6 +1,5 @@
-import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
@@ -30,16 +29,20 @@ const SocialMediaLinks = ({ enableDarkMode }) => {
 
   return (
     <SocialMediaLinksContainer enableDarkMode={enableDarkMode}>
-      <a target="_blank" href={contactInfo.site.siteMetadata.contactInfo.github}>
+      <a target="_blank" rel="noopener noreferrer" href={contactInfo.site.siteMetadata.contactInfo.github}>
         {' '}
         <GithubLogo colour={globalThemeColour} />
       </a>
 
-      <a target="_blank" href={contactInfo.site.siteMetadata.contactInfo.linkedin}>
+      <a target="_blank" rel="noopener noreferrer" href={contactInfo.site.siteMetadata.contactInfo.linkedin}>
         <LinkedinLogo colour={globalThemeColour} />
       </a>
 
-      <a target="_blank" href={`mailto:${contactInfo.site.siteMetadata.contactInfo.email}Subject=Hey%20Shabaz`}>
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={`mailto:${contactInfo.site.siteMetadata.contactInfo.email}Subject=Hey%20Shabaz`}
+      >
         <EmailContactIcon colour={globalThemeColour} />
       </a>
     </SocialMediaLinksContainer>
@@ -47,6 +50,14 @@ const SocialMediaLinks = ({ enableDarkMode }) => {
 };
 
 export default SocialMediaLinks;
+
+SocialMediaLinks.propTypes = {
+  enableDarkMode: PropTypes.bool,
+};
+
+SocialMediaLinks.defaultProps = {
+  enableDarkMode: false,
+};
 
 const SocialMediaLinksContainer = styled.div`
   display: flex;
@@ -61,8 +72,8 @@ const SocialMediaLinksContainer = styled.div`
     margin-top: 30px;
   }
 
-  @media ${deviceMaxWidth.laptop} {
-    position: fixed;
+  @media ${deviceMaxWidth.tablet} {
+    position: static;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -71,8 +82,6 @@ const SocialMediaLinksContainer = styled.div`
     box-shadow: 10px 0 50px 0 rgba(0, 0, 0, 0.05);
     background-color: ${(props) => (props.enableDarkMode ? '#2d2d2d' : '#FFFFFF')};
     bottom: unset;
-    top: 15px;
-    right: 15px;
     padding: 10px 10px 8px 10px;
     z-index: 1;
 

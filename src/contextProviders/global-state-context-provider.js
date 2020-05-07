@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const globalStateContext = React.createContext();
 

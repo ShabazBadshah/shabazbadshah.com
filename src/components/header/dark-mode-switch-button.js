@@ -1,8 +1,5 @@
-import { Link } from 'gatsby';
-import React, { Component, useContext } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-
-import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
 
 import { globalThemeColour } from '../../assets/global-style-constants.js';
 import { globalStateContext } from '../../contextProviders/global-state-context-provider.js';

@@ -8,13 +8,11 @@ import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
 
 import { globalThemeColour, darkModeThemeColour, headerWidthPx } from '../../assets/global-style-constants.js';
 
-import { globalStateContext } from '../../contextProviders/global-state-context-provider.js';
-
 import SocialMediaLinks from '../social-media-icons/social-media-links.js';
 import NavHamburgerMenuButton from './nav-hamburger-menu-button.js';
 import DarkModeSwitchButton from './dark-mode-switch-button.js';
 
-export default class Header extends Component {
+class Header extends Component {
   constructor(props) {
     super(props);
 
@@ -35,7 +33,7 @@ export default class Header extends Component {
 
   render() {
     return (
-      <StyledHeader>
+      <StyledHeader enableDarkMode={this.props.enableDarkMode}>
         <StyledCollapsedHeader enableDarkMode={this.props.enableDarkMode}>
           <StyledHeaderButtonWrap>
             <NavHamburgerMenuButton
@@ -70,6 +68,8 @@ export default class Header extends Component {
   }
 }
 
+export default Header;
+
 Header.propTypes = {
   headerTitle: PropTypes.string,
   enableDarkMode: PropTypes.bool.isRequired,
@@ -86,6 +86,12 @@ const StyledHeader = styled.header`
   bottom: 0;
 
   display: flex;
+
+  @media ${deviceMaxWidth.tablet} {
+    right: 0;
+    flex-direction: row;
+    bottom: unset;
+  }
 `;
 
 const StyledHeaderButtonWrap = styled.div`
@@ -98,11 +104,10 @@ const StyledHeaderButtonWrap = styled.div`
   flex-direction: column-reverse;
   align-items: flex-end;
 
-  @media ${deviceMaxWidth.laptop} {
+  @media ${deviceMaxWidth.tablet} {
+    position: static;
     flex-direction: row;
-    align-items: flex-start;
-    top: 15px;
-    left: 15px;
+    align-items: center;
   }
 `;
 
@@ -128,10 +133,18 @@ const StyledCollapsedHeader = styled.div`
   background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : 'white')};
   box-shadow: 10px 0 50px 0 rgba(0, 0, 0, 0.01);
 
-  @media ${deviceMaxWidth.laptop} {
-    display: block;
-    width: 0;
-    padding: 0;
+  @media ${deviceMaxWidth.tablet} {
+    right: 0;
+    bottom: unset;
+
+    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+
+    padding: 10px;
+
+    background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : 'white')};
+    box-shadow: 10px 0 50px 0 rgba(0, 0, 0, 0.01);
   }
 `;
 
@@ -150,14 +163,14 @@ const StyledExpandedHeader = styled.div`
 
   border-radius: 3px;
   background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : 'white')};
-  border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : `1px #f5f5f5 solid`)};
+  border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : '1px #f5f5f5 solid')};
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.04), 0 1px 3px 1px rgba(60, 64, 67, 0.16);
 
   animation: ${keyframes`${bounceIn}`} 700ms ease-in-out;
   transform-origin: left top;
 
-  @media ${deviceMaxWidth.laptop} {
-    top: 63px;
+  @media ${deviceMaxWidth.tablet} {
+    top: 55px;
     left: 40px;
     padding: 30px;
   }
@@ -212,7 +225,7 @@ const StyledHeaderLink = styled(Link)`
     margin-bottom: 0.4rem; /* spacing between first word and remainder of string*/
   }
 
-  @media ${deviceMaxWidth.laptop} {
+  @media ${deviceMaxWidth.tablet} {
     display: none;
   }
 `;

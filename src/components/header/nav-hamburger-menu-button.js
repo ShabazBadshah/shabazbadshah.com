@@ -1,8 +1,6 @@
-import { Link } from 'gatsby';
+import React from 'react';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import styled, { keyframes } from 'styled-components';
-import bounceOut from 'react-animations';
+import styled from 'styled-components';
 
 import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
 
@@ -47,6 +45,11 @@ const NavHamburgerMenuButton = ({ onClickCallback, isNavDrawerOpen }) =>
 
 export default NavHamburgerMenuButton;
 
+NavHamburgerMenuButton.propTypes = {
+  onClickCallback: PropTypes.func.isRequired,
+  isNavDrawerOpen: PropTypes.bool.isRequired,
+};
+
 const NavHamburgerMenuButtonContainer = styled.svg`
   z-index: 10;
   margin-top: 10px;
@@ -60,7 +63,7 @@ const NavHamburgerMenuButtonContainer = styled.svg`
     transition: all 0.1s ease-in-out;
   }
 
-  @media ${deviceMaxWidth.laptop} {
+  @media ${deviceMaxWidth.tablet} {
     margin-top: 0;
     margin-right: 10px;
   }

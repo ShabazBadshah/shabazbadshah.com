@@ -7,11 +7,10 @@ import '../assets/base.css';
 
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 
-import { headerWidthPx, darkModeThemeColor } from '../assets/global-style-constants.js';
+import { headerWidthPx } from '../assets/global-style-constants.js';
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 
 import Header from './header/header.js';
-import GithubLogo from './social-media-icons/github-logo.js';
 
 const Layout = ({ children, pageTitle }) => {
   return (
@@ -20,7 +19,7 @@ const Layout = ({ children, pageTitle }) => {
         <React.Fragment>
           <GlobalStyle enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
           <Header headerTitle={pageTitle} enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-          <main>{children}</main>
+          <StyledMain>{children}</StyledMain>
         </React.Fragment>
       )}
     </globalStateContext.Consumer>
@@ -37,15 +36,22 @@ export default Layout;
 const GlobalStyle = createGlobalStyle`
   body {
     min-height: 100%;
+    max-width: 2560px;
     margin-left: ${headerWidthPx}px;
     padding: 50px 100px;
     background-color: ${(props) => (props.enableDarkMode ? '#121212' : '#f9f8f7')};
     color: ${(props) => (props.enableDarkMode ? '#f9f8f7' : '#121212')};
 
-    @media ${deviceMaxWidth.laptop} {
+    @media ${deviceMaxWidth.tablet} {
       margin-left: 0;
       padding: 15px;
-      margin-top: 60px;
+      padding-top: 60px;
     }
+  }
+`;
+
+const StyledMain = styled.main`
+  @media ${deviceMaxWidth.tablet} {
+    padding-top: 20px;
   }
 `;

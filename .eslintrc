@@ -1,9 +1,14 @@
 {
   "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "env": {
     "browser": true,
     "node": true,
-    "es6": true
+    "es6": false
   },
   "rules": {
     "strict": 0,
@@ -27,7 +32,7 @@
         "extensions": [".js", ".jsx"]
       }
     ],
-    "prettier/prettier": ["warn", "error", {
+    "prettier/prettier": ["error", {
      "endOfLine":"auto"
    }]
   },
