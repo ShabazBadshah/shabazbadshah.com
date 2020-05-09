@@ -217,7 +217,7 @@ const StyledHeaderLink = styled(Link)`
 
   color: ${globalThemeColour};
   text-decoration: none;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 
   & span:first-of-type {
     font-style: normal;

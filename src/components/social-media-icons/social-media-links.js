@@ -78,8 +78,8 @@ const SocialMediaLinksContainer = styled.div`
     justify-content: center;
     align-items: center;
     border-radius: 4px;
-    border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : 'none')};
-    box-shadow: 10px 0 50px 0 rgba(0, 0, 0, 0.05);
+    border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : '1px #f5f5f5 solid')};
+    box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.02);
     background-color: ${(props) => (props.enableDarkMode ? '#2d2d2d' : '#FFFFFF')};
     bottom: unset;
     padding: 10px 10px 8px 10px;

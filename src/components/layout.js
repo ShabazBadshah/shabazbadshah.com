@@ -38,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100%;
     max-width: 2560px;
     margin-left: ${headerWidthPx}px;
-    padding: 50px 100px;
+    padding: 50px 80px;
     background-color: ${(props) => (props.enableDarkMode ? '#121212' : '#f9f8f7')};
     color: ${(props) => (props.enableDarkMode ? '#f9f8f7' : '#121212')};
 
