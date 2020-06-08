@@ -54,28 +54,33 @@ const StyledNavigationWrapper = styled.div`
 `;
 
 const StyledHeader = styled.header`
-  position: sticky;
-  top, left, right: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
 
-  padding: 20px 60px;
+  background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
+
+  padding: 15px 60px;
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  @media ${deviceMaxWidth.tablet} {
-    padding: 15px;
+  @media only screen and ${deviceMaxWidth.tablet} {
+    box-shadow: ${(props) =>
+      props.enableDarkMode ? '0 0.6em 3em 0 rgba(0, 0, 0, 0.2)' : '0 0.5em 2em 0 rgba(85, 85, 85, 0.035)'};
+
+    padding: 10px 15px;
   }
 `;
 
 const StyledNavLink = styled(Link)`
   margin: 5px 15px;
 
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
   transition: all 150ms ease-in;
-  color: ${(props) => (props.state.enableDarkMode ? 'white' : darkModeThemeColour)};
+  color: ${(props) => (props.state.enableDarkMode ? '#f9f8f7' : darkModeThemeColour)};
   font-size: 1.2em;
   letter-spacing: 0.1rem;
   text-decoration: none;
@@ -87,8 +92,12 @@ const StyledNavLink = styled(Link)`
     cursor: pointer;
   }
 
-  @media ${deviceMaxWidth.mobileL} {
+  @media only screen and ${deviceMaxWidth.mobileL} {
     margin: 10px;
-    font-size: 1em;
+  }
+
+  @media only screen and ${deviceMaxWidth.mobileS} {
+    margin: 10px;
+    font-size: 1.1em;
   }
 `;

@@ -1,16 +1,26 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
+import { headShake } from 'react-animations';
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
-import { globalThemeColour } from '../assets/global-style-constants.js';
+import Img from 'gatsby-image';
+import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
 
 const SocialMediaLinks = ({ enableDarkMode }) => {
-  const contactInfo = useStaticQuery(graphql`
-    query ContactInfoQuery {
+  const data = useStaticQuery(graphql`
+    query {
+      file(relativePath: { eq: "avatar.jpg" }) {
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+
       site {
         siteMetadata {
           contactInfo {
@@ -24,21 +34,36 @@ const SocialMediaLinks = ({ enableDarkMode }) => {
   `);
 
   return (
-    <SocialMediaLinksContainer enableDarkMode={enableDarkMode}>
-      <a target="_blank" rel="noopener noreferrer" href={contactInfo.site.siteMetadata.contactInfo.github}>
-        <FaGithub color={enableDarkMode ? 'white' : globalThemeColour} size="1.3em" />
-      </a>
-      <a target="_blank" rel="noopener noreferrer" href={contactInfo.site.siteMetadata.contactInfo.linkedin}>
-        <FaLinkedin color={enableDarkMode ? 'white' : globalThemeColour} size="1.4em" />
-      </a>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`mailto:${contactInfo.site.siteMetadata.contactInfo.email}Subject=Hey%20Shabaz`}
-      >
-        <FaEnvelope color={enableDarkMode ? 'white' : globalThemeColour} size="1.2em" />
-      </a>
-    </SocialMediaLinksContainer>
+    <StyledContactCard>
+      <StyledImage fluid={data.file.childImageSharp.fluid} />
+      <StyledCardTitle>Get in touch</StyledCardTitle>
+      <StyledCardSubtitle>Find me online at the places below, or just shoot me an email</StyledCardSubtitle>
+
+      <StyledSocialMediaLinksWrapper>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`mailto:${data.site.siteMetadata.contactInfo.email}Subject=Hey%20Shabaz`}
+        >
+          <StyledSocialMediaLink enableDarkMode={enableDarkMode}>
+            <FaEnvelope color={enableDarkMode ? 'white' : globalThemeColour} size="1.7em" />
+            <StyledSocialMediaLinkText enableDarkMode={enableDarkMode}>Email</StyledSocialMediaLinkText>
+          </StyledSocialMediaLink>
+        </a>
+        <a target="_blank" rel="noopener noreferrer" href={data.site.siteMetadata.contactInfo.github}>
+          <StyledSocialMediaLink enableDarkMode={enableDarkMode}>
+            <FaGithub color={enableDarkMode ? 'white' : globalThemeColour} size="1.7em" />
+            <StyledSocialMediaLinkText enableDarkMode={enableDarkMode}>Github</StyledSocialMediaLinkText>
+          </StyledSocialMediaLink>
+        </a>
+        <a target="_blank" rel="noopener noreferrer" href={data.site.siteMetadata.contactInfo.linkedin}>
+          <StyledSocialMediaLink enableDarkMode={enableDarkMode}>
+            <FaLinkedin color={enableDarkMode ? 'white' : globalThemeColour} size="1.7em" />
+            <StyledSocialMediaLinkText enableDarkMode={enableDarkMode}>LinkedIn</StyledSocialMediaLinkText>
+          </StyledSocialMediaLink>
+        </a>
+      </StyledSocialMediaLinksWrapper>
+    </StyledContactCard>
   );
 };
 
@@ -52,48 +77,81 @@ SocialMediaLinks.defaultProps = {
   enableDarkMode: false,
 };
 
-const SocialMediaLinksContainer = styled.div`
+const StyledSocialMediaLinkText = styled.h3`
+  color: ${(props) => (props.enableDarkMode ? '#f9f8f7' : '#080708')};
+  margin-left: 1rem;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: normal;
+  margin: 0 1rem;
+`;
+
+const StyledCardTitle = styled.h3`
+  font-size: 1.5rem;
+  color: #f9f8f7;
+  margin: 1.5rem 0 1rem 0;
+`;
+
+const StyledCardSubtitle = styled.h4`
+  text-align: center;
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: normal;
+  color: #f9f8f7;
+  line-height: 1.5rem;
+  word-spacing: 0.11rem;
+`;
+
+const StyledSocialMediaLinksWrapper = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin-bottom: 0;
+  width: 100%;
+
+  & a {
+    text-decoration: none;
+  }
+`;
+
+const StyledSocialMediaLink = styled.li`
+  padding: 8px 16px;
+  background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
+  margin: 1rem 0;
+  border-radius: 4px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
-  margin-top: 5px;
-
-  & > *:not(:last-child) {
-    margin-right: 25px;
+  cursor: pointer;
+  &:hover {
+    animation: ${keyframes`${headShake}`} 800ms ease-in-out;
+    box-shadow: 0.5em 0.5em 1.5em 0 rgba(85, 85, 85, 0.3);
   }
 
   &:last-child {
-    margin-right: 15px;
+    margin-bottom: 0;
   }
+`;
 
-  @media ${deviceMaxWidth.tablet} {
-    position: static;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 4px;
-    border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : '1px #f5f5f5 solid')};
-    box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.02);
-    background-color: ${(props) => (props.enableDarkMode ? '#2d2d2d' : 'orange')};
-    bottom: unset;
-    padding: 10px 10px 8px 10px;
-    z-index: 1;
+const StyledImage = styled(Img)`
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+`;
 
-    & > * {
-      margin: 0;
-      margin-right: 20px;
-    }
+const StyledContactCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: ${globalThemeColour};
+  padding: 2em;
+  border-radius: 8px;
+  box-shadow: 0.5em 0.5em 1.5em 0 rgba(85, 85, 85, 0.2);
+  min-width: 300px;
+  margin-right: 3rem;
 
-    & > *:not(:first-child) {
-      margin-top: 0;
-    }
-
-    /* Adjust margin of Linkedin icon  */
-    & > *:last-child {
-      margin-top: 2px;
-      margin-right: 0;
-    }
+  @media only screen and ${deviceMaxWidth.mobileL} {
+    margin: 2rem 1rem 1rem 1rem;
   }
 `;

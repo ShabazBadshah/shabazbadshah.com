@@ -10,6 +10,7 @@ import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 
 import Header from './header/header.js';
+import { darkModeThemeColour } from '../assets/global-style-constants';
 
 const Layout = ({ children, pageTitle }) => {
   return (
@@ -18,7 +19,11 @@ const Layout = ({ children, pageTitle }) => {
         <React.Fragment>
           <GlobalStyle enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
           <Header headerTitle={pageTitle} enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-          <StyledMain>{children}</StyledMain>
+          <StyledMain>
+            <globalStateContext.Provider enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+              {children}
+            </globalStateContext.Provider>
+          </StyledMain>
         </React.Fragment>
       )}
     </globalStateContext.Consumer>
@@ -35,14 +40,21 @@ export default Layout;
 const GlobalStyle = createGlobalStyle`
   body {
     min-height: 100%;
-    max-width: 2560px;
-    background-color: ${(props) => (props.enableDarkMode ? '#121212' : '#f9f8f7')};
-    color: ${(props) => (props.enableDarkMode ? '#f9f8f7' : '#121212')};
+    min-width: 100%;
+    background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
+    color: ${(props) => (props.enableDarkMode ? '#f9f8f7' : '#080708')};
+  }
+
+  ::selection {
+    background: #FAC748;
   }
 `;
 
 const StyledMain = styled.main`
-  @media ${deviceMaxWidth.tablet} {
-    padding-top: 20px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: inherit;
+  padding: 1rem;
+  margin-top: 6rem;
 `;

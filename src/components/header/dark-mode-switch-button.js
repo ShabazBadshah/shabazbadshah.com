@@ -59,9 +59,11 @@ const DarkModeSwitchButtonContainer = styled.svg`
   transition: all 0.1s ease-in-out;
   cursor: pointer;
   user-select: none;
+  border-radius: 50%;
 
   &:hover {
     transform: scale(1.05);
     transition: all 0.1s ease-in-out;
+    box-shadow: 0.5em 0.5em 1.5em 0 rgba(85, 85, 85, 0.1);
   }
 `;
