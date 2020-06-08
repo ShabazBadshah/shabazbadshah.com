@@ -8,13 +8,16 @@ import styled, { keyframes } from 'styled-components';
 import Layout from '../components/layout.js';
 import SEO from '../components/seo.js';
 
-import { globalThemeColour } from '../assets/global-style-constants.js';
 import { headShake, fadeIn } from 'react-animations';
 
+import { globalThemeColour } from '../assets/global-style-constants.js';
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 
 import SocialMediaLinks from '../components/social-media-links.js';
+import LinkButton from '../components/LinkButton.js';
+
+import HighlightedWorksSubsection from '../components/HighlightedWorksSubsection.js';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -34,7 +37,7 @@ const IndexPage = () => {
   return (
     <globalStateContext.Consumer>
       {(globalState) => (
-        <Layout pageTitle="shabaz badshah">
+        <Layout>
           <SEO title="Home" />
           <StyledHeroSection>
             <SocialMediaLinks enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
@@ -46,13 +49,15 @@ const IndexPage = () => {
               <StyledParagraph>
                 I'm a{' '}
                 <StyledAnchorLink href={data.site.siteMetadata.contactInfo.linkedin}>Product Manager</StyledAnchorLink>
-                &nbsp;who develops Fullstack web experiences during his downtime. This site catalogs everything I learn,
-                find interesting, or anything cool I'm{' '}
+                &nbsp;who develops Fullstack web experiences during his downtime. This site catalogs things I learn,
+                find interesting, want to share, or anything cool I'm{' '}
                 <StyledAnchorLink href={data.site.siteMetadata.contactInfo.github}>creating</StyledAnchorLink>. There's
                 no ads or distractions here.
               </StyledParagraph>
+              <LinkButton text="my work" linkToMoveTo="/404" enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
             </StyledGreeting>
           </StyledHeroSection>
+          <HighlightedWorksSubsection />
         </Layout>
       )}
     </globalStateContext.Consumer>
@@ -80,7 +85,7 @@ const StyledAnchorLink = styled.a`
 
   color: ${globalThemeColour};
   text-decoration: underline;
-  text-underline-offset: 0.15em;
+  text-underline-offset: 0.15rem;
   cursor: pointer;
 
   &:hover {
@@ -94,9 +99,9 @@ const StyledH2 = styled.h2`
 `;
 
 const StyledParagraph = styled.p`
-  font-size: 1.3em;
+  font-size: 1.3rem;
   line-height: 1.6;
-  word-spacing: 0.1em;
+  word-spacing: 0.1rem;
   margin: 0;
 `;
 
@@ -109,7 +114,7 @@ const StyledH1 = styled.h1`
 
 const StyledHeroSection = styled.div`
   display: flex;
-  margin-top: 4rem;
+  margin: 4rem 0;
   max-width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;
 
@@ -120,6 +125,6 @@ const StyledHeroSection = styled.div`
   @media only screen and ${deviceMaxWidth.mobileL} {
     flex-direction: column-reverse;
     align-items: center;
-    margin-top: 1rem;
+    margin: 1rem 0;
   }
 `;

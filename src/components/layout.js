@@ -12,13 +12,13 @@ import { globalStateContext } from '../contextProviders/global-state-context-pro
 import Header from './header/header.js';
 import { darkModeThemeColour } from '../assets/global-style-constants';
 
-const Layout = ({ children, pageTitle }) => {
+const Layout = ({ children }) => {
   return (
     <globalStateContext.Consumer>
       {(globalState) => (
         <React.Fragment>
           <GlobalStyle enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-          <Header headerTitle={pageTitle} enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
+          <Header enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
           <StyledMain>
             <globalStateContext.Provider enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
               {children}
@@ -32,7 +32,6 @@ const Layout = ({ children, pageTitle }) => {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  pageTitle: PropTypes.string,
 };
 
 export default Layout;

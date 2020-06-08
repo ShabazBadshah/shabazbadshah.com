@@ -149,7 +149,7 @@ const StyledContactCard = styled.div`
   border-radius: 8px;
   box-shadow: 0.5em 0.5em 1.5em 0 rgba(85, 85, 85, 0.2);
   min-width: 300px;
-  margin-right: 3rem;
+  margin-right: 5rem;
 
   @media only screen and ${deviceMaxWidth.mobileL} {
     margin: 2rem 1rem 1rem 1rem;

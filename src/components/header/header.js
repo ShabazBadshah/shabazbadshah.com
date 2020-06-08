@@ -17,11 +17,9 @@ const Header = ({ enableDarkMode }) => {
 
   return (
     <StyledHeader enableDarkMode={enableDarkMode}>
-      <div>
-        <a href="/">
-          <Logo colour={globalThemeColour} />
-        </a>
-      </div>
+      <a href="/">
+        <Logo colour={globalThemeColour} />
+      </a>
       <StyledNavigationWrapper enableDarkMode={enableDarkMode}>
         <StyledNavLink state={{ enableDarkMode }} activeStyle={activeNavItemStyle} to="/">
           about
@@ -71,7 +69,7 @@ const StyledHeader = styled.header`
   align-items: center;
 
   animation: ${keyframes`${fadeIn}`} 300ms ease-in;
-  \ @media only screen and ${deviceMaxWidth.tablet} {
+  @media only screen and ${deviceMaxWidth.tablet} {
     box-shadow: ${(props) =>
       props.enableDarkMode ? '0 0.6em 3em 0 rgba(0, 0, 0, 0.2)' : '0 0.5em 2em 0 rgba(85, 85, 85, 0.035)'};
 
