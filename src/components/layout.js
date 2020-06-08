@@ -39,7 +39,6 @@ export default Layout;
 
 const GlobalStyle = createGlobalStyle`
   body {
-    min-height: 100%;
     min-width: 100%;
     background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
     color: ${(props) => (props.enableDarkMode ? '#f9f8f7' : '#080708')};

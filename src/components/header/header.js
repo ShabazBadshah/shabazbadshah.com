@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'gatsby';
+
+import { fadeIn } from 'react-animations';
 
 import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
 
@@ -68,7 +70,8 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  @media only screen and ${deviceMaxWidth.tablet} {
+  animation: ${keyframes`${fadeIn}`} 300ms ease-in;
+  \ @media only screen and ${deviceMaxWidth.tablet} {
     box-shadow: ${(props) =>
       props.enableDarkMode ? '0 0.6em 3em 0 rgba(0, 0, 0, 0.2)' : '0 0.5em 2em 0 rgba(85, 85, 85, 0.035)'};
 

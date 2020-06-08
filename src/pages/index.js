@@ -9,7 +9,7 @@ import Layout from '../components/layout.js';
 import SEO from '../components/seo.js';
 
 import { globalThemeColour } from '../assets/global-style-constants.js';
-import { headShake, fadeInLeft } from 'react-animations';
+import { headShake, fadeIn } from 'react-animations';
 
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
@@ -111,7 +111,7 @@ const StyledHeroSection = styled.div`
   display: flex;
   margin-top: 4rem;
   max-width: 1024px;
-  animation: ${keyframes`${fadeInLeft}`} 250ms ease-in-out;
+  animation: ${keyframes`${fadeIn}`} 400ms ease-in;
 
   @media only screen and ${deviceMaxWidth.laptop} {
     max-width: 800px;
