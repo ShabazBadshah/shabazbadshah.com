@@ -1,77 +1,46 @@
-import { Link } from 'gatsby';
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
-import { useStaticQuery, graphql } from 'gatsby';
-import { bounceIn } from 'react-animations';
+import styled from 'styled-components';
+import { Link } from 'gatsby';
 
 import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
 
-import { globalThemeColour, darkModeThemeColour, headerWidthPx } from '../../assets/global-style-constants.js';
+import { globalThemeColour, darkModeThemeColour } from '../../assets/global-style-constants.js';
 
-import SocialMediaLinks from '../social-media-links.js';
-import NavHamburgerMenuButton from './nav-hamburger-menu-button.js';
 import DarkModeSwitchButton from './dark-mode-switch-button.js';
 import Logo from './logo.js';
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
+const Header = ({ enableDarkMode }) => {
+  const activeNavItemStyle = { color: globalThemeColour, fontWeight: 'bolder' };
 
-    this.state = {
-      isNavDrawerOpen: false,
-      currentlySelectedItem: 'about',
-    };
-  }
-
-  toggleNavDrawer = () => {
-    this.setState({ isNavDrawerOpen: !this.state.isNavDrawerOpen });
-  };
-
-  render() {
-    return (
-      <StyledHeader enableDarkMode={this.props.enableDarkMode}>
+  return (
+    <StyledHeader enableDarkMode={enableDarkMode}>
+      <div>
         <a href="/">
           <Logo colour={globalThemeColour} />
         </a>
-        <StyledNavigationWrapper enableDarkMode={this.props.enableDarkMode}>
-          <StyledNavLink
-            state={{ enableDarkMode: this.props.enableDarkMode }}
-            activeStyle={{ color: globalThemeColour, fontWeight: 'bolder' }}
-            to="/"
-          >
-            about
-          </StyledNavLink>
-          <StyledNavLink
-            state={{ enableDarkMode: this.props.enableDarkMode }}
-            activeStyle={{ color: globalThemeColour }}
-            to="/work"
-          >
-            work
-          </StyledNavLink>
-          <StyledNavLink
-            state={{ enableDarkMode: this.props.enableDarkMode }}
-            activeStyle={{ color: globalThemeColour }}
-            to="/blog"
-          >
-            blog
-          </StyledNavLink>
-          <DarkModeSwitchButton />
-        </StyledNavigationWrapper>
-      </StyledHeader>
-    );
-  }
-}
+      </div>
+      <StyledNavigationWrapper enableDarkMode={enableDarkMode}>
+        <StyledNavLink state={{ enableDarkMode }} activeStyle={activeNavItemStyle} to="/">
+          about
+        </StyledNavLink>
+        <StyledNavLink state={{ enableDarkMode }} activeStyle={activeNavItemStyle} to="/work">
+          work
+        </StyledNavLink>
+        <StyledNavLink state={{ enableDarkMode }} activeStyle={activeNavItemStyle} to="/blog">
+          blog
+        </StyledNavLink>
+        <DarkModeSwitchButton />
+      </StyledNavigationWrapper>
+    </StyledHeader>
+  );
+};
 
 export default Header;
 
 Header.propTypes = {
-  headerTitle: PropTypes.string,
+  // enableDarkMode default prop set in global-state-context-provider
   enableDarkMode: PropTypes.bool.isRequired,
-};
-
-Header.defaultProps = {
-  headerTitle: 'shabaz badshah',
 };
 
 const StyledNavigationWrapper = styled.div`
@@ -86,9 +55,7 @@ const StyledNavigationWrapper = styled.div`
 
 const StyledHeader = styled.header`
   position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
+  top, left, right: 0;
 
   padding: 20px 60px;
 
@@ -123,19 +90,5 @@ const StyledNavLink = styled(Link)`
   @media ${deviceMaxWidth.mobileL} {
     margin: 10px;
     font-size: 1em;
-  }
-`;
-
-const StyledHeaderLink = styled(Link)`
-  align-self: center;
-
-  color: ${globalThemeColour};
-  text-decoration: none;
-  font-size: 1.1rem;
-
-  & span:first-of-type {
-    font-style: normal;
-    font-weight: 900;
-    margin-bottom: 0.4rem; /* spacing between first word and remainder of string*/
   }
 `;

@@ -7,7 +7,6 @@ import '../assets/base.css';
 
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 
-import { headerWidthPx } from '../assets/global-style-constants.js';
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 
 import Header from './header/header.js';
