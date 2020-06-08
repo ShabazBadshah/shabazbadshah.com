@@ -14,8 +14,8 @@ const DarkModeSwitchButton = () => {
               // Sun icon
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 41 41"
-              width="40"
-              height="40"
+              width="35"
+              height="35"
               onClick={() => globalState.darkMode.toggleDarkMode()}
               style={{ transform: 'rotate(259deg)' }}
             >
@@ -33,8 +33,8 @@ const DarkModeSwitchButton = () => {
               // Moon Icon
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 41 41"
-              width="40"
-              height="40"
+              width="35"
+              height="35"
               onClick={() => globalState.darkMode.toggleDarkMode()}
             >
               <g transform="translate(-32 -197)">
@@ -56,10 +56,9 @@ const DarkModeSwitchButton = () => {
 export default DarkModeSwitchButton;
 
 const DarkModeSwitchButtonContainer = styled.svg`
-  z-index: 0;
-
   transition: all 0.1s ease-in-out;
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     transform: scale(1.05);

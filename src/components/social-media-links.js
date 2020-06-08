@@ -1,16 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'styled-components';
-
-import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 import { useStaticQuery, graphql } from 'gatsby';
 
-import { globalThemeColour } from '../../assets/global-style-constants.js';
-
-import GithubLogo from './github-logo.js';
-import LinkedinLogo from './linkedin-logo.js';
-import EmailContactIcon from './email-contact-icon.js';
+import { deviceMaxWidth } from '../../static/media-query-sizes.js';
+import { globalThemeColour } from '../assets/global-style-constants.js';
 
 const SocialMediaLinks = ({ enableDarkMode }) => {
   const contactInfo = useStaticQuery(graphql`
@@ -30,20 +26,17 @@ const SocialMediaLinks = ({ enableDarkMode }) => {
   return (
     <SocialMediaLinksContainer enableDarkMode={enableDarkMode}>
       <a target="_blank" rel="noopener noreferrer" href={contactInfo.site.siteMetadata.contactInfo.github}>
-        {' '}
-        <GithubLogo colour={globalThemeColour} />
+        <FaGithub color={enableDarkMode ? 'white' : globalThemeColour} size="1.3em" />
       </a>
-
       <a target="_blank" rel="noopener noreferrer" href={contactInfo.site.siteMetadata.contactInfo.linkedin}>
-        <LinkedinLogo colour={globalThemeColour} />
+        <FaLinkedin color={enableDarkMode ? 'white' : globalThemeColour} size="1.4em" />
       </a>
-
       <a
         target="_blank"
         rel="noopener noreferrer"
         href={`mailto:${contactInfo.site.siteMetadata.contactInfo.email}Subject=Hey%20Shabaz`}
       >
-        <EmailContactIcon colour={globalThemeColour} />
+        <FaEnvelope color={enableDarkMode ? 'white' : globalThemeColour} size="1.2em" />
       </a>
     </SocialMediaLinksContainer>
   );
@@ -61,15 +54,18 @@ SocialMediaLinks.defaultProps = {
 
 const SocialMediaLinksContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-self: center;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
-  /* Align links to bottom of header */
-  position: absolute;
-  bottom: 40px;
+  margin-top: 5px;
 
-  & > *:not(:first-child) {
-    margin-top: 30px;
+  & > *:not(:last-child) {
+    margin-right: 25px;
+  }
+
+  &:last-child {
+    margin-right: 15px;
   }
 
   @media ${deviceMaxWidth.tablet} {
@@ -80,7 +76,7 @@ const SocialMediaLinksContainer = styled.div`
     border-radius: 4px;
     border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : '1px #f5f5f5 solid')};
     box-shadow: 5px 0 5px 0 rgba(0, 0, 0, 0.02);
-    background-color: ${(props) => (props.enableDarkMode ? '#2d2d2d' : '#FFFFFF')};
+    background-color: ${(props) => (props.enableDarkMode ? '#2d2d2d' : 'orange')};
     bottom: unset;
     padding: 10px 10px 8px 10px;
     z-index: 1;
