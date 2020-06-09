@@ -10,7 +10,7 @@ import SEO from '../components/seo.js';
 
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
-import LinkButton from '../components/LinkButton.js';
+import LinkButton from '../components/link-button.js';
 
 const NotFoundPage = () => {
   return (

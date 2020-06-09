@@ -5,8 +5,6 @@ import styled, { createGlobalStyle } from 'styled-components';
 import '../../static/normalize.css';
 import '../assets/base.css';
 
-import { deviceMaxWidth } from '../../static/media-query-sizes.js';
-
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 
 import Header from './header/header.js';
@@ -19,11 +17,7 @@ const Layout = ({ children }) => {
         <React.Fragment>
           <GlobalStyle enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
           <Header enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-          <StyledMain>
-            <globalStateContext.Provider enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-              {children}
-            </globalStateContext.Provider>
-          </StyledMain>
+          <StyledMain>{children}</StyledMain>
         </React.Fragment>
       )}
     </globalStateContext.Consumer>

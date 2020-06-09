@@ -15,9 +15,7 @@ import { globalStateContext } from '../contextProviders/global-state-context-pro
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 
 import SocialMediaLinks from '../components/social-media-links.js';
-import LinkButton from '../components/LinkButton.js';
-
-import HighlightedWorksSubsection from '../components/HighlightedWorksSubsection.js';
+import LinkButton from '../components/link-button.js';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -54,10 +52,20 @@ const IndexPage = () => {
                 <StyledAnchorLink href={data.site.siteMetadata.contactInfo.github}>creating</StyledAnchorLink>. There's
                 no ads or distractions here.
               </StyledParagraph>
-              <LinkButton text="my work" linkToMoveTo="/404" enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
+              <StyledRow>
+                <LinkButton
+                  text="see my work"
+                  linkToMoveTo="/404/"
+                  enableDarkMode={globalState.darkMode.isDarkModeEnabled}
+                />
+                <LinkButton
+                  text="read the blog"
+                  linkToMoveTo="/404/"
+                  enableDarkMode={globalState.darkMode.isDarkModeEnabled}
+                />
+              </StyledRow>
             </StyledGreeting>
-          </StyledHeroSection>
-          <HighlightedWorksSubsection />
+          </StyledHeroSection>{' '}
         </Layout>
       )}
     </globalStateContext.Consumer>
@@ -69,6 +77,14 @@ export default IndexPage;
 const StyledEmoji = styled.span`
   font-size: 1.4em;
 `;
+
+const StyledRow = styled.div`
+   display: flex;
+   flex-direction: row;
+
+   @media ${deviceMaxWidth.tablet} {
+     flex-direction: column;
+ `;
 
 const StyledGreeting = styled.div`
   display: flex;
@@ -102,13 +118,13 @@ const StyledParagraph = styled.p`
   font-size: 1.3rem;
   line-height: 1.6;
   word-spacing: 0.1rem;
-  margin: 0;
+  margin: 0 0 1rem 0;
 `;
 
 const StyledH1 = styled.h1`
-  margin: 40px 0;
+  margin: 2rem 0;
   font-family: 'Times New Roman', Times, serif;
-  font-size: 4em;
+  font-size: 5em;
   font-weight: bold;
 `;
 
