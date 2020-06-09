@@ -1,9 +1,9 @@
 ---
-path: "post-one"
+path: "what-are-stacks"
 date: "2018-04-12"
-title: "Post One"
+title: "An Intro to the Stacks Data Structure"
 blurb: "Pariatur irure eu consectetur eu deserunt amet nulla sint ea laboris aliqua nisi. Culpa minim deserunt esse elit ex voluptate. Exercitation nisi irure Lorem mollit. Elit reprehenderit anim incididunt sint occaecat sint in nisi. Est dolore sit aliqua commodo irure enim."
-tags: ['lorem', 'ipsum', 'dolor']
+tags: ['data structure', 'programming', 'notes']
 ---
 Quis duis aute eiusmod est officia do et. Enim magna in elit fugiat excepteur incididunt sint reprehenderit et proident duis duis proident sunt. Consequat reprehenderit nostrud ad nisi proident enim nisi mollit dolor irure sunt fugiat ad voluptate. Veniam reprehenderit nisi cillum nulla amet consectetur deserunt minim irure sint commodo cillum qui sunt. Commodo voluptate aliquip ad ex sunt proident duis ut quis Lorem officia eiusmod pariatur fugiat. Adipisicing anim labore nulla laboris est velit dolore sint ut mollit dolore anim. Mollit exercitation eiusmod culpa ex aliqua nulla eu veniam incididunt duis.
 

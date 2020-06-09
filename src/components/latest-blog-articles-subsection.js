@@ -40,7 +40,8 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
 
   return (
     <StyledBlogHighlightSection>
-      <StyledH1>Latest Posts</StyledH1>
+      <StyledH1>📚 Latest Posts</StyledH1>
+      <StyledH2>Peruse some of my latest posts below</StyledH2>
       <StyledBlogPostList enableDarkMode={enableDarkMode}>
         {highlightedBlogPosts.blog.edges.map((blogNode, i) => {
           const blogPostData = blogNode.node.childMarkdownRemark.frontmatter;
@@ -170,10 +171,18 @@ const StyledBlogPostList = styled.ul`
 `;
 
 const StyledH1 = styled.h1`
-  margin: 2rem 0;
+  margin: 2rem 0 1rem 0;
   font-family: 'Times New Roman', Times, serif;
   font-size: 4em;
   font-weight: bold;
+`;
+
+const StyledH2 = styled.h2`
+  font-size: 1.2rem;
+  margin: 0 0 2rem 0;
+  font-weight: lighter;
+  font-style: italic;
+  word-spacing: 0.1rem;
 `;
 
 const StyledBlogHighlightSection = styled.div`

@@ -1,16 +1,343 @@
 ---
-path: "post-two"
-date: "2019-04-12"
-title: "Post Two"
+path: "mongodb-101"
+date: "2019-02-25"
+title: "An Intro to NoSQL Document Databases with MongoDB"
 blurb: "Pariatur irure eu consectetur eu deserunt amet nulla sint ea laboris aliqua nisi. Culpa minim deserunt esse elit ex voluptate. Exercitation nisi irure Lorem mollit. Elit reprehenderit anim incididunt sint occaecat sint in nisi. Est dolore sit aliqua commodo irure enim."
-tags: ['lorem', 'ipsum', 'dolor']
+tags: ['databases', 'guide', 'nosql']
 ---
-Quis duis aute eiusmod est officia do et. Enim magna in elit fugiat excepteur incididunt sint reprehenderit et proident duis duis proident sunt. Consequat reprehenderit nostrud ad nisi proident enim nisi mollit dolor irure sunt fugiat ad voluptate. Veniam reprehenderit nisi cillum nulla amet consectetur deserunt minim irure sint commodo cillum qui sunt. Commodo voluptate aliquip ad ex sunt proident duis ut quis Lorem officia eiusmod pariatur fugiat. Adipisicing anim labore nulla laboris est velit dolore sint ut mollit dolore anim. Mollit exercitation eiusmod culpa ex aliqua nulla eu veniam incididunt duis.
+## What is MongoDB
 
-Laboris incididunt excepteur excepteur aliquip. Ut cillum irure ex deserunt nostrud sit ex exercitation excepteur. Qui sint occaecat amet anim. Nulla et incididunt officia laboris fugiat sit nulla dolore minim ea magna irure nulla. Voluptate est labore culpa labore dolore ea qui eu. Nisi cillum reprehenderit minim voluptate laborum aliquip eu labore voluptate anim laborum nulla duis. Fugiat excepteur ipsum quis ullamco magna ad labore velit sunt.
+MongoDB is a NoSQL Database, also commonly known as a Non-relational (hence NoSQL) database. MongoDB functions based on collections and documents and exposes a Javascript API that we can use to interact with the database.
 
-In do voluptate aliquip aute duis. Ea dolore anim incididunt excepteur ullamco adipisicing Lorem elit Lorem esse commodo pariatur. Minim labore consectetur laborum ad irure consequat elit do Lorem.
+MongoDB does not support schemas in contrast to its RDBMS alternatives. Data is instead stored in a format very similar to JSON (Javascript Object Notation) where fields can be added dynamically.
 
-Ad nulla laboris veniam fugiat in. Incididunt qui quis deserunt irure occaecat fugiat veniam. Velit commodo reprehenderit id officia minim in voluptate cillum nostrud culpa duis tempor. Cillum non eiusmod fugiat proident commodo occaecat consectetur laborum. Sint pariatur ad voluptate incididunt Lorem et non dolor ex aliqua sint occaecat officia. Deserunt magna irure consequat eiusmod do reprehenderit tempor. Lorem aliquip incididunt nulla adipisicing nisi.
+## MongoDB vs RDBMS
 
-Quis magna sunt est minim ea nisi commodo aute labore veniam anim commodo. Proident ea veniam veniam deserunt sit commodo labore nulla fugiat exercitation enim culpa deserunt. Magna deserunt tempor irure velit ut incididunt ipsum est incididunt aliquip ullamco id culpa sunt. Sunt aliquip nostrud ipsum proident in. Exercitation culpa id tempor laboris eiusmod velit ut duis. Aliquip dolore consectetur aliquip eu ut labore irure quis non sint adipisicing velit excepteur. Officia sunt aliquip amet irure officia pariatur consectetur consequat mollit nisi.
+| RDBMS    | MongoDB         |
+|:---------|:----------------|
+| Database | Database        |
+| Table    | Collection      |
+| Row      | Document        |
+| Field    | Key:Value Pairs |
+
+- MongoDB does not support foreign key constraints
+- MongoDB does not support *Joins*, these are done at the application level
+- There may be inconsistencies of data since data can be repeated between multiple collections
+- MongoDB schemas are dynamic, fields can be added at any time
+- Normalization/De-normalization is not required, set up the schema based on application requirements
+
+### Example Data in PostgreSQL vs MongoDB
+
+#### PostgreSQL Data Representation
+
+![An example table of student's, their courses, and their grades](/blog-assets/student-data-model-postgresql.png "An example table of student's, their courses, and their grades")
+
+#### MongoDB Data Representation
+
+A Student collection which contains two documents of students and their course information
+
+```json
+{
+  "_id": ObjectId("507f1f77bcf86cd799439011"),
+  "studentId": 100,
+  "firstName": "Jonathan",
+  "middleName": "Eli",
+  "lastName": "Tobin",
+  "classes": [
+    {
+      "courseId": "PHY101",
+      "grade": "B",
+      "courseName": "Physics 101",
+      "credits": 3
+    },
+    {
+      "courseId": "BUS101",
+      "grade": "B+",
+      "courseName": "Business 101",
+      "credits": 3
+    }
+  ]
+},
+{
+  "_id": ObjectId("507f191e810c19729de860ea"),
+  "studentId": 101,
+  "firstName": "Meathead",
+  "middleName": "Rob",
+  "lastName": "Lowe",
+  "classes": [
+    {
+      "courseId": "PHY101",
+      "grade": "F",
+      "courseName": "Physics 101",
+      "credits": 3
+    }
+  ]
+}
+```
+
+## MongoDB Database Design and Modelling
+
+MongoDB schemas can be designed in two ways. Since Mongo does not utilize tables to organize data, and does not support joins, we utilize *embedding* and *referencing* to associate documents with other collections.
+
+### Embedding
+
+Embedding is the process where common data that is referenced often is moved into the parent document to reduce additional queries.
+
+In the example above, we could have made the *"classes"* field into its own *classes* collection and queried for both students and all of their classes. Instead of requiring an additional query, we structured our student object to contain the classes associated to the student.
+
+__Embedding Data:__
+
+- Embed data when it will be queried very often
+- Embed data when the fields that are commonly queried are fairly *static* and don't change often
+- Embed data when there is a one-to-one relationship between two pieces of data
+- Can possibly embed data if there exists a one-to-many relationship (referencing can also be used as well)
+- Embedding data reduces the amount of queries required for the database
+
+__Operations on Embedded Data:__:
+
+- Performing insert and update operations on a single document is *atomic*
+- Insert operations are fairly quick
+- Querying operations are very quick
+- Updating operations can be very complex since the data may need to be updated in multiple locations
+  - Data will "eventually" be consistent
+
+### Referencing
+
+Referencing is similar to its RDBMS counterparts where common data can be stored in one location and be linked from multiple different locations.
+
+If we take the student classes example from above and refactor the data model to use reference instead,here is what we would get. Pay attention to the "classes" ObjectId and the "_id" of the class that has been referenced.
+
+```json
+Student Document
+
+{
+  "_id": ObjectId("507f191e810c19729de860ea"),
+  "studentId": 101,
+  "firstName": "Meathead",
+  "middleName": "Rob",
+  "lastName": "Lowe",
+  "classes": [
+    ObjectId("54759eb3c090d83494e2d804")
+  ]
+}
+
+
+Classes Document
+
+{
+  "_id": ObjectId("54759eb3c090d83494e2d804"),
+  "studentId": ObjectId("507f191e810c19729de860ea"),
+  "courseId": "PHY101",
+  "grade": "F",
+  "courseName": "Physics 101",
+  "credits": 3
+}
+```
+
+__Referencing Data:__
+
+- Reference data when there is a one-to-many relationship
+- Reference data when it's important for it to be consistent (i.e. we keep the important data in one place)
+- Reference data that is not often required to be queried; data that is not accessed often
+- If the document size may increase past 16MB, then referencing *must* be used
+
+__Operations on Referenced Data:__:
+
+- Insert operations are very quick
+- Querying operations may be more inefficient then embedding since multiple queries would be required to retrieve data
+- Updating operations would be very quick since you only need to update the data in one location
+
+### Embedding vs Referencing
+
+| Embedding                                         | Referencing                                                                                             |
+|:--------------------------------------------------|:--------------------------------------------------------------------------------------------------------|
+| Better for data that will be accessed often       | Better for data that will not be accessed often                                                         |
+| Use for data that does not change frequently      | Use for data that is required to be consistent across multiple documents and may be used in many places |
+| Querying and inserting data is efficient          | Updating and inserting data is very efficient                                                           |
+| Write operations are atomic at the document level |                                                                                                         |
+
+## Common Design Guidelines
+
+- Don't force relationships on data, MongoDB is not created for relationships between data
+- Try to store data in a single document if possible (i.e. embedding)
+- Design you schema based around how the data will be queried. Structure your data model to be the most performant
+
+## MongoDB Basic Queries
+
+__Creating Collections:__
+
+- Create collection:
+```json
+  db.createCollection("collection_name");
+```
+
+- Create new collection with data:
+```json
+  db.collection_name.insertOne(
+    {},
+    {
+      "key1": "a",
+      "key2": "b"
+    }
+  );
+```
+
+__Dropping Collections:__
+
+- Drop collection: 
+```json
+  db.dropCollection("collection_name");
+```
+
+__Querying Data:__
+
+- Select all: 
+```json
+  db.collection_name.find();
+```
+
+- Select specific keys:
+```json
+  db.collection_name.find(
+    {},
+    {
+      "_id": 0,
+      "key1": 1,
+      "key5": 1
+    }
+  );
+```
+
+- Select all with specific condition:
+```json
+  db.collection_name.find(
+    {
+      "key1": "value"
+    }
+  );
+```
+
+- Select specific keys with specific conditions:
+```json
+  db.collection_name.find(
+    {
+      "key1": "value1"
+    },
+    {
+      "_id": 0,
+      "key1": 1,
+      "key5": 1
+    }
+  );
+```
+
+__Inserting Data:__
+
+- Insert single document: 
+```json
+  db.collection_name.insertOne(
+    {
+      field1: "value",
+      field2: "value1"
+    }
+);
+```
+
+- Insert multiple documents: 
+```json
+  db.collection_name.insertMany(
+    [
+      {field1: "value"},
+      {field2: "value"}
+    ]
+  );
+```
+
+__Updating Data:__
+
+- Update document: 
+```json
+  db.collection_name.save(
+    {
+      "_id": new ObjectId("abc"),
+      field1: "value",
+      field2: "value"
+    }
+  );
+```
+
+- Add key to existing collection: 
+```json
+  db.collection_name.updateMany(
+    {},
+    {
+      $set: {"key1": "a"}
+    }
+  );
+```
+
+- Remove key from existing collection: 
+```json
+  db.collection_name.updateMany(
+    {},
+    {
+      $unset: {"key1": ""}
+    }
+  );
+```
+
+__Deleting Data:__
+
+- Delete data with specific key: 
+```json
+  db.collection_name.deleteOne(
+    {
+      "key1": "value1"
+    }
+  );
+```
+
+- Delete all data with specific key: 
+```json
+  db.collection_name.deleteMany(
+    {
+      "key1": "value1"
+    }
+  );
+```
+
+- Delete everything from collection:
+```json
+  db.collection_name.deleteMany({});
+```
+
+__Other:__
+
+- Count: 
+```json
+  db.collection_name.count();
+```
+
+- Sort with key in ascending order:
+```json
+  db.collection_name.find().sort(
+    {
+      "key": 1
+    }
+  );
+```
+
+- Distinct elements:
+```json
+  db.collection_name.find().distinct();
+```
+
+- Grab first X results:
+```json
+  db.collection_name.find().limit(X);
+```
+
+## Further Reading
+
+- Mongo Best Practice: <https://www.slideshare.net/interviewcoach/mongodb-best-practices>
+- Mongo Schema Design Patterns: <https://dev.to/mrm8488/mongodb-schema-design-patterns-i-4gdp>
