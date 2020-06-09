@@ -95,15 +95,24 @@ const StyledBlogListItemTag = styled.h5`
   font-weight: normal;
   color: ${globalThemeColour};
   font-size: 0.9rem;
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
 
   &:first-child {
     margin-left: 0;
+  }
+
+  @media only screen and ${deviceMaxWidth.mobileL} {
+    margin: 0.3rem 0.3rem 0.3rem 0;
   }
 `;
 
 const StyledTagsWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 
   @media only screen and ${deviceMaxWidth.mobileL} {
     margin: 0.6rem 0 0 0;
@@ -160,7 +169,7 @@ const StyledBlogPostList = styled.ul`
     props.enableDarkMode
       ? '0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.1)'
       : '0.5rem 0.5rem 1.5rem 0 rgba(85, 85, 85, 0.2)'};
-  padding: 2rem 1.2rem;
+  padding: 1.9rem 1rem;
   margin-bottom: 1.5rem;
   border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : 'none')};
 
@@ -188,7 +197,7 @@ const StyledH2 = styled.h2`
 const StyledBlogHighlightSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 4rem 0;
+  margin: 3rem 0;
   width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;
 
@@ -199,7 +208,7 @@ const StyledBlogHighlightSection = styled.div`
 
   @media only screen and ${deviceMaxWidth.mobileL} {
     flex-direction: column;
-    align-items: center;
-    margin: 1rem;
+    align-items: flex-start;
+    margin: 1rem 0;
   }
 `;

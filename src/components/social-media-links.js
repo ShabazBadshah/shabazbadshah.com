@@ -159,6 +159,6 @@ const StyledContactCard = styled.div`
   }
 
   @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 2rem 1rem 1rem 1rem;
+    margin: 2rem 0 0 0;
   }
 `;
