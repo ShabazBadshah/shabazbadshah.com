@@ -17,6 +17,8 @@ import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 import SocialMediaLinks from '../components/social-media-links.js';
 import LinkButton from '../components/link-button.js';
 
+import LatestBlogArticlesSubsection from '../components/latest-blog-articles-subsection.js';
+
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
     query {
@@ -65,7 +67,8 @@ const IndexPage = () => {
                 />
               </StyledRow>
             </StyledGreeting>
-          </StyledHeroSection>{' '}
+          </StyledHeroSection>
+          <LatestBlogArticlesSubsection enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
         </Layout>
       )}
     </globalStateContext.Consumer>
@@ -84,6 +87,12 @@ const StyledRow = styled.div`
 
    @media ${deviceMaxWidth.tablet} {
      flex-direction: column;
+
+    /* Target CTA LinkButton  */
+     & a {
+       width: 98%;
+       margin-right: 0;
+     }
  `;
 
 const StyledGreeting = styled.div`

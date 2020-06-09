@@ -34,7 +34,7 @@ const SocialMediaLinks = ({ enableDarkMode }) => {
   `);
 
   return (
-    <StyledContactCard>
+    <StyledContactCard enableDarkMode={enableDarkMode}>
       <StyledImage fluid={data.file.childImageSharp.fluid} />
       <StyledCardTitle>Get in touch</StyledCardTitle>
       <StyledCardSubtitle>Find me online at the places below, or just shoot me an email</StyledCardSubtitle>
@@ -114,7 +114,7 @@ const StyledSocialMediaLinksWrapper = styled.ul`
 `;
 
 const StyledSocialMediaLink = styled.li`
-  padding: 8px 16px;
+  padding: 0.6rem 1rem;
   background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
   margin: 1rem 0;
   border-radius: 4px;
@@ -147,9 +147,16 @@ const StyledContactCard = styled.div`
   background-color: ${globalThemeColour};
   padding: 2em;
   border-radius: 8px;
-  box-shadow: 0.5em 0.5em 1.5em 0 rgba(85, 85, 85, 0.2);
+  box-shadow: ${(props) =>
+    props.enableDarkMode
+      ? '0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.3)'
+      : '0.5rem 0.5rem 1.5rem 0 rgba(85, 85, 85, 0.2)'};
   min-width: 300px;
   margin-right: 5rem;
+
+  @media only screen and ${deviceMaxWidth.tablet} {
+    margin-right: 3rem;
+  }
 
   @media only screen and ${deviceMaxWidth.mobileL} {
     margin: 2rem 1rem 1rem 1rem;

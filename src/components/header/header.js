@@ -58,6 +58,7 @@ const StyledHeader = styled.header`
   top: 0;
   right: 0;
   left: 0;
+  z-index: 1;
 
   background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
 

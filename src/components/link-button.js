@@ -34,14 +34,14 @@ const StyledLinkButton = styled(Link)`
   display: block;
   width: fit-content;
   text-decoration: none;
-  font-size: 1.5em;
+  font-size: 1.4em;
   background-color: ${globalThemeColour};
   color: #f9f8f7;
   box-shadow: ${(props) =>
     props.state.enableDarkMode
       ? '0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.3)'
       : '0.5rem 0.5rem 1.5rem 0 rgba(85, 85, 85, 0.25)'};
-  padding: 0.6rem 2rem;
+  padding: 0.6rem 1rem;
   border: 2px ${globalThemeColour} solid;
   border-radius: 4px;
   margin: 1rem 2rem 0 0;
@@ -50,7 +50,7 @@ const StyledLinkButton = styled(Link)`
   transition: all 100ms ease-in;
 
   &:hover {
-    border: 2px ${globalThemeColour} solid;
+    border:  ${(props) => (props.state.enableDarkMode ? '2px #f9f8f7 solid' : `2px ${globalThemeColour} solid`)};
     color: ${(props) => (props.state.enableDarkMode ? '#f9f8f7' : globalThemeColour)};
     background-color: ${(props) => (props.state.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
     transform: translateY(-0.2rem);

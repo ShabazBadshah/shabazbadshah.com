@@ -1,7 +1,7 @@
 ---
-path: "post-one"
-date: "2018-04-12"
-title: "Post One"
+path: "post-two"
+date: "2019-04-12"
+title: "Post Two"
 blurb: "Pariatur irure eu consectetur eu deserunt amet nulla sint ea laboris aliqua nisi. Culpa minim deserunt esse elit ex voluptate. Exercitation nisi irure Lorem mollit. Elit reprehenderit anim incididunt sint occaecat sint in nisi. Est dolore sit aliqua commodo irure enim."
 tags: ['lorem', 'ipsum', 'dolor']
 ---
