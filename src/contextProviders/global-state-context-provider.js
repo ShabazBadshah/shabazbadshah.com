@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
-export const globalStateContext = React.createContext();
+const IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY = 'isDarkModeEnabled';
+const IS_DARK_MODE_ENABLED_DEFAULT = false;
+
+// Default state required for Gatsby build to run successfully
+export const globalStateContext = React.createContext({
+  darkMode: {
+    isDarkModeEnabled: IS_DARK_MODE_ENABLED_DEFAULT,
+  },
+});
 
 const GlobalStateContextProvider = (props) => {
-  const IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY = 'isDarkModeEnabled';
-  const IS_DARK_MODE_ENABLED_DEFAULT = false;
-
   const [isDarkModeEnabled, __toggleDarkMode] = useState(
     JSON.parse(IS_DARK_MODE_ENABLED_DEFAULT || localStorage.getItem(IS_DARK_MODE_ENABLED_LOCAL_STORAGE_KEY))
   );
