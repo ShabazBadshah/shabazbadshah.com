@@ -13,11 +13,11 @@ import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 
 import LinkButton from './link-button.js';
 
-const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
+const LatestWorkSubsection = ({ enableDarkMode }) => {
   const highlightedBlogPosts = useStaticQuery(graphql`
     query {
       blog: allFile(
-        filter: { sourceInstanceName: { eq: "blog" } }
+        filter: { sourceInstanceName: { eq: "work" } }
         sort: { fields: childMdx___frontmatter___date, order: DESC }
         limit: 3
       ) {
@@ -39,8 +39,8 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
 
   return (
     <StyledBlogHighlightSection>
-      <StyledH1>📝 Latest Posts</StyledH1>
-      <StyledH2>Peruse some of my latest posts below</StyledH2>
+      <StyledH1>📚 Latest Work</StyledH1>
+      <StyledH2>Some of the things I've built recently</StyledH2>
       <StyledBlogPostList enableDarkMode={enableDarkMode}>
         {highlightedBlogPosts.blog.edges.map((blogNode, i) => {
           const blogPostData = blogNode.node.childMdx.frontmatter;
@@ -61,18 +61,18 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
           );
         })}
       </StyledBlogPostList>
-      <LinkButton text="view all blog posts" linkToMoveTo="/" enableDarkMode={enableDarkMode} />
+      <LinkButton text="view all work" linkToMoveTo="/" enableDarkMode={enableDarkMode} />
     </StyledBlogHighlightSection>
   );
 };
 
-export default LatestBlogArticlesSubsection;
+export default LatestWorkSubsection;
 
-LatestBlogArticlesSubsection.propTypes = {
+LatestWorkSubsection.propTypes = {
   enableDarkMode: PropTypes.bool,
 };
 
-LatestBlogArticlesSubsection.defaultProps = {
+LatestWorkSubsection.defaultProps = {
   enableDarkMode: false,
 };
 
@@ -94,24 +94,15 @@ const StyledBlogListItemTag = styled.h5`
   font-weight: normal;
   color: ${globalThemeColour};
   font-size: 0.9rem;
-  clear: both;
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
 
   &:first-child {
     margin-left: 0;
-  }
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.3rem 0.3rem 0.3rem 0;
   }
 `;
 
 const StyledTagsWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
 
   @media only screen and ${deviceMaxWidth.mobileL} {
     margin: 0.6rem 0 0 0;
@@ -168,7 +159,7 @@ const StyledBlogPostList = styled.ul`
     props.enableDarkMode
       ? '0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.1)'
       : '0.5rem 0.5rem 1.5rem 0 rgba(85, 85, 85, 0.2)'};
-  padding: 1.9rem 1rem;
+  padding: 2rem 1.2rem;
   margin-bottom: 1.5rem;
   border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : 'none')};
 
@@ -196,7 +187,7 @@ const StyledH2 = styled.h2`
 const StyledBlogHighlightSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 0 2rem 0;
+  margin: 2rem 0;
   width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;
 

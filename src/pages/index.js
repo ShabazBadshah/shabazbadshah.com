@@ -18,6 +18,7 @@ import SocialMediaLinks from '../components/social-media-links.js';
 import LinkButton from '../components/link-button.js';
 
 import LatestBlogArticlesSubsection from '../components/latest-blog-articles-subsection.js';
+import LatestWorkSubsection from '../components/latest-work-subsection.js';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -69,6 +70,7 @@ const IndexPage = () => {
             </StyledGreeting>
           </StyledHeroSection>
           <LatestBlogArticlesSubsection enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
+          <LatestWorkSubsection enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
         </Layout>
       )}
     </globalStateContext.Consumer>
@@ -150,6 +152,6 @@ const StyledHeroSection = styled.div`
   @media only screen and ${deviceMaxWidth.mobileL} {
     flex-direction: column-reverse;
     align-items: center;
-    margin: 1rem 0;
+    margin: 0.5rem 0 3rem 0;
   }
 `;
