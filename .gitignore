@@ -1,3 +1,9 @@
+## CUSTOM GITIGNORE ##
+
+audit-reports/
+
+## END CUSTOM GITIGNORE ##
+
 # Logs
 logs
 *.log
