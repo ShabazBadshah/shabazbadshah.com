@@ -10,6 +10,8 @@ import { globalStateContext } from '../contextProviders/global-state-context-pro
 import Header from './header/header.js';
 import { darkModeThemeColour } from '../assets/global-style-constants';
 
+import { deviceMaxWidth } from '../../static/media-query-sizes.js';
+
 const Layout = ({ children }) => {
   return (
     <globalStateContext.Consumer>

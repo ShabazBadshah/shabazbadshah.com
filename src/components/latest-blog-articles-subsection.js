@@ -18,18 +18,17 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
     query {
       blog: allFile(
         filter: { sourceInstanceName: { eq: "blog" } }
-        sort: { fields: childMarkdownRemark___frontmatter___date, order: DESC }
+        sort: { fields: childMdx___frontmatter___date, order: DESC }
         limit: 3
       ) {
         edges {
           node {
-            childMarkdownRemark {
-              id
+            childMdx {
               frontmatter {
                 title
                 path
                 tags
-                date
+                date(formatString: "MMMM Do YYYY")
               }
             }
           }
@@ -44,7 +43,7 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
       <StyledH2>Peruse some of my latest posts below</StyledH2>
       <StyledBlogPostList enableDarkMode={enableDarkMode}>
         {highlightedBlogPosts.blog.edges.map((blogNode, i) => {
-          const blogPostData = blogNode.node.childMarkdownRemark.frontmatter;
+          const blogPostData = blogNode.node.childMdx.frontmatter;
           return (
             <StyledLink to={`/blog/${blogPostData.path}`} key={i}>
               <StyledBlogPostListItem key={i} enableDarkMode={enableDarkMode}>
@@ -197,18 +196,18 @@ const StyledH2 = styled.h2`
 const StyledBlogHighlightSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 3rem 0;
+  margin: 0 0 2rem 0;
   width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;
 
   @media only screen and ${deviceMaxWidth.laptop} {
-    width: unset;
-    max-width: 800px;
+    width: 800px;
+    max-width: 100%;
   }
 
   @media only screen and ${deviceMaxWidth.mobileL} {
     flex-direction: column;
     align-items: flex-start;
-    margin: 1rem 0;
+    margin: 1rem 0 3rem 0;
   }
 `;

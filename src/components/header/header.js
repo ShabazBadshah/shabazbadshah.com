@@ -62,7 +62,7 @@ const StyledHeader = styled.header`
 
   background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
 
-  padding: 15px 60px;
+  padding: 10px 60px;
 
   display: flex;
   flex-direction: row;

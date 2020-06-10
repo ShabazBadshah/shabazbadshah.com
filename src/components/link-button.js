@@ -34,7 +34,7 @@ const StyledLinkButton = styled(Link)`
   display: block;
   width: fit-content;
   text-decoration: none;
-  font-size: 1.4em;
+  font-size: 1.2em;
   background-color: ${globalThemeColour};
   color: #f9f8f7;
   box-shadow: ${(props) =>
