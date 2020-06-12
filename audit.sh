@@ -27,4 +27,5 @@ cd ../..
 printf "\n Audit report saved in audit-reports/$CURR_AUDIT_REPORT_FOLDER"
 printf "\n========== LIGHTHOUSE AUDIT COMPLETE ==========\n\n"
 
+ps au | grep "gatsby" | awk -F" " '{print $2}' | xargs kill -SIGTERM
 NODE_ENV=development
