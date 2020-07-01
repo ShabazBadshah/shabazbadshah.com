@@ -164,11 +164,9 @@ const StyledBlogPostList = styled.ul`
   list-style: none;
   background-color: ${(props) => (props.enableDarkMode ? '#262525' : 'white')};
   border-radius: 8px;
-  box-shadow: ${(props) =>
-    props.enableDarkMode
-      ? '0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.1)'
-      : '0.5rem 0.5rem 1.5rem 0 rgba(85, 85, 85, 0.2)'};
   padding: 1.9rem 1rem;
+  box-shadow: ${(props) =>
+    props.enableDarkMode ? '0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.01)' : '0.5rem 0.5rem 1rem 0 rgba(85, 85, 85, 0.03)'};
   margin-bottom: 1.5rem;
   border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : 'none')};
 

@@ -39,7 +39,7 @@ const Header = ({ enableDarkMode }) => {
 export default Header;
 
 Header.propTypes = {
-  // enableDarkMode default prop set in global-state-context-provider
+  // enableDarkMode default prop set in global-state-context-provider.js
   enableDarkMode: PropTypes.bool.isRequired,
 };
 
@@ -59,7 +59,6 @@ const StyledHeader = styled.header`
   right: 0;
   left: 0;
   z-index: 1;
-
   background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
 
   padding: 10px 60px;
@@ -70,10 +69,9 @@ const StyledHeader = styled.header`
   align-items: center;
 
   animation: ${keyframes`${fadeIn}`} 300ms ease-in;
+  box-shadow: ${(props) =>
+    props.enableDarkMode ? '0 0.6em 3em 0 rgba(0, 0, 0, 0.3)' : '0 0.5em 2em 0 rgba(85, 85, 85, 0.06)'};
   @media only screen and ${deviceMaxWidth.tablet} {
-    box-shadow: ${(props) =>
-      props.enableDarkMode ? '0 0.6em 3em 0 rgba(0, 0, 0, 0.2)' : '0 0.5em 2em 0 rgba(85, 85, 85, 0.035)'};
-
     padding: 10px 15px;
   }
 `;

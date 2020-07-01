@@ -84,18 +84,19 @@ const StyledEmoji = styled.span`
 `;
 
 const StyledRow = styled.div`
-   display: flex;
-   flex-direction: row;
+  display: flex;
+  flex-direction: row;
 
-   @media ${deviceMaxWidth.tablet} {
-     flex-direction: column;
+  @media ${deviceMaxWidth.tablet} {
+    flex-direction: column;
 
     /* Target CTA LinkButton  */
-     & a {
-       width: 98%;
-       margin-right: 0;
-     }
- `;
+    & a {
+      width: 98%;
+      margin-right: 0;
+    }
+  }
+`;
 
 const StyledGreeting = styled.div`
   display: flex;
@@ -135,7 +136,7 @@ const StyledParagraph = styled.p`
 const StyledH1 = styled.h1`
   margin: 2rem 0;
   font-family: 'Times New Roman', Times, serif;
-  font-size: 5em;
+  font-size: 5rem;
   font-weight: bold;
 `;
 

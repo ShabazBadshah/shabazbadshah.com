@@ -125,7 +125,7 @@ const StyledSocialMediaLink = styled.li`
   cursor: pointer;
   &:hover {
     animation: ${keyframes`${headShake}`} 800ms ease-in-out;
-    box-shadow: 0.5em 0.5em 1.5em 0 rgba(85, 85, 85, 0.3);
+    box-shadow: 0.5em 0.5em 1.5em 0 rgba(85, 85, 85, 0.1);
   }
 
   &:last-child {
@@ -148,9 +148,7 @@ const StyledContactCard = styled.div`
   padding: 2em;
   border-radius: 8px;
   box-shadow: ${(props) =>
-    props.enableDarkMode
-      ? '0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.3)'
-      : '0.5rem 0.5rem 1.5rem 0 rgba(85, 85, 85, 0.2)'};
+    props.enableDarkMode ? '0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.02)' : '0.5rem 0.5rem 1rem 0 rgba(85, 85, 85, 0.08)'};
   min-width: 300px;
   margin-right: 5rem;
 

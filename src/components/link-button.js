@@ -32,15 +32,15 @@ export default LinkButton;
 
 const StyledLinkButton = styled(Link)`
   display: block;
-  width: fit-content;
+  width: 50%;
   text-decoration: none;
   font-size: 1.2em;
   background-color: ${globalThemeColour};
   color: #f9f8f7;
   box-shadow: ${(props) =>
     props.state.enableDarkMode
-      ? '0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.3)'
-      : '0.5rem 0.5rem 1.5rem 0 rgba(85, 85, 85, 0.25)'};
+      ? '0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.2)'
+      : '0.5rem 0.5rem 1.5rem 0 rgba(85, 85, 85, 0.12)'};
   padding: 0.6rem 1rem;
   border: 2px ${globalThemeColour} solid;
   border-radius: 4px;
