@@ -58,7 +58,7 @@ const IndexPage = () => {
               <StyledRow>
                 <LinkButton
                   text="see my work"
-                  linkToMoveTo="/404/"
+                  linkToMoveTo="/work/"
                   enableDarkMode={globalState.darkMode.isDarkModeEnabled}
                 />
                 <LinkButton

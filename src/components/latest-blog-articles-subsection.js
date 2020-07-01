@@ -168,7 +168,7 @@ const StyledBlogPostList = styled.ul`
   box-shadow: ${(props) =>
     props.enableDarkMode ? '0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.01)' : '0.5rem 0.5rem 1rem 0 rgba(85, 85, 85, 0.03)'};
   margin-bottom: 1.5rem;
-  border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : 'none')};
+  border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : '1px solid #e1e4e8')};
 
   /* Get the last item in the highlight list and remove bottom margin */
   & a:last-child li {

@@ -25,7 +25,7 @@ const NotFoundPage = () => {
                 "Um.......I swear this page was working on my computer. I'll add this bug to the backlog. Let's forget
                 like this ever happened."
               </StyledParagraph>
-              <LinkButton text="Go Home? 🏠" linkToMoveTo="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
+              <LinkButton text="🏠Go Home?" linkToMoveTo="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
             </Styled404Wrapper>
           </Styled404Section>
         </Layout>

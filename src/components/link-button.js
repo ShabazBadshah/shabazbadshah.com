@@ -32,6 +32,7 @@ export default LinkButton;
 
 const StyledLinkButton = styled(Link)`
   display: block;
+  align-self: center;
   width: 50%;
   text-decoration: none;
   font-size: 1.2em;

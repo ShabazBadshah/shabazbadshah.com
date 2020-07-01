@@ -8,14 +8,15 @@ import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
+import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
+
 import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 
 import { default as workShowcaseData } from '../../content/work-showcase.js';
 
-import LinkButton from './link-button.js';
-
-const AMOUNT_WORK_ITEMS_TO_SHOWCASE = 4;
+import Layout from '../components/layout.js';
+import SEO from '../components/seo.js';
 
 const sortWorkShowCaseItemByDateDesc = (workItemA, workItemB) => {
   const dateA = new Date(workItemA.date);
@@ -29,56 +30,68 @@ const sortWorkShowCaseItemByDateDesc = (workItemA, workItemB) => {
   return 0;
 };
 
-const WorkHighShowcaseSubsection = ({ enableDarkMode }) => {
+const AllWork = () => {
   return (
-    <StyledWorkHighlightSection>
-      <StyledH1>🔎 Selected Works</StyledH1>
-      <StyledH2>Here's some of the the things I've built</StyledH2>
-      <StyledWorkItemList enableDarkMode={enableDarkMode}>
-        {workShowcaseData
-          .filter((workData, i) => i < AMOUNT_WORK_ITEMS_TO_SHOWCASE)
-          .map((workData, i) => {
-            return (
-              <StyledListItem to={`${workData.source}`} enableDarkMode={enableDarkMode} key={i}>
-                <div>
-                  <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
-                  <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
-                </div>
-                <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
-                <StyledTagsWrapper>
-                  {workData.tags.map((tag, i) => {
-                    return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
-                  })}
-                </StyledTagsWrapper>
+    <Layout>
+      <SEO title="Home" />
+      <globalStateContext.Consumer>
+        {(globalState) => (
+          <StyledWorkHighlightSection>
+            <StyledH1>
+              🔎 <br></br> All Work
+            </StyledH1>
+            <StyledH2>Here's everything of note I've worked on</StyledH2>
+            <StyledWorkItemList enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+              {workShowcaseData
+                .sort((workItemA, workItemB) => sortWorkShowCaseItemByDateDesc(workItemA, workItemB))
+                .map((workData, i) => {
+                  return (
+                    <StyledListItem
+                      to={`${workData.source}`}
+                      enableDarkMode={globalState.darkMode.isDarkModeEnabled}
+                      key={i}
+                    >
+                      <div>
+                        <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
+                        <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
+                      </div>
+                      <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
+                      <StyledTagsWrapper>
+                        {workData.tags.map((tag, i) => {
+                          return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
+                        })}
+                      </StyledTagsWrapper>
 
-                <StyledLinkWrapper>
-                  {workData.article && (
-                    <StyledLink enableDarkMode={enableDarkMode} href={workData.article}>
-                      Article
-                    </StyledLink>
-                  )}
-                  {workData.demo && (
-                    <StyledLink enableDarkMode={enableDarkMode} href={workData.demo}>
-                      Demo
-                    </StyledLink>
-                  )}
-                </StyledLinkWrapper>
-              </StyledListItem>
-            );
-          })}
-      </StyledWorkItemList>
-      <LinkButton text="view all work" linkToMoveTo="/work" enableDarkMode={enableDarkMode} />
-    </StyledWorkHighlightSection>
+                      <StyledLinkWrapper>
+                        {workData.article && (
+                          <StyledLink enableDarkMode={globalState.darkMode.isDarkModeEnabled} href={workData.article}>
+                            Article
+                          </StyledLink>
+                        )}
+                        {workData.demo && (
+                          <StyledLink enableDarkMode={globalState.darkMode.isDarkModeEnabled} href={workData.demo}>
+                            Demo
+                          </StyledLink>
+                        )}
+                      </StyledLinkWrapper>
+                    </StyledListItem>
+                  );
+                })}
+            </StyledWorkItemList>
+          </StyledWorkHighlightSection>
+        )}
+      </globalStateContext.Consumer>
+    </Layout>
   );
 };
 
-export default WorkHighShowcaseSubsection;
+export default AllWork;
 
-WorkHighShowcaseSubsection.propTypes = {
+AllWork.propTypes = {
   enableDarkMode: PropTypes.bool,
 };
 
-WorkHighShowcaseSubsection.defaultProps = {
+AllWork.defaultProps = {
   enableDarkMode: false,
 };
 
@@ -226,10 +239,12 @@ const StyledWorkListItemTitle = styled.h2`
 `;
 
 const StyledH1 = styled.h1`
+  width: 100%;
   margin: 2rem 0 1rem 0;
   font-family: 'Playfair Display', serif;
   font-weight: 800;
   font-size: 4em;
+  text-align: center;
 `;
 
 const StyledH2 = styled.h2`
@@ -238,11 +253,13 @@ const StyledH2 = styled.h2`
   font-weight: 400;
   font-style: italic;
   word-spacing: 0.1rem;
+  text-align: center;
 `;
 
 const StyledWorkHighlightSection = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin: 0 0 4rem 0;
   width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;
