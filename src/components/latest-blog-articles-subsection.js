@@ -61,7 +61,7 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
           );
         })}
       </StyledBlogPostList>
-      <LinkButton text="view all blog posts" linkToMoveTo="/" enableDarkMode={enableDarkMode} />
+      <LinkButton text="view all blog posts" linkToMoveTo="/blog" enableDarkMode={enableDarkMode} />
     </StyledBlogHighlightSection>
   );
 };
