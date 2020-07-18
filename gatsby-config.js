@@ -26,19 +26,6 @@ module.exports = {
         path: `${__dirname}/content/blog/`,
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `work`,
-        path: `${__dirname}/content/work/`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        extensions: [`.mdx`, `.md`],
-      },
-    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -54,6 +41,16 @@ module.exports = {
         theme_color_in_head: false, // This will avoid adding theme-color meta tag.
       },
     },
+    {
+      resolve: 'gatsby-plugin-mdx',
+      options: {
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [],
+        defaultLayouts: {
+          default: require.resolve(`./src/pages/post-template.js`),
+        },
+      },
+    }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

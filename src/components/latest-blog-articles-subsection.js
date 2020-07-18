@@ -30,6 +30,9 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
                 tags
                 date(formatString: "MMMM Do YYYY")
               }
+              fields {
+                slug
+              }
             }
           }
         }
@@ -45,7 +48,7 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
         {highlightedBlogPosts.blog.edges.map((blogNode, i) => {
           const blogPostData = blogNode.node.childMdx.frontmatter;
           return (
-            <StyledLink to={`/blog/${blogPostData.path}`} key={i}>
+            <StyledLink to={`blog${blogNode.node.childMdx.fields.slug}`} key={i}>
               <StyledBlogPostListItem key={i} enableDarkMode={enableDarkMode}>
                 <div>
                   <StyledBlogPostListItemTitle>{blogPostData.title}</StyledBlogPostListItemTitle>

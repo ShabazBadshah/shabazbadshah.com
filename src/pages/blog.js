@@ -63,6 +63,7 @@ const AllPosts = () => {
                       <StyledWorkListItemTitle>{blogPostData.title}</StyledWorkListItemTitle>
                       <StyledWorkListItemDate>{blogPostData.date}</StyledWorkListItemDate>
                     </div>
+                    <StyledWorkListItemBlurb>{blogPostData.blurb}</StyledWorkListItemBlurb>
                     <StyledTagsWrapper>
                       {blogPostData.tags.map((tag, i) => {
                         return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
