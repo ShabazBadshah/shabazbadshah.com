@@ -33,6 +33,9 @@ const AllPosts = () => {
                 blurb
                 date(formatString: "MMMM Do YYYY")
               }
+              fields {
+                slug
+              }
             }
           }
         }
@@ -55,7 +58,7 @@ const AllPosts = () => {
                 const blogPostData = blogNode.node.childMdx.frontmatter;
                 return (
                   <StyledListItem
-                    to={`${blogPostData.path}`}
+                    to={`.${blogNode.node.childMdx.fields.slug}`}
                     enableDarkMode={globalState.darkMode.isDarkModeEnabled}
                     key={i}
                   >

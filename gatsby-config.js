@@ -45,10 +45,7 @@ module.exports = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: [`.mdx`, `.md`],
-        gatsbyRemarkPlugins: [],
-        defaultLayouts: {
-          default: require.resolve(`./src/pages/post-template.js`),
-        },
+        gatsbyRemarkPlugins: []
       },
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality

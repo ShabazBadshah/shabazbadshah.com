@@ -11,13 +11,14 @@ const path = require(`path`)
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
-  const postTemplate = path.resolve('src/pages/post-template.js')
   return graphql(`
-    {
-      allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
-        nodes {
-          fields {
-            slug
+    query {
+      allMdx {
+        edges {
+          node {
+            fields {
+              slug
+            }
           }
         }
       }
@@ -27,14 +28,14 @@ exports.createPages = ({ actions, graphql }) => {
       throw result.errors
     }
 
-    const posts = result.data.allMdx.nodes
+    const posts = result.data.allMdx.edges
 
-    posts.forEach((post, index) => {
+    posts.forEach(({ node }, index) => {
       createPage({
-        path: `blog${post.fields.slug}`,
-        component: postTemplate,
+        path: `blog${node.fields.slug}`,
+        component: path.resolve('src/templates/post-template.js'),
         context: {
-          slug: post.fields.slug,
+          slug: node.fields.slug,
         },
       })
     })
@@ -47,7 +48,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   if (node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode })
     createNodeField({
-      name: `slug`,
+      name: 'slug',
       node,
       value,
     })
