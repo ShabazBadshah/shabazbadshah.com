@@ -4,14 +4,17 @@ module.exports = {
     description: `My little home on the internet.`,
     author: `@shabazbadshah`,
     contactInfo: {
-      email: `badshah.shabaz@gmail.com`,
+      email: `badshah.shabaz.dev@gmail.com`,
       github: `https://www.github.com/ShabazBadshah`,
       linkedin: `https://www.linkedin.com/in/shabaz-badshah/`,
     },
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sharp`,
+    `gatsby-remark-images`,
+    `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -26,8 +29,7 @@ module.exports = {
         path: `${__dirname}/content/blog/`,
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -45,9 +47,16 @@ module.exports = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: [`.mdx`, `.md`],
-        gatsbyRemarkPlugins: []
+        gatsbyRemarkPlugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 1200,
+            },
+          },
+        ]
       },
-    }
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

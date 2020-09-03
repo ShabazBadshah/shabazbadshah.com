@@ -21,7 +21,6 @@ export const query = graphql`
     mdx(fields: { slug: { eq: $slug } }) {
       frontmatter {
         title
-        path
         tags
         date(formatString: "MMMM Do YYYY")
       }

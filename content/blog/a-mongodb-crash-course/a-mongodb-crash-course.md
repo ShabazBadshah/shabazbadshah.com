@@ -1,10 +1,17 @@
 ---
-path: "mongodb-101"
 date: "2019-02-25"
-title: "An Intro to NoSQL Document Databases with MongoDB"
-blurb: "Pariatur irure eu consectetur eu deserunt amet nulla sint ea laboris aliqua nisi. Culpa minim deserunt esse elit ex voluptate. Exercitation nisi irure Lorem mollit. Elit reprehenderit anim incididunt sint occaecat sint in nisi. Est dolore sit aliqua commodo irure enim."
-tags: ['databases', 'guide', 'nosql']
+title: "A MongoDB Crash Course"
+blurb: "A very quick intro into MongoDB."
+tags: ['databases', 'tutorial', 'crash course', 'persistence']
 ---
+
+# A MongoDB Crash
+
+February 25, 2019 {#date}
+----
+
+![MongoDB Image](./image.jpg)
+
 ## What is MongoDB
 
 MongoDB is a NoSQL Database, also commonly known as a Non-relational (hence NoSQL) database. MongoDB functions based on collections and documents and exposes a Javascript API that we can use to interact with the database.
@@ -166,7 +173,7 @@ __Operations on Referenced Data:__:
 
 __Creating Collections:__
 
-- Create collection:
+- __Create collection:__
 ```json
   db.createCollection("collection_name");
 ```

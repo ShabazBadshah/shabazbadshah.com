@@ -13,7 +13,7 @@ import { globalStateContext } from '../contextProviders/global-state-context-pro
 import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 
-import { default as workShowcaseData } from '../../content/work-showcase.js';
+import { default as workShowcaseData } from '../../content/work/work-showcase.js';
 
 import Layout from '../components/layout.js';
 import SEO from '../components/seo.js';

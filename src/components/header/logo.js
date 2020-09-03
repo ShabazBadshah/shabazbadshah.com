@@ -37,7 +37,8 @@ const StyledLogo = styled.svg`
   display: block;
   border-radius: 4px;
   width: auto;
-  height: 50px;
+  height: 45px;
+  margin: 1px;
 
   @media ${deviceMaxWidth.mobileS} {
     height: 40px;

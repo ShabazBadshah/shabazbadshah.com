@@ -1,5 +1,4 @@
 ---
-path: "post-three"
 date: "2020-04-12"
 title: "Understanding React, Componenet based Design, and CSSinJS"
 blurb: "Pariatur irure eu consectetur eu deserunt amet nulla sint ea laboris aliqua nisi. Culpa minim deserunt esse elit ex voluptate. Exercitation nisi irure Lorem mollit. Elit reprehenderit anim incididunt sint occaecat sint in nisi. Est dolore sit aliqua commodo irure enim."

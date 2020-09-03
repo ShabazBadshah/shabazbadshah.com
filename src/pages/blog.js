@@ -18,17 +18,13 @@ import SEO from '../components/seo.js';
 
 const AllPosts = () => {
   const allBlogPosts = useStaticQuery(graphql`
-    query {
-      blog: allFile(
-        filter: { sourceInstanceName: { eq: "blog" } }
-        sort: { fields: childMdx___frontmatter___date, order: DESC }
-      ) {
+    {
+      blog: allFile(filter: { sourceInstanceName: { eq: "blog" }, extension: { eq: "md" } }) {
         edges {
           node {
             childMdx {
               frontmatter {
                 title
-                path
                 tags
                 blurb
                 date(formatString: "MMMM Do YYYY")
@@ -50,18 +46,15 @@ const AllPosts = () => {
         {(globalState) => (
           <StyledWorkHighlightSection>
             <StyledH1>
-              🔎 <br></br> All Posts
+              📝 <br></br> All Posts
             </StyledH1>
-            <StyledH2>Here's everything of note I've worked on</StyledH2>
+            <StyledH2>Here's a my thoughts on bunch of things</StyledH2>
             <StyledWorkItemList enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
               {allBlogPosts.blog.edges.map((blogNode, i) => {
                 const blogPostData = blogNode.node.childMdx.frontmatter;
+                const blogPostPath = blogNode.node.childMdx.fields.slug;
                 return (
-                  <StyledListItem
-                    to={`.${blogNode.node.childMdx.fields.slug}`}
-                    enableDarkMode={globalState.darkMode.isDarkModeEnabled}
-                    key={i}
-                  >
+                  <StyledListItem to={blogPostPath} enableDarkMode={globalState.darkMode.isDarkModeEnabled} key={i}>
                     <div>
                       <StyledWorkListItemTitle>{blogPostData.title}</StyledWorkListItemTitle>
                       <StyledWorkListItemDate>{blogPostData.date}</StyledWorkListItemDate>

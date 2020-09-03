@@ -13,7 +13,7 @@ export default [
     date: 'January 2020',
     description: 'The redesigned 2019/2020 site for the Project Include non-profit organization',
     source: 'https://github.com/ShabazBadshah/project-include-site',
-    demo: 'https://shabazbadshah.com/project-include-site/',
+    demo: 'https://projectinclude.ca',
     tags: ['jekyll', 'frontend', 'web development'],
   },
   {

@@ -11,7 +11,7 @@ import { fadeIn } from 'react-animations';
 import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 
-import { default as workShowcaseData } from '../../content/work-showcase.js';
+import { default as workShowcaseData } from '../../content/work/work-showcase.js';
 
 import LinkButton from './link-button.js';
 

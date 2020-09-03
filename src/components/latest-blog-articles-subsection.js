@@ -15,19 +15,15 @@ import LinkButton from './link-button.js';
 
 const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
   const highlightedBlogPosts = useStaticQuery(graphql`
-    query {
-      blog: allFile(
-        filter: { sourceInstanceName: { eq: "blog" } }
-        sort: { fields: childMdx___frontmatter___date, order: DESC }
-        limit: 3
-      ) {
+    {
+      blog: allFile(filter: { sourceInstanceName: { eq: "blog" }, extension: { eq: "md" } }, limit: 3) {
         edges {
           node {
             childMdx {
               frontmatter {
                 title
-                path
                 tags
+                blurb
                 date(formatString: "MMMM Do YYYY")
               }
               fields {
@@ -47,8 +43,9 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
       <StyledBlogPostList enableDarkMode={enableDarkMode}>
         {highlightedBlogPosts.blog.edges.map((blogNode, i) => {
           const blogPostData = blogNode.node.childMdx.frontmatter;
+          const blogPostPath = blogNode.node.childMdx.fields.slug;
           return (
-            <StyledLink to={`blog${blogNode.node.childMdx.fields.slug}`} key={i}>
+            <StyledLink to={blogPostPath} key={i}>
               <StyledBlogPostListItem key={i} enableDarkMode={enableDarkMode}>
                 <div>
                   <StyledBlogPostListItemTitle>{blogPostData.title}</StyledBlogPostListItemTitle>

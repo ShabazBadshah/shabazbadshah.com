@@ -61,7 +61,7 @@ const StyledHeader = styled.header`
   z-index: 1;
   background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
 
-  padding: 10px 60px;
+  padding: 5px 50px;
 
   display: flex;
   flex-direction: row;
@@ -81,7 +81,7 @@ const StyledNavLink = styled(Link)`
 
   transition: all 150ms ease-in;
   color: ${(props) => (props.state.enableDarkMode ? '#f9f8f7' : darkModeThemeColour)};
-  font-size: 1.2em;
+  font-size: 1.1rem;
   letter-spacing: 0.1rem;
   text-decoration: none;
   border-radius: 4px;
