@@ -40,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::selection {
-    background: #FAC748;
+    /* background: #FAC748; */
   }
 `;
 

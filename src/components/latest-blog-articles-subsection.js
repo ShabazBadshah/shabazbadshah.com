@@ -45,7 +45,7 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
           const blogPostData = blogNode.node.childMdx.frontmatter;
           const blogPostPath = blogNode.node.childMdx.fields.slug;
           return (
-            <StyledLink to={blogPostPath} key={i}>
+            <StyledLink to={`/blog/${blogPostPath}`} key={i}>
               <StyledBlogPostListItem key={i} enableDarkMode={enableDarkMode}>
                 <div>
                   <StyledBlogPostListItemTitle>{blogPostData.title}</StyledBlogPostListItemTitle>
@@ -194,7 +194,7 @@ const StyledH2 = styled.h2`
 const StyledBlogHighlightSection = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 0 2rem 0;
+  margin: 4rem 0;
   width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;
 

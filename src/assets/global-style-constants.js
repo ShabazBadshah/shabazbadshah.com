@@ -1,2 +1,2 @@
-export const globalThemeColour = '#6ab5fc';
-export const darkModeThemeColour = '#2d2d2d';
+export const globalThemeColour = '#69a9e5';
+export const darkModeThemeColour = '#141617';

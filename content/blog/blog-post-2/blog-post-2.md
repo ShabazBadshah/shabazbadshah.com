@@ -17,6 +17,8 @@ I like using styled-components for my styling and would like to use
 them in this example, so I'm going to clone the Gatsby starter I made
 in a [previous post].
 
+> Incididunt cupidatat ex labore ipsum et ullamco consectetur in duis dolor.
+
 ## Clone the Gatsby Default Starter with styled-components
 
 Spin up a new project using the template I made:

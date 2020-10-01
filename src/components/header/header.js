@@ -59,9 +59,9 @@ const StyledHeader = styled.header`
   right: 0;
   left: 0;
   z-index: 1;
-  background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
+  background-color: ${(props) => (props.enableDarkMode ? '#1d1d1d' : '#f9f8f7')};
 
-  padding: 5px 50px;
+  padding: 10px 50px;
 
   display: flex;
   flex-direction: row;
@@ -70,7 +70,7 @@ const StyledHeader = styled.header`
 
   animation: ${keyframes`${fadeIn}`} 300ms ease-in;
   box-shadow: ${(props) =>
-    props.enableDarkMode ? '0 0.6em 3em 0 rgba(0, 0, 0, 0.3)' : '0 0.5em 2em 0 rgba(85, 85, 85, 0.06)'};
+    props.enableDarkMode ? '0 0.6em 3em 0 rgba(0, 0, 0, 0.2)' : '0 0.5em 2em 0 rgba(85, 85, 85, 0.06)'};
   @media only screen and ${deviceMaxWidth.tablet} {
     padding: 10px 15px;
   }

@@ -11,8 +11,8 @@ const Logo = ({ colour }) => {
     <StyledLogo
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
-      width="600.000000pt"
-      height="500.000000pt"
+      width="500.000000pt"
+      height="400.000000pt"
       viewBox="0 0 599.000000 500.000000"
     >
       <g transform="translate(0.000000,500.000000) scale(0.100000,-0.100000)" fill={colour}>
