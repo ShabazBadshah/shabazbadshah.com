@@ -50,5 +50,5 @@ const StyledMain = styled.main`
   align-items: center;
   width: inherit;
   padding: 1rem;
-  margin-top: 6rem;
+  margin-top: 4rem;
 `;

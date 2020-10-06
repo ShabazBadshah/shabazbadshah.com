@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Layout from '../components/layout';
 
 import { headShake } from 'react-animations';
@@ -13,18 +14,33 @@ import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 import './github-markdown.css';
 class PostTemplate extends Component {
   render() {
-    const { frontmatter } = this.props.data.mdx;
+    const { frontmatter, tableOfContents, body, slug } = this.props.data.mdx;
     return (
       <div>
         <globalStateContext.Consumer>
           {(globalState) => (
             <Layout>
-              <StyledMarkdownBodyContainer enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-                <StyledArticleTitle>{frontmatter.title}</StyledArticleTitle>
-                <div className="markdown-body">
-                  <MDXRenderer>{this.props.data.mdx.body}</MDXRenderer>
-                </div>
-              </StyledMarkdownBodyContainer>
+              <StyledArticleWrapper>
+                <StyledMarkdownBodyContainer enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
+                  <div className="markdown-body">
+                    <StyledArticleTitle>{frontmatter.title}</StyledArticleTitle>
+                    <MDXRenderer>{body}</MDXRenderer>
+                  </div>
+                </StyledMarkdownBodyContainer>
+
+                <StyledTocWrapper>
+                  <StyledToCTitle>Table of Contents</StyledToCTitle>
+                  <StyledToc style={{ paddingLeft: '0' }}>
+                    {tableOfContents.items.map((chapter, i) => {
+                      return (
+                        <li key={i}>
+                          <AnchorLink href={chapter['url']}>{chapter['title']}</AnchorLink>
+                        </li>
+                      );
+                    })}
+                  </StyledToc>
+                </StyledTocWrapper>
+              </StyledArticleWrapper>
             </Layout>
           )}
         </globalStateContext.Consumer>
@@ -54,6 +70,11 @@ export const query = graphql`
 
 export default PostTemplate;
 
+const StyledArticleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 const StyledArticleTitle = styled.h1`
   font-size: 3rem;
   margin-bottom: 3rem;
@@ -62,7 +83,7 @@ const StyledArticleTitle = styled.h1`
 `;
 
 const StyledMarkdownBodyContainer = styled.div`
-  min-width: 300px;
+  min-width: 320px;
   max-width: 980px;
   padding: 2rem 2rem 2rem 2rem;
   margin: 2rem 2rem 4rem 2rem;
@@ -172,5 +193,33 @@ const StyledMarkdownBodyContainer = styled.div`
     max-width: 100%;
     padding: 0;
     margin: 1rem;
+  }
+`;
+
+const StyledToCTitle = styled.h2`
+  font-size: 0.95rem;
+  text-transform: uppercase;
+`;
+
+const StyledTocWrapper = styled.div`
+  margin-left: 1rem;
+  width: 300px;
+  margin-top: 4rem;
+  padding-top: 2rem;
+`;
+
+const StyledToc = styled.ul`
+  list-style: none;
+  /* Padding left was not working, so it has been hardocded in the component inline style */
+
+  li {
+    margin: 1rem 0;
+  }
+
+  li a {
+    color: ${globalThemeColour};
+    text-decoration: underline;
+    text-underline-offset: 0.15rem;
+    cursor: pointer;
   }
 `;
