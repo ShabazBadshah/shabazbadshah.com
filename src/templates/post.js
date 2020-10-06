@@ -135,22 +135,25 @@ const StyledMarkdownBodyContainer = styled.div`
   }
 
   table {
-    border-collapse: separate;
     border-spacing: 0;
     width: 100%;
     overflow-x: scroll;
     border-radius: 0.35rem;
-    margin: 0 0 2rem 0;
-    border: 0.5px solid #c5c3c1;
+    margin: 2rem 0 2rem 0;
+    border: 1px solid #c5c3c1;
     border-radius: 8px;
   }
 
-  th {
-    border-bottom: 2px solid #d6d9de;
+  tbody {
+    & tr:last-child {
+      & td {
+        border-bottom: none;
+      }
+    }
   }
 
-  tfoot th {
-    border-top: 1px solid #d6d9de;
+  th {
+    border-bottom: 1px solid #d6d9de;
   }
 
   td {

@@ -19,6 +19,7 @@
     "gatsby-plugin-sharp": "^2.6.31",
     "gatsby-plugin-styled-components": "^3.3.4",
     "gatsby-remark-highlight-code": "^2.1.0",
+    
     "gatsby-remark-images": "^3.3.28",
     "gatsby-remark-prismjs": "^3.5.14",
     "gatsby-source-filesystem": "^2.3.10",
