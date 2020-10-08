@@ -60,11 +60,11 @@ const AllPosts = () => {
                       <StyledWorkListItemDate>{blogPostData.date}</StyledWorkListItemDate>
                     </div>
                     <StyledWorkListItemBlurb>{blogPostData.blurb}</StyledWorkListItemBlurb>
-                    <StyledTagsWrapper>
+                    {/* <StyledTagsWrapper>
                       {blogPostData.tags.map((tag, i) => {
                         return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
                       })}
-                    </StyledTagsWrapper>
+                    </StyledTagsWrapper> */}
                   </StyledListItem>
                 );
               })}

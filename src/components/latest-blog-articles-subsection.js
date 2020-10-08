@@ -51,11 +51,11 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
                   <StyledBlogPostListItemTitle>{blogPostData.title}</StyledBlogPostListItemTitle>
                   <StyledBlogPostListItemDate>{blogPostData.date}</StyledBlogPostListItemDate>
                 </div>
-                <StyledTagsWrapper>
+                {/* <StyledTagsWrapper>
                   {blogPostData.tags.map((tag, i) => {
                     return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
                   })}
-                </StyledTagsWrapper>
+                </StyledTagsWrapper> */}
               </StyledBlogPostListItem>
             </StyledLink>
           );

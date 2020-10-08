@@ -56,11 +56,11 @@ const AllWork = () => {
                         <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
                       </div>
                       <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
-                      <StyledTagsWrapper>
+                      {/* <StyledTagsWrapper>
                         {workData.tags.map((tag, i) => {
                           return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
                         })}
-                      </StyledTagsWrapper>
+                      </StyledTagsWrapper> */}
 
                       <StyledLinkWrapper>
                         {workData.article && (

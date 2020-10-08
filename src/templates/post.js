@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Layout from '../components/layout';
 
 import { headShake } from 'react-animations';
 
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
-import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants';
+import { globalThemeColour } from '../assets/global-style-constants';
 import { deviceMaxWidth } from '../../static/media-query-sizes.js';
 
 import './github-markdown.css';
@@ -27,19 +26,6 @@ class PostTemplate extends Component {
                     <MDXRenderer>{body}</MDXRenderer>
                   </div>
                 </StyledMarkdownBodyContainer>
-
-                <StyledTocWrapper>
-                  <StyledToCTitle>Table of Contents</StyledToCTitle>
-                  <StyledToc style={{ paddingLeft: '0' }}>
-                    {tableOfContents.items.map((chapter, i) => {
-                      return (
-                        <li key={i}>
-                          <AnchorLink href={chapter['url']}>{chapter['title']}</AnchorLink>
-                        </li>
-                      );
-                    })}
-                  </StyledToc>
-                </StyledTocWrapper>
               </StyledArticleWrapper>
             </Layout>
           )}
@@ -84,7 +70,7 @@ const StyledArticleTitle = styled.h1`
 
 const StyledMarkdownBodyContainer = styled.div`
   min-width: 320px;
-  max-width: 980px;
+  max-width: 768px;
   padding: 2rem 2rem 2rem 2rem;
   margin: 2rem 2rem 4rem 2rem;
 
@@ -192,34 +178,6 @@ const StyledMarkdownBodyContainer = styled.div`
   @media only screen and ${deviceMaxWidth.mobileL} {
     max-width: 100%;
     padding: 0;
-    margin: 1rem;
-  }
-`;
-
-const StyledToCTitle = styled.h2`
-  font-size: 0.95rem;
-  text-transform: uppercase;
-`;
-
-const StyledTocWrapper = styled.div`
-  margin-left: 1rem;
-  width: 300px;
-  margin-top: 4rem;
-  padding-top: 2rem;
-`;
-
-const StyledToc = styled.ul`
-  list-style: none;
-  /* Padding left was not working, so it has been hardocded in the component inline style */
-
-  li {
-    margin: 1rem 0;
-  }
-
-  li a {
-    color: ${globalThemeColour};
-    text-decoration: underline;
-    text-underline-offset: 0.15rem;
-    cursor: pointer;
+    margin: 0.25rem;
   }
 `;
