@@ -9,6 +9,7 @@ module.exports = {
       linkedin: `https://www.linkedin.com/in/shabaz-badshah/`,
     },
   },
+  pathPrefix: "/shabazbadshah.github.io",
   plugins: [
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
