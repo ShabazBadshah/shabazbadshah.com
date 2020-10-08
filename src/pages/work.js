@@ -248,6 +248,7 @@ const StyledH1 = styled.h1`
 `;
 
 const StyledH2 = styled.h2`
+  width: 100%;
   font-size: 1.2rem;
   margin: 0 0 1rem 0;
   font-weight: 400;
