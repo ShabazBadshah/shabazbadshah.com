@@ -1,7 +1,7 @@
 ---
 date: '2019-02-25'
 title: 'A MongoDB Crash Course'
-blurb: 'A very quick intro into MongoDB.'
+blurb: 'A very quick intro into the MongoDB NoSQL database. This tutorial will teach you the basics of MongoDB, data manipulation, and compare it against SQL databases to show you the pros/cons of each'
 tags: ['databases', 'tutorial', 'crash course', 'persistence']
 ---
 

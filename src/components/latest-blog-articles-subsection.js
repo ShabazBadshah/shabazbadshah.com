@@ -16,7 +16,11 @@ import LinkButton from './link-button.js';
 const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
   const highlightedBlogPosts = useStaticQuery(graphql`
     {
-      blog: allFile(filter: { sourceInstanceName: { eq: "blog" }, extension: { eq: "md" } }, limit: 3) {
+      blog: allFile(
+        filter: { sourceInstanceName: { eq: "blog" }, extension: { eq: "md" } }
+        sort: { fields: childMdx___frontmatter___date, order: DESC }
+        limit: 3
+      ) {
         edges {
           node {
             childMdx {

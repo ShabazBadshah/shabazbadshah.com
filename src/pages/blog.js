@@ -19,7 +19,10 @@ import SEO from '../components/seo.js';
 const AllPosts = () => {
   const allBlogPosts = useStaticQuery(graphql`
     {
-      blog: allFile(filter: { sourceInstanceName: { eq: "blog" }, extension: { eq: "md" } }) {
+      blog: allFile(
+        filter: { sourceInstanceName: { eq: "blog" }, extension: { eq: "md" } }
+        sort: { fields: childMdx___frontmatter___date, order: DESC }
+      ) {
         edges {
           node {
             childMdx {
@@ -149,6 +152,7 @@ const StyledListItem = styled(Link)`
   width: 49%;
   padding: 0.8rem 1.4rem;
   margin: 0.5rem 0;
+  padding-bottom: 1.5rem;
 
   display: flex;
   flex-direction: column;
