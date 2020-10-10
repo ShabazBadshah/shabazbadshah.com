@@ -6,7 +6,7 @@ import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import { headShake } from 'react-animations';
-import { deviceMaxWidth } from '../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../media-query-sizes.js';
 import Img from 'gatsby-image';
 import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
 

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
-import { deviceMaxWidth } from '../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../media-query-sizes.js';
 
 const LinkButton = ({ text, linkToMoveTo, enableDarkMode }) => {
   return (

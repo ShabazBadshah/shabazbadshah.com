@@ -5,7 +5,7 @@ import { Link } from 'gatsby';
 
 import { fadeIn } from 'react-animations';
 
-import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../../media-query-sizes.js';
 
 import { globalThemeColour, darkModeThemeColour } from '../../assets/global-style-constants.js';
 
@@ -17,9 +17,9 @@ const Header = ({ enableDarkMode }) => {
 
   return (
     <StyledHeader enableDarkMode={enableDarkMode}>
-      <a href="/">
+      <Link to="/">
         <Logo colour={globalThemeColour} />
-      </a>
+      </Link>
       <StyledNavigationWrapper enableDarkMode={enableDarkMode}>
         <StyledNavLink state={{ enableDarkMode }} activeStyle={activeNavItemStyle} to="/">
           about

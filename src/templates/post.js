@@ -8,7 +8,7 @@ import { headShake } from 'react-animations';
 
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 import { globalThemeColour } from '../assets/global-style-constants';
-import { deviceMaxWidth } from '../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import './github-markdown.css';
 class PostTemplate extends Component {

@@ -12,7 +12,7 @@ import { headShake, fadeIn } from 'react-animations';
 
 import { globalThemeColour } from '../assets/global-style-constants.js';
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
-import { deviceMaxWidth } from '../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import SocialMediaLinks from '../components/social-media-links.js';
 import LinkButton from '../components/link-button.js';

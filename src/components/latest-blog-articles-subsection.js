@@ -9,7 +9,7 @@ import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 
 import { globalThemeColour } from '../assets/global-style-constants.js';
-import { deviceMaxWidth } from '../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import LinkButton from './link-button.js';
 
@@ -54,6 +54,7 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
                 <div>
                   <StyledBlogPostListItemTitle>{blogPostData.title}</StyledBlogPostListItemTitle>
                   <StyledBlogPostListItemDate>{blogPostData.date}</StyledBlogPostListItemDate>
+                  <StyledBlogListItemBlurb>{blogPostData.blurb}</StyledBlogListItemBlurb>
                 </div>
                 {/* <StyledTagsWrapper>
                   {blogPostData.tags.map((tag, i) => {
@@ -79,6 +80,17 @@ LatestBlogArticlesSubsection.propTypes = {
 LatestBlogArticlesSubsection.defaultProps = {
   enableDarkMode: false,
 };
+
+const StyledBlogListItemBlurb = styled.p`
+  margin: 1.5rem 0 0 0;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4rem;
+
+  @media only screen and ${deviceMaxWidth.mobileL} {
+    margin: 1.5rem 0;
+  }
+`;
 
 const StyledLink = styled(Link)`
   text-decoration: none;

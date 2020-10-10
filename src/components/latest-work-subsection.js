@@ -9,25 +9,13 @@ import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 
 import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
-import { deviceMaxWidth } from '../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import { default as workShowcaseData } from '../../content/work/work-showcase.js';
 
 import LinkButton from './link-button.js';
 
 const AMOUNT_WORK_ITEMS_TO_SHOWCASE = 4;
-
-const sortWorkShowCaseItemByDateDesc = (workItemA, workItemB) => {
-  const dateA = new Date(workItemA.date);
-  const dateB = new Date(workItemB.date);
-
-  if (dateA > dateB) {
-    return -1;
-  } else if (dateA < dateB) {
-    return 1;
-  }
-  return 0;
-};
 
 const WorkHighShowcaseSubsection = ({ enableDarkMode }) => {
   return (
@@ -40,29 +28,25 @@ const WorkHighShowcaseSubsection = ({ enableDarkMode }) => {
           .map((workData, i) => {
             return (
               <StyledListItem to={`${workData.source}`} enableDarkMode={enableDarkMode} key={i}>
-                <div>
-                  <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
-                  <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
-                </div>
-                <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
-                {/* <StyledTagsWrapper>
-                  {workData.tags.map((tag, i) => {
-                    return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
-                  })}
-                </StyledTagsWrapper> */}
-
-                <StyledLinkWrapper>
-                  {workData.article && (
-                    <StyledLink enableDarkMode={enableDarkMode} href={workData.article}>
-                      Article
-                    </StyledLink>
-                  )}
-                  {workData.demo && (
-                    <StyledLink enableDarkMode={enableDarkMode} href={workData.demo}>
-                      Demo
-                    </StyledLink>
-                  )}
-                </StyledLinkWrapper>
+                <StyledWorkLinkSourceWrapper to={workData.source}>
+                  <div>
+                    <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
+                    <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
+                  </div>
+                  <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
+                  <StyledLinkWrapper>
+                    {workData.article && (
+                      <StyledLink enableDarkMode={enableDarkMode} to={workData.article}>
+                        Article
+                      </StyledLink>
+                    )}
+                    {workData.demo && (
+                      <StyledLink enableDarkMode={enableDarkMode} to={workData.demo}>
+                        Demo
+                      </StyledLink>
+                    )}
+                  </StyledLinkWrapper>
+                </StyledWorkLinkSourceWrapper>
               </StyledListItem>
             );
           })}
@@ -82,7 +66,13 @@ WorkHighShowcaseSubsection.defaultProps = {
   enableDarkMode: false,
 };
 
-const StyledLink = styled.a`
+const StyledWorkLinkSourceWrapper = styled(Link)`
+  text-decoration: none;
+  color: unset;
+`;
+
+const StyledLink = styled(Link)`
+  display: inline-block;
   text-align: center;
   text-decoration: none;
   font-weight: 500;
@@ -92,9 +82,14 @@ const StyledLink = styled.a`
   border-radius: 4px;
   color: #f9f8f7;
   box-shadow: 0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.06);
-  margin-right: 1rem;
+  margin-top: 8px;
+  margin-right: 1.5rem;
   border: 2px ${globalThemeColour} solid;
   background-color: ${globalThemeColour};
+
+  &:first-child {
+    margin-left: 0;
+  }
 
   &:hover {
     border: ${(props) => (props.enableDarkMode ? '2px #f9f8f7 solid' : `2px ${globalThemeColour} solid`)};
@@ -112,8 +107,7 @@ const StyledLink = styled.a`
 `;
 
 const StyledLinkWrapper = styled.div`
-  display: flex;
-  margin: 1.5rem 0 0.7rem 0;
+  margin: 0.7rem 0 0.7rem 0;
 
   @media only screen and ${deviceMaxWidth.mobileL} {
     flex-direction: column;
@@ -141,7 +135,7 @@ const StyledWorkItemList = styled.ul`
   padding: 0;
 `;
 
-const StyledListItem = styled(Link)`
+const StyledListItem = styled.div`
   width: 49%;
   padding: 0.8rem 1.4rem;
   margin: 0.5rem 0;
@@ -149,7 +143,6 @@ const StyledListItem = styled(Link)`
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  color: unset;
 
   box-shadow: ${(props) =>
     props.enableDarkMode ? '0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.01)' : '0.5rem 0.5rem 1rem 0 rgba(85, 85, 85, 0.03)'};

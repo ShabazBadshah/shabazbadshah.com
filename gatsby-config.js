@@ -9,7 +9,6 @@ module.exports = {
       linkedin: `https://www.linkedin.com/in/shabaz-badshah/`,
     },
   },
-  pathPrefix: "/shabazbadshah.github.io",
   plugins: [
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
@@ -58,6 +57,13 @@ module.exports = {
       options: {
         name: `blog`,
         path: `${__dirname}/content/blog/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `work`,
+        path: `${__dirname}/content/work/`,
       },
     },
 

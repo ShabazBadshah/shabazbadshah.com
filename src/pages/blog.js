@@ -11,7 +11,7 @@ import { fadeIn } from 'react-animations';
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 
 import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
-import { deviceMaxWidth } from '../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import Layout from '../components/layout.js';
 import SEO from '../components/seo.js';
@@ -63,6 +63,7 @@ const AllPosts = () => {
                       <StyledWorkListItemDate>{blogPostData.date}</StyledWorkListItemDate>
                     </div>
                     <StyledWorkListItemBlurb>{blogPostData.blurb}</StyledWorkListItemBlurb>
+
                     {/* <StyledTagsWrapper>
                       {blogPostData.tags.map((tag, i) => {
                         return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { deviceMaxWidth } from '../../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../../media-query-sizes.js';
 
 import { globalThemeColour } from '../../assets/global-style-constants.js';
 

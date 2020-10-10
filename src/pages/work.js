@@ -11,7 +11,7 @@ import { fadeIn } from 'react-animations';
 import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 
 import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
-import { deviceMaxWidth } from '../../static/media-query-sizes.js';
+import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import { default as workShowcaseData } from '../../content/work/work-showcase.js';
 
@@ -51,29 +51,31 @@ const AllWork = () => {
                       enableDarkMode={globalState.darkMode.isDarkModeEnabled}
                       key={i}
                     >
-                      <div>
-                        <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
-                        <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
-                      </div>
-                      <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
-                      {/* <StyledTagsWrapper>
+                      <StyledWorkLinkSourceWrapper to={workData.source}>
+                        <div>
+                          <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
+                          <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
+                        </div>
+                        <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
+                        {/* <StyledTagsWrapper>
                         {workData.tags.map((tag, i) => {
                           return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
                         })}
                       </StyledTagsWrapper> */}
 
-                      <StyledLinkWrapper>
-                        {workData.article && (
-                          <StyledLink enableDarkMode={globalState.darkMode.isDarkModeEnabled} href={workData.article}>
-                            Article
-                          </StyledLink>
-                        )}
-                        {workData.demo && (
-                          <StyledLink enableDarkMode={globalState.darkMode.isDarkModeEnabled} href={workData.demo}>
-                            Demo
-                          </StyledLink>
-                        )}
-                      </StyledLinkWrapper>
+                        <StyledLinkWrapper>
+                          {workData.article && (
+                            <StyledLink enableDarkMode={globalState.darkMode.isDarkModeEnabled} href={workData.article}>
+                              Article
+                            </StyledLink>
+                          )}
+                          {workData.demo && (
+                            <StyledLink enableDarkMode={globalState.darkMode.isDarkModeEnabled} href={workData.demo}>
+                              Demo
+                            </StyledLink>
+                          )}
+                        </StyledLinkWrapper>
+                      </StyledWorkLinkSourceWrapper>
                     </StyledListItem>
                   );
                 })}
@@ -95,7 +97,12 @@ AllWork.defaultProps = {
   enableDarkMode: false,
 };
 
-const StyledLink = styled.a`
+const StyledWorkLinkSourceWrapper = styled(Link)`
+  text-decoration: none;
+  color: unset;
+`;
+
+const StyledLink = styled(Link)`
   text-align: center;
   text-decoration: none;
   font-weight: 500;
@@ -154,7 +161,7 @@ const StyledWorkItemList = styled.ul`
   padding: 0;
 `;
 
-const StyledListItem = styled(Link)`
+const StyledListItem = styled.div`
   width: 49%;
   padding: 0.8rem 1.4rem;
   margin: 0.5rem 0;
