@@ -6,6 +6,7 @@ import '../../static/normalize.css';
 import '../assets/base.css';
 
 import Header from './header/header.js';
+import Footer from './footer/footer.js';
 
 import { useDarkMode } from '../hooks/useDarkMode.js';
 
@@ -19,6 +20,7 @@ const Layout = ({ children }) => {
       <React.Fragment>
         <Header enableDarkMode={darkMode} onThemeSwitchToggle={() => setDarkMode(!darkMode)} />
         <StyledMain>{children}</StyledMain>
+        <Footer />
       </React.Fragment>
     </ThemeProvider>
   );
@@ -35,7 +37,7 @@ const StyledMain = styled.main`
   flex-direction: column;
   align-items: center;
   width: inherit;
-  padding: 2rem;
+  padding: 1.5rem;
   margin-top: 3.4rem;
   background-color: ${(props) => props.theme.siteBg};
   color: ${(props) => props.theme.text};

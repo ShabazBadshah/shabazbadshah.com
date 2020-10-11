@@ -69,8 +69,7 @@ const StyledArticleTitle = styled.h1`
 const StyledMarkdownBodyContainer = styled.div`
   min-width: 320px;
   max-width: 768px;
-  padding: 2rem;
-  margin: 2rem 2rem 4rem 2rem;
+  padding-bottom: 2rem;
 
   p,
   h2,

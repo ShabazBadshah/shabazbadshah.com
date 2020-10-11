@@ -135,6 +135,7 @@ const StyledHeroSection = styled.div`
   align-items: center;
   justify-content: center;
   margin: 4rem 0;
+  padding-top: 2rem;
   max-width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;
 

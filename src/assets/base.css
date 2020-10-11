@@ -8,5 +8,7 @@
 
 html {
   font-family: 'Roboto', sans-serif;
+  /* --siteBg is used to set HTML bg colour which cannot be accessed via StyledComponents since createGlobalTheme interferes with the site's darkTheme toggling behaviour. See https://github.com/ShabazBadshah/shabazbadshah.github.io/issues/32 for more details. */
+  background-color: var(--siteBg); 
 }
 

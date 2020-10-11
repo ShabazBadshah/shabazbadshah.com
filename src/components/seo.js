@@ -5,10 +5,11 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useStaticQuery, graphql } from 'gatsby';
+import { ThemeContext } from 'styled-components';
 
 function SEO({ description, lang, meta, title }) {
   const { site } = useStaticQuery(
@@ -25,6 +26,7 @@ function SEO({ description, lang, meta, title }) {
     `
   );
 
+  const { siteBg } = useContext(ThemeContext);
   const metaDescription = description || site.siteMetadata.description;
 
   return (
@@ -68,7 +70,15 @@ function SEO({ description, lang, meta, title }) {
           content: metaDescription,
         },
       ].concat(meta)}
-    />
+    >
+      <style>
+        {`
+            :root {
+              --siteBg: ${siteBg};
+              }
+            `}
+      </style>
+    </Helmet>
   );
 }
 
