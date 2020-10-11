@@ -10,8 +10,6 @@ import SEO from '../components/seo.js';
 
 import { headShake, fadeIn } from 'react-animations';
 
-import { globalThemeColour } from '../assets/global-style-constants.js';
-
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import SocialMediaLinks from '../components/social-media-links.js';
@@ -76,9 +74,12 @@ const StyledRow = styled.div`
   display: flex;
   flex-direction: row;
 
+  & a:last-of-type {
+    margin-right: none;
+  }
+
   @media ${deviceMaxWidth.tablet} {
     flex-direction: column;
-
     /* Target CTA LinkButton  */
     & a {
       width: 100%;
@@ -100,7 +101,7 @@ const StyledGreeting = styled.div`
 const StyledAnchorLink = styled.a`
   display: inline-block;
 
-  color: ${globalThemeColour};
+  color: ${(props) => props.theme.primaryThemeColour};
   text-decoration: underline;
   text-underline-offset: 0.15rem;
   cursor: pointer;
@@ -131,6 +132,8 @@ const StyledH1 = styled.h1`
 
 const StyledHeroSection = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 4rem 0;
   max-width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;

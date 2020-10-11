@@ -7,7 +7,6 @@ import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
-import { globalThemeColour } from '../assets/global-style-constants.js';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import Layout from '../components/layout.js';
@@ -59,12 +58,6 @@ const AllPosts = () => {
                   <StyledWorkListItemDate>{blogPostData.date}</StyledWorkListItemDate>
                 </div>
                 <StyledWorkListItemBlurb>{blogPostData.blurb}</StyledWorkListItemBlurb>
-
-                {/* <StyledTagsWrapper>
-                      {blogPostData.tags.map((tag, i) => {
-                        return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
-                      })}
-                    </StyledTagsWrapper> */}
               </StyledListItem>
             );
           })}
@@ -81,10 +74,6 @@ const StyledWorkListItemBlurb = styled.p`
   font-weight: 400;
   font-style: italic;
   line-height: 1.4rem;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 1.5rem 0;
-  }
 `;
 
 const StyledWorkItemList = styled.ul`
@@ -134,35 +123,6 @@ const StyledListItem = styled(Link)`
   }
 `;
 
-const StyledBlogListItemTag = styled.h5`
-  margin: 0 4px;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  border: 1.5px ${globalThemeColour} solid;
-  font-weight: normal;
-  color: ${globalThemeColour};
-  font-size: 0.9rem;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.3rem 0.3rem 0.3rem 0;
-  }
-`;
-
-const StyledTagsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 2rem 0 0.6rem 0;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.6rem 0 0 0;
-  }
-`;
-
 const StyledWorkListItemDate = styled.h3`
   font-weight: lighter;
   margin: 0.5rem 0 0 0;
@@ -170,7 +130,7 @@ const StyledWorkListItemDate = styled.h3`
 `;
 
 const StyledWorkListItemTitle = styled.h2`
-  margin: 0.5rem 0.5rem 0 0;
+  margin: 0 0.5rem 0 0;
   font-size: 1.1rem;
   font-weight: 500;
   line-height: 1.5rem;

@@ -2,13 +2,11 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
-import { globalThemeColour } from '../assets/global-style-constants.js';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import LinkButton from './link-button.js';
@@ -56,11 +54,6 @@ const LatestBlogArticlesSubsection = () => {
                   <StyledBlogPostListItemDate>{blogPostData.date}</StyledBlogPostListItemDate>
                   <StyledBlogListItemBlurb>{blogPostData.blurb}</StyledBlogListItemBlurb>
                 </div>
-                {/* <StyledTagsWrapper>
-                  {blogPostData.tags.map((tag, i) => {
-                    return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
-                  })}
-                </StyledTagsWrapper> */}
               </StyledBlogPostListItem>
             </StyledLink>
           );
@@ -91,38 +84,6 @@ const StyledLink = styled(Link)`
   width: 100%;
   &:hover {
     cursor: pointer;
-  }
-`;
-
-const StyledBlogListItemTag = styled.h5`
-  margin: 0 4px;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  border: 1.5px ${globalThemeColour} solid;
-  font-weight: normal;
-  color: ${globalThemeColour};
-  font-size: 0.9rem;
-  clear: both;
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.3rem 0.3rem 0.3rem 0;
-  }
-`;
-
-const StyledTagsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.6rem 0 0 0;
   }
 `;
 

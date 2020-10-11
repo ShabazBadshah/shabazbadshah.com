@@ -35,8 +35,8 @@ const StyledMain = styled.main`
   flex-direction: column;
   align-items: center;
   width: inherit;
-  padding: 1rem;
-  margin-top: 4rem;
+  padding: 2rem;
+  margin-top: 3.4rem;
   background-color: ${(props) => props.theme.siteBg};
   color: ${(props) => props.theme.text};
 `;

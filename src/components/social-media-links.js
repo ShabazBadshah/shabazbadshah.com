@@ -7,7 +7,6 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { headShake } from 'react-animations';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 import Img from 'gatsby-image';
-import { globalThemeColour } from '../assets/global-style-constants.js';
 
 const SocialMediaLinks = () => {
   const theme = useContext(ThemeContext);
@@ -142,15 +141,16 @@ const StyledContactCard = styled.div`
   border-radius: 8px;
   box-shadow: rgba(85, 85, 85, 0.08) 0.5rem 0.5rem 1rem 0;
   min-width: 300px;
-  margin-right: 5rem;
+  max-height: 500px;
+  margin-right: 4rem;
 
   @media only screen and ${deviceMaxWidth.tablet} {
     margin-right: 3rem;
   }
 
   @media only screen and ${deviceMaxWidth.mobileL} {
-    /* margin: 2rem 0 0 0; */
     margin-right: 0;
     margin-top: 2rem;
+    max-width: 320px;
   }
 `;

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { globalThemeColour } from '../assets/global-style-constants.js';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
 const LinkButton = ({ text, linkToMoveTo }) => {
@@ -26,11 +25,11 @@ const StyledLinkButton = styled(Link)`
   width: 50%;
   text-decoration: none;
   font-size: 1.2em;
-  background-color: ${globalThemeColour};
+  background-color: ${(props) => props.theme.primaryThemeColour};
   color: #f9f8f7;
   box-shadow: ${(props) => props.theme.linkButtonBorder};
   padding: 0.6rem 1rem;
-  border: 2px ${globalThemeColour} solid;
+  border: ${(props) => `2px ${props.theme.primaryThemeColour} solid`};
   border-radius: 4px;
   margin: 1rem 2rem 0 0;
   letter-spacing: 0.04rem;
@@ -47,6 +46,7 @@ const StyledLinkButton = styled(Link)`
 
   @media ${deviceMaxWidth.mobileL} {
     width: 100%;
-    margin: 1rem 0;
+    margin: 1rem 0 0 0;
+    padding: 0.7rem 1rem;
   }
 `;

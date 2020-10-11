@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import Layout from '../components/layout';
 
 import { headShake } from 'react-animations';
-
-import { globalThemeColour } from '../assets/global-style-constants';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import './github-markdown.css';
 class PostTemplate extends Component {
   render() {
-    const { frontmatter, tableOfContents, body, slug } = this.props.data.mdx;
+    const { frontmatter, body } = this.props.data.mdx;
     return (
       <div>
         <Layout>
@@ -51,6 +50,10 @@ export const query = graphql`
 
 export default PostTemplate;
 
+PostTemplate.propTypes = {
+  data: PropTypes.object.isRequired,
+};
+
 const StyledArticleWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -66,7 +69,7 @@ const StyledArticleTitle = styled.h1`
 const StyledMarkdownBodyContainer = styled.div`
   min-width: 320px;
   max-width: 768px;
-  padding: 2rem 2rem 2rem 2rem;
+  padding: 2rem;
   margin: 2rem 2rem 4rem 2rem;
 
   p,
@@ -87,7 +90,7 @@ const StyledMarkdownBodyContainer = styled.div`
   }
 
   h2 {
-    color: ${globalThemeColour};
+    color: ${(props) => props.theme.primaryThemeColour};
     border-bottom: 0.5px solid #c5c3c1;
     margin-top: 3rem;
     margin-bottom: 1.5rem;
@@ -115,7 +118,7 @@ const StyledMarkdownBodyContainer = styled.div`
   a {
     display: inline-block;
 
-    color: ${globalThemeColour};
+    color: ${(props) => props.theme.primaryThemeColour};
     text-decoration: underline;
     text-underline-offset: 0.15rem;
     cursor: pointer;

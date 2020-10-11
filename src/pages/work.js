@@ -8,7 +8,6 @@ import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
-import { globalThemeColour } from '../assets/global-style-constants.js';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import { default as workShowcaseData } from '../../content/work/work-showcase.js';
@@ -96,8 +95,8 @@ const StyledLink = styled(Link)`
   color: #f9f8f7;
   box-shadow: 0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.06);
   margin-right: 1rem;
-  border: 2px ${globalThemeColour} solid;
-  background-color: ${globalThemeColour};
+  border: ${(props) => `2px ${props.theme.primaryThemeColour} solid`};
+  background-color: ${(props) => props.theme.primaryThemeColour};
 
   &:hover {
     border: ${(props) => props.theme.linkButtonSmallBorder};
@@ -128,10 +127,6 @@ const StyledWorkListItemBlurb = styled.p`
   font-weight: 400;
   font-style: italic;
   line-height: 1.4rem;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 1.5rem 0;
-  }
 `;
 
 const StyledWorkItemList = styled.ul`
@@ -177,35 +172,6 @@ const StyledListItem = styled.div`
     &:nth-child(odd) {
       margin-right: 0;
     }
-  }
-`;
-
-const StyledBlogListItemTag = styled.h5`
-  margin: 0 4px;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  border: 1.5px ${globalThemeColour} solid;
-  font-weight: normal;
-  color: ${globalThemeColour};
-  font-size: 0.9rem;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.3rem 0.3rem 0.3rem 0;
-  }
-`;
-
-const StyledTagsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 2rem 0 0.6rem 0;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.6rem 0 0 0;
   }
 `;
 

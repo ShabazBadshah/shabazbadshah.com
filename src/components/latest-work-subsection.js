@@ -7,7 +7,6 @@ import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
-import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import { default as workShowcaseData } from '../../content/work/work-showcase.js';
@@ -61,14 +60,14 @@ const StyledLink = styled(Link)`
   font-weight: 500;
   text-underline-offset: 0.2rem;
   cursor: pointer;
-  padding: 0.7rem 3rem;
+  padding: 0.5rem 2rem;
   border-radius: 4px;
   color: #f9f8f7;
   box-shadow: 0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.06);
   margin-top: 8px;
   margin-right: 1.5rem;
-  border: 2px ${globalThemeColour} solid;
-  background-color: ${globalThemeColour};
+  border: ${(props) => `2px ${props.theme.primaryThemeColour} solid`};
+  background-color: ${(props) => props.theme.primaryThemeColour};
 
   &:first-child {
     margin-left: 0;
@@ -90,7 +89,7 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledLinkWrapper = styled.div`
-  margin: 0.7rem 0 0.7rem 0;
+  margin: 0.7rem 0 0 0;
 
   @media only screen and ${deviceMaxWidth.mobileL} {
     flex-direction: column;
@@ -102,10 +101,6 @@ const StyledWorkListItemBlurb = styled.p`
   font-weight: 400;
   font-style: italic;
   line-height: 1.4rem;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 1.5rem 0;
-  }
 `;
 
 const StyledWorkItemList = styled.ul`
@@ -120,7 +115,7 @@ const StyledWorkItemList = styled.ul`
 
 const StyledListItem = styled.div`
   width: 49%;
-  padding: 0.8rem 1.4rem;
+  padding: 1rem 1.4rem 1.2rem 1.4rem;
   margin: 0.5rem 0;
 
   display: flex;
@@ -153,35 +148,6 @@ const StyledListItem = styled.div`
   }
 `;
 
-const StyledBlogListItemTag = styled.h5`
-  margin: 0 4px;
-  padding: 0.3rem 0.6rem;
-  border-radius: 4px;
-  border: 1.5px ${globalThemeColour} solid;
-  font-weight: normal;
-  color: ${globalThemeColour};
-  font-size: 0.9rem;
-
-  &:first-child {
-    margin-left: 0;
-  }
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.3rem 0.3rem 0.3rem 0;
-  }
-`;
-
-const StyledTagsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 2rem 0 0.6rem 0;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.6rem 0 0 0;
-  }
-`;
-
 const StyledWorkListItemDate = styled.h3`
   font-weight: lighter;
   margin: 0.5rem 0 0 0;
@@ -189,15 +155,11 @@ const StyledWorkListItemDate = styled.h3`
 `;
 
 const StyledWorkListItemTitle = styled.h2`
-  margin: 0.5rem 0.5rem 0 0;
+  margin: 0 0 0.5rem 0;
   font-size: 1.1rem;
   font-weight: 500;
   line-height: 1.5rem;
   word-spacing: 0.05rem;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.75rem 0 0 0;
-  }
 `;
 
 const StyledH1 = styled.h1`

@@ -1,24 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, ThemeContext } from 'styled-components';
 import { Link } from 'gatsby';
 
 import { fadeIn } from 'react-animations';
 
 import { deviceMaxWidth } from '../../media-query-sizes.js';
-
-import { globalThemeColour } from '../../assets/global-style-constants.js';
-
 import DarkModeSwitchButton from './dark-mode-switch-button.js';
 import Logo from './logo.js';
 
 const Header = ({ enableDarkMode, onThemeSwitchToggle }) => {
-  const activeNavItemStyle = { color: globalThemeColour, fontWeight: 'bolder' };
+  const { primaryThemeColour } = useContext(ThemeContext);
+  const activeNavItemStyle = { color: primaryThemeColour, fontWeight: 'bolder' };
 
   return (
     <StyledHeader>
       <Link to="/">
-        <Logo colour={globalThemeColour} />
+        <Logo fillColour={primaryThemeColour} />
       </Link>
       <StyledNavigationWrapper>
         <StyledNavLink activeStyle={activeNavItemStyle} to="/">
@@ -39,7 +37,6 @@ const Header = ({ enableDarkMode, onThemeSwitchToggle }) => {
 export default Header;
 
 Header.propTypes = {
-  // enableDarkMode default prop set in global-state-context-provider.js
   enableDarkMode: PropTypes.bool.isRequired,
   onThemeSwitchToggle: PropTypes.func.isRequired,
 };
@@ -62,18 +59,17 @@ const StyledHeader = styled.header`
   z-index: 1;
   background-color: ${(props) => props.theme.headerBg};
 
-  padding: 10px 50px;
+  padding: 6px 50px;
 
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  /* animation: ${keyframes`${fadeIn}`} 300ms ease-in; */
   box-shadow: ${(props) => props.theme.headerDropShadow};
 
   @media only screen and ${deviceMaxWidth.tablet} {
-    padding: 10px 15px;
+    padding: 8px 15px;
   }
 `;
 

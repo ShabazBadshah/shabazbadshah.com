@@ -1,6 +1,5 @@
 const darkModeThemeColour = '#141617';
-
-export const globalThemeColour = '#69a9e5';
+const globalThemeColour = '#69a9e5';
 
 export const theme = {
   LIGHT: {
