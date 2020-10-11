@@ -2,15 +2,12 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
-import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
-
-import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
+import { globalThemeColour } from '../assets/global-style-constants.js';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import Layout from '../components/layout.js';
@@ -45,88 +42,39 @@ const AllPosts = () => {
   return (
     <Layout>
       <SEO title="Blog" />
-      <globalStateContext.Consumer>
-        {(globalState) => (
-          <StyledWorkHighlightSection>
-            <StyledH1>
-              📝 <br></br> All Posts
-            </StyledH1>
-            <StyledH2>Here's a my thoughts on bunch of things</StyledH2>
-            <StyledWorkItemList enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-              {allBlogPosts.blog.edges.map((blogNode, i) => {
-                const blogPostData = blogNode.node.childMdx.frontmatter;
-                const blogPostPath = blogNode.node.childMdx.fields.slug;
-                return (
-                  <StyledListItem to={blogPostPath} enableDarkMode={globalState.darkMode.isDarkModeEnabled} key={i}>
-                    <div>
-                      <StyledWorkListItemTitle>{blogPostData.title}</StyledWorkListItemTitle>
-                      <StyledWorkListItemDate>{blogPostData.date}</StyledWorkListItemDate>
-                    </div>
-                    <StyledWorkListItemBlurb>{blogPostData.blurb}</StyledWorkListItemBlurb>
 
-                    {/* <StyledTagsWrapper>
+      <StyledWorkHighlightSection>
+        <StyledH1>
+          📝 <br></br> All Posts
+        </StyledH1>
+        <StyledH2>Here's a my thoughts on bunch of things</StyledH2>
+        <StyledWorkItemList>
+          {allBlogPosts.blog.edges.map((blogNode, i) => {
+            const blogPostData = blogNode.node.childMdx.frontmatter;
+            const blogPostPath = blogNode.node.childMdx.fields.slug;
+            return (
+              <StyledListItem to={blogPostPath} key={i}>
+                <div>
+                  <StyledWorkListItemTitle>{blogPostData.title}</StyledWorkListItemTitle>
+                  <StyledWorkListItemDate>{blogPostData.date}</StyledWorkListItemDate>
+                </div>
+                <StyledWorkListItemBlurb>{blogPostData.blurb}</StyledWorkListItemBlurb>
+
+                {/* <StyledTagsWrapper>
                       {blogPostData.tags.map((tag, i) => {
                         return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
                       })}
                     </StyledTagsWrapper> */}
-                  </StyledListItem>
-                );
-              })}
-            </StyledWorkItemList>
-          </StyledWorkHighlightSection>
-        )}
-      </globalStateContext.Consumer>
+              </StyledListItem>
+            );
+          })}
+        </StyledWorkItemList>
+      </StyledWorkHighlightSection>
     </Layout>
   );
 };
 
 export default AllPosts;
-
-AllPosts.propTypes = {
-  enableDarkMode: PropTypes.bool,
-};
-
-AllPosts.defaultProps = {
-  enableDarkMode: false,
-};
-
-const StyledLink = styled.a`
-  text-align: center;
-  text-decoration: none;
-  font-weight: 500;
-  text-underline-offset: 0.2rem;
-  cursor: pointer;
-  padding: 0.7rem 3rem;
-  border-radius: 4px;
-  color: #f9f8f7;
-  box-shadow: 0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.06);
-  margin-right: 1rem;
-  border: 2px ${globalThemeColour} solid;
-  background-color: ${globalThemeColour};
-
-  &:hover {
-    border: ${(props) => (props.enableDarkMode ? '2px #f9f8f7 solid' : `2px ${globalThemeColour} solid`)};
-    color: ${(props) => (props.enableDarkMode ? '#f9f8f7' : globalThemeColour)};
-    background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
-    transform: translateY(-0.1rem);
-    transition: all 100ms ease-out;
-  }
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.5rem 0;
-    width: 100%;
-    margin-right: 0;
-  }
-`;
-
-const StyledLinkWrapper = styled.div`
-  display: flex;
-  margin: 1.5rem 0 0.7rem 0;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    flex-direction: column;
-  }
-`;
 
 const StyledWorkListItemBlurb = styled.p`
   margin: 1.5rem 0 0 0;
@@ -160,18 +108,17 @@ const StyledListItem = styled(Link)`
   text-decoration: none;
   color: unset;
 
-  box-shadow: ${(props) =>
-    props.enableDarkMode ? '0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.01)' : '0.5rem 0.5rem 1rem 0 rgba(85, 85, 85, 0.03)'};
-  background-color: ${(props) => (props.enableDarkMode ? '#262525' : 'white')};
+  box-shadow: ${(props) => props.theme.cardDropShadow};
+  background-color: ${(props) => props.theme.cardBgColour};
   transition: background-color 100ms ease-out;
   border-radius: 5px;
   cursor: pointer;
-  border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : '1px solid #e1e4e8')};
+  border: ${(props) => props.theme.cardBorder};
 
   &:hover {
     transition: background-color 100ms ease-in;
     cursor: pointer;
-    background-color: ${(props) => (props.enableDarkMode ? '#444242' : '#f7f7f7')};
+    background-color: ${(props) => props.theme.cardHoverColour};
   }
 
   &:nth-child(odd) {

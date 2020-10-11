@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import React, { useContext } from 'react';
+import styled, { keyframes, ThemeContext } from 'styled-components';
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 
 import { useStaticQuery, graphql } from 'gatsby';
@@ -8,9 +7,11 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { headShake } from 'react-animations';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 import Img from 'gatsby-image';
-import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
+import { globalThemeColour } from '../assets/global-style-constants.js';
 
-const SocialMediaLinks = ({ enableDarkMode }) => {
+const SocialMediaLinks = () => {
+  const theme = useContext(ThemeContext);
+
   const data = useStaticQuery(graphql`
     query {
       file(relativePath: { eq: "avatar.jpg" }) {
@@ -34,32 +35,32 @@ const SocialMediaLinks = ({ enableDarkMode }) => {
   `);
 
   return (
-    <StyledContactCard enableDarkMode={enableDarkMode}>
+    <StyledContactCard>
       <StyledImage fluid={data.file.childImageSharp.fluid} />
       <StyledCardTitle>Get in touch</StyledCardTitle>
       <StyledCardSubtitle>Find me online at the places below, or just shoot me an email</StyledCardSubtitle>
 
       <StyledSocialMediaLinksWrapper>
+        <a target="_blank" rel="noopener noreferrer" href={data.site.siteMetadata.contactInfo.linkedin}>
+          <StyledSocialMediaLink>
+            <FaLinkedin color={theme.iconColour} size="1.7em" />
+            <StyledSocialMediaLinkText>LinkedIn</StyledSocialMediaLinkText>
+          </StyledSocialMediaLink>
+        </a>
+        <a target="_blank" rel="noopener noreferrer" href={data.site.siteMetadata.contactInfo.github}>
+          <StyledSocialMediaLink>
+            <FaGithub color={theme.iconColour} size="1.7em" />
+            <StyledSocialMediaLinkText>Github</StyledSocialMediaLinkText>
+          </StyledSocialMediaLink>
+        </a>
         <a
           target="_blank"
           rel="noopener noreferrer"
           href={`mailto:${data.site.siteMetadata.contactInfo.email}Subject=Hey%20Shabaz`}
         >
-          <StyledSocialMediaLink enableDarkMode={enableDarkMode}>
-            <FaEnvelope color={enableDarkMode ? 'white' : globalThemeColour} size="1.7em" />
-            <StyledSocialMediaLinkText enableDarkMode={enableDarkMode}>Email</StyledSocialMediaLinkText>
-          </StyledSocialMediaLink>
-        </a>
-        <a target="_blank" rel="noopener noreferrer" href={data.site.siteMetadata.contactInfo.github}>
-          <StyledSocialMediaLink enableDarkMode={enableDarkMode}>
-            <FaGithub color={enableDarkMode ? 'white' : globalThemeColour} size="1.7em" />
-            <StyledSocialMediaLinkText enableDarkMode={enableDarkMode}>Github</StyledSocialMediaLinkText>
-          </StyledSocialMediaLink>
-        </a>
-        <a target="_blank" rel="noopener noreferrer" href={data.site.siteMetadata.contactInfo.linkedin}>
-          <StyledSocialMediaLink enableDarkMode={enableDarkMode}>
-            <FaLinkedin color={enableDarkMode ? 'white' : globalThemeColour} size="1.7em" />
-            <StyledSocialMediaLinkText enableDarkMode={enableDarkMode}>LinkedIn</StyledSocialMediaLinkText>
+          <StyledSocialMediaLink>
+            <FaEnvelope color={theme.iconColour} size="1.7em" />
+            <StyledSocialMediaLinkText>Email</StyledSocialMediaLinkText>
           </StyledSocialMediaLink>
         </a>
       </StyledSocialMediaLinksWrapper>
@@ -69,16 +70,8 @@ const SocialMediaLinks = ({ enableDarkMode }) => {
 
 export default SocialMediaLinks;
 
-SocialMediaLinks.propTypes = {
-  enableDarkMode: PropTypes.bool,
-};
-
-SocialMediaLinks.defaultProps = {
-  enableDarkMode: false,
-};
-
 const StyledSocialMediaLinkText = styled.h3`
-  color: ${(props) => (props.enableDarkMode ? '#f9f8f7' : '#080708')};
+  color: ${(props) => props.theme.text};
   margin-left: 1rem;
   text-decoration: none;
   font-size: 1.1rem;
@@ -115,7 +108,7 @@ const StyledSocialMediaLinksWrapper = styled.ul`
 
 const StyledSocialMediaLink = styled.li`
   padding: 0.6rem 1rem;
-  background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
+  background-color: ${(props) => props.theme.socialMediaLinkBgColour};
   margin: 1rem 0;
   border-radius: 4px;
   display: flex;
@@ -144,11 +137,10 @@ const StyledContactCard = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${globalThemeColour};
+  background-color: ${(props) => props.theme.primaryThemeColour};
   padding: 2em;
   border-radius: 8px;
-  box-shadow: ${(props) =>
-    props.enableDarkMode ? '0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.02)' : '0.5rem 0.5rem 1rem 0 rgba(85, 85, 85, 0.08)'};
+  box-shadow: rgba(85, 85, 85, 0.08) 0.5rem 0.5rem 1rem 0;
   min-width: 300px;
   margin-right: 5rem;
 
@@ -157,6 +149,8 @@ const StyledContactCard = styled.div`
   }
 
   @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 2rem 0 0 0;
+    /* margin: 2rem 0 0 0; */
+    margin-right: 0;
+    margin-top: 2rem;
   }
 `;

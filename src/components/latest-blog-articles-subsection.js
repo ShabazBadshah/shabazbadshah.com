@@ -13,7 +13,7 @@ import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import LinkButton from './link-button.js';
 
-const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
+const LatestBlogArticlesSubsection = () => {
   const highlightedBlogPosts = useStaticQuery(graphql`
     {
       blog: allFile(
@@ -44,13 +44,13 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
     <StyledBlogHighlightSection>
       <StyledH1>📝 Latest Posts</StyledH1>
       <StyledH2>Peruse some of my latest posts below</StyledH2>
-      <StyledBlogPostList enableDarkMode={enableDarkMode}>
+      <StyledBlogPostList>
         {highlightedBlogPosts.blog.edges.map((blogNode, i) => {
           const blogPostData = blogNode.node.childMdx.frontmatter;
           const blogPostPath = blogNode.node.childMdx.fields.slug;
           return (
             <StyledLink to={`/blog/${blogPostPath}`} key={i}>
-              <StyledBlogPostListItem key={i} enableDarkMode={enableDarkMode}>
+              <StyledBlogPostListItem key={i}>
                 <div>
                   <StyledBlogPostListItemTitle>{blogPostData.title}</StyledBlogPostListItemTitle>
                   <StyledBlogPostListItemDate>{blogPostData.date}</StyledBlogPostListItemDate>
@@ -66,20 +66,12 @@ const LatestBlogArticlesSubsection = ({ enableDarkMode }) => {
           );
         })}
       </StyledBlogPostList>
-      <LinkButton text="view all blog posts" linkToMoveTo="/blog" enableDarkMode={enableDarkMode} />
+      <LinkButton text="view all blog posts" linkToMoveTo="/blog" />
     </StyledBlogHighlightSection>
   );
 };
 
 export default LatestBlogArticlesSubsection;
-
-LatestBlogArticlesSubsection.propTypes = {
-  enableDarkMode: PropTypes.bool,
-};
-
-LatestBlogArticlesSubsection.defaultProps = {
-  enableDarkMode: false,
-};
 
 const StyledBlogListItemBlurb = styled.p`
   margin: 1.5rem 0 0 0;
@@ -165,7 +157,7 @@ const StyledBlogPostListItem = styled.li`
 
   &:hover {
     transition: background-color 100ms ease-in;
-    background-color: ${(props) => (props.enableDarkMode ? '#444242' : '#f7f7f7')};
+    background-color: ${(props) => props.theme.cardHoverColour};
   }
 
   @media only screen and ${deviceMaxWidth.mobileL} {
@@ -178,13 +170,12 @@ const StyledBlogPostListItem = styled.li`
 
 const StyledBlogPostList = styled.ul`
   list-style: none;
-  background-color: ${(props) => (props.enableDarkMode ? '#262525' : 'white')};
+  background-color: ${(props) => props.theme.cardBgColour};
   border-radius: 8px;
   padding: 1.9rem 1rem;
-  box-shadow: ${(props) =>
-    props.enableDarkMode ? '0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.01)' : '0.5rem 0.5rem 1rem 0 rgba(85, 85, 85, 0.03)'};
+  box-shadow: ${(props) => props.theme.cardDropShadow};
   margin-bottom: 1.5rem;
-  border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : '1px solid #e1e4e8')};
+  border: ${(props) => props.theme.cardBorder};
 
   /* Get the last item in the highlight list and remove bottom margin */
   & a:last-child li {

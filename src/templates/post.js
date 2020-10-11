@@ -6,7 +6,6 @@ import Layout from '../components/layout';
 
 import { headShake } from 'react-animations';
 
-import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 import { globalThemeColour } from '../assets/global-style-constants';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
@@ -16,20 +15,16 @@ class PostTemplate extends Component {
     const { frontmatter, tableOfContents, body, slug } = this.props.data.mdx;
     return (
       <div>
-        <globalStateContext.Consumer>
-          {(globalState) => (
-            <Layout>
-              <StyledArticleWrapper>
-                <StyledMarkdownBodyContainer enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-                  <div className="markdown-body">
-                    <StyledArticleTitle>{frontmatter.title}</StyledArticleTitle>
-                    <MDXRenderer>{body}</MDXRenderer>
-                  </div>
-                </StyledMarkdownBodyContainer>
-              </StyledArticleWrapper>
-            </Layout>
-          )}
-        </globalStateContext.Consumer>
+        <Layout>
+          <StyledArticleWrapper>
+            <StyledMarkdownBodyContainer>
+              <div className="markdown-body">
+                <StyledArticleTitle>{frontmatter.title}</StyledArticleTitle>
+                <MDXRenderer>{body}</MDXRenderer>
+              </div>
+            </StyledMarkdownBodyContainer>
+          </StyledArticleWrapper>
+        </Layout>
       </div>
     );
   }
@@ -83,7 +78,7 @@ const StyledMarkdownBodyContainer = styled.div`
   li {
     font-size: 1rem;
     line-height: 1.5rem;
-    color: ${(props) => (props.enableDarkMode ? '#ced4da' : '#41484f')};
+    color: ${(props) => props.theme.postTextColour};
   }
 
   p {

@@ -11,7 +11,7 @@ import SEO from '../components/seo.js';
 import { headShake, fadeIn } from 'react-animations';
 
 import { globalThemeColour } from '../assets/global-style-constants.js';
-import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
+
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import SocialMediaLinks from '../components/social-media-links.js';
@@ -36,44 +36,33 @@ const IndexPage = () => {
   `);
 
   return (
-    <globalStateContext.Consumer>
-      {(globalState) => (
-        <Layout>
-          <SEO title="Home" />
-          <StyledHeroSection>
-            <SocialMediaLinks enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-            <StyledGreeting>
-              <StyledH2>
-                Hello <StyledEmoji aria-label="waving hand">👋,</StyledEmoji>
-              </StyledH2>
-              <StyledH1>I'm Shabaz Badshah.</StyledH1>
-              <StyledParagraph>
-                I'm a{' '}
-                <StyledAnchorLink href={data.site.siteMetadata.contactInfo.linkedin}>Product Manager</StyledAnchorLink>
-                &nbsp;who develops Fullstack web experiences during his downtime. This site catalogs things I learn,
-                find interesting, want to share, or anything cool I'm{' '}
-                <StyledAnchorLink href={data.site.siteMetadata.contactInfo.github}>creating</StyledAnchorLink>. There's
-                no ads or distractions here.
-              </StyledParagraph>
-              <StyledRow>
-                <LinkButton
-                  text="see my work"
-                  linkToMoveTo="/work"
-                  enableDarkMode={globalState.darkMode.isDarkModeEnabled}
-                />
-                <LinkButton
-                  text="read the blog"
-                  linkToMoveTo="/blog"
-                  enableDarkMode={globalState.darkMode.isDarkModeEnabled}
-                />
-              </StyledRow>
-            </StyledGreeting>
-          </StyledHeroSection>
-          <LatestBlogArticlesSubsection enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-          <LatestWorkSubsection enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-        </Layout>
-      )}
-    </globalStateContext.Consumer>
+    <Layout>
+      <SEO title="Home" />
+      <StyledHeroSection>
+        <SocialMediaLinks />
+        <StyledGreeting>
+          <StyledH2>
+            Hello <StyledEmoji aria-label="waving hand">👋,</StyledEmoji>
+          </StyledH2>
+          <StyledH1>I'm Shabaz Badshah.</StyledH1>
+          <StyledParagraph>
+            I'm a{' '}
+            <StyledAnchorLink href={data.site.siteMetadata.contactInfo.linkedin}>Product Manager</StyledAnchorLink>
+            &nbsp;who develops Fullstack web experiences during his downtime. This site catalogs things I learn, find
+            interesting, want to share, or anything cool I'm{' '}
+            <StyledAnchorLink href={data.site.siteMetadata.contactInfo.github}>creating</StyledAnchorLink>. There's no
+            ads or distractions here.
+          </StyledParagraph>
+          <StyledRow>
+            <LinkButton text="see my work" linkToMoveTo="/work" />
+            <LinkButton text="read the blog" linkToMoveTo="/blog" />
+          </StyledRow>
+        </StyledGreeting>
+      </StyledHeroSection>
+
+      <LatestBlogArticlesSubsection />
+      <LatestWorkSubsection />
+    </Layout>
   );
 };
 
@@ -92,7 +81,7 @@ const StyledRow = styled.div`
 
     /* Target CTA LinkButton  */
     & a {
-      width: 98%;
+      width: 100%;
       margin-right: 0;
     }
   }
@@ -104,7 +93,7 @@ const StyledGreeting = styled.div`
   justify-content: center;
 
   @media ${deviceMaxWidth.mobileL} {
-    margin: 1rem;
+    margin: 0;
   }
 `;
 

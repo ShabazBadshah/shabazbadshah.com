@@ -8,9 +8,7 @@ import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
-import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
-
-import { globalThemeColour, darkModeThemeColour } from '../assets/global-style-constants.js';
+import { globalThemeColour } from '../assets/global-style-constants.js';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 
 import { default as workShowcaseData } from '../../content/work/work-showcase.js';
@@ -34,55 +32,40 @@ const AllWork = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <globalStateContext.Consumer>
-        {(globalState) => (
-          <StyledWorkHighlightSection>
-            <StyledH1>
-              🔎 <br></br> All Work
-            </StyledH1>
-            <StyledH2>Here's everything of note I've worked on</StyledH2>
-            <StyledWorkItemList enableDarkMode={globalState.darkMode.isDarkModeEnabled}>
-              {workShowcaseData
-                .sort((workItemA, workItemB) => sortWorkShowCaseItemByDateDesc(workItemA, workItemB))
-                .map((workData, i) => {
-                  return (
-                    <StyledListItem
-                      to={`${workData.source}`}
-                      enableDarkMode={globalState.darkMode.isDarkModeEnabled}
-                      key={i}
-                    >
-                      <StyledWorkLinkSourceWrapper to={workData.source}>
-                        <div>
-                          <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
-                          <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
-                        </div>
-                        <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
-                        {/* <StyledTagsWrapper>
+
+      <StyledWorkHighlightSection>
+        <StyledH1>
+          🔎 <br></br> All Work
+        </StyledH1>
+        <StyledH2>Here's everything of note I've worked on</StyledH2>
+        <StyledWorkItemList>
+          {workShowcaseData
+            .sort((workItemA, workItemB) => sortWorkShowCaseItemByDateDesc(workItemA, workItemB))
+            .map((workData, i) => {
+              return (
+                <StyledListItem to={`${workData.source}`} key={i}>
+                  <StyledWorkLinkSourceWrapper to={workData.source}>
+                    <div>
+                      <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
+                      <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
+                    </div>
+                    <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
+                    {/* <StyledTagsWrapper>
                         {workData.tags.map((tag, i) => {
                           return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
                         })}
                       </StyledTagsWrapper> */}
 
-                        <StyledLinkWrapper>
-                          {workData.article && (
-                            <StyledLink enableDarkMode={globalState.darkMode.isDarkModeEnabled} href={workData.article}>
-                              Article
-                            </StyledLink>
-                          )}
-                          {workData.demo && (
-                            <StyledLink enableDarkMode={globalState.darkMode.isDarkModeEnabled} href={workData.demo}>
-                              Demo
-                            </StyledLink>
-                          )}
-                        </StyledLinkWrapper>
-                      </StyledWorkLinkSourceWrapper>
-                    </StyledListItem>
-                  );
-                })}
-            </StyledWorkItemList>
-          </StyledWorkHighlightSection>
-        )}
-      </globalStateContext.Consumer>
+                    <StyledLinkWrapper>
+                      {workData.article && <StyledLink href={workData.article}>Article</StyledLink>}
+                      {workData.demo && <StyledLink href={workData.demo}>Demo</StyledLink>}
+                    </StyledLinkWrapper>
+                  </StyledWorkLinkSourceWrapper>
+                </StyledListItem>
+              );
+            })}
+        </StyledWorkItemList>
+      </StyledWorkHighlightSection>
     </Layout>
   );
 };
@@ -117,9 +100,9 @@ const StyledLink = styled(Link)`
   background-color: ${globalThemeColour};
 
   &:hover {
-    border: ${(props) => (props.enableDarkMode ? '2px #f9f8f7 solid' : `2px ${globalThemeColour} solid`)};
-    color: ${(props) => (props.enableDarkMode ? '#f9f8f7' : globalThemeColour)};
-    background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
+    border: ${(props) => props.theme.linkButtonSmallBorder};
+    color: ${(props) => props.theme.linkButtonTextColour};
+    background-color: ${(props) => props.theme.linkButtonHoverColour};
     transform: translateY(-0.1rem);
     transition: all 100ms ease-out;
   }
@@ -171,18 +154,17 @@ const StyledListItem = styled.div`
   text-decoration: none;
   color: unset;
 
-  box-shadow: ${(props) =>
-    props.enableDarkMode ? '0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.01)' : '0.5rem 0.5rem 1rem 0 rgba(85, 85, 85, 0.03)'};
-  background-color: ${(props) => (props.enableDarkMode ? '#262525' : 'white')};
+  box-shadow: ${(props) => props.theme.cardDropShadow};
+  background-color: ${(props) => props.theme.cardBgColour};
   transition: background-color 100ms ease-out;
   border-radius: 5px;
   cursor: pointer;
-  border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : '1px solid #e1e4e8')};
+  border: ${(props) => props.theme.cardBorder};
 
   &:hover {
     transition: background-color 100ms ease-in;
     cursor: pointer;
-    background-color: ${(props) => (props.enableDarkMode ? '#444242' : '#f7f7f7')};
+    background-color: ${(props) => props.theme.cardHoverColour};
   }
 
   &:nth-child(odd) {

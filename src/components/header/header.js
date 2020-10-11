@@ -7,30 +7,30 @@ import { fadeIn } from 'react-animations';
 
 import { deviceMaxWidth } from '../../media-query-sizes.js';
 
-import { globalThemeColour, darkModeThemeColour } from '../../assets/global-style-constants.js';
+import { globalThemeColour } from '../../assets/global-style-constants.js';
 
 import DarkModeSwitchButton from './dark-mode-switch-button.js';
 import Logo from './logo.js';
 
-const Header = ({ enableDarkMode }) => {
+const Header = ({ enableDarkMode, onThemeSwitchToggle }) => {
   const activeNavItemStyle = { color: globalThemeColour, fontWeight: 'bolder' };
 
   return (
-    <StyledHeader enableDarkMode={enableDarkMode}>
+    <StyledHeader>
       <Link to="/">
         <Logo colour={globalThemeColour} />
       </Link>
-      <StyledNavigationWrapper enableDarkMode={enableDarkMode}>
-        <StyledNavLink state={{ enableDarkMode }} activeStyle={activeNavItemStyle} to="/">
+      <StyledNavigationWrapper>
+        <StyledNavLink activeStyle={activeNavItemStyle} to="/">
           about
         </StyledNavLink>
-        <StyledNavLink state={{ enableDarkMode }} activeStyle={activeNavItemStyle} to="/work">
+        <StyledNavLink activeStyle={activeNavItemStyle} to="/work">
           work
         </StyledNavLink>
-        <StyledNavLink state={{ enableDarkMode }} activeStyle={activeNavItemStyle} to="/blog">
+        <StyledNavLink activeStyle={activeNavItemStyle} to="/blog">
           blog
         </StyledNavLink>
-        <DarkModeSwitchButton />
+        <DarkModeSwitchButton onToggle={onThemeSwitchToggle} enableDarkMode={enableDarkMode} />
       </StyledNavigationWrapper>
     </StyledHeader>
   );
@@ -41,6 +41,7 @@ export default Header;
 Header.propTypes = {
   // enableDarkMode default prop set in global-state-context-provider.js
   enableDarkMode: PropTypes.bool.isRequired,
+  onThemeSwitchToggle: PropTypes.func.isRequired,
 };
 
 const StyledNavigationWrapper = styled.div`
@@ -59,7 +60,7 @@ const StyledHeader = styled.header`
   right: 0;
   left: 0;
   z-index: 1;
-  background-color: ${(props) => (props.enableDarkMode ? '#1d1d1d' : '#f9f8f7')};
+  background-color: ${(props) => props.theme.headerBg};
 
   padding: 10px 50px;
 
@@ -68,9 +69,9 @@ const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
 
-  animation: ${keyframes`${fadeIn}`} 300ms ease-in;
-  box-shadow: ${(props) =>
-    props.enableDarkMode ? '0 0.6em 3em 0 rgba(0, 0, 0, 0.2)' : '0 0.5em 2em 0 rgba(85, 85, 85, 0.06)'};
+  /* animation: ${keyframes`${fadeIn}`} 300ms ease-in; */
+  box-shadow: ${(props) => props.theme.headerDropShadow};
+
   @media only screen and ${deviceMaxWidth.tablet} {
     padding: 10px 15px;
   }
@@ -80,14 +81,14 @@ const StyledNavLink = styled(Link)`
   margin: 5px 15px;
 
   transition: all 150ms ease-in;
-  color: ${(props) => (props.state.enableDarkMode ? '#f9f8f7' : darkModeThemeColour)};
+  color: ${(props) => props.theme.headerNavLinkColour};
   font-size: 1.1rem;
   letter-spacing: 0.1rem;
   text-decoration: none;
   border-radius: 4px;
 
   &:hover {
-    color: ${globalThemeColour};
+    color: ${(props) => props.theme.primaryThemeColour};
     transition: all 150ms ease-in;
     cursor: pointer;
   }

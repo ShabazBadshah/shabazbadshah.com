@@ -8,29 +8,24 @@ import { fadeIn } from 'react-animations';
 import Layout from '../components/layout.js';
 import SEO from '../components/seo.js';
 
-import { globalStateContext } from '../contextProviders/global-state-context-provider.js';
 import { deviceMaxWidth } from '../media-query-sizes.js';
 import LinkButton from '../components/link-button.js';
 
 const NotFoundPage = () => {
   return (
-    <globalStateContext.Consumer>
-      {(globalState) => (
-        <Layout>
-          <SEO title="404" />
-          <Styled404Section>
-            <Styled404Wrapper>
-              <StyledH1>😐 404 Page Not Found!</StyledH1>
-              <StyledParagraph>
-                "Um.......I swear this page was working on my computer. I'll add this bug to the backlog. Let's forget
-                like this ever happened."
-              </StyledParagraph>
-              <LinkButton text="🏠Go Home?" linkToMoveTo="/" enableDarkMode={globalState.darkMode.isDarkModeEnabled} />
-            </Styled404Wrapper>
-          </Styled404Section>
-        </Layout>
-      )}
-    </globalStateContext.Consumer>
+    <Layout>
+      <SEO title="404" />
+      <Styled404Section>
+        <Styled404Wrapper>
+          <StyledH1>😐 404 Page Not Found!</StyledH1>
+          <StyledParagraph>
+            "Um.......I swear this page was working on my computer. I'll add this bug to the backlog. Let's forget like
+            this ever happened."
+          </StyledParagraph>
+          <LinkButton text="🏠Go Home?" linkToMoveTo="/" />
+        </Styled404Wrapper>
+      </Styled404Section>
+    </Layout>
   );
 };
 

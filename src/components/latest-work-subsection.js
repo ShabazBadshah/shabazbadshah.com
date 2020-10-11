@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/accessible-emoji */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
 
@@ -17,17 +16,17 @@ import LinkButton from './link-button.js';
 
 const AMOUNT_WORK_ITEMS_TO_SHOWCASE = 4;
 
-const WorkHighShowcaseSubsection = ({ enableDarkMode }) => {
+const WorkHighShowcaseSubsection = () => {
   return (
     <StyledWorkHighlightSection>
       <StyledH1>🔎 Selected Works</StyledH1>
       <StyledH2>Here's some of the the things I've built</StyledH2>
-      <StyledWorkItemList enableDarkMode={enableDarkMode}>
+      <StyledWorkItemList>
         {workShowcaseData
           .filter((workData, i) => i < AMOUNT_WORK_ITEMS_TO_SHOWCASE)
           .map((workData, i) => {
             return (
-              <StyledListItem to={`${workData.source}`} enableDarkMode={enableDarkMode} key={i}>
+              <StyledListItem to={`${workData.source}`} key={i}>
                 <StyledWorkLinkSourceWrapper to={workData.source}>
                   <div>
                     <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
@@ -35,36 +34,20 @@ const WorkHighShowcaseSubsection = ({ enableDarkMode }) => {
                   </div>
                   <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
                   <StyledLinkWrapper>
-                    {workData.article && (
-                      <StyledLink enableDarkMode={enableDarkMode} to={workData.article}>
-                        Article
-                      </StyledLink>
-                    )}
-                    {workData.demo && (
-                      <StyledLink enableDarkMode={enableDarkMode} to={workData.demo}>
-                        Demo
-                      </StyledLink>
-                    )}
+                    {workData.article && <StyledLink to={workData.article}>Article</StyledLink>}
+                    {workData.demo && <StyledLink to={workData.demo}>Demo</StyledLink>}
                   </StyledLinkWrapper>
                 </StyledWorkLinkSourceWrapper>
               </StyledListItem>
             );
           })}
       </StyledWorkItemList>
-      <LinkButton text="view all work" linkToMoveTo="/work" enableDarkMode={enableDarkMode} />
+      <LinkButton text="view all work" linkToMoveTo="/work" />
     </StyledWorkHighlightSection>
   );
 };
 
 export default WorkHighShowcaseSubsection;
-
-WorkHighShowcaseSubsection.propTypes = {
-  enableDarkMode: PropTypes.bool,
-};
-
-WorkHighShowcaseSubsection.defaultProps = {
-  enableDarkMode: false,
-};
 
 const StyledWorkLinkSourceWrapper = styled(Link)`
   text-decoration: none;
@@ -92,9 +75,9 @@ const StyledLink = styled(Link)`
   }
 
   &:hover {
-    border: ${(props) => (props.enableDarkMode ? '2px #f9f8f7 solid' : `2px ${globalThemeColour} solid`)};
-    color: ${(props) => (props.enableDarkMode ? '#f9f8f7' : globalThemeColour)};
-    background-color: ${(props) => (props.enableDarkMode ? darkModeThemeColour : '#f9f8f7')};
+    border: ${(props) => props.theme.linkButtonSmallBorder};
+    color: ${(props) => props.theme.linkButtonTextColour};
+    background-color: ${(props) => props.theme.linkButtonHoverColour};
     transform: translateY(-0.1rem);
     transition: all 100ms ease-out;
   }
@@ -144,18 +127,17 @@ const StyledListItem = styled.div`
   flex-direction: column;
   text-decoration: none;
 
-  box-shadow: ${(props) =>
-    props.enableDarkMode ? '0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.01)' : '0.5rem 0.5rem 1rem 0 rgba(85, 85, 85, 0.03)'};
-  background-color: ${(props) => (props.enableDarkMode ? '#262525' : 'white')};
+  box-shadow: ${(props) => props.theme.cardDropShadow};
+  background-color: ${(props) => props.theme.cardBgColour};
   transition: background-color 100ms ease-out;
   border-radius: 5px;
   cursor: pointer;
-  border: ${(props) => (props.enableDarkMode ? `1px ${globalThemeColour} solid` : '1px solid #e1e4e8')};
+  border: ${(props) => props.theme.cardBorder};
 
   &:hover {
     transition: background-color 100ms ease-in;
     cursor: pointer;
-    background-color: ${(props) => (props.enableDarkMode ? '#444242' : '#f7f7f7')};
+    background-color: ${(props) => props.theme.cardHoverColour};
   }
 
   &:nth-child(odd) {
