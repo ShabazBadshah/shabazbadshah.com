@@ -164,7 +164,7 @@ const StyledWorkListItemTitle = styled.h2`
 
 const StyledH1 = styled.h1`
   margin: 2rem 0 1rem 0;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Times New Roman', Times, serif;
   font-weight: 800;
   font-size: 3.2rem;
 `;

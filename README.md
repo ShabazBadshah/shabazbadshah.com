@@ -1,4 +1,4 @@
-![logo](./src/assets/images/readme-logo.png)
+![logo](./readme-logo.png)
 
 # V4 - shabazbadshah.github.io
 

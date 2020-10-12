@@ -39,7 +39,7 @@ const IndexPage = () => {
         <SocialMediaLinks />
         <StyledGreeting>
           <StyledH2>
-            Hello <StyledEmoji aria-label="waving hand">👋,</StyledEmoji>
+            Hello <span aria-label="waving hand">👋,</span>
           </StyledH2>
           <StyledH1>I'm Shabaz Badshah.</StyledH1>
           <StyledParagraph>
@@ -64,10 +64,6 @@ const IndexPage = () => {
 };
 
 export default IndexPage;
-
-const StyledEmoji = styled.span`
-  font-size: 1.4em;
-`;
 
 const StyledRow = styled.div`
   display: flex;
@@ -113,6 +109,10 @@ const StyledAnchorLink = styled.a`
 const StyledH2 = styled.h2`
   font-weight: normal;
   margin: 0;
+
+  & span {
+    font-size: 1.4em;
+  }
 `;
 
 const StyledParagraph = styled.p`

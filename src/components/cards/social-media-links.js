@@ -15,7 +15,7 @@ const SocialMediaLinks = () => {
     query {
       file(relativePath: { eq: "avatar.jpg" }) {
         childImageSharp {
-          fluid {
+          fluid(maxWidth: 150, quality: 40) {
             ...GatsbyImageSharpFluid
           }
         }
@@ -127,8 +127,8 @@ const StyledSocialMediaLink = styled.li`
 
 const StyledImage = styled(Img)`
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: auto;
 `;
 
 const StyledContactCard = styled.div`
