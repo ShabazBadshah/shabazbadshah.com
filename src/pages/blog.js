@@ -7,10 +7,10 @@ import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
-import { deviceMaxWidth } from '../media-query-sizes.js';
+import { deviceMaxWidth } from '../assets/media-query-sizes.js';
 
-import Layout from '../components/layout.js';
-import SEO from '../components/seo.js';
+import { Layout } from '../components/layouts';
+import SEO from '../components/seo';
 
 const AllPosts = () => {
   const allBlogPosts = useStaticQuery(graphql`

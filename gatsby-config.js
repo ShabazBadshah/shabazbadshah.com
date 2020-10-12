@@ -70,14 +70,14 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `shabazbadshah.com`,
+        short_name: `@shabazbadshah`,
         start_url: `/`,
         background_color: `#FFFFFF`,
-        theme_color: `#008CFF`,
+        theme_color: `#69a9e5`,
         display: `minimal-ui`,
         icon: `static/favicon.svg`, // This path is relative to the root of the site.
-        theme_color_in_head: false, // This will avoid adding theme-color meta tag.
+        theme_color_in_head: true, // This will avoid adding theme-color meta tag.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

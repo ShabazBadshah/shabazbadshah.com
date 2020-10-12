@@ -5,18 +5,17 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
 
-import Layout from '../components/layout.js';
-import SEO from '../components/seo.js';
+import { Layout } from '../components/layouts';
+import SEO from '../components/seo';
 
 import { headShake, fadeIn } from 'react-animations';
 
-import { deviceMaxWidth } from '../media-query-sizes.js';
+import { deviceMaxWidth } from '../assets/media-query-sizes.js';
 
-import SocialMediaLinks from '../components/social-media-links.js';
-import LinkButton from '../components/link-button.js';
+import { SocialMediaLinks } from '../components/cards';
+import { LinkButton } from '../components/buttons';
 
-import LatestBlogArticlesSubsection from '../components/latest-blog-articles-subsection.js';
-import LatestWorkSubsection from '../components/latest-work-subsection.js';
+import { BlogArticleHighlightSection, WorkHighlightSection } from '../components/sections';
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -58,8 +57,8 @@ const IndexPage = () => {
         </StyledGreeting>
       </StyledHeroSection>
 
-      <LatestBlogArticlesSubsection />
-      <LatestWorkSubsection />
+      <BlogArticleHighlightSection />
+      <WorkHighlightSection />
     </Layout>
   );
 };
@@ -117,14 +116,14 @@ const StyledH2 = styled.h2`
 `;
 
 const StyledParagraph = styled.p`
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   line-height: 1.6;
-  word-spacing: 0.1rem;
+  word-spacing: 0.05rem;
   margin: 0 0 1rem 0;
 `;
 
 const StyledH1 = styled.h1`
-  margin: 2rem 0;
+  margin: 1.9rem 0;
   font-family: 'Times New Roman', Times, serif;
   font-size: 5rem;
   font-weight: bold;
@@ -134,7 +133,7 @@ const StyledHeroSection = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 4rem 0;
+  margin-top: 2rem;
   padding-top: 2rem;
   max-width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;

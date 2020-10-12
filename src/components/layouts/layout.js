@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
 
-import '../../static/normalize.css';
-import '../assets/base.css';
+import '../../assets/normalize.css';
+import '../../assets/base.css';
 
-import Header from './header/header.js';
-import Footer from './footer/footer.js';
+import { useDarkMode } from '../../hooks/useDarkMode.js';
 
-import { useDarkMode } from '../hooks/useDarkMode.js';
+import Header from '../header';
+import Footer from '../footer';
 
-import { theme } from '../theme/theme.js';
+import { theme } from '../../theme/theme.js';
 
 const Layout = ({ children }) => {
   const [darkMode, setDarkMode] = useDarkMode();

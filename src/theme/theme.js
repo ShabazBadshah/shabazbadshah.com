@@ -10,6 +10,7 @@ export const theme = {
     headerBg: '#f9f8f7',
     headerDropShadow: '0 0.5em 2em 0 rgba(85, 85, 85, 0.06)',
     headerNavLinkColour: darkModeThemeColour,
+    headerBorderColour: '#e1e4e8',
 
     cardHoverColour: '#f7f7f7',
     cardBorder: '1px solid #e1e4e8',
@@ -20,7 +21,7 @@ export const theme = {
 
     linkButtonHoverColour: '#f9f8f7',
     linkButtonBorder: '0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.2)',
-    linkButtonHoverBorder: `2px ${globalThemeColour} solid`,
+    linkButtonHoverBorder: `1px ${globalThemeColour} solid`,
     linkButtonTextColour: globalThemeColour,
 
     iconColour: globalThemeColour,
@@ -36,6 +37,7 @@ export const theme = {
     headerBg: '#1d1d1d',
     headerDropShadow: '0 0.6em 3em 0 rgba(0, 0, 0, 0.2)',
     headerNavLinkColour: '#f9f8f7',
+    headerBorderColour: 'black',
 
     cardHoverColour: '#444242',
     cardBorder: `1px ${globalThemeColour} solid`,
@@ -46,7 +48,7 @@ export const theme = {
 
     linkButtonHoverColour: darkModeThemeColour,
     linkButtonBorder: '0.5rem 0.5rem 1.5rem 0 rgba(85, 85, 85, 0.12)',
-    linkButtonHoverBorder: '2px #f9f8f7 solid',
+    linkButtonHoverBorder: '1px #f9f8f7 solid',
     linkButtonTextColour: '#f9f8f7',
 
     iconColour: 'white',

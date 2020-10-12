@@ -7,11 +7,11 @@ import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
-import { deviceMaxWidth } from '../media-query-sizes.js';
+import { deviceMaxWidth } from '../../../assets/media-query-sizes.js';
 
-import { default as workShowcaseData } from '../../content/work/work-showcase.js';
+import { default as workShowcaseData } from '../../../../content/work/work-showcase.js';
 
-import LinkButton from './link-button.js';
+import { LinkButton } from '../../buttons';
 
 const AMOUNT_WORK_ITEMS_TO_SHOWCASE = 4;
 
@@ -166,11 +166,11 @@ const StyledH1 = styled.h1`
   margin: 2rem 0 1rem 0;
   font-family: 'Playfair Display', serif;
   font-weight: 800;
-  font-size: 4em;
+  font-size: 3.2rem;
 `;
 
 const StyledH2 = styled.h2`
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   margin: 0 0 1rem 0;
   font-weight: 400;
   font-style: italic;

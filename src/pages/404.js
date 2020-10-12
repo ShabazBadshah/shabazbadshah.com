@@ -5,11 +5,11 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { fadeIn } from 'react-animations';
 
-import Layout from '../components/layout.js';
-import SEO from '../components/seo.js';
+import { Layout } from '../components/layouts';
+import SEO from '../components/seo';
 
-import { deviceMaxWidth } from '../media-query-sizes.js';
-import LinkButton from '../components/link-button.js';
+import { deviceMaxWidth } from '../assets/media-query-sizes.js';
+import { LinkButton } from '../components/buttons';
 
 const NotFoundPage = () => {
   return (

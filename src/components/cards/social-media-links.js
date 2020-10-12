@@ -5,7 +5,7 @@ import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import { headShake } from 'react-animations';
-import { deviceMaxWidth } from '../media-query-sizes.js';
+import { deviceMaxWidth } from '../../assets/media-query-sizes.js';
 import Img from 'gatsby-image';
 
 const SocialMediaLinks = () => {

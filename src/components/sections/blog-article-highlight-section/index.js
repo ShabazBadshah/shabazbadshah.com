@@ -7,9 +7,9 @@ import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
-import { deviceMaxWidth } from '../media-query-sizes.js';
+import { deviceMaxWidth } from '../../../assets/media-query-sizes.js';
 
-import LinkButton from './link-button.js';
+import { LinkButton } from '../../buttons';
 
 const LatestBlogArticlesSubsection = () => {
   const highlightedBlogPosts = useStaticQuery(graphql`
@@ -147,12 +147,12 @@ const StyledBlogPostList = styled.ul`
 const StyledH1 = styled.h1`
   margin: 2rem 0 1rem 0;
   font-family: 'Times New Roman', Times, serif;
-  font-size: 4em;
+  font-size: 3.2rem;
   font-weight: bold;
 `;
 
 const StyledH2 = styled.h2`
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   margin: 0 0 2rem 0;
   font-weight: lighter;
   font-style: italic;

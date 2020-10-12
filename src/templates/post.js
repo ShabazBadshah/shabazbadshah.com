@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import styled, { keyframes } from 'styled-components';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import Layout from '../components/layout';
+import { Layout } from '../components/layouts';
 
 import { headShake } from 'react-animations';
-import { deviceMaxWidth } from '../media-query-sizes.js';
+import { deviceMaxWidth } from '../assets/media-query-sizes.js';
 
 import './github-markdown.css';
 class PostTemplate extends Component {

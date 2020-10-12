@@ -8,12 +8,11 @@ import styled, { keyframes } from 'styled-components';
 
 import { fadeIn } from 'react-animations';
 
-import { deviceMaxWidth } from '../media-query-sizes.js';
-
+import { deviceMaxWidth } from '../assets/media-query-sizes.js';
 import { default as workShowcaseData } from '../../content/work/work-showcase.js';
 
-import Layout from '../components/layout.js';
-import SEO from '../components/seo.js';
+import { Layout } from '../components/layouts';
+import SEO from '../components/seo';
 
 const sortWorkShowCaseItemByDateDesc = (workItemA, workItemB) => {
   const dateA = new Date(workItemA.date);

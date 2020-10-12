@@ -1,13 +1,10 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import styled, { keyframes, ThemeContext } from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import { Link } from 'gatsby';
 
-import { fadeIn } from 'react-animations';
-
-import { deviceMaxWidth } from '../../media-query-sizes.js';
-import DarkModeSwitchButton from './dark-mode-switch-button.js';
-import Logo from './logo.js';
+import { deviceMaxWidth } from '../../assets/media-query-sizes.js';
+import { DarkModeSwitchButton, Logo } from './components';
 
 const Header = ({ enableDarkMode, onThemeSwitchToggle }) => {
   const { primaryThemeColour } = useContext(ThemeContext);
@@ -58,8 +55,9 @@ const StyledHeader = styled.header`
   left: 0;
   z-index: 1;
   background-color: ${(props) => props.theme.headerBg};
+  border-bottom: ${(props) => `0.5px ${props.theme.headerBorderColour} solid`};
 
-  padding: 6px 50px;
+  padding: 10px 50px;
 
   display: flex;
   flex-direction: row;
