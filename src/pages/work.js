@@ -12,6 +12,7 @@ import { deviceMaxWidth } from '../assets/media-query-sizes.js';
 import { default as workShowcaseData } from '../../content/work/work-showcase.js';
 
 import { Layout } from '../components/layouts';
+import { WorkCard } from '../components/cards';
 import SEO from '../components/seo';
 
 const sortWorkShowCaseItemByDateDesc = (workItemA, workItemB) => {
@@ -41,25 +42,19 @@ const AllWork = () => {
             .sort((workItemA, workItemB) => sortWorkShowCaseItemByDateDesc(workItemA, workItemB))
             .map((workData, i) => {
               return (
-                <StyledListItem to={`${workData.source}`} key={i}>
-                  <StyledWorkLinkSourceWrapper to={workData.source}>
-                    <div>
-                      <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
-                      <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
-                    </div>
-                    <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
-                    {/* <StyledTagsWrapper>
-                        {workData.tags.map((tag, i) => {
-                          return <StyledBlogListItemTag key={i}>{tag}</StyledBlogListItemTag>;
-                        })}
-                      </StyledTagsWrapper> */}
-
-                    <StyledLinkWrapper>
-                      {workData.article && <StyledLink href={workData.article}>Article</StyledLink>}
-                      {workData.demo && <StyledLink href={workData.demo}>Demo</StyledLink>}
-                    </StyledLinkWrapper>
-                  </StyledWorkLinkSourceWrapper>
-                </StyledListItem>
+                <WorkCard
+                  cardLink={workData.source}
+                  date={workData.date}
+                  description={workData.description}
+                  key={i}
+                  outline
+                  title={workData.title}
+                >
+                  <StyledLinkWrapper>
+                    {workData.article && <StyledLink to={workData.article}>Article</StyledLink>}
+                    {workData.demo && <StyledLink to={workData.demo}>Demo</StyledLink>}
+                  </StyledLinkWrapper>
+                </WorkCard>
               );
             })}
         </StyledWorkItemList>
@@ -84,18 +79,24 @@ const StyledWorkLinkSourceWrapper = styled(Link)`
 `;
 
 const StyledLink = styled(Link)`
+  display: inline-block;
   text-align: center;
   text-decoration: none;
   font-weight: 500;
   text-underline-offset: 0.2rem;
   cursor: pointer;
-  padding: 0.7rem 3rem;
+  padding: 0.5rem 2rem;
   border-radius: 4px;
   color: #f9f8f7;
   box-shadow: 0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.06);
-  margin-right: 1rem;
-  border: ${(props) => `2px ${props.theme.primaryThemeColour} solid`};
+  margin-top: 8px;
+  margin-right: 1.5rem;
+  border: ${(props) => `1.5px ${props.theme.primaryThemeColour} solid`};
   background-color: ${(props) => props.theme.primaryThemeColour};
+
+  &:first-child {
+    margin-left: 0;
+  }
 
   &:hover {
     border: ${(props) => props.theme.linkButtonSmallBorder};
@@ -113,19 +114,11 @@ const StyledLink = styled(Link)`
 `;
 
 const StyledLinkWrapper = styled.div`
-  display: flex;
-  margin: 1.5rem 0 0.7rem 0;
+  margin: 0.7rem 0 0 0;
 
   @media only screen and ${deviceMaxWidth.mobileL} {
     flex-direction: column;
   }
-`;
-
-const StyledWorkListItemBlurb = styled.p`
-  margin: 1.5rem 0 0 0;
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.4rem;
 `;
 
 const StyledWorkItemList = styled.ul`
@@ -138,82 +131,9 @@ const StyledWorkItemList = styled.ul`
   padding: 0;
 `;
 
-const StyledListItem = styled.div`
-  width: 49%;
-  padding: 0.8rem 1.4rem;
-  margin: 0.5rem 0;
-
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: unset;
-
-  box-shadow: ${(props) => props.theme.cardDropShadow};
-  background-color: ${(props) => props.theme.cardBgColour};
-  transition: background-color 100ms ease-out;
-  border-radius: 5px;
-  cursor: pointer;
-  border: ${(props) => props.theme.cardBorder};
-
-  &:hover {
-    transition: background-color 100ms ease-in;
-    cursor: pointer;
-    background-color: ${(props) => props.theme.cardHoverColour};
-  }
-
-  &:nth-child(odd) {
-    margin-right: 1rem;
-  }
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    width: 100%;
-
-    &:nth-child(odd) {
-      margin-right: 0;
-    }
-  }
-`;
-
-const StyledWorkListItemDate = styled.h3`
-  font-weight: lighter;
-  margin: 0.5rem 0 0 0;
-  font-size: 1rem;
-`;
-
-const StyledWorkListItemTitle = styled.h2`
-  margin: 0.5rem 0.5rem 0 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-  line-height: 1.5rem;
-  word-spacing: 0.05rem;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.75rem 0 0 0;
-  }
-`;
-
-const StyledH1 = styled.h1`
-  width: 100%;
-  margin: 2rem 0 1rem 0;
-  font-weight: 800;
-  font-size: 4em;
-  text-align: center;
-`;
-
-const StyledH2 = styled.h2`
-  width: 100%;
-  font-size: 1.2rem;
-  margin: 0 0 1rem 0;
-  font-weight: 400;
-  font-style: italic;
-  word-spacing: 0.1rem;
-  text-align: center;
-`;
-
 const StyledWorkHighlightSection = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: 0 0 4rem 0;
   width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;
@@ -228,4 +148,23 @@ const StyledWorkHighlightSection = styled.div`
     align-items: flex-start;
     margin: 1rem 0 3rem 0;
   }
+`;
+
+const StyledH1 = styled.h1`
+  width: 100%;
+  margin: 2rem 0 1rem 0;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 800;
+  font-size: 4em;
+  text-align: center;
+`;
+
+const StyledH2 = styled.h2`
+  width: 100%;
+  font-size: 1.2rem;
+  margin: 0 0 1rem 0;
+  font-weight: 400;
+  font-style: italic;
+  word-spacing: 0.1rem;
+  text-align: center;
 `;

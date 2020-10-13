@@ -11,6 +11,7 @@ import { deviceMaxWidth } from '../assets/media-query-sizes.js';
 
 import { Layout } from '../components/layouts';
 import SEO from '../components/seo';
+import { WorkCard } from '../components/cards';
 
 const AllPosts = () => {
   const allBlogPosts = useStaticQuery(graphql`
@@ -41,7 +42,6 @@ const AllPosts = () => {
   return (
     <Layout>
       <SEO title="Blog" />
-
       <StyledWorkHighlightSection>
         <StyledH1>
           📝 <br></br> All Posts
@@ -49,17 +49,9 @@ const AllPosts = () => {
         <StyledH2>Here's a my thoughts on bunch of things</StyledH2>
         <StyledWorkItemList>
           {allBlogPosts.blog.edges.map((blogNode, i) => {
-            const blogPostData = blogNode.node.childMdx.frontmatter;
-            const blogPostPath = blogNode.node.childMdx.fields.slug;
-            return (
-              <StyledListItem to={blogPostPath} key={i}>
-                <div>
-                  <StyledWorkListItemTitle>{blogPostData.title}</StyledWorkListItemTitle>
-                  <StyledWorkListItemDate>{blogPostData.date}</StyledWorkListItemDate>
-                </div>
-                <StyledWorkListItemBlurb>{blogPostData.blurb}</StyledWorkListItemBlurb>
-              </StyledListItem>
-            );
+            const { slug } = blogNode.node.childMdx.fields;
+            const { title, date, blurb } = blogNode.node.childMdx.frontmatter;
+            return <WorkCard key={i} cardLink={slug} date={date} description={blurb} outline title={title} />;
           })}
         </StyledWorkItemList>
       </StyledWorkHighlightSection>
@@ -68,13 +60,6 @@ const AllPosts = () => {
 };
 
 export default AllPosts;
-
-const StyledWorkListItemBlurb = styled.p`
-  margin: 1.5rem 0 0 0;
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.4rem;
-`;
 
 const StyledWorkItemList = styled.ul`
   width: 100%;
@@ -86,58 +71,22 @@ const StyledWorkItemList = styled.ul`
   padding: 0;
 `;
 
-const StyledListItem = styled(Link)`
-  width: 49%;
-  padding: 0.8rem 1.4rem;
-  margin: 0.5rem 0;
-  padding-bottom: 1.5rem;
-
+const StyledWorkHighlightSection = styled.div`
   display: flex;
   flex-direction: column;
-  text-decoration: none;
-  color: unset;
+  margin: 0 0 4rem 0;
+  width: 1024px;
+  animation: ${keyframes`${fadeIn}`} 400ms ease-in;
 
-  box-shadow: ${(props) => props.theme.cardDropShadow};
-  background-color: ${(props) => props.theme.cardBgColour};
-  transition: background-color 100ms ease-out;
-  border-radius: 5px;
-  cursor: pointer;
-  border: ${(props) => props.theme.cardBorder};
-
-  &:hover {
-    transition: background-color 100ms ease-in;
-    cursor: pointer;
-    background-color: ${(props) => props.theme.cardHoverColour};
-  }
-
-  &:nth-child(odd) {
-    margin-right: 1rem;
+  @media only screen and ${deviceMaxWidth.laptop} {
+    width: 800px;
+    max-width: 100%;
   }
 
   @media only screen and ${deviceMaxWidth.mobileL} {
-    width: 100%;
-
-    &:nth-child(odd) {
-      margin-right: 0;
-    }
-  }
-`;
-
-const StyledWorkListItemDate = styled.h3`
-  font-weight: lighter;
-  margin: 0.5rem 0 0 0;
-  font-size: 1rem;
-`;
-
-const StyledWorkListItemTitle = styled.h2`
-  margin: 0 0.5rem 0 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-  line-height: 1.5rem;
-  word-spacing: 0.05rem;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0.75rem 0 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 1rem 0 3rem 0;
   }
 `;
 
@@ -158,24 +107,4 @@ const StyledH2 = styled.h2`
   font-style: italic;
   word-spacing: 0.1rem;
   text-align: center;
-`;
-
-const StyledWorkHighlightSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 0 4rem 0;
-  width: 1024px;
-  animation: ${keyframes`${fadeIn}`} 400ms ease-in;
-
-  @media only screen and ${deviceMaxWidth.laptop} {
-    width: 800px;
-    max-width: 100%;
-  }
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 1rem 0 3rem 0;
-  }
 `;

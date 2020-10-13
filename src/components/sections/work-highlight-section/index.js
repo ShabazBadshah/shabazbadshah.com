@@ -9,9 +9,10 @@ import { fadeIn } from 'react-animations';
 
 import { deviceMaxWidth } from '../../../assets/media-query-sizes.js';
 
-import { default as workShowcaseData } from '../../../../content/work/work-showcase.js';
-
+import { WorkCard } from '../../cards';
 import { LinkButton } from '../../buttons';
+
+import { default as workShowcaseData } from '../../../../content/work/work-showcase.js';
 
 const AMOUNT_WORK_ITEMS_TO_SHOWCASE = 4;
 
@@ -25,19 +26,19 @@ const WorkHighShowcaseSubsection = () => {
           .filter((workData, i) => i < AMOUNT_WORK_ITEMS_TO_SHOWCASE)
           .map((workData, i) => {
             return (
-              <StyledListItem to={`${workData.source}`} key={i}>
-                <StyledWorkLinkSourceWrapper to={workData.source}>
-                  <div>
-                    <StyledWorkListItemTitle>{workData.title}</StyledWorkListItemTitle>
-                    <StyledWorkListItemDate>{workData.date}</StyledWorkListItemDate>
-                  </div>
-                  <StyledWorkListItemBlurb>{workData.description}</StyledWorkListItemBlurb>
-                  <StyledLinkWrapper>
-                    {workData.article && <StyledLink to={workData.article}>Article</StyledLink>}
-                    {workData.demo && <StyledLink to={workData.demo}>Demo</StyledLink>}
-                  </StyledLinkWrapper>
-                </StyledWorkLinkSourceWrapper>
-              </StyledListItem>
+              <WorkCard
+                cardLink={workData.source}
+                date={workData.date}
+                description={workData.description}
+                key={i}
+                outline
+                title={workData.title}
+              >
+                <StyledLinkWrapper>
+                  {workData.article && <StyledLink to={workData.article}>Article</StyledLink>}
+                  {workData.demo && <StyledLink to={workData.demo}>Demo</StyledLink>}
+                </StyledLinkWrapper>
+              </WorkCard>
             );
           })}
       </StyledWorkItemList>
@@ -47,11 +48,6 @@ const WorkHighShowcaseSubsection = () => {
 };
 
 export default WorkHighShowcaseSubsection;
-
-const StyledWorkLinkSourceWrapper = styled(Link)`
-  text-decoration: none;
-  color: unset;
-`;
 
 const StyledLink = styled(Link)`
   display: inline-block;
@@ -66,7 +62,7 @@ const StyledLink = styled(Link)`
   box-shadow: 0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.06);
   margin-top: 8px;
   margin-right: 1.5rem;
-  border: ${(props) => `2px ${props.theme.primaryThemeColour} solid`};
+  border: ${(props) => `1.5px ${props.theme.primaryThemeColour} solid`};
   background-color: ${(props) => props.theme.primaryThemeColour};
 
   &:first-child {
@@ -96,13 +92,6 @@ const StyledLinkWrapper = styled.div`
   }
 `;
 
-const StyledWorkListItemBlurb = styled.p`
-  margin: 1.5rem 0 0 0;
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.4rem;
-`;
-
 const StyledWorkItemList = styled.ul`
   width: 100%;
   display: flex;
@@ -111,55 +100,6 @@ const StyledWorkItemList = styled.ul`
   list-style: none;
   border-radius: 8px;
   padding: 0;
-`;
-
-const StyledListItem = styled.div`
-  width: 49%;
-  padding: 1rem 1.4rem 1.2rem 1.4rem;
-  margin: 0.5rem 0;
-
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-
-  box-shadow: ${(props) => props.theme.cardDropShadow};
-  background-color: ${(props) => props.theme.cardBgColour};
-  transition: background-color 100ms ease-out;
-  border-radius: 5px;
-  cursor: pointer;
-  border: ${(props) => props.theme.cardBorder};
-
-  &:hover {
-    transition: background-color 100ms ease-in;
-    cursor: pointer;
-    background-color: ${(props) => props.theme.cardHoverColour};
-  }
-
-  &:nth-child(odd) {
-    margin-right: 1rem;
-  }
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    width: 100%;
-
-    &:nth-child(odd) {
-      margin-right: 0;
-    }
-  }
-`;
-
-const StyledWorkListItemDate = styled.h3`
-  font-weight: lighter;
-  margin: 0.5rem 0 0 0;
-  font-size: 1rem;
-`;
-
-const StyledWorkListItemTitle = styled.h2`
-  margin: 0 0 0.5rem 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-  line-height: 1.5rem;
-  word-spacing: 0.05rem;
 `;
 
 const StyledH1 = styled.h1`

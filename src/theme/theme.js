@@ -17,11 +17,11 @@ export const theme = {
     cardDropShadow: '0.5rem 0.5rem 1rem 0 rgba(85, 85, 85, 0.03)',
     cardBgColour: 'white',
 
-    linkButtonSmallBorder: `2px ${globalThemeColour} solid`,
+    linkButtonSmallBorder: `1.5px ${globalThemeColour} solid`,
 
     linkButtonHoverColour: '#f9f8f7',
     linkButtonBorder: '0.5rem 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.2)',
-    linkButtonHoverBorder: `1px ${globalThemeColour} solid`,
+    linkButtonHoverBorder: `1.5px ${globalThemeColour} solid`,
     linkButtonTextColour: globalThemeColour,
 
     iconColour: globalThemeColour,
@@ -40,15 +40,15 @@ export const theme = {
     headerBorderColour: 'black',
 
     cardHoverColour: '#444242',
-    cardBorder: `1px ${globalThemeColour} solid`,
+    cardBorder: `1.5px ${globalThemeColour} solid`,
     cardDropShadow: '0.5rem 0.5rem 1rem 0 rgba(0, 0, 0, 0.01)',
     cardBgColour: '#262525',
 
-    linkButtonSmallBorder: '2px #f9f8f7 solid',
+    linkButtonSmallBorder: '1px #f9f8f7 solid',
 
     linkButtonHoverColour: darkModeThemeColour,
     linkButtonBorder: '0.5rem 0.5rem 1.5rem 0 rgba(85, 85, 85, 0.12)',
-    linkButtonHoverBorder: '1px #f9f8f7 solid',
+    linkButtonHoverBorder: '1.5px #f9f8f7 solid',
     linkButtonTextColour: '#f9f8f7',
 
     iconColour: 'white',

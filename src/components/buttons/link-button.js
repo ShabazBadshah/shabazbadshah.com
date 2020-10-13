@@ -29,7 +29,7 @@ const StyledLinkButton = styled(Link)`
   color: #f9f8f7;
   box-shadow: ${(props) => props.theme.linkButtonBorder};
   padding: 0.6rem 1rem;
-  border: ${(props) => `1px ${props.theme.primaryThemeColour} solid`};
+  border: ${(props) => `1.5px ${props.theme.primaryThemeColour} solid`};
   border-radius: 4px;
   margin: 1rem 2rem 0 0;
   letter-spacing: 0.04rem;

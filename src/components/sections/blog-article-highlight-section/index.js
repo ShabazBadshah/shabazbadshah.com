@@ -10,6 +10,7 @@ import { fadeIn } from 'react-animations';
 import { deviceMaxWidth } from '../../../assets/media-query-sizes.js';
 
 import { LinkButton } from '../../buttons';
+import { WorkCard } from '../../cards';
 
 const LatestBlogArticlesSubsection = () => {
   const highlightedBlogPosts = useStaticQuery(graphql`
@@ -44,17 +45,24 @@ const LatestBlogArticlesSubsection = () => {
       <StyledH2>Peruse some of my latest posts below</StyledH2>
       <StyledBlogPostList>
         {highlightedBlogPosts.blog.edges.map((blogNode, i) => {
-          const blogPostData = blogNode.node.childMdx.frontmatter;
-          const blogPostPath = blogNode.node.childMdx.fields.slug;
+          const postData = blogNode.node.childMdx.frontmatter;
+
           return (
-            <StyledLink to={`/blog/${blogPostPath}`} key={i}>
-              <StyledBlogPostListItem key={i}>
+            <StyledLink to={`/blog/${blogNode.node.childMdx.fields.slug}`} key={i}>
+              <WorkCard
+                cardLink={postData.source}
+                date={postData.date}
+                description={postData.blurb}
+                span
+                title={postData.title}
+              />
+              {/* <StyledBlogPostListItem key={i}>
                 <div>
                   <StyledBlogPostListItemTitle>{blogPostData.title}</StyledBlogPostListItemTitle>
                   <StyledBlogPostListItemDate>{blogPostData.date}</StyledBlogPostListItemDate>
                   <StyledBlogListItemBlurb>{blogPostData.blurb}</StyledBlogListItemBlurb>
                 </div>
-              </StyledBlogPostListItem>
+              </StyledBlogPostListItem> */}
             </StyledLink>
           );
         })}
