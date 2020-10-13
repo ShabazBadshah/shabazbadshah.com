@@ -42,20 +42,21 @@ const Styled404Wrapper = styled.div`
 `;
 
 const StyledParagraph = styled.p`
-  font-size: 1.5em;
+  font-size: 1.5rem;
   line-height: 1.6;
-  word-spacing: 0.1em;
+  word-spacing: 0.1rem;
   font-style: italic;
 `;
 
 const StyledH1 = styled.h1`
   margin: 4rem 0;
   font-family: 'Times New Roman', Times, serif;
-  font-size: 8em;
+  font-size: 8rem;
   font-weight: bold;
+  text-align: center;
 
   @media only screen and ${deviceMaxWidth.mobileL} {
-    font-size: 3.5em;
+    font-size: 3.5rem;
   }
 `;
 
@@ -63,11 +64,8 @@ const Styled404Section = styled.div`
   display: flex;
   max-width: 1024px;
   animation: ${keyframes`${fadeIn}`} 400ms ease-in;
-
-  position: fixed;
-  top: 50%;
-  bottom: 50%;
   padding: 20px;
+  padding-bottom: 60px;
 
   @media only screen and ${deviceMaxWidth.laptop} {
     max-width: 800px;
@@ -76,6 +74,7 @@ const Styled404Section = styled.div`
   @media only screen and ${deviceMaxWidth.mobileL} {
     position: initial;
     padding: 0;
+    padding-bottom: 60px;
     flex-direction: column-reverse;
     align-items: center;
   }
