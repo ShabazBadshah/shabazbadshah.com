@@ -48,22 +48,14 @@ const LatestBlogArticlesSubsection = () => {
           const postData = blogNode.node.childMdx.frontmatter;
 
           return (
-            <StyledLink to={`/blog/${blogNode.node.childMdx.fields.slug}`} key={i}>
-              <WorkCard
-                cardLink={postData.source}
-                date={postData.date}
-                description={postData.blurb}
-                span
-                title={postData.title}
-              />
-              {/* <StyledBlogPostListItem key={i}>
-                <div>
-                  <StyledBlogPostListItemTitle>{blogPostData.title}</StyledBlogPostListItemTitle>
-                  <StyledBlogPostListItemDate>{blogPostData.date}</StyledBlogPostListItemDate>
-                  <StyledBlogListItemBlurb>{blogPostData.blurb}</StyledBlogListItemBlurb>
-                </div>
-              </StyledBlogPostListItem> */}
-            </StyledLink>
+            <WorkCard
+              cardLink={`/blog/${blogNode.node.childMdx.fields.slug}`}
+              date={postData.date}
+              description={postData.blurb}
+              key={i}
+              span
+              title={postData.title}
+            />
           );
         })}
       </StyledBlogPostList>
@@ -73,69 +65,6 @@ const LatestBlogArticlesSubsection = () => {
 };
 
 export default LatestBlogArticlesSubsection;
-
-const StyledBlogListItemBlurb = styled.p`
-  margin: 1.5rem 0 0 0;
-  font-weight: 400;
-  font-style: italic;
-  line-height: 1.4rem;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 1.5rem 0;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: unset;
-  display: inline-block;
-  width: 100%;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const StyledBlogPostListItemDate = styled.h3`
-  font-weight: lighter;
-  margin: 0.6rem 0 0 0;
-  font-size: 1rem;
-`;
-
-const StyledBlogPostListItemTitle = styled.h2`
-  margin: 0 1rem 0 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-  line-height: 1.5rem;
-  word-spacing: 0.05rem;
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    margin: 0;
-  }
-`;
-
-const StyledBlogPostListItem = styled.li`
-  padding: 0.8rem 1.4rem;
-  margin: 0 0 0.4rem 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  transition: background-color 100ms ease-out;
-  border-radius: 2px;
-  cursor: pointer;
-
-  &:hover {
-    transition: background-color 100ms ease-in;
-    background-color: ${(props) => props.theme.cardHoverColour};
-  }
-
-  @media only screen and ${deviceMaxWidth.mobileL} {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.3rem;
-    margin: 0 0 1.3rem 0;
-  }
-`;
 
 const StyledBlogPostList = styled.ul`
   list-style: none;

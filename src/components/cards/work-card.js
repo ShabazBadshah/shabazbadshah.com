@@ -26,20 +26,24 @@ WorkCard.propTypes = {
   date: PropTypes.string,
   description: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  outline: PropTypes.bool,
   span: PropTypes.bool,
+  dropShadow: PropTypes.bool,
 };
 
 WorkCard.defaultProps = {
   cardLink: '/',
   date: '',
+  dropShadow: false,
+  outline: false,
   span: false,
 };
 
 const StyledListItem = styled(Link)`
   color: unset;
   width: ${(props) => (props.span ? '100%' : '49%')};
-  padding: 1.3rem 1.5rem 1.3rem 1.5rem;
-  margin: 0.5rem 0;
+  padding: ${(props) => (props.span ? '0.8rem 1.4rem' : '1.3rem 1.5rem 1.3rem 1.5rem')};
+  margin: 0.6rem 0;
 
   display: flex;
   flex-direction: column;
@@ -63,6 +67,7 @@ const StyledListItem = styled(Link)`
 
   @media only screen and ${deviceMaxWidth.mobileL} {
     width: 100%;
+    padding: ${(props) => (props.span ? '0.8rem 1rem' : '1.3rem 1.5rem 1.3rem 1.5rem')};
 
     &:nth-child(odd) {
       margin-right: 0;

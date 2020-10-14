@@ -73,11 +73,6 @@ AllWork.defaultProps = {
   enableDarkMode: false,
 };
 
-const StyledWorkLinkSourceWrapper = styled(Link)`
-  text-decoration: none;
-  color: unset;
-`;
-
 const StyledLink = styled(Link)`
   display: inline-block;
   text-align: center;
