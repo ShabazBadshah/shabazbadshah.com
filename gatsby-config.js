@@ -1,5 +1,6 @@
 module.exports = {
   siteMetadata: {
+    siteUrl: 'https://www.shabazbadshah.com',
     title: `shabaz badshah dot com`,
     description: `My little home on the internet.`,
     author: `@shabazbadshah`,
@@ -10,6 +11,7 @@ module.exports = {
     },
   },
   plugins: [
+    `gatsby-plugin-sitemap`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sharp`,
