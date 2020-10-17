@@ -52,7 +52,7 @@
   "scripts": {
     "build": "gatsby build --verbose",
     "develop": "gatsby develop -H 0.0.0.0",
-    "deploy": "gatsby build --prefix-paths && cp ./CNAME public && gh-pages -d public",
+    "deploy": "gatsby clean && gatsby build --prefix-paths && cp ./CNAME public && gh-pages -d public",
     "audit": "sh ./audit.sh",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
