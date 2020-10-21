@@ -15,10 +15,21 @@ import { theme } from '../../theme/theme.js';
 const Layout = ({ children }) => {
   const [darkMode, setDarkMode] = useDarkMode();
 
+  const onDarkModeSwitchToggle = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
     <ThemeProvider theme={darkMode ? theme.DARK : theme.LIGHT}>
+      <style>
+        {`
+          :root {
+            --siteBg: ${darkMode ? theme.DARK.siteBg : theme.LIGHT.siteBg};
+          }
+        `}
+      </style>
       <React.Fragment>
-        <Header enableDarkMode={darkMode} onThemeSwitchToggle={() => setDarkMode(!darkMode)} />
+        <Header enableDarkMode={darkMode} onThemeSwitchToggle={() => onDarkModeSwitchToggle()} />
         <StyledMain>{children}</StyledMain>
         <Footer />
       </React.Fragment>

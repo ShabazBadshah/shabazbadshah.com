@@ -1,13 +1,17 @@
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap');
 
+:root {
+  --siteBg: #f9f8f7;
+}
+
 * {
   box-sizing: border-box;
 }
 
-html {
+html, body {
   font-family: 'Roboto', sans-serif;
   /* --siteBg is used to set HTML bg colour which cannot be accessed via StyledComponents since createGlobalTheme interferes with the site's darkTheme toggling behaviour. See https://github.com/ShabazBadshah/shabazbadshah.github.io/issues/32 for more details. */
-  background-color: var(--siteBg); 
+  background-color: var(--siteBg);
 }
 
