@@ -15,7 +15,7 @@ const SocialMediaLinks = () => {
     query {
       file(relativePath: { eq: "avatar.jpg" }) {
         childImageSharp {
-          fluid(maxWidth: 150, quality: 40) {
+          fluid(maxWidth: 150, quality: 60) {
             ...GatsbyImageSharpFluid
           }
         }
