@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     siteUrl: 'https://www.shabazbadshah.com',
     title: `shabaz badshah dot com`,
-    description: `My little home on the internet.`,
+    description: `Hello 👋, I'm Shabaz Badshah. I'm a Product Manager who develops Fullstack web experiences during his downtime. This site catalogs things I learn, find interesting, want to share, or anything cool I'm creating. There's no ads or distractions here.`,
     author: `@shabazbadshah`,
     contactInfo: {
       email: `badshah.shabaz.dev@gmail.com`,
