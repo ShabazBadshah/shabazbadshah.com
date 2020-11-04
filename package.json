@@ -15,6 +15,7 @@
     "gatsby-plugin-mdx": "^1.2.25",
     "gatsby-plugin-offline": "^3.2.8",
     "gatsby-plugin-react-helmet": "^3.3.3",
+    "gatsby-plugin-robots-txt": "^1.5.3",
     "gatsby-plugin-sharp": "^2.6.31",
     "gatsby-plugin-sitemap": "^2.4.17",
     "gatsby-plugin-styled-components": "^3.3.4",
@@ -52,7 +53,7 @@
   "scripts": {
     "build": "gatsby build --verbose",
     "develop": "gatsby develop -H 0.0.0.0",
-    "deploy": "gatsby clean && gatsby build --prefix-paths && cp ./CNAME public && gh-pages -d public",
+    "deploy": "gatsby clean && GATSBY_ENV=production && gatsby build --prefix-paths && cp ./CNAME public && gh-pages -d public",
     "audit": "sh ./audit.sh",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
