@@ -1,2 +1,4 @@
 User-agent: *
-Disallow: 
+Disallow: /
+Sitemap: https://www.shabazbadshah.com/sitemap.xml
+Host: https://www.shabazbadshah.com
