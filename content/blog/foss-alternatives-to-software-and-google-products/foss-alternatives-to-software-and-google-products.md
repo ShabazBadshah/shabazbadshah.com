@@ -1,11 +1,11 @@
 ---
 date: '2020-08-02'
-title: 'FOSS Alternatives to Software, and Google Products'
-blurb: 'Free and open source (FOSS) alternatives to Google Products that focus on maintaining your privacy while providing the same level of functionality as their Google equivalents'
-tags: ['foss', 'software', 'open source', 'google']
+title: 'FOSS Alternatives to Popular Products'
+blurb: 'Free and open source (FOSS) alternatives to products that focus on maintaining your privacy while providing similar functionality as their closed source counterparts'
+tags: ['foss', 'software', 'open source']
 ---
 
-# Free and Open-Source Alternatives to Software, and Google Products
+# FOSS Alternatives to Popular Products
 
 ***Shabaz Badshah***
 
@@ -15,7 +15,7 @@ tags: ['foss', 'software', 'open source', 'google']
 
 ## Objective
 
-This article describes common free and open source (FOSS) alternatives to Google products and other closed-source/privacy invading software
+This article describes common, free, and open-source alternatives to many closed-source or privacy breaching products
 
 
 
