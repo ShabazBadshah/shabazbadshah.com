@@ -1,16 +1,14 @@
 ![logo](./readme-logo.png)
 
-# V4 - shabazbadshah.github.io
+# V5 - shabazbadshah.github.io
 
-This is the 4th iteration of my site. All pervious iterations of my site have been built using [Jekyll](http://jekyllrb.com/)) which sufficed for my needs at the time. However this solution was not scalable. With the recent paradigm shift to composing frontends using components, this was a good time as any to switch over to [React](https://reactjs.org/) via [Gatsby](gatsbyjs.org/).
+This is the 5hth iteration of my site. My pervious iteration of my site was built using [Jekyll](https://www.gatsbyjs.com/) which sufficed for my needs at the time. However I've been using NextJS for all my projects (including professional) and have been loving it. I've done lots of work with it and can use existing work to iterate on my personal site faster.
 
 ## 🏁 Site Goals
 
-1. To hook into the vast technological ecosystem of Javascript and React
-2. To provide a more modern UX/UI experience to visitors
-3. To allow more easier maintainability of the codebase
-4. Gain the ability to host more than one "blog" on the same site
-5. Introduce a client side "omnibar-like" search
+1. Move to NextJS framework away from GatsbyJS (this is looking the last-ever framework I'll need)
+2. Utilize MUI library since I've been using it for all my professional and hobby projects
+3. Allow for easier maintainability of the codebase
 
 ## 💻 System Preparation
 
@@ -19,9 +17,43 @@ If for whatever reason you want to run this site , or modify if for your own nee
 1. [NodeJS+NPM](http://nodejs.org) - use the installer or CLI.
 2. A unix-like shell (MacOS shell, Linux shells, or WSL should work)
 
-### Local Install
+## Running the app
 
-1. Open a shell and clone repo via `git clone https://github.com/ShabazBadshah/shabazbadshah.github.io.git`
-2. Change directories to where the repo has been cloned via ```cd /path/to/repo```. This will be your current working directory (CWD)
-3. Run `[yarn|npm] install` in the CWD. This will install all project dependencies
-4. Run `[yarn|npm] start` in the CWD. This will run the React app
+The `.env` file is not commited to the repo, so it has to be manually configured
+
+Create a `.env` file at the root of repo directoy with the following variables specified:
+
+- NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
+
+To run the app, open a shell and run the following
+
+```bash
+    pnpm install
+    pnpm build
+    pnpm dev
+```
+
+## 📋 Site Modifications
+
+This work was based off initial work from [Brian Ruiz's Gatsby Medium Blog](https://github.com/BrianRuizy/gatsby-medium-blog/tree/master/src) 🥳.
+
+✅ I added in the following features:
+
+1. Entire site has been rewritten in Typescript
+2. Site is now written in NextJS and not GatsbyJS
+3. Blog posts are written in MDX and their contents are stored in individual blog folders
+4. Sitemap for the site is generated for all blog posts
+5. Integrated Google Analytics tracking
+6. Added a hero section on the homepage for important items
+7. Homepage design is DRASTICALLY simplified
+8. Easier means to add a custom article suggestion mechanism (currently I base it off similar tags)
+9. Use absolute paths for all component imports
+
+❌ I removed the following features:
+
+1. Bottom navigation bar on mobile (it's a slideable drawer menu now)
+2. Search capability for blog posts
+3. Projects/works tabs. Only blog posts show on the homepage
+4. Contact/email signup form
+5. Left sidebar. Right sidebar is now the header
+6. Dark/light mode switch (might add in a future iteration)

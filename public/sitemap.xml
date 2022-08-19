@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc> https://shabazbadshah.com.com/ </loc>
+  </url>
+
+  <url>
+    <loc>
+      https://shabazbadshah.com.com/blog/posts/a-space-invaders-remake
+    </loc>
+    <lastmod> 2014-06-03 </lastmod>
+  </url>
+
+  <url>
+    <loc> https://shabazbadshah.com.com/blog/posts/a-tetris-remake </loc>
+    <lastmod> 2015-06-03 </lastmod>
+  </url>
+
+  <url>
+    <loc>
+      https://shabazbadshah.com.com/blog/posts/a-visual-gallery-of-my-personal-sites
+    </loc>
+    <lastmod> 2019-01-03 </lastmod>
+  </url>
+
+  <url>
+    <loc>
+      https://shabazbadshah.com.com/blog/posts/foss-alternatives-to-popular-products
+    </loc>
+    <lastmod> 2020-08-02 </lastmod>
+  </url>
+
+  <url>
+    <loc> https://shabazbadshah.com.com/blog/posts/my-personal-website-v1 </loc>
+    <lastmod> 2017-05-01 </lastmod>
+  </url>
+
+  <url>
+    <loc> https://shabazbadshah.com.com/blog/posts/my-personal-website-v2 </loc>
+    <lastmod> 2018-04-22 </lastmod>
+  </url>
+
+  <url>
+    <loc>
+      https://shabazbadshah.com.com/blog/posts/the-kodeability-app-website
+    </loc>
+    <lastmod> 2017-03-22 </lastmod>
+  </url>
+</urlset>
