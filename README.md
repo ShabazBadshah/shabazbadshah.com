@@ -35,7 +35,7 @@ To run the app, open a shell and run the following
 
 ## 📋 Site Modifications
 
-This work was based off initial work from [Brian Ruiz's Gatsby Medium Blog](https://github.com/BrianRuizy/gatsby-medium-blog/tree/master/src) 🥳.
+This work was based off initial work from [Brian Ruiz's Gatsby Medium Blog template](https://github.com/BrianRuizy/gatsby-medium-blog/tree/master/src).
 
 ✅ I added in the following features:
 

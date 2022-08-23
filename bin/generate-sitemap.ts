@@ -28,10 +28,7 @@ export async function generateFullSitemap(): Promise<void> {
     path.join(__dirname, `../pages/[!_]*${PAGE_FILE_EXTENSION}`)
   ).found
     .map((page) => basename(page, PAGE_FILE_EXTENSION))
-    .filter((route) => {
-      console.log(route);
-      return !(BLACKLISTED_NON_BLOG_ROUTES.indexOf(route) > -1);
-    });
+    .filter((route) => !(BLACKLISTED_NON_BLOG_ROUTES.indexOf(route) > -1));
 
   const sitemap = `
     <?xml version="1.0" encoding="UTF-8"?>
@@ -136,7 +133,6 @@ async function generateSitemap(pageSlugs: string[]): Promise<string> {
  * @usage generate-sitemap [.envFilePath]
  */
 async function main() {
-  console.log(process.cwd());
   try {
     let envFilePath: string = process.argv[2];
 

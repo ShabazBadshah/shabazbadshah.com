@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import dayjs from 'dayjs';
 
-import { Box, Chip, Container, IconButton, Typography } from '@mui/material';
+import { Box, Container, IconButton, Typography } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next';
@@ -15,108 +15,18 @@ import { MDXRemote } from 'next-mdx-remote';
 
 import BlogAPI from '@/services/blog';
 import { Post as PostType } from '@/services/blog/types';
-import toKebabCase from '@/utils/strings/to-kebab-case';
 import Link from '@/components/shared/Link';
 import MainLayout from '@/layouts/MainLayout';
 import MDXComponents from '@/components/pages/blog/MDXComponents';
 import ReadingProgressBar from '@/components/pages/blog/ReadingProgressBar';
 import SEO from '@/components/shared/SEO';
-
-const ClampTypography = {
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  display: '-webkit-box',
-  WebkitLineClamp: '2',
-  lineClamp: '2',
-  WebkitBoxOrient: 'vertical'
-};
+import PostTags from '@/components/shared/PostTags';
+import MoreStories from '@/components/shared/MoreStories';
 
 type Props = {
   post: PostType;
   suggestedPosts: PostType[];
 };
-
-function MoreStories({ suggestedPosts }: { suggestedPosts: PostType[] }) {
-  if (!suggestedPosts || suggestedPosts.length === 0) return <></>;
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 2
-      }}
-    >
-      <Typography
-        variant="h3"
-        sx={{
-          color: 'text.primary',
-          fontSize: '16px !important',
-          letterSpacing: 0,
-          fontWeight: '500',
-          lineHeight: '20px'
-        }}
-      >
-        More stories
-      </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-        {suggestedPosts.map((post) => {
-          if (!post) return;
-          return (
-            <Box
-              key={post.slug}
-              component={Link}
-              href={post.slug}
-              sx={{
-                textDecoration: 'none',
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
-            >
-              <Box>
-                <Typography
-                  variant="body1"
-                  fontWeight={700}
-                  sx={{
-                    ...ClampTypography,
-                    color: 'text.primary',
-                    lineHeight: '20px',
-                    letterSpacing: '0',
-                    transition: 'color 0.2s ease-in-out',
-                    '&:hover': {
-                      color: 'primary.main'
-                    }
-                  }}
-                  gutterBottom
-                >
-                  {post.title}
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                  {`${dayjs(post.publishedAt).format('MMM D, YYYY')} • ${post.readingTime}`}
-                </Typography>
-              </Box>
-
-              <Image
-                style={{ borderRadius: '8px' }}
-                src={`/images/blog/${post.slug}/${post.heroImagePath}`}
-                alt="Article image"
-                layout="fixed"
-                height={65} // Max height
-                width={100}
-                quality={100}
-                objectFit="cover"
-                loading="lazy"
-                blurDataURL={`/images/blog/${post.slug}/${post.heroImagePath}`}
-                placeholder="blur"
-              />
-            </Box>
-          );
-        })}
-      </Box>
-    </Box>
-  );
-}
 
 const BlogPost = ({ post, suggestedPosts }: Props) => {
   const [width, setWidth] = useState(0);
@@ -152,15 +62,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
         <meta property="og:url" content={`https://shabazbadshah.com/blog/posts/${post.slug}`} />
       </SEO>
       <article itemScope itemType="http://schema.org/Article">
-        <Container
-          disableGutters
-          sx={{
-            maxWidth: { xs: '700px', md: '900px' },
-            '@media (max-width: 600px)': {
-              px: '1.5rem'
-            }
-          }}
-        >
+        <Container disableGutters>
           <IconButton
             component={Link}
             href="/"
@@ -180,7 +82,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
               sx={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '1rem',
+                gap: 2,
                 flexWrap: 'wrap',
                 justifyContent: 'space-between'
               }}
@@ -190,33 +92,18 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
                   <Typography
                     variant="h1"
                     gutterBottom
+                    fontWeight={900}
+                    letterSpacing={'-0.016em'}
                     sx={{
-                      fontWeight: '900',
-                      letterSpacing: '-0.016em',
-                      lineHeight: '40px',
-                      fontSize: '36px !important',
-                      '@media (max-width: 900px)': {
-                        lineHeight: '36px'
-                      },
-                      '@media (max-width: 600px)': {
-                        fontSize: '32px !important'
-                      }
+                      lineHeight: { xs: '36px', md: '40px' },
+                      fontSize: { xs: '32px !important', sm: '36px !important' }
                     }}
                   >
                     {post.title}
                   </Typography>
                   <Typography color="text.secondary" variant="body2">
                     {dayjs(post.publishedAt).format('MMM D, YYYY')}
-                    <Box
-                      sx={{
-                        display: 'inline',
-                        '@media (max-width: 600px)': {
-                          display: 'none'
-                        }
-                      }}
-                    >
-                      &nbsp;&bull;&nbsp;{post.readingTime}
-                    </Box>
+                    &nbsp;&bull;&nbsp;{post.readingTime}
                   </Typography>
                   <Box
                     sx={{
@@ -229,32 +116,19 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
                       width: '100%'
                     }}
                   >
-                    {post.tags.map((tag) => (
-                      <Chip
-                        key={tag}
-                        label={tag}
-                        size="small"
-                        clickable
-                        component={Link}
-                        href={`/tags/${toKebabCase(tag)}`}
-                        sx={{ px: 0.5 }}
-                      />
-                    ))}
+                    <PostTags tags={post.tags} />
                   </Box>
                 </Box>
 
                 <Typography
                   variant="h2"
                   gutterBottom
+                  letterSpacing={0}
+                  lineHeight={'29px'}
+                  fontWeight={400}
                   sx={{
                     fontSize: '22px !important',
-                    letterSpacing: '0',
-                    lineHeight: '28px',
-                    fontWeight: '400',
-                    color: 'text.disabled',
-                    '@media (max-width: 600px)': {
-                      fontSize: '22px !important'
-                    }
+                    color: 'text.disabled'
                   }}
                 >
                   {post.shortBody}
@@ -264,7 +138,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
             <Box
               sx={{
                 maxHeight: '40rem',
-                pb: '4rem',
+                pb: 8,
                 '& > div': { maxHeight: '40rem' }
               }}
             >
@@ -278,7 +152,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
                 quality={100}
                 objectFit="cover"
                 loading="lazy"
-                blurDataURL={post.heroImagePath}
+                blurDataURL={`/images/blog/${post.slug}/${post.heroImagePath}`}
                 placeholder="blur"
               />
             </Box>

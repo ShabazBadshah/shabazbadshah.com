@@ -41,7 +41,6 @@ export default class LocalBlogService {
     try {
       const realSlug = slug.replace(/\.mdx$/, '');
       const fullPath = join(POSTS_DIRECTORY_PATH, `${realSlug}/${realSlug}.mdx`);
-      console.log(fullPath);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
 

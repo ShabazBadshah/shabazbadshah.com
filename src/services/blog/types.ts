@@ -3,7 +3,7 @@ export type Post = {
   slug: string;
   heroImagePath: string;
   shortBody: string;
-  body: any;
+  body: string;
   publishedAt: string;
   author: string;
   tags: string[];

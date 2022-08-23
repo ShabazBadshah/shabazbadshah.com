@@ -1,103 +1,163 @@
-import React from 'react';
-import { Avatar, Button, Box, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import {
+  Box,
+  Typography,
+  SwipeableDrawer,
+  IconButton,
+  useTheme,
+  useMediaQuery
+} from '@mui/material';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import Link from '@/components/shared/Link';
 import Socials from '@/components/shared/Socials';
+import About from '@/components/shared/About';
 
 type Props = {
   extraDrawerContent: React.ReactNode;
+  isOpen: boolean;
+  onClosed: () => void;
 };
 
-export default function Header({ extraDrawerContent }: Props) {
-  return (
+const HeaderContents = ({
+  extraDrawerContent
+}: {
+  extraDrawerContent: React.ReactNode;
+}): JSX.Element => (
+  <>
     <Box
       sx={{
-        display: 'block',
-        minHeight: '100vh',
-        borderRight: '1px solid',
-        borderColor: 'divider',
-        width: '400px',
-        '@media (max-width: 1240px)': {
-          width: '280px'
-        },
-        '@media (max-width: 1080px)': {
-          display: 'none'
-        }
+        position: 'sticky',
+        top: 0,
+        marginTop: 0,
+        padding: { xs: 3, md: 4 },
+        pb: { xs: 5, md: 'initial' },
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'packed',
+        gap: 4
       }}
     >
-      <Box
-        sx={{
-          position: 'sticky',
-          top: '0px',
-          marginTop: '0px',
-          padding: '2.5rem 2rem',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'packed',
-          gap: '60px',
-          width: '100%'
-        }}
-      >
-        {extraDrawerContent ? null : (
-          <Box
-            // user info
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              gap: 2
-            }}
-          >
-            <Box component={Link} href="/" sx={{ mb: 2 }}>
-              <Typography
-                fontSize="1.1rem"
-                fontWeight={600}
-                color="text.primary"
-                sx={{
-                  borderBottom: '3px dotted black',
-                  color: 'text.primary'
-                }}
-              >
-                shabazbadshah.com
-              </Typography>
-            </Box>
-
-            <Box display={'flex'} gap={2} alignItems={'center'}>
-              <Avatar
-                alt="Shabaz Badshah"
-                src="https://avatars.githubusercontent.com/u/4944388?v=4"
-                sx={{ width: 64, height: 64, backgroundColor: 'divider' }}
-              >
-                Shabaz Badshah
-              </Avatar>
-              <div>
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontSize: '16px !important',
-                    letterSpacing: 0,
-                    fontWeight: '500',
-                    lineHeight: '20px',
-                    color: 'text.primary'
-                  }}
-                >
-                  Shabaz Badshah
-                </Typography>
-                <Typography variant="body2" sx={{ color: 'text.primary' }}>
-                  Product Manager
-                </Typography>
-              </div>
-            </Box>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              I'm a Product Manager who develops Fullstack web experiences during his downtime. This
-              site catalogs things I learn, find interesting, want to share, or anything cool I'm
-              creating.
+      {extraDrawerContent ? null : (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            gap: 2
+          }}
+        >
+          <Box component={Link} href="/" sx={{ mb: 2 }}>
+            <Typography
+              fontSize="1.1rem"
+              fontWeight={600}
+              color="text.primary"
+              sx={{
+                borderBottom: '3px dotted black',
+                color: 'text.primary'
+              }}
+            >
+              shabazbadshah.com
             </Typography>
           </Box>
-        )}
-        {extraDrawerContent}
-        <Socials />
-      </Box>
+          <About />
+        </Box>
+      )}
+      {extraDrawerContent}
+      <Socials />
     </Box>
+  </>
+);
+
+export default function Header({ extraDrawerContent }: Props): JSX.Element {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 900px)');
+    if (media.matches !== isMobile) {
+      setIsMobile(media.matches);
+    }
+    const listener = () => setIsMobile(media.matches);
+    window.addEventListener('resize', listener);
+    return () => window.removeEventListener('resize', listener);
+  }, [isMobile]);
+
+  return (
+    <>
+      {isMobile && (
+        <SwipeableDrawer
+          sx={{
+            '& > *': {
+              display: {
+                xs: 'block',
+                md: 'none'
+              }
+            }
+          }}
+          anchor={'bottom'}
+          open={isDrawerOpen}
+          onClose={() => setIsDrawerOpen(false)}
+          onOpen={() => {
+            return;
+          }}
+          PaperProps={{ square: false, sx: { borderRadius: '14px' } }}
+        >
+          <HeaderContents
+            extraDrawerContent={
+              <>
+                <Box
+                  sx={{
+                    width: '100%',
+                    display: 'flex',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <ExpandMoreIcon
+                    sx={{ fontSize: '2rem' }}
+                    onClick={() => setIsDrawerOpen(false)}
+                  />
+                </Box>
+                <About />
+                {extraDrawerContent}
+              </>
+            }
+          />
+        </SwipeableDrawer>
+      )}
+
+      <IconButton
+        sx={{
+          display: { xs: 'flex', md: 'none' },
+          position: 'fixed',
+          zIndex: 1,
+          bottom: 30,
+          right: 30,
+          width: '50px',
+          height: '50px',
+          boxShadow: '0px 0px 25px 15px rgba(0,0,0,0.05)',
+          backgroundColor: 'black',
+          '&:hover': {
+            backgroundColor: 'black'
+          }
+        }}
+        onClick={() => setIsDrawerOpen(true)}
+      >
+        <MoreHorizIcon sx={{ color: 'white', fontSize: '40px' }} />
+      </IconButton>
+
+      <Box
+        sx={{
+          display: { xs: 'none', md: 'block' },
+          minHeight: '100vh',
+          borderRight: '1px solid',
+          borderColor: 'divider',
+          width: '400px'
+        }}
+      >
+        <HeaderContents extraDrawerContent={extraDrawerContent} />
+      </Box>
+    </>
   );
 }

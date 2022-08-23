@@ -1,5 +1,8 @@
 import React from 'react';
-import { Avatar, Box, Button, Stack, Typography, Grid } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
+import { FaGithub } from 'react-icons/fa';
 
 import { trackConnectLinkClick } from '@/analytics/tracking';
 
@@ -7,9 +10,10 @@ type SocialProfile = {
   name: string;
   provider: socialMediaProfileProviders;
   url: string;
-  icon: string;
+  IconComponent: React.ReactNode;
   cta: string;
 };
+
 export type socialMediaProfileProviders = 'github' | 'linkedin' | 'email';
 
 const profiles: SocialProfile[] = [
@@ -17,26 +21,26 @@ const profiles: SocialProfile[] = [
     name: '@ShabazBadshah',
     provider: 'github',
     url: 'https://github.com/ShabazBadshah',
-    icon: 'https://cdn-icons-png.flaticon.com/512/25/25231.png',
+    IconComponent: <FaGithub style={{ width: '20px', height: '20px' }} />,
     cta: 'Follow'
   },
   {
     name: '/in/shabaz-badshah/',
     provider: 'linkedin',
     url: 'https://www.linkedin.com/in/shabaz-badshah/',
-    icon: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/768px-LinkedIn_logo_initials.png',
+    IconComponent: <LinkedInIcon htmlColor="#0077B5" style={{ width: '23px', height: '23px' }} />,
     cta: 'Connect'
   },
   {
     name: 'badshah.shabaz.dev@gmail.com',
     provider: 'email',
     url: 'mailto:badshah.shabaz.dev@gmail.comSubject=Hey%20Shabaz',
-    icon: 'https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/send-icon.png',
+    IconComponent: <AlternateEmailOutlinedIcon style={{ width: '20px', height: '20px' }} />,
     cta: 'Email'
   }
 ];
 
-const socials = () => {
+const Socials = (): JSX.Element => {
   return (
     <Box
       sx={{
@@ -47,77 +51,57 @@ const socials = () => {
     >
       <Typography
         variant="h3"
+        lineHeight={'20px'}
+        fontWeight={500}
         sx={{
           color: 'text.primary',
           fontSize: '16px !important',
-          letterSpacing: 0,
-          fontWeight: '500',
-          lineHeight: '20px'
+          letterSpacing: 0
         }}
       >
         Let's connect
       </Typography>
-      <Grid display="flex" flexDirection="column" gap={2}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         {profiles.map((profile) => {
           return (
-            <Box
+            <Button
               key={profile.name}
+              variant="outlined"
+              size="small"
               sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center'
+                color: 'text.primary',
+                borderColor: '#cecece',
+                fontWeight: 400,
+                width: '100%',
+                borderRadius: '100px',
+                textAlign: 'center',
+                textTransform: 'lowercase',
+                '&:hover': {
+                  color: 'primary.main',
+                  border: '1px solid #085CC5'
+                }
               }}
+              href={profile.url}
+              onClick={() => trackConnectLinkClick(profile.provider)}
             >
               <Box
                 sx={{
                   display: 'flex',
                   flexDirection: 'row',
-                  alignItems: 'center'
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 1
                 }}
               >
-                <Box>
-                  <Avatar
-                    variant="square"
-                    alt="avatar"
-                    src={profile.icon}
-                    sx={{ width: 20, height: 20, mr: 1 }}
-                  />
-                </Box>
-                <Box>
-                  <Typography fontSize={14} sx={{ fontWeight: 500 }}>
-                    {profile.name}
-                  </Typography>
-                </Box>
+                {profile.IconComponent}
+                {profile.name}
               </Box>
-              <Button
-                variant="outlined"
-                size="small"
-                sx={{
-                  color: 'text.primary',
-                  borderColor: '#cecece',
-                  fontWeight: 400,
-                  height: 'fit-content',
-                  width: '70px',
-                  borderRadius: '100px',
-                  textAlign: 'center',
-                  textTransform: 'capitalize',
-                  '&:hover': {
-                    color: 'primary.main',
-                    border: '1px solid #085CC5'
-                  }
-                }}
-                href={profile.url}
-                onClick={() => trackConnectLinkClick(profile.provider)}
-              >
-                {profile.cta}
-              </Button>
-            </Box>
+            </Button>
           );
         })}
-      </Grid>
+      </Box>
     </Box>
   );
 };
 
-export default socials;
+export default Socials;

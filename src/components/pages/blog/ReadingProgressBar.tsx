@@ -1,11 +1,11 @@
 import React from 'react';
 import Router from 'next/router';
 import { AppBar, Box, IconButton, Toolbar, LinearProgress, Typography } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
 import useScrollTrigger from '@mui/material/useScrollTrigger';
+import HomeIcon from '@mui/icons-material/Home';
 import Fade from '@mui/material/Fade';
 
-export default function ReadingProgressBar(props: any) {
+export default function ReadingProgressBar(props: any): JSX.Element {
   const { window } = props;
 
   const trigger = useScrollTrigger({

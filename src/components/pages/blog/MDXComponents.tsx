@@ -1,11 +1,9 @@
-import * as React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
 
-import Alert from '@mui/material/Alert';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
+import React from 'react';
+import { Alert, Box, Divider, Typography } from '@mui/material';
 import MuiLink from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import Image from 'next/image';
 
 const MDXComponents = {
   p: (props: any) => (
@@ -17,13 +15,13 @@ const MDXComponents = {
         fontSize: '18px',
         lineHeight: '30px',
         letterSpacing: '-0.003em',
-        mt: '1.5rem',
+        mt: 3,
         wordBreak: 'break-word',
         hyphens: 'auto',
         '@media (max-width: 600px)': {
           fontSize: '17px',
           lineHeight: '28px',
-          mt: '1rem'
+          mt: 2
         }
       }}
       {...props}
@@ -33,7 +31,7 @@ const MDXComponents = {
     <Typography
       variant="h2"
       sx={{
-        mt: '4rem',
+        mt: 8,
         mb: '-14px',
         fontSize: '24px !important',
         fontWeight: '900',
@@ -41,7 +39,7 @@ const MDXComponents = {
         letterSpacing: '0',
         '@media (max-width: 600px)': {
           fontSize: '20px !important',
-          mt: '2.5rem'
+          mt: 5
         }
       }}
       {...props}
@@ -51,14 +49,14 @@ const MDXComponents = {
     <Typography
       variant="h3"
       sx={{
-        mt: '3rem',
+        mt: 6,
         mb: '-14px',
         fontSize: '20px !important',
         letterSpacing: '0',
         fontWeight: '900',
         '@media (max-width: 600px)': {
           fontSize: '17px !important',
-          mt: '2rem'
+          mt: 4
         }
       }}
       {...props}
@@ -69,7 +67,7 @@ const MDXComponents = {
       variant="h2"
       sx={{
         pl: 2,
-        my: '2rem',
+        my: 4,
         lineHeight: '32px',
         borderLeft: '3px solid ',
         borderColor: 'text.disabled',
@@ -90,9 +88,9 @@ const MDXComponents = {
     <ul
       {...props}
       style={{
-        paddingLeft: '2rem',
-        marginBottom: '4rem',
-        marginTop: '2rem'
+        paddingLeft: 30,
+        marginBottom: 10,
+        marginTop: 30
       }}
     />
   ),
@@ -101,12 +99,12 @@ const MDXComponents = {
       {...props}
       style={{
         listStyleType: 'square',
-        marginTop: '0.5em',
-        marginBottom: '-0.3em',
+        marginTop: 10,
+        marginBottom: -5,
         fontSize: '18px',
         lineHeight: '32px',
         letterSpacing: '-0.003em',
-        paddingLeft: '.5rem'
+        paddingLeft: 1
       }}
     />
   ),
@@ -163,7 +161,7 @@ const MDXComponents = {
         lineHeight: '20px',
         fontSize: '14px',
         letterSpacing: 0,
-        my: '1.5rem',
+        my: 3,
         '@media (max-width: 600px)': { my: '1rem' }
       }}
       {...props}
@@ -185,7 +183,7 @@ const MDXComponents = {
             display: 'flex',
             justifyContent: 'center',
             flexDirection: 'column',
-            padding: '1rem'
+            padding: 2
           }}
         >
           <Typography sx={{ fontWeight: '600', fontSize: '17px' }}>{props.title}</Typography>
