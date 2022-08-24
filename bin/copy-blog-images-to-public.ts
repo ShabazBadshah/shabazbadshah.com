@@ -45,6 +45,7 @@ async function createPostImageFoldersForCopy() {
 async function main() {
   console.log(`Deleting images directory ${targetDir}`);
   await fsExtra.emptyDir(targetDir);
+  console.log(`Copying existing MDX blog images from /content into ${targetDir}`);
   await createPostImageFoldersForCopy();
 }
 

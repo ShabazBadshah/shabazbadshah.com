@@ -7,16 +7,15 @@
   "private": "true",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm prebuild && next build && pnpm postbuild",
     "start": "next start",
     "export": "next export",
     "build:analyze": "cross-env ANALYZE=true pnpm run build",
     "lint": "eslint '{src,pages}**/*.{js,jsx,ts,tsx}'",
     "prettier": "prettier --write '{src,pages}**/*.{js,jsx,ts,tsx}'",
-    "precommit": "pnpm run generate-sitemap && pnpm run lint && pnpm run prettier && pnpm run build",
-    "copyimages": "ts-node ./bin/copy-images.mjs",
-    "prebuild": "pnpm run copyimages",
-    "postbuild": "ts-node ./bin/generate-sitemap",
+    "precommit": "pnpm run lint && pnpm run prettier && pnpm build",
+    "prebuild": "ts-node ./bin/copy-blog-images-to-public.ts",
+    "postbuild": "ts-node ./bin/generate-sitemap.ts",
     "commit": "cz"
   },
   "dependencies": {

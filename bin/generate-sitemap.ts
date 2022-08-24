@@ -8,7 +8,7 @@ import fs from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
 
-const SITE_BASE_URL = 'shabazbadshah.com.com';
+const SITE_BASE_URL = 'shabazbadshah.com';
 const RELATIVE_PUBLIC_DIR_TO_SCRIPT_FILE = '../public';
 const POSTS_ABSOLUTE_DIRECTORY_PATH = join(process.cwd(), '/content');
 const PAGE_FILE_EXTENSION = '.tsx';
