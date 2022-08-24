@@ -13,8 +13,6 @@ const nextConfig = {
   webpack: (config) => {
     return config;
   },
-  siteUrl: process.env.SITE_URL,
-  generateRobotsTxt: true,
   async redirects() {
     return [
       {

@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Box,
-  Typography,
-  SwipeableDrawer,
-  IconButton,
-  useTheme,
-  useMediaQuery
-} from '@mui/material';
+import { Box, Typography, SwipeableDrawer, IconButton } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
