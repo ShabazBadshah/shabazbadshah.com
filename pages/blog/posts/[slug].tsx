@@ -46,7 +46,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
 
   return (
     <MainLayout
-      title={''}
+      pageHeader={''}
       extraDrawerContent={
         <>
           <MoreStories suggestedPosts={suggestedPosts} />
@@ -163,17 +163,19 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
               ...MDXComponents,
               // Image component declared here separately so I can pass in the slug. This allows me in the MDX file to just specify the filename, and no path
               img: ({ src, height, width, ...rest }: any) => (
-                <Image
-                  layout="responsive"
-                  src={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
-                  height={500}
-                  width={900}
-                  objectFit="contain"
-                  loading="lazy"
-                  style={{ borderRadius: '8px' }}
-                  blurDataURL={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
-                  {...rest}
-                />
+                <Box sx={{ borderRadius: '8px' }}>
+                  <Image
+                    layout="responsive"
+                    src={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
+                    height={500}
+                    width={900}
+                    objectFit="contain"
+                    loading="lazy"
+                    style={{ borderRadius: '8px' }}
+                    blurDataURL={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
+                    {...rest}
+                  />
+                </Box>
               )
             }}
           />

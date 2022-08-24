@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { Post as PostType } from '@/services/blog/types';
 import Link from '@/components/shared/Link';
 import SectionTitle from '@/components/shared/SectionTitle';
-import PostTitleBody from '@/components/shared//PostTitleBody';
+import PostTitleBody from '@/components/shared/PostTitleBody';
 
 type Props = {
   suggestedPosts: PostType[];
@@ -14,13 +14,7 @@ type Props = {
 const MoreStories = ({ suggestedPosts }: Props): JSX.Element => {
   if (!suggestedPosts || suggestedPosts.length === 0) return <></>;
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 2
-      }}
-    >
+    <Box>
       <SectionTitle title="More Stories" />
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
         {suggestedPosts.map((post) => {

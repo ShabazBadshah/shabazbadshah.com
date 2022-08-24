@@ -23,7 +23,7 @@ const PostTags = ({ tags, maxNumTagsToShow }: Props): JSX.Element => {
             component={Link}
             key={tag}
             href={`/tags/${toKebabCase(tag)}`}
-            sx={{ px: 0.5 }}
+            sx={{ px: 0.5, fontSize: '0.9rem' }}
           />
         );
       })}

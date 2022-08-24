@@ -3,7 +3,7 @@ export type Post = {
   slug: string;
   heroImagePath: string;
   shortBody: string;
-  body: string;
+  body: any; // Leaving as 'any' since I convert between string --> MDX when popupulating post
   publishedAt: string;
   author: string;
   tags: string[];

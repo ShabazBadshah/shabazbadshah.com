@@ -4,7 +4,7 @@ import { Avatar, Box, Typography } from '@mui/material';
 export default function About(): JSX.Element {
   return (
     <>
-      <Box display={'flex'} gap={2} alignItems={'center'}>
+      <Box display={'flex'} gap={2} alignItems={'center'} mb={2}>
         <Avatar
           alt="Shabaz Badshah"
           src="https://avatars.githubusercontent.com/u/4944388?v=4"

@@ -70,6 +70,7 @@ const Socials = (): JSX.Element => {
               size="small"
               sx={{
                 color: 'text.primary',
+                py: 0.5,
                 borderColor: '#cecece',
                 fontWeight: 400,
                 width: '100%',

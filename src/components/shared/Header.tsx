@@ -95,24 +95,34 @@ export default function Header({ extraDrawerContent }: Props): JSX.Element {
           onOpen={() => {
             return;
           }}
-          PaperProps={{ square: false, sx: { borderRadius: '14px' } }}
+          PaperProps={{
+            square: false,
+            sx: {
+              borderTopRightRadius: '14px',
+              borderTopLeftRadius: ' 14px',
+              borderBottomRightRadius: 0,
+              borderBottomLeftRadius: 0
+            }
+          }}
         >
           <HeaderContents
             extraDrawerContent={
               <>
-                <Box
-                  sx={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center'
-                  }}
-                >
-                  <ExpandMoreIcon
-                    sx={{ fontSize: '2rem' }}
-                    onClick={() => setIsDrawerOpen(false)}
-                  />
+                <Box>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <ExpandMoreIcon
+                      sx={{ fontSize: '2rem', mb: 1 }}
+                      onClick={() => setIsDrawerOpen(false)}
+                    />
+                  </Box>
+                  <About />
                 </Box>
-                <About />
                 {extraDrawerContent}
               </>
             }
