@@ -32,7 +32,7 @@ const IndividualTagPageHeader = ({ tagHeader }: { tagHeader: string }): JSX.Elem
       <Link href={'/tags'}>
         <Typography
           fontWeight={500}
-          sx={{ borderBottom: '2px dotted black', color: 'text.primary' }}
+          sx={{ borderBottom: '2px dotted black', color: 'text.primary', whiteSpace: 'nowrap' }}
         >
           All Tags
         </Typography>
