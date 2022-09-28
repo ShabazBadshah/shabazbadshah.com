@@ -62,11 +62,11 @@ const WeeklySyftableUpdate = (): JSX.Element => {
           </Typography>
         </Box>
         <Typography variant="body2" fontWeight={500} mt={1}>
-          August 22, 2022
+          October 2022
         </Typography>
         <Typography mt={2} lineHeight="1.4rem">
           I finished the final landing page for the site. I'm going to be using it to gauge interest
-          in the product and as a place where visitors can get more info.
+          in the product and as a place where visitors can get more info. Currently, I'm adding support for user accounts
         </Typography>
 
         <Button
