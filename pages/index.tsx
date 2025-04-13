@@ -7,7 +7,7 @@ import BlogPostsList from '@/components/shared/BlogPostsList';
 import SEO from '@/components/shared/SEO';
 import MainLayout from '@/layouts/MainLayout';
 import BlogAPI from '@/services/blog';
-import { Post as PostType } from '@services/blog/types';
+import { Post as PostType } from '@/services/blog/types';
 
 type Props = {
   posts: PostType[];
