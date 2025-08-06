@@ -10,3 +10,33 @@ html {
 body {
   background-color: #fdfdfd;
 }
+
+table {
+  border-spacing: 0 !important;
+  // display: block !important;
+  // width: max-content !important;
+  // max-width: 100% !important;
+  overflow: auto !important;
+  margin-bottom: 64px;
+}
+
+table thead tr th {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding-bottom: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+table tr td {
+  padding-top: 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+table tr td:last-child {
+  border-right: none;
+}

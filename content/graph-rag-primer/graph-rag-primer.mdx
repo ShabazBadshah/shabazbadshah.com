@@ -1,11 +1,11 @@
 ---
 title: 'Graph RAG Primer'
-shortBody: 'Quick breakdown of what GraphRAG is explained quickly, and simply..'
-heroImagePath: 'graph-rag.png'
+shortBody: 'Quick breakdown of what GraphRAG is explained quickly, and simply.'
+heroImagePath: 'graph-rag-primer.webp'
 publishedAt: '2024-12-03'
 author: 'Shabaz Badshah'
 tags:
-  - artifical intelligece
+  - artifical intelligence
   - primer
   - project
 pinned: false
@@ -27,8 +27,10 @@ The customer might also want to train their own model if their codebase is large
 
 The table below summarizes findings between other approaches that may be taken depending on the use-case.
 
+<br/>
+
 | Approach                 | Strength                                                                                                                                                                     | Weaknesses                                                                                                                                                      |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | GraphRAG                 | Understands relationships between different entities and can connect them together for more complex, conceptual-based queries                                                | Might take longer to query since the context window is very large. Might struggle more on unstructured data since relationships cannot be mapped as explicitly. |
 | Vector-based Text Search | Better at handling text-based queries where there exist different ways to say the same thing. Can infer “meaning” of a query better. Would be more useful to search for text | Is not able to efficiently determine relationships between entities. Only look for content that is “similar”. Better at querying unstructured data.             |
 | Prompting                | Most easily accessible by users                                                                                                                                              | Does not contain the whole context of the query. Very cumbersome to add a plethora of background information for a query.                                       |

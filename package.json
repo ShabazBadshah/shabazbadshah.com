@@ -6,9 +6,9 @@
   "license": "MIT",
   "private": "true",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8080",
     "build": "pnpm prebuild && next build && pnpm postbuild",
-    "start": "next start",
+    "start": "next start -p 8080",
     "export": "next export",
     "build:analyze": "cross-env ANALYZE=true pnpm run build",
     "lint": "eslint '{src,pages}**/*.{js,jsx,ts,tsx}'",

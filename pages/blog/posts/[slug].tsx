@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import dayjs from 'dayjs';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
-import { Box, Container, IconButton, Typography } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
+import { Box, Container, IconButton, Typography } from '@mui/material';
 
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next';
+import { MDXRemote } from 'next-mdx-remote';
+import { serialize } from 'next-mdx-remote/serialize';
 import { ParsedUrlQuery } from 'querystring';
-import remarkPrism from 'remark-prism';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
-import { serialize } from 'next-mdx-remote/serialize';
-import { MDXRemote } from 'next-mdx-remote';
+import remarkGfm from 'remark-gfm';
+import remarkPrism from 'remark-prism';
 
-import BlogAPI from '@/services/blog';
-import { Post as PostType } from '@/services/blog/types';
-import Link from '@/components/shared/Link';
-import MainLayout from '@/layouts/MainLayout';
 import MDXComponents from '@/components/pages/blog/MDXComponents';
 import ReadingProgressBar from '@/components/pages/blog/ReadingProgressBar';
-import SEO from '@/components/shared/SEO';
-import PostTags from '@/components/shared/PostTags';
+import Link from '@/components/shared/Link';
 import MoreStories from '@/components/shared/MoreStories';
+import PostTags from '@/components/shared/PostTags';
+import SEO from '@/components/shared/SEO';
+import MainLayout from '@/layouts/MainLayout';
+import BlogAPI from '@/services/blog';
+import { Post as PostType } from '@/services/blog/types';
 
 type Props = {
   post: PostType;
@@ -208,7 +209,7 @@ export const getStaticProps = async ({
 
   post.body = await serialize(post.body || '', {
     mdxOptions: {
-      rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+      rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings, remarkGfm],
       remarkPlugins: [remarkPrism]
     }
   });
