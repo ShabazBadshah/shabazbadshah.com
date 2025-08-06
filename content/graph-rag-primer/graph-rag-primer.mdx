@@ -1,0 +1,34 @@
+---
+title: 'Graph RAG Primer'
+shortBody: 'Quick breakdown of what GraphRAG is explained quickly, and simply..'
+heroImagePath: 'graph-rag.png'
+publishedAt: '2024-12-03'
+author: 'Shabaz Badshah'
+tags:
+  - artifical intelligece
+  - primer
+  - project
+pinned: false
+---
+
+## What is GraphRAG
+
+GraphRAG (Graph-based Retrieval-Augmented Generation) is a technique used to enhance LLM user-query responses by utilizing data from external knowledge graphs in addition to the trained dataset to generate more accurate and relevant responses.
+
+GraphRAGs help in solving LLMs most common limitation being that the trained data might be outdated and may return responses that are inaccurate. GraphRAG is an enhancement to RAG (Retrieval-Augmented Generation) as it queries a knowledge graph instead of a vector text database which is then fed into the LLM. Using a graph allows for better querying for relationships between data rather than for just the data itself.
+
+## GraphRAG vs Alternative Approaches
+
+The approach of technology depends on what the customer aims to accomplish with the integration. If the customer’s goal is to have a more detailed and semantic-based search and find code within a large codebase, then a semantic-based search might be more relevant.
+
+In contrast, if the customer wants to understand the dependencies of a piece of code, a graph-based approach where relationships are mapped between functions may be more relevant.
+
+The customer might also want to train their own model if their codebase is large and is a part of a legacy system where core functions are not updated as frequently (for example a banking system or airline guidance-systems).
+
+The table below summarizes findings between other approaches that may be taken depending on the use-case.
+
+| Approach                 | Strength                                                                                                                                                                     | Weaknesses                                                                                                                                                      |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| GraphRAG                 | Understands relationships between different entities and can connect them together for more complex, conceptual-based queries                                                | Might take longer to query since the context window is very large. Might struggle more on unstructured data since relationships cannot be mapped as explicitly. |
+| Vector-based Text Search | Better at handling text-based queries where there exist different ways to say the same thing. Can infer “meaning” of a query better. Would be more useful to search for text | Is not able to efficiently determine relationships between entities. Only look for content that is “similar”. Better at querying unstructured data.             |
+| Prompting                | Most easily accessible by users                                                                                                                                              | Does not contain the whole context of the query. Very cumbersome to add a plethora of background information for a query.                                       |
