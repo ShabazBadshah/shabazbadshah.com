@@ -1,8 +1,8 @@
 import { Box, Grid } from '@mui/material';
 import { GetStaticPropsResult } from 'next';
-import React from 'react';
 
 import PinnedPosts from '@/components/pages/homepage/PinnedPosts';
+import WeeklySyftableUpdate from '@/components/pages/homepage/WeeklySyftableUpdate';
 import BlogPostsList from '@/components/shared/BlogPostsList';
 import SEO from '@/components/shared/SEO';
 import MainLayout from '@/layouts/MainLayout';
@@ -28,9 +28,9 @@ const Index = ({ posts, pinnedPosts }: Props): JSX.Element => {
           gap: { xs: 3, sm: 4 }
         }}
       >
-        {/* <Grid my={2}>
+        <Grid my={2}>
           <WeeklySyftableUpdate />
-        </Grid> */}
+        </Grid>
 
         <Grid my={2}>
           <PinnedPosts posts={pinnedPosts} />

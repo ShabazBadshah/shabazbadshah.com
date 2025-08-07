@@ -168,7 +168,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
                   <Image
                     layout="responsive"
                     src={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
-                    height={500}
+                    height={900}
                     width={900}
                     objectFit="contain"
                     loading="lazy"

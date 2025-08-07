@@ -1,7 +1,5 @@
-import * as React from 'react';
-
-import { Box, Grid, Typography, Link, Button } from '@mui/material';
 import TipsAndUpdatesOutlinedIcon from '@mui/icons-material/TipsAndUpdatesOutlined';
+import { Box, Button, Grid, Typography } from '@mui/material';
 
 import { trackWeeklyUpdateCTAClicked } from '@/analytics/tracking';
 
@@ -17,8 +15,8 @@ const WeeklySyftableUpdate = (): JSX.Element => {
     >
       <Grid item xs={12} sm={6}>
         <Typography fontWeight={700}>
-          I'm currently working on{' '}
-          <Link
+          I'm currently working on Syftable v2
+          {/* <Link
             href="https://syftable.com?utm_source=shabazbadshah.com&utm_medium=website_link&utm_campaign=analytics&utm_content=description_blurb"
             sx={{ textDecoration: 'none !important' }}
           >
@@ -31,15 +29,15 @@ const WeeklySyftableUpdate = (): JSX.Element => {
             >
               Syftable
             </Box>
-          </Link>
+          </Link> */}
         </Typography>
 
         <Typography mt={1}>
-          A competitor monitoring tools for Product Managers that streamlines gathering news and
-          updates within their industries
+          A tool to help reduce your cognitive overload with all of your digital data, making it
+          easier for you to get your work done faster.
         </Typography>
         <Typography mt={2} fontStyle="italic">
-          Is it currently just a glorified RSS reader? Yeah...yeah it is. But not for long{' '}
+          Stay tuned to the blog for updates!
           <span style={{ fontSize: '1.2rem' }}>🚀</span>
         </Typography>
       </Grid>
@@ -62,11 +60,14 @@ const WeeklySyftableUpdate = (): JSX.Element => {
           </Typography>
         </Box>
         <Typography variant="body2" fontWeight={500} mt={1}>
-          October 2022
+          May 2025
         </Typography>
         <Typography mt={2} lineHeight="1.4rem">
-          I finished the final landing page for the site. I'm going to be using it to gauge interest
-          in the product and as a place where visitors can get more info. Currently, I'm adding support for user accounts
+          Syftable v1 - the competitor analysis news aggregator is no more :(
+        </Typography>
+        <Typography lineHeight="1.4rem">
+          After 4 months of supporting it, and slowing traction (thanks ChatGPT), I'm going to
+          pursue some other projects.
         </Typography>
 
         <Button
@@ -80,18 +81,17 @@ const WeeklySyftableUpdate = (): JSX.Element => {
             borderColor: 'black',
             fontWeight: 500,
             borderRadius: '99em',
-            textTransform: 'capitalize',
+            textTransform: 'unset',
             '&:hover': {
               color: 'primary.main',
-              border: '1px solid #085CC5'
+              border: '1px solid #085CC5',
+              backgroundColor: '#085dc521'
             }
           }}
-          href={
-            'https://syftable.com?utm_source=shabazbadshah.com&utm_medium=website_link&utm_campaign=analytics&utm_content=weekly_update_card'
-          }
+          href={'https://shabazbadshah.com/blog/posts/syftable-v1-shutting-down'}
           onClick={() => trackWeeklyUpdateCTAClicked()}
         >
-          Check it out here <span style={{ fontSize: '1.2rem' }}>&nbsp; 👀</span>
+          Check out the latest update <span style={{ fontSize: '1.2rem' }}>&nbsp; 👀</span>
         </Button>
       </Grid>
     </Grid>

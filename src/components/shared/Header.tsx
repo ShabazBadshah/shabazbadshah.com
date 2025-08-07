@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Typography, SwipeableDrawer, IconButton } from '@mui/material';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Box, IconButton, SwipeableDrawer, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 
+import About from '@/components/shared/About';
 import Link from '@/components/shared/Link';
 import Socials from '@/components/shared/Socials';
-import About from '@/components/shared/About';
 
 type Props = {
   extraDrawerContent: React.ReactNode;
-  isOpen: boolean;
-  onClosed: () => void;
 };
 
 const HeaderContents = ({

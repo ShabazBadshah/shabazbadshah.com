@@ -1,10 +1,8 @@
-import * as React from 'react';
-
 import { Divider, Grid } from '@mui/material';
 
-import { Post as PostType } from '@services/blog/types';
 import Post from '@/components/shared/Post';
 import SectionTitle from '@/components/shared/SectionTitle';
+import { Post as PostType } from '@/services/blog/types';
 
 type Props = {
   posts: PostType[];
