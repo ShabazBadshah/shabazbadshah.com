@@ -1,11 +1,9 @@
-import React from 'react';
-import Image from 'next/image';
 import { Box } from '@mui/material';
 
-import { Post as PostType } from '@/services/blog/types';
 import Link from '@/components/shared/Link';
-import SectionTitle from '@/components/shared/SectionTitle';
 import PostTitleBody from '@/components/shared/PostTitleBody';
+import SectionTitle from '@/components/shared/SectionTitle';
+import { Post as PostType } from '@/services/blog/types';
 
 type Props = {
   suggestedPosts: PostType[];
@@ -46,19 +44,6 @@ const MoreStories = ({ suggestedPosts }: Props): JSX.Element => {
               >
                 <PostTitleBody post={post} />
               </Box>
-              <Image
-                style={{ borderRadius: '4px' }}
-                src={`/images/blog/${post.slug}/${post.heroImagePath}`}
-                alt="Article image"
-                layout="fixed"
-                height={50} // Max height
-                width={60}
-                quality={100}
-                objectFit="cover"
-                loading="lazy"
-                blurDataURL={`/images/blog/${post.slug}/${post.heroImagePath}`}
-                placeholder="blur"
-              />
             </Box>
           );
         })}

@@ -25,7 +25,7 @@ const BlogPostsList = ({ posts, showTitle = true }: Props): JSX.Element => {
             }}
           >
             <Post post={post} />
-            <Divider sx={{ my: { xs: 3, sm: 4 } }} />
+            <Divider sx={{ my: 3 }} />
           </Grid>
         );
       })}

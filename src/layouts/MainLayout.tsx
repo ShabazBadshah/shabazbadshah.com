@@ -1,8 +1,8 @@
 import { Box, Container } from '@mui/material';
 import React from 'react';
 
-import Footer from '@/components/shared/Footer';
 import Header from '@/components/shared/Header';
+import Footer from '../components/shared/Footer';
 
 type Props = {
   pageHeader?: React.ReactNode;
@@ -21,7 +21,15 @@ const MainLayout = ({
     <>
       <Box sx={{ display: 'flex' }}>
         <Header extraDrawerContent={extraDrawerContent} />
-        <Box sx={{ display: 'block', minWidth: 0, flex: '1 1 auto', py: { xs: 2, sm: 5 } }}>
+        <Box
+          sx={{
+            display: 'block',
+            minWidth: 0,
+            flex: '1 1 auto',
+            py: { xs: 2, sm: 5 },
+            background: 'linear-gradient(245deg,#e5f1fb 0%, rgba(255, 255, 255, 1) 40%)'
+          }}
+        >
           {pageHeader && <Container>{pageHeader}</Container>}
           <Container maxWidth="lg">
             <main>{children}</main>

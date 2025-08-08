@@ -154,7 +154,7 @@ export default function Header({ extraDrawerContent }: Props): JSX.Element {
           minHeight: '100vh',
           borderRight: '1px solid',
           borderColor: 'divider',
-          width: '400px'
+          width: '340px'
         }}
       >
         <HeaderContents extraDrawerContent={extraDrawerContent} />

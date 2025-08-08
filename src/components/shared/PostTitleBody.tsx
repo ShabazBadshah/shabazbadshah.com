@@ -1,9 +1,8 @@
-import React from 'react';
-import dayjs from 'dayjs';
 import { Box, Typography } from '@mui/material';
+import dayjs from 'dayjs';
 
-import { Post as PostType } from '@/services/blog/types';
 import Link from '@/components/shared/Link';
+import { Post as PostType } from '@/services/blog/types';
 
 const ClampTypography = {
   overflow: 'hidden',
@@ -21,6 +20,20 @@ type Props = {
 const PostTitleBody = ({ post }: Props): JSX.Element => {
   return (
     <>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 2,
+          mb: 0.5
+        }}
+      >
+        <Typography color="text.secondary" variant="body2">
+          {dayjs(post.publishedAt).format('MMM D, YYYY')}
+          &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+          {post.readingTime}
+        </Typography>
+      </Box>
       <Link href={`/blog/posts/${post.slug}`}>
         <Typography
           id="postTitle"
@@ -56,20 +69,6 @@ const PostTitleBody = ({ post }: Props): JSX.Element => {
       >
         {post.shortBody}
       </Typography>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 2,
-          mt: 0.5
-        }}
-      >
-        <Typography color="text.secondary" variant="body2">
-          {dayjs(post.publishedAt).format('MMM D, YYYY')}
-          &nbsp;&nbsp;&bull;&nbsp;&nbsp;
-          {post.readingTime}
-        </Typography>
-      </Box>
     </>
   );
 };

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Typography } from '@mui/material';
 
 const ClampTypography = {
@@ -22,11 +21,11 @@ const SectionTitle = ({ title }: Props): JSX.Element => {
       sx={{
         ...ClampTypography,
         color: 'text.primary',
-        fontSize: '16px !important',
+        fontSize: '18px !important',
         letterSpacing: 0,
         fontWeight: '500',
         lineHeight: '20px',
-        mb: 2
+        mb: 3
       }}
     >
       {title}

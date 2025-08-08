@@ -15,7 +15,7 @@ const WeeklySyftableUpdate = (): JSX.Element => {
     >
       <Grid item xs={12} sm={6}>
         <Typography fontWeight={700}>
-          I'm currently working on Syftable v2
+          I'm currently pivoting to Syftable v2
           {/* <Link
             href="https://syftable.com?utm_source=shabazbadshah.com&utm_medium=website_link&utm_campaign=analytics&utm_content=description_blurb"
             sx={{ textDecoration: 'none !important' }}
@@ -50,7 +50,8 @@ const WeeklySyftableUpdate = (): JSX.Element => {
           padding: '20px',
           borderRadius: '6px',
           border: '1px solid',
-          borderColor: 'card.borderColor'
+          borderColor: 'card.borderColor',
+          boxShadow: '0 1px 5px -4px #767676b1,0 4px 8px #2424240d'
         }}
       >
         <Box display="flex" flexDirection="row" alignItems="center" gap={1}>
@@ -63,11 +64,9 @@ const WeeklySyftableUpdate = (): JSX.Element => {
           May 2025
         </Typography>
         <Typography mt={2} lineHeight="1.4rem">
-          Syftable v1 - the competitor analysis news aggregator is no more :(
-        </Typography>
-        <Typography lineHeight="1.4rem">
-          After 4 months of supporting it, and slowing traction (thanks ChatGPT), I'm going to
-          pursue some other projects.
+          Syftable v1 - the competitor analysis news aggregator is no more. After 4 months of
+          supporting it, and slowing traction (thanks ChatGPT), I'm going to pursue some other
+          projects.
         </Typography>
 
         <Button
@@ -85,7 +84,7 @@ const WeeklySyftableUpdate = (): JSX.Element => {
             '&:hover': {
               color: 'primary.main',
               border: '1px solid #085CC5',
-              backgroundColor: '#085dc521'
+              backgroundColor: '#085dc515'
             }
           }}
           href={'https://shabazbadshah.com/blog/posts/syftable-v1-shutting-down'}

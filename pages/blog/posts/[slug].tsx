@@ -62,8 +62,8 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
         <meta property="og:description" content={post.shortBody} />
         <meta property="og:url" content={`https://shabazbadshah.com/blog/posts/${post.slug}`} />
       </SEO>
-      <article itemScope itemType="http://schema.org/Article">
-        <Container disableGutters>
+      <Box component="article" itemScope itemType="http://schema.org/article">
+        <Container maxWidth="md">
           <IconButton
             component={Link}
             href="/"
@@ -128,34 +128,14 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
                   lineHeight={'29px'}
                   fontWeight={400}
                   sx={{
-                    fontSize: '22px !important',
+                    fontSize: '18px !important',
+                    fontWeight: 500,
                     color: 'text.disabled'
                   }}
                 >
                   {post.shortBody}
                 </Typography>
               </Box>
-            </Box>
-            <Box
-              sx={{
-                maxHeight: '40rem',
-                pb: 8,
-                '& > div': { maxHeight: '40rem' }
-              }}
-            >
-              <Image
-                style={{ borderRadius: '6px' }}
-                src={`/images/blog/${post.slug}/${post.heroImagePath}`}
-                alt="Article image"
-                layout="responsive"
-                height={640} // Max height
-                width={1440}
-                quality={100}
-                objectFit="cover"
-                loading="lazy"
-                blurDataURL={`/images/blog/${post.slug}/${post.heroImagePath}`}
-                placeholder="blur"
-              />
             </Box>
           </header>
           <MDXRemote
@@ -168,11 +148,14 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
                   <Image
                     layout="responsive"
                     src={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
-                    height={900}
-                    width={900}
+                    height={120}
+                    width={200}
                     objectFit="contain"
-                    loading="lazy"
-                    style={{ borderRadius: '8px' }}
+                    loading="eager"
+                    style={{
+                      width: '100%',
+                      height: 'auto'
+                    }}
                     blurDataURL={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
                     {...rest}
                   />
@@ -181,7 +164,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
             }}
           />
         </Container>
-      </article>
+      </Box>
     </MainLayout>
   );
 };

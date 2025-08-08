@@ -36,7 +36,7 @@ const Index = ({ posts, pinnedPosts }: Props): JSX.Element => {
           <PinnedPosts posts={pinnedPosts} />
         </Grid>
 
-        <Grid my={5}>
+        <Grid mt={3} mb={5}>
           <BlogPostsList posts={posts} />
         </Grid>
       </Box>
