@@ -1,5 +1,4 @@
 import { Avatar, Box, Typography } from '@mui/material';
-import React from 'react';
 
 export default function About(): JSX.Element {
   return (
@@ -31,9 +30,9 @@ export default function About(): JSX.Element {
         </div>
       </Box>
       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-        I'm a Software Engineer who develops Fullstack web experiences during his downtime through a
-        user-centric, Product mindset. This site catalogs things I learn, find interesting, want to
-        share, or anything cool I'm creating.
+        I'm a Software Developer who develops Fullstack web experiences through a user-centric,
+        Product mindset. This site catalogs things I learn, find interesting, want to share, or
+        anything cool I'm creating.
       </Typography>
     </>
   );
