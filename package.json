@@ -71,7 +71,7 @@
     "commitizen": "^4.2.4",
     "commitlint": "^16.0.1",
     "cz": "^1.8.2",
-    "eslint": "^7.15.0",
+    "eslint": "^9.26.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-prettier": "^3.2.0",
     "next-transpile-modules": "^9.0.0",
