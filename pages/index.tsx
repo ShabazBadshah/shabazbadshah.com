@@ -1,4 +1,3 @@
-import { Box, Grid } from '@mui/material';
 import { GetStaticPropsResult } from 'next';
 
 import PinnedPosts from '@/components/pages/homepage/PinnedPosts';
@@ -21,25 +20,19 @@ const Index = ({ posts, pinnedPosts }: Props): JSX.Element => {
         pageTitle="Home | shabazbadshah.com"
         metaDescription="I'm a Product Manager who develops Fullstack web experiences during his downtime. This site catalogs things I learn, want to share, or anything cool I'm creating"
       />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: { xs: 3, sm: 4 }
-        }}
-      >
-        <Grid my={2}>
+      <div className="flex flex-col gap-3 sm:gap-4">
+        <div className="my-2">
           <WeeklySyftableUpdate />
-        </Grid>
+        </div>
 
-        <Grid my={2}>
+        <div className="my-2">
           <PinnedPosts posts={pinnedPosts} />
-        </Grid>
+        </div>
 
-        <Grid mt={3} mb={5}>
+        <div className="mt-3 mb-5">
           <BlogPostsList posts={posts} />
-        </Grid>
-      </Box>
+        </div>
+      </div>
     </MainLayout>
   );
 };

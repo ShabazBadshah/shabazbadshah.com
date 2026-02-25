@@ -1,5 +1,3 @@
-import { Box } from '@mui/material';
-
 import Link from '@/components/shared/Link';
 import PostTitleBody from '@/components/shared/PostTitleBody';
 import SectionTitle from '@/components/shared/SectionTitle';
@@ -12,43 +10,25 @@ type Props = {
 const MoreStories = ({ suggestedPosts }: Props): JSX.Element => {
   if (!suggestedPosts || suggestedPosts.length === 0) return <></>;
   return (
-    <Box>
+    <div>
       <SectionTitle title="More Stories" />
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <div className="flex flex-col gap-3">
         {suggestedPosts.map((post) => {
           if (!post) return <></>;
           return (
-            <Box
+            <Link
               key={post.slug}
-              component={Link}
               href={post.slug}
-              sx={{
-                textDecoration: 'none',
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
+              className="no-underline flex flex-row items-center justify-between [&_#postDescription]:hidden [&_#postTitle]:text-base [&_#postTitle]:leading-5 [&_#postTitle]:tracking-normal"
             >
-              <Box
-                sx={{
-                  '#postDescription': {
-                    display: 'none'
-                  },
-                  '#postTitle': {
-                    fontSize: 'initial',
-                    lineHeight: '20px',
-                    letterSpacing: '0'
-                  }
-                }}
-              >
+              <div>
                 <PostTitleBody post={post} />
-              </Box>
-            </Box>
+              </div>
+            </Link>
           );
         })}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

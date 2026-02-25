@@ -1,7 +1,6 @@
 import React from 'react';
 import { GetStaticPropsResult } from 'next';
-import { Box, Typography } from '@mui/material';
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import { Tag } from 'lucide-react';
 
 import MainLayout from '@/layouts/MainLayout';
 import SEO from '@/components/shared/SEO';
@@ -17,12 +16,10 @@ type Props = {
 const AllTagsPageTitle = ({ numTotalTags }: { numTotalTags: number }) => (
   <>
     <PageTitle>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <LocalOfferOutlinedIcon sx={{ color: 'primary.main' }} />
-        <Typography variant="h5" fontWeight={600} whiteSpace={'nowrap'}>
-          All Tags ({numTotalTags})
-        </Typography>
-      </Box>
+      <div className="flex items-center gap-1">
+        <Tag className="text-primary" />
+        <h5 className="text-xl font-semibold whitespace-nowrap">All Tags ({numTotalTags})</h5>
+      </div>
     </PageTitle>
   </>
 );
@@ -34,9 +31,9 @@ const TagsPage = ({ tags }: Props): JSX.Element => {
         pageTitle={`All tags (${tags.length}) | shabazbadshah.com`}
         metaDescription="Find what you're looking for a bit easier. Here's all the tags on my site"
       />
-      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.25 }}>
+      <div className="flex flex-wrap gap-1.25">
         <PostTags tags={tags.map((tag) => tag.tag)} />
-      </Box>
+      </div>
     </MainLayout>
   );
 };

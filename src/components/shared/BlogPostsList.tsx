@@ -1,7 +1,6 @@
-import { Divider, Grid } from '@mui/material';
-
 import Post from '@/components/shared/Post';
 import SectionTitle from '@/components/shared/SectionTitle';
+import { Separator } from '@/components/ui/separator';
 import { Post as PostType } from '@/services/blog/types';
 
 type Props = {
@@ -14,19 +13,12 @@ const BlogPostsList = ({ posts, showTitle = true }: Props): JSX.Element => {
   return (
     <>
       {showTitle && <SectionTitle title={'All Posts'} />}
-      {posts.map((post: PostType) => {
+      {posts.map((post: PostType, index: number) => {
         return (
-          <Grid
-            item
-            xs={12}
-            key={post.title}
-            sx={{
-              '&:last-child': { '& > hr': { display: 'none' } }
-            }}
-          >
+          <div key={post.title} className="w-full">
             <Post post={post} />
-            <Divider sx={{ my: 3 }} />
-          </Grid>
+            {index < posts.length - 1 && <Separator className="my-3" />}
+          </div>
         );
       })}
     </>

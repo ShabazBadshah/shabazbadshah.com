@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { ThemeOptions } from '@mui/material';
+/**
+ * DEPRECATED: This file is no longer used.
+ * Theme configuration has been migrated to Tailwind CSS.
+ * See tailwind.config.js and src/styles/globals.css for theme configuration.
+ */
 
-const themeOptions: ThemeOptions = {
+// Legacy theme configuration - kept for reference only
+const legacyThemeOptions = {
   typography: {
     fontFamily: [
       'Inter',
@@ -32,6 +37,6 @@ const themeOptions: ThemeOptions = {
       borderColor: '#cecece'
     }
   }
-} as any;
+};
 
-export default themeOptions;
+export default legacyThemeOptions;

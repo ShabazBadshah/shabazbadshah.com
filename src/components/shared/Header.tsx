@@ -1,11 +1,12 @@
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { Box, IconButton, SwipeableDrawer, Typography } from '@mui/material';
+import { MoreHorizontal, ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 
 import About from '@/components/shared/About';
 import Link from '@/components/shared/Link';
 import Socials from '@/components/shared/Socials';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 
 type Props = {
   extraDrawerContent: React.ReactNode;
@@ -16,49 +17,31 @@ const HeaderContents = ({
 }: {
   extraDrawerContent: React.ReactNode;
 }): JSX.Element => (
-  <>
-    <Box
-      sx={{
-        position: 'sticky',
-        top: 0,
-        marginTop: 0,
-        padding: { xs: 3, md: 4 },
-        pb: { xs: 5, md: 'initial' },
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'packed',
-        gap: 4
-      }}
-    >
-      {extraDrawerContent ? null : (
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: 2
-          }}
-        >
-          <Box component={Link} href="/" sx={{ mb: 2 }}>
-            <Typography
-              fontSize="1.1rem"
-              fontWeight={600}
-              color="text.primary"
-              sx={{
-                borderBottom: '3px dotted black',
-                color: 'text.primary'
-              }}
-            >
-              shabazbadshah.com
-            </Typography>
-          </Box>
-          <About />
-        </Box>
-      )}
-      {extraDrawerContent}
-      <Socials />
-    </Box>
-  </>
+  <div className="sticky top-0 mt-0 p-3 md:p-4 pb-5 md:pb-0 flex flex-col justify-start gap-4">
+    {extraDrawerContent ? null : (
+      <div className="flex flex-col items-start gap-2">
+        <Link href="/" className="mb-2 flex justify-center">
+          <Image
+            layout="responsive"
+            src={'/images/logo.png'}
+            height={'12px'}
+            width={'12px'}
+            objectFit="cover"
+            loading="eager"
+            style={{
+              width: '100%',
+              height: '100%'
+            }}
+            blurDataURL={'/images/logo.png'}
+          />
+          <span className="text-lg font-semibold text-foreground">Badshah Consulting</span>
+        </Link>
+        <About />
+      </div>
+    )}
+    {extraDrawerContent}
+    <Socials />
+  </div>
 );
 
 export default function Header({ extraDrawerContent }: Props): JSX.Element {
@@ -78,87 +61,40 @@ export default function Header({ extraDrawerContent }: Props): JSX.Element {
   return (
     <>
       {isMobile && (
-        <SwipeableDrawer
-          sx={{
-            '& > *': {
-              display: {
-                xs: 'block',
-                md: 'none'
+        <Sheet open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+          <SheetContent side="bottom" className="rounded-t-[14px] block md:hidden">
+            <div className="w-full flex justify-center">
+              <ChevronDown
+                className="text-2xl mb-1 cursor-pointer"
+                onClick={() => setIsDrawerOpen(false)}
+              />
+            </div>
+            <HeaderContents
+              extraDrawerContent={
+                <>
+                  <div>
+                    <About />
+                  </div>
+                  {extraDrawerContent}
+                </>
               }
-            }
-          }}
-          anchor={'bottom'}
-          open={isDrawerOpen}
-          onClose={() => setIsDrawerOpen(false)}
-          onOpen={() => {
-            return;
-          }}
-          PaperProps={{
-            square: false,
-            sx: {
-              borderTopRightRadius: '14px',
-              borderTopLeftRadius: ' 14px',
-              borderBottomRightRadius: 0,
-              borderBottomLeftRadius: 0
-            }
-          }}
-        >
-          <HeaderContents
-            extraDrawerContent={
-              <>
-                <Box>
-                  <Box
-                    sx={{
-                      width: '100%',
-                      display: 'flex',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <ExpandMoreIcon
-                      sx={{ fontSize: '2rem', mb: 1 }}
-                      onClick={() => setIsDrawerOpen(false)}
-                    />
-                  </Box>
-                  <About />
-                </Box>
-                {extraDrawerContent}
-              </>
-            }
-          />
-        </SwipeableDrawer>
+            />
+          </SheetContent>
+        </Sheet>
       )}
 
-      <IconButton
-        sx={{
-          display: { xs: 'flex', md: 'none' },
-          position: 'fixed',
-          zIndex: 1,
-          bottom: 30,
-          right: 30,
-          width: '50px',
-          height: '50px',
-          boxShadow: '0px 0px 25px 15px rgba(0,0,0,0.05)',
-          backgroundColor: 'black',
-          '&:hover': {
-            backgroundColor: 'black'
-          }
-        }}
+      <Button
+        variant="default"
+        size="icon"
+        className="flex md:hidden fixed z-10 bottom-[30px] right-[30px] w-[50px] h-[50px] shadow-[0px_0px_25px_15px_rgba(0,0,0,0.05)] bg-black hover:bg-black"
         onClick={() => setIsDrawerOpen(true)}
       >
-        <MoreHorizIcon sx={{ color: 'white', fontSize: '40px' }} />
-      </IconButton>
+        <MoreHorizontal className="text-white text-[40px]" />
+      </Button>
 
-      <Box
-        sx={{
-          display: { xs: 'none', md: 'block' },
-          minHeight: '100vh',
-          borderRight: '1px solid',
-          borderColor: 'divider',
-          width: '340px'
-        }}
-      >
+      <div className="hidden md:block min-h-screen border-r border-border w-[340px]">
         <HeaderContents extraDrawerContent={extraDrawerContent} />
-      </Box>
+      </div>
     </>
   );
 }

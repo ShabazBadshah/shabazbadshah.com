@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import { CssBaseline, ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material';
 
 import { trackPageView } from '@/analytics/tracking';
 import getCanonicalUrl from '@/utils/path/get-canonical-url';
-import themeOptions from '@/styles/theme';
 import '@/styles/global.scss';
+import '@/styles/globals.css';
 
 export default function App(props: AppProps): React.ReactNode {
   const { Component, pageProps, router } = props;
@@ -48,10 +47,7 @@ export default function App(props: AppProps): React.ReactNode {
           id="googleAnalyticsTrackingScript"
         />
       </Head>
-      <ThemeProvider theme={responsiveFontSizes(createTheme(themeOptions, []))}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Component {...pageProps} />
     </>
   );
 }

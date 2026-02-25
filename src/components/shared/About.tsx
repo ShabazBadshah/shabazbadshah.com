@@ -1,39 +1,27 @@
-import { Avatar, Box, Typography } from '@mui/material';
+import Image from 'next/image';
 
 export default function About(): JSX.Element {
   return (
     <>
-      <Box display={'flex'} gap={2} alignItems={'center'} mb={2}>
-        <Avatar
-          alt="Shabaz Badshah"
-          src="https://avatars.githubusercontent.com/u/4944388?v=4"
-          sx={{ width: 64, height: 64, backgroundColor: 'divider' }}
-        >
-          Shabaz Badshah
-        </Avatar>
-        <div>
-          <Typography
-            variant="h3"
-            sx={{
-              fontSize: '16px !important',
-              letterSpacing: 0,
-              fontWeight: '500',
-              lineHeight: '20px',
-              color: 'text.primary'
-            }}
-          >
-            Shabaz Badshah
-          </Typography>
-          <Typography variant="body2" sx={{ color: 'text.primary' }}>
-            Software Developer
-          </Typography>
+      <div className="flex gap-2 items-center mb-2">
+        <div className="relative w-16 h-16 rounded-full border border-black overflow-hidden">
+          <Image
+            src="https://avatars.githubusercontent.com/u/4944388?v=4"
+            alt="Shabaz Badshah"
+            layout="fill"
+            objectFit="cover"
+          />
         </div>
-      </Box>
-      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-        I'm a Software Developer who develops Fullstack web experiences through a user-centric,
-        Product mindset. This site catalogs things I learn, find interesting, want to share, or
-        anything cool I'm creating.
-      </Typography>
+        <div>
+          <h3 className="text-base font-medium leading-5 text-foreground">Shabaz Badshah</h3>
+          <p className="text-sm text-foreground">Technical Product Consultant</p>
+        </div>
+      </div>
+      <p className="text-sm text-muted-foreground">
+        I integrate product strategy with technical execution to solve impactful business problems.
+        Today, I'm focused on advancing healthcare digitization efforts for independent healthcare
+        services in Ontario.
+      </p>
     </>
   );
 }

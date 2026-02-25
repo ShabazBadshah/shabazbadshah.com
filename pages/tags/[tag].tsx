@@ -1,8 +1,7 @@
 import React from 'react';
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { Box, Typography } from '@mui/material/';
-import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import { Tag } from 'lucide-react';
 
 import BlogPostsList from '@/components/shared/BlogPostsList';
 import MainLayout from '@/layouts/MainLayout';
@@ -21,23 +20,18 @@ type Props = {
 
 const IndividualTagPageHeader = ({ tagHeader }: { tagHeader: string }): JSX.Element => (
   <PageTitle>
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <LocalOfferOutlinedIcon sx={{ color: 'primary.main' }} />
-        <Typography variant="h5" fontWeight={600}>
-          {tagHeader}
-        </Typography>
-      </Box>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-1">
+        <Tag className="text-primary" />
+        <h5 className="text-xl font-semibold">{tagHeader}</h5>
+      </div>
 
       <Link href={'/tags'}>
-        <Typography
-          fontWeight={500}
-          sx={{ borderBottom: '2px dotted black', color: 'text.primary', whiteSpace: 'nowrap' }}
-        >
+        <span className="font-medium border-b-2 border-dotted border-black text-foreground whitespace-nowrap">
           All Tags
-        </Typography>
+        </span>
       </Link>
-    </Box>
+    </div>
   </PageTitle>
 );
 
@@ -50,9 +44,9 @@ const Tags = ({ posts, tag, totalCount }: Props): JSX.Element => {
         metaDescription="All blogs posts that are tagged with the tag you've selected"
       />
 
-      <Box my={5}>
+      <div className="my-5">
         <BlogPostsList posts={posts} showTitle={false} />
-      </Box>
+      </div>
     </MainLayout>
   );
 };

@@ -2,224 +2,95 @@
 /* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
 
 import React from 'react';
-import { Alert, Box, Divider, Typography } from '@mui/material';
-import MuiLink from '@mui/material/Link';
+import { Separator } from '@/components/ui/separator';
 
 const MDXComponents = {
   p: (props: any) => (
-    <Typography
-      variant="body1"
-      sx={{
-        color: 'text.postBody',
-        fontFamily: 'Roboto, sans-serif',
-        fontSize: '18px',
-        lineHeight: '30px',
-        letterSpacing: '-0.003em',
-        mt: 3,
-        wordBreak: 'break-word',
-        hyphens: 'auto',
-        '@media (max-width: 600px)': {
-          fontSize: '17px',
-          lineHeight: '28px',
-          mt: 2
-        }
-      }}
+    <p
+      className="text-[#292929] font-roboto text-lg leading-[30px] tracking-[-0.003em] mt-3 break-words hyphens-auto sm:text-[17px] sm:leading-7 sm:mt-2"
       {...props}
     />
   ),
   h1: (props: any) => (
-    <Typography
-      variant="h2"
-      sx={{
-        mt: 8,
-        mb: '-14px',
-        fontSize: '24px !important',
-        fontWeight: '900',
-        lineHeight: '28px',
-        letterSpacing: '0',
-        '@media (max-width: 600px)': {
-          fontSize: '20px !important',
-          mt: 5
-        }
-      }}
+    <h2
+      className="mt-8 mb-[-14px] text-2xl font-black leading-7 tracking-normal sm:text-xl sm:mt-5"
       {...props}
     />
   ),
   h2: (props: any) => (
-    <Typography
-      variant="h3"
-      sx={{
-        mt: 6,
-        mb: '-14px',
-        fontSize: '20px !important',
-        letterSpacing: '0',
-        fontWeight: '900',
-        '@media (max-width: 600px)': {
-          fontSize: '17px !important',
-          mt: 4
-        }
-      }}
+    <h3
+      className="mt-6 mb-[-14px] text-xl tracking-normal font-black sm:text-[17px] sm:mt-4"
       {...props}
     />
   ),
   blockquote: (props: any) => (
-    <Typography
-      variant="h2"
-      sx={{
-        pl: 2,
-        my: 4,
-        lineHeight: '32px',
-        borderLeft: '3px solid ',
-        borderColor: 'text.disabled',
-        fontStyle: 'italic',
-        '& > p': {
-          color: 'text.disabled',
-          fontFamily: 'Roboto, sans-serif',
-          fontWeight: '400',
-          letterSpacing: '-0.003em',
-          lineHeight: 'inherit',
-          m: 'unset'
-        }
-      }}
+    <blockquote
+      className="pl-2 my-4 leading-8 border-l-[3px] border-muted-foreground italic"
       {...props}
-    />
+    >
+      <p className="text-muted-foreground font-roboto font-normal tracking-[-0.003em] leading-inherit m-0">
+        {props.children}
+      </p>
+    </blockquote>
   ),
-  ul: (props: any) => (
-    <ul
-      {...props}
-      style={{
-        paddingLeft: 30,
-        marginBottom: 10,
-        marginTop: 30
-      }}
-    />
-  ),
+  ul: (props: any) => <ul className="pl-[30px] mb-[10px] mt-[30px]" {...props} />,
   li: (props: any) => (
     <li
+      className="list-[square] mt-[10px] mb-[-5px] text-lg leading-8 tracking-[-0.003em] pl-[1px]"
       {...props}
-      style={{
-        listStyleType: 'square',
-        marginTop: 10,
-        marginBottom: -5,
-        fontSize: '18px',
-        lineHeight: '32px',
-        letterSpacing: '-0.003em',
-        paddingLeft: 1
-      }}
     />
   ),
   hr: (props: any) => (
-    <Divider
-      sx={{
-        borderWidth: 0,
-        textAlign: 'center',
-        height: 'auto',
-        '&:before': {
-          content: '"..."',
-          fontSize: '2rem',
-          letterSpacing: '16px !important'
-        }
-      }}
+    <Separator
+      className="border-0 text-center h-auto before:content-['...'] before:text-[2rem] before:tracking-[16px]"
       {...props}
     />
   ),
-  a: (props: any) => <MuiLink target="_blank" rel="noopener" {...props} color="inherit" />,
+  a: (props: any) => (
+    <a
+      target="_blank"
+      rel="noopener"
+      className="text-inherit underline hover:text-primary"
+      {...props}
+    />
+  ),
   mark: (props: any) => (
-    <Typography
-      sx={{
-        backgroundColor: 'primary.light',
-        fontFamily: 'Roboto, sans-serif',
-        fontSize: 'inherit',
-        lineHeight: 'inherit',
-        color: 'inherit',
-        display: 'inline'
-      }}
-    >
-      <mark {...props} style={{ backgroundColor: 'inherit', color: 'inherit' }}>
+    <span className="bg-primary/20 font-roboto text-inherit leading-inherit inline">
+      <mark className="bg-inherit text-inherit" {...props}>
         {props.children}
       </mark>
-    </Typography>
+    </span>
   ),
   figcaption: (props: any) => (
-    <figcaption style={{ textAlign: 'center', marginTop: '8px', marginBottom: '16px' }}>
-      <Typography
-        variant="caption"
-        {...props}
-        sx={{
-          lineHeight: '20px',
-          fontSize: '14px',
-          color: 'text.disabled',
-          letterSpacing: 0
-        }}
-      ></Typography>
+    <figcaption className="text-center mt-2 mb-4">
+      <span className="leading-5 text-sm text-muted-foreground tracking-normal" {...props} />
     </figcaption>
   ),
   Alert: (props: any) => (
-    <Alert
-      sx={{
-        backgroundColor: 'background.alt',
-        lineHeight: '20px',
-        fontSize: '14px',
-        letterSpacing: 0,
-        my: 3,
-        '@media (max-width: 600px)': { my: '1rem' }
-      }}
+    <div
+      className="bg-secondary leading-5 text-sm tracking-normal my-3 p-4 rounded border border-border sm:my-4"
       {...props}
     />
   ),
   SpecialLink: (props: any) => (
-    <MuiLink href={props.href} underline="none" color={'inherit'}>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          mt: 4,
-          border: '1px solid',
-          borderColor: 'divider'
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexDirection: 'column',
-            padding: 2
-          }}
-        >
-          <Typography sx={{ fontWeight: '600', fontSize: '17px' }}>{props.title}</Typography>
-          <Typography
-            sx={{ color: 'text.postBody', lineHeight: '20px' }}
-            gutterBottom
-            style={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: '2',
-              lineClamp: '2',
-              WebkitBoxOrient: 'vertical'
-            }}
-          >
+    <a href={props.href} className="no-underline text-inherit">
+      <div className="flex justify-between mt-4 border border-border">
+        <div className="flex justify-center flex-col p-2">
+          <p className="font-semibold text-[17px]">{props.title}</p>
+          <p className="text-[#292929] leading-5 overflow-hidden text-ellipsis line-clamp-2">
             {props.description}
-          </Typography>
-          <Typography sx={{ color: 'text.disabled', fontSize: '14px' }}>{props.site}</Typography>
-        </Box>
-        <Box
-          sx={{
-            backgroundImage: `url(${props.image})`,
-            width: '100%',
-            maxWidth: '140px',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-            '@media (max-width: 600px)': {
-              maxWidth: '120px'
-            }
-          }}
-        ></Box>
-      </Box>
-    </MuiLink>
+          </p>
+          <p className="text-muted-foreground text-sm">{props.site}</p>
+        </div>
+        <div
+          className="w-full max-w-[140px] bg-cover bg-center sm:max-w-[120px]"
+          style={{ backgroundImage: `url(${props.image})` }}
+        />
+      </div>
+    </a>
   ),
-  Box: (props: any) => <Box {...props} />,
-  Typography: (props: any) => <Typography {...props} />
+  Box: (props: any) => <div {...props} />,
+  Typography: (props: any) => <span {...props} />
 };
 
 export default MDXComponents;

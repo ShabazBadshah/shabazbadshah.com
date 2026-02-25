@@ -1,9 +1,7 @@
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-
-import HomeIcon from '@mui/icons-material/Home';
-import { Box, Container, IconButton, Typography } from '@mui/material';
+import { Home } from 'lucide-react';
 
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
@@ -23,6 +21,7 @@ import SEO from '@/components/shared/SEO';
 import MainLayout from '@/layouts/MainLayout';
 import BlogAPI from '@/services/blog';
 import { Post as PostType } from '@/services/blog/types';
+import { Button } from '@/components/ui/button';
 
 type Props = {
   post: PostType;
@@ -62,81 +61,39 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
         <meta property="og:description" content={post.shortBody} />
         <meta property="og:url" content={`https://shabazbadshah.com/blog/posts/${post.slug}`} />
       </SEO>
-      <Box component="article" itemScope itemType="http://schema.org/article">
-        <Container maxWidth="md">
-          <IconButton
-            component={Link}
-            href="/"
-            sx={{
-              width: 'fit-content',
-              ml: '-10px',
-              borderRadius: '6px',
-              '&:hover': {
-                backgroundColor: '#eaf1f7'
-              }
-            }}
+      <article itemScope itemType="http://schema.org/article">
+        <div className="max-w-3xl mx-auto">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="w-fit -ml-2.5 rounded-md hover:bg-[#eaf1f7]"
+            asChild
           >
-            <HomeIcon sx={{ color: 'text.primary' }} />
-          </IconButton>
+            <Link href="/">
+              <Home className="text-foreground" />
+            </Link>
+          </Button>
           <header>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 2,
-                flexWrap: 'wrap',
-                justifyContent: 'space-between'
-              }}
-            >
-              <Box py={4}>
-                <Box mb={3}>
-                  <Typography
-                    variant="h1"
-                    gutterBottom
-                    fontWeight={900}
-                    letterSpacing={'-0.016em'}
-                    sx={{
-                      lineHeight: { xs: '36px', md: '40px' },
-                      fontSize: { xs: '32px !important', sm: '36px !important' }
-                    }}
-                  >
+            <div className="flex items-center gap-2 flex-wrap justify-between">
+              <div className="py-4">
+                <div className="mb-3">
+                  <h1 className="text-[32px] sm:text-4xl font-black leading-9 md:leading-10 tracking-tight mb-4">
                     {post.title}
-                  </Typography>
-                  <Typography color="text.secondary" variant="body2">
+                  </h1>
+                  <p className="text-sm text-muted-foreground">
                     {dayjs(post.publishedAt).format('MMM D, YYYY')}
                     &nbsp;&bull;&nbsp;{post.readingTime}
-                  </Typography>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      flexDirection: 'row',
-                      alignItems: 'flex-start',
-                      gap: 1,
-                      mt: 2,
-                      flexWrap: 'wrap',
-                      width: '100%'
-                    }}
-                  >
+                  </p>
+                  <div className="flex flex-row items-start gap-1 mt-2 flex-wrap w-full">
                     <PostTags tags={post.tags} />
-                  </Box>
-                </Box>
+                  </div>
+                </div>
 
-                <Typography
-                  variant="h2"
-                  gutterBottom
-                  letterSpacing={0}
-                  lineHeight={'29px'}
-                  fontWeight={400}
-                  sx={{
-                    fontSize: '18px !important',
-                    fontWeight: 500,
-                    color: 'text.disabled'
-                  }}
-                >
+                <h2 className="text-lg font-medium leading-7 text-muted-foreground mb-4">
                   {post.shortBody}
-                </Typography>
-              </Box>
-            </Box>
+                </h2>
+              </div>
+            </div>
           </header>
           <MDXRemote
             {...post.body}
@@ -144,7 +101,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
               ...MDXComponents,
               // Image component declared here separately so I can pass in the slug. This allows me in the MDX file to just specify the filename, and no path
               img: ({ src, height, width, ...rest }: any) => (
-                <Box sx={{ borderRadius: '8px' }}>
+                <div className="rounded-lg">
                   <Image
                     layout="responsive"
                     src={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
@@ -159,12 +116,12 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
                     blurDataURL={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
                     {...rest}
                   />
-                </Box>
+                </div>
               )
             }}
           />
-        </Container>
-      </Box>
+        </div>
+      </article>
     </MainLayout>
   );
 };

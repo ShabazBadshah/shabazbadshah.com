@@ -1,66 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
-import { AppBar, Box, IconButton, Toolbar, LinearProgress, Typography } from '@mui/material';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import HomeIcon from '@mui/icons-material/Home';
-import Fade from '@mui/material/Fade';
+import { Home } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function ReadingProgressBar(props: any): JSX.Element {
-  const { window } = props;
+  const [isVisible, setIsVisible] = useState(false);
 
-  const trigger = useScrollTrigger({
-    target: window ? window() : undefined,
-    disableHysteresis: false,
-    threshold: 300
-  });
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      setIsVisible(scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  if (!isVisible) {
+    return <></>;
+  }
 
   return (
-    <Fade in={trigger}>
-      <AppBar
-        elevation={0}
-        sx={{
-          zIndex: 1,
-          backgroundColor: 'white',
-          color: 'text.primary',
-          backdropFilter: 'blur(4px)',
-          '@media (min-width: 1081px)': { display: 'none' }
-        }}
-      >
-        <Toolbar
-          sx={{
-            gap: 1,
-            maxWidth: '900px',
-            width: '100%',
-            mx: 'auto',
-            p: '0 !important',
-            justifyContent: 'flex-start',
-            '@media (max-width: 600px)': {
-              px: '1rem !important'
-            }
-          }}
+    <div className="fixed top-0 left-0 right-0 z-10 bg-white/80 backdrop-blur-sm text-foreground hidden max-md:block">
+      <div className="flex items-center gap-1 max-w-[900px] w-full mx-auto p-0 justify-start px-0 sm:px-4">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="pl-0 h-8 w-8"
+          onClick={() => Router.push('/')}
         >
-          <IconButton size="small" sx={{ pl: 0 }} onClick={() => Router.push('/')}>
-            <HomeIcon sx={{ fontSize: '20px', color: 'black' }} />
-          </IconButton>
-          <Typography
-            variant="body1"
-            sx={{
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              fontSize: '16px',
-              '@media (max-width: 600px)': {
-                fontSize: '14px'
-              }
-            }}
-          >
-            {props.text}
-          </Typography>
-        </Toolbar>
-        <Box sx={{ width: '100%' }} ref={props.ref}>
-          <LinearProgress variant="determinate" value={props.percent} />
-        </Box>
-      </AppBar>
-    </Fade>
+          <Home className="w-5 h-5 text-black" />
+        </Button>
+        <p className="whitespace-nowrap overflow-hidden text-ellipsis text-base sm:text-sm">
+          {props.text}
+        </p>
+      </div>
+      <div className="w-full" ref={props.ref}>
+        <div className="h-1 bg-primary" style={{ width: `${props.percent}%` }} />
+      </div>
+    </div>
   );
 }

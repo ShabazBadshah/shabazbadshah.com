@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import AlternateEmailOutlinedIcon from '@mui/icons-material/AlternateEmailOutlined';
+import { Linkedin, Mail } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 
 import { trackConnectLinkClick } from '@/analytics/tracking';
+import { Button } from '@/components/ui/button';
 
 type SocialProfile = {
   name: string;
@@ -21,87 +20,50 @@ const profiles: SocialProfile[] = [
     name: '@ShabazBadshah',
     provider: 'github',
     url: 'https://github.com/ShabazBadshah',
-    IconComponent: <FaGithub style={{ width: '20px', height: '20px' }} />,
+    IconComponent: <FaGithub className="w-5 h-5" />,
     cta: 'Follow'
   },
   {
     name: '/in/shabaz-badshah/',
     provider: 'linkedin',
     url: 'https://www.linkedin.com/in/shabaz-badshah/',
-    IconComponent: <LinkedInIcon htmlColor="#0077B5" style={{ width: '23px', height: '23px' }} />,
+    IconComponent: <Linkedin className="w-[23px] h-[23px] text-[#0077B5]" />,
     cta: 'Connect'
   },
   {
     name: 'badshah.shabaz.dev@gmail.com',
     provider: 'email',
     url: 'mailto:badshah.shabaz.dev@gmail.comSubject=Hey%20Shabaz',
-    IconComponent: <AlternateEmailOutlinedIcon style={{ width: '20px', height: '20px' }} />,
+    IconComponent: <Mail className="w-5 h-5" />,
     cta: 'Email'
   }
 ];
 
 const Socials = (): JSX.Element => {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 2
-      }}
-    >
-      <Typography
-        variant="h3"
-        lineHeight={'20px'}
-        fontWeight={500}
-        sx={{
-          color: 'text.primary',
-          fontSize: '16px !important',
-          letterSpacing: 0
-        }}
-      >
-        Let's connect
-      </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <div className="flex flex-col gap-2">
+      <h3 className="text-base font-medium leading-5 text-foreground">Let's connect</h3>
+      <div className="flex flex-col gap-2">
         {profiles.map((profile) => {
           return (
             <Button
               key={profile.name}
-              variant="outlined"
-              size="small"
-              sx={{
-                color: 'text.primary',
-                py: 0.5,
-                borderColor: '#cecece',
-                fontWeight: 400,
-                width: '100%',
-                borderRadius: '100px',
-                textAlign: 'center',
-                textTransform: 'lowercase',
-                '&:hover': {
-                  color: 'primary.main',
-                  border: '1px solid #085CC5'
-                }
-              }}
-              href={profile.url}
-              onClick={() => trackConnectLinkClick(profile.provider)}
+              variant="outline"
+              size="sm"
+              className="text-foreground py-0.5 border-[#cecece] font-normal w-full rounded-full text-center lowercase hover:text-primary hover:border-[#085CC5]"
+              asChild
             >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  gap: 1
-                }}
-              >
-                {profile.IconComponent}
-                {profile.name}
-              </Box>
+              <a href={profile.url} onClick={() => trackConnectLinkClick(profile.provider)}>
+                <div className="flex flex-row justify-center items-center gap-1">
+                  {profile.IconComponent}
+                  {profile.name}
+                </div>
+              </a>
             </Button>
           );
         })}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 };
 

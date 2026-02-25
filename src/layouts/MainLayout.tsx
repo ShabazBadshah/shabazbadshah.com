@@ -1,4 +1,3 @@
-import { Box, Container } from '@mui/material';
 import React from 'react';
 
 import Header from '@/components/shared/Header';
@@ -18,29 +17,19 @@ const MainLayout = ({
   children
 }: Props): JSX.Element => {
   return (
-    <>
-      <Box sx={{ display: 'flex' }}>
-        <Header extraDrawerContent={extraDrawerContent} />
-        <Box
-          sx={{
-            display: 'block',
-            minWidth: 0,
-            flex: '1 1 auto',
-            py: { xs: 2, sm: 5 },
-            background: 'linear-gradient(245deg,#e5f1fb 0%, rgba(255, 255, 255, 1) 40%)'
-          }}
-        >
-          {pageHeader && <Container>{pageHeader}</Container>}
-          <Container maxWidth="lg">
-            <main>{children}</main>
-          </Container>
+    <div className="flex">
+      <Header extraDrawerContent={extraDrawerContent} />
+      <div className="block min-w-0 flex-1 py-2 sm:py-5">
+        {pageHeader && <div className="container">{pageHeader}</div>}
+        <div className="container flex justify-center">
+          <div className="max-w-7xl px-0 lg:px-2">{children}</div>
+        </div>
 
-          <Container maxWidth="lg">
-            <Footer extraFooterContent={extraFooterContent} />
-          </Container>
-        </Box>
-      </Box>
-    </>
+        <div className="container">
+          <Footer extraFooterContent={extraFooterContent} />
+        </div>
+      </div>
+    </div>
   );
 };
 

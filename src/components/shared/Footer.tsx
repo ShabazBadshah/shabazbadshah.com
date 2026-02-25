@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Divider, Box, Typography } from '@mui/material';
+import { Separator } from '@/components/ui/separator';
 
 type Props = {
   extraFooterContent?: React.ReactNode;
@@ -9,16 +8,11 @@ type Props = {
 const Footer = ({ extraFooterContent }: Props): JSX.Element => {
   return (
     <footer>
-      <Box
-        sx={{
-          backgroundColor: 'background.alt',
-          pb: 8
-        }}
-      >
+      <div className="bg-background pb-8">
         {extraFooterContent}
-        <Divider sx={{ my: 4 }} />
-        <Typography variant="body2">©{new Date().getFullYear()} built by Shabaz Badshah</Typography>
-      </Box>
+        <Separator className="my-4" />
+        <p className="text-sm">©{new Date().getFullYear()} built by Shabaz Badshah</p>
+      </div>
     </footer>
   );
 };

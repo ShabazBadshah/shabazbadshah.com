@@ -1,8 +1,8 @@
 import React from 'react';
-import { Typography, Box, IconButton } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
+import { Home } from 'lucide-react';
 
 import Link from '@/components/shared/Link';
+import { Button } from '@/components/ui/button';
 
 type Props = {
   children: React.ReactNode;
@@ -11,38 +11,21 @@ type Props = {
 
 const StyledPageTitle = ({ children }: { children: React.ReactNode }) => (
   <>
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <IconButton
-        component={Link}
-        href="/"
-        sx={{
-          width: 'fit-content',
-          ml: '-10px',
-          borderRadius: '6px',
-          '&:hover': {
-            backgroundColor: '#eaf1f7'
-          }
-        }}
+    <div className="flex flex-col gap-3">
+      <Button
+        variant="ghost"
+        size="icon"
+        asChild
+        className="w-fit -ml-2.5 rounded-md hover:bg-[#eaf1f7]"
       >
-        <HomeIcon sx={{ color: 'text.primary' }} />
-      </IconButton>
-    </Box>
-    <Typography
-      variant="h5"
-      fontWeight={600}
-      lineHeight={'52px'}
-      fontSize={{ xs: '22px', sm: 'unset' }}
-      sx={{
-        '& > a': {
-          color: 'text.primary',
-          textDecoration: 'none'
-        },
-        mt: 2,
-        pb: 4
-      }}
-    >
-      {children}
-    </Typography>
+        <Link href="/">
+          <Home className="text-foreground" />
+        </Link>
+      </Button>
+    </div>
+    <h1 className="text-xl sm:text-2xl font-semibold leading-[52px] mt-2 pb-4">
+      <span className="text-foreground no-underline">{children}</span>
+    </h1>
   </>
 );
 

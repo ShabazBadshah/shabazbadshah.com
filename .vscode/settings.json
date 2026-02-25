@@ -28,5 +28,6 @@
   },
   "typescript.preferences.importModuleSpecifier": "project-relative",
   "eslint.packageManager": "pnpm",
-  "editor.guides.indentation": true
+  "editor.guides.indentation": true,
+  "kiroAgent.configureMCP": "Disabled"
 }

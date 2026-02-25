@@ -1,17 +1,7 @@
-import { Box, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 
 import Link from '@/components/shared/Link';
 import { Post as PostType } from '@/services/blog/types';
-
-const ClampTypography = {
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  display: '-webkit-box',
-  WebkitLineClamp: '2',
-  lineClamp: '2',
-  WebkitBoxOrient: 'vertical'
-};
 
 type Props = {
   post: PostType;
@@ -20,55 +10,28 @@ type Props = {
 const PostTitleBody = ({ post }: Props): JSX.Element => {
   return (
     <>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 2,
-          mb: 0.5
-        }}
-      >
-        <Typography color="text.secondary" variant="body2">
+      <div className="flex items-center gap-2 mb-0.5">
+        <p className="text-muted-foreground text-sm">
           {dayjs(post.publishedAt).format('MMM D, YYYY')}
           &nbsp;&nbsp;&bull;&nbsp;&nbsp;
           {post.readingTime}
-        </Typography>
-      </Box>
+        </p>
+      </div>
       <Link href={`/blog/posts/${post.slug}`}>
-        <Typography
+        <h3
           id="postTitle"
-          variant="body1"
-          fontSize={'1.2rem'}
-          fontWeight={700}
-          sx={{
-            ...ClampTypography,
-            color: 'text.primary',
-            letterSpacing: 0,
-            transition: 'color 0.2s ease-in-out',
-            '&:hover': {
-              color: {
-                xs: 'unset',
-                sm: 'primary.main'
-              }
-            }
-          }}
+          className="text-foreground text-lg font-bold leading-tight tracking-normal overflow-hidden text-ellipsis line-clamp-2 transition-colors duration-200 hover:text-primary sm:hover:text-primary"
         >
           {post.title}
-        </Typography>
+        </h3>
       </Link>
 
-      <Typography
+      <p
         id="postDescription"
-        variant="body1"
-        lineHeight={1.4}
-        gutterBottom
-        sx={{
-          ...ClampTypography,
-          color: 'text.postBody'
-        }}
+        className="text-muted-foreground leading-snug overflow-hidden text-ellipsis line-clamp-2"
       >
         {post.shortBody}
-      </Typography>
+      </p>
     </>
   );
 };

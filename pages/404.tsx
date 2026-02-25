@@ -1,5 +1,4 @@
 import React from 'react';
-import { Typography } from '@mui/material/';
 import { GetStaticPropsResult } from 'next';
 
 import BlogAPI from '@/services/blog';
@@ -15,12 +14,8 @@ type Props = {
 
 const NotFoundPageTitle = (): JSX.Element => (
   <PageTitle>
-    <Typography variant="h3" fontWeight={700}>
-      Page Not Found 🤡
-    </Typography>
-    <Typography variant="h5" fontWeight={500} sx={{ mt: 1, mb: 4 }}>
-      In the meanwhile, you can check out...
-    </Typography>
+    <h3 className="text-2xl font-bold">Page Not Found 🤡</h3>
+    <h5 className="text-xl font-medium mt-1 mb-4">In the meanwhile, you can check out...</h5>
   </PageTitle>
 );
 

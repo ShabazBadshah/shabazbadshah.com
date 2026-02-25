@@ -1,5 +1,4 @@
 import React from 'react';
-import { Chip } from '@mui/material';
 
 import toKebabCase from '@/utils/strings/to-kebab-case';
 import Link from '@/components/shared/Link';
@@ -16,15 +15,13 @@ const PostTags = ({ tags, maxNumTagsToShow }: Props): JSX.Element => {
       {tags.slice(0, maxNumTagsToShow).map((tag) => {
         if (!tag || tag.trim() === '') return <></>;
         return (
-          <Chip
-            label={tag}
-            size="small"
-            clickable
-            component={Link}
+          <Link
             key={tag}
             href={`/tags/${toKebabCase(tag)}`}
-            sx={{ px: 0.5, fontSize: '0.9rem' }}
-          />
+            className="inline-flex items-center rounded-full border border-border bg-background px-2.5 py-0.5 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer"
+          >
+            {tag}
+          </Link>
         );
       })}
     </>
