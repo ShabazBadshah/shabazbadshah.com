@@ -10,13 +10,13 @@ import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Drawer, DrawerContent } from '@/components/ui/drawer';
 
-const HeaderContents = () => {
+const HeaderContents = ({ onLinkClick }: { onLinkClick?: () => void }) => {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
 
   return (
     <div className="sticky top-0 flex flex-col md:justify-between gap-4 md:h-screen p-4">
       <div className="flex flex-col items-start gap-2 pb-2 border-b -mx-4 px-4">
-        <Link href="/" className="mb-2 flex items-center gap-2 ">
+        <Link href="/" className="mb-2 flex items-center gap-2 " onClick={onLinkClick}>
           <div className="relative w-10 h-10 shrink-0 border border-sky-700/50 rounded-xl">
             <Image
               src={siteConfig.nav.logo.src}
@@ -51,7 +51,7 @@ const HeaderContents = () => {
             </CollapsibleContent>
           </Collapsible>
         </div>
-        <Socials />
+        <Socials onLinkClick={onLinkClick} />
       </div>
     </div>
   );
@@ -75,9 +75,9 @@ export default function Header() {
     <>
       {isMobile && (
         <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-          <DrawerContent className="max-h-[85vh]">
+          <DrawerContent className="max-h-[85vh] bg-white">
             <div className="overflow-y-auto">
-              <HeaderContents />
+              <HeaderContents onLinkClick={() => setIsDrawerOpen(false)} />
             </div>
           </DrawerContent>
         </Drawer>

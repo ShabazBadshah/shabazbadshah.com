@@ -32,7 +32,7 @@ const profiles: SocialProfile[] = siteConfig.socials.map((social) => ({
   IconComponent: getIconComponent(social.provider)
 }));
 
-const Socials = (): JSX.Element => {
+const Socials = ({ onLinkClick }: { onLinkClick?: () => void }): JSX.Element => {
   return (
     <div className="flex flex-col gap-2 ">
       <h3 className="text-sm font-normal leading-6 text-foreground">Let's connect</h3>
@@ -46,7 +46,13 @@ const Socials = (): JSX.Element => {
               className="text-gray-700 text-sm py-4 border-gray-400/80 font-normal w-full rounded-full text-center lowercase hover:text-primary hover:border-sky-700 hover:bg-sky-100"
               asChild
             >
-              <a href={profile.url} onClick={() => trackConnectLinkClick(profile.provider)}>
+              <a
+                href={profile.url}
+                onClick={() => {
+                  trackConnectLinkClick(profile.provider);
+                  onLinkClick?.();
+                }}
+              >
                 <div className="flex flex-row justify-center items-center gap-3">
                   {profile.IconComponent}
                   {profile.name}

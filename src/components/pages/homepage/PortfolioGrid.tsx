@@ -3,11 +3,12 @@ import React, { useRef } from 'react';
 
 const PORTFOLIO_ITEMS = [
   {
-    title: 'Planned',
+    companyTitle: 'Planned',
     description:
       'REST API for consolidating disparate vendor data (Google Maps, PDFs, Yelp, etc.) using LLM technology to scale curated marketplace.',
     image: '/images/portfolio/planned.png',
     brandLogo: '/images/portfolio/planned-logo.png',
+    companyWebsite: 'https://planned.com/',
     highlights: {
       role: 'Product manager',
       impact: 'Reduced vendor onboarding time from 48h to 6h',
@@ -15,11 +16,12 @@ const PORTFOLIO_ITEMS = [
     }
   },
   {
-    title: 'SOTI',
+    companyTitle: 'SOTI',
     description:
       'A custom instant-messaging and video calling tool (web and mobile apps) to communicate between MDM devices in order to provide technical support.',
     video: '/images/portfolio/xsight-video.mp4',
     brandLogo: '/images/portfolio/soti-logo.png',
+    companyWebsite: 'https://soti.net',
     highlights: {
       role: 'Product manager',
       impact: 'Grew revenue by $280k MRR CAD post-release',
@@ -27,11 +29,12 @@ const PORTFOLIO_ITEMS = [
     }
   },
   {
-    title: 'Project Include',
+    companyTitle: 'Project Include',
     description:
       'An informational site volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.',
     image: '/images/portfolio/project-include.png',
     brandLogo: '/images/portfolio/project-include-logo.png',
+    companyWebsite: 'https://www.facebook.com/hashtagprojectinclude/',
     highlights: {
       role: 'Frontend developer',
       impact: 'Ran 50+ workshops 250+ students prior to ending',
@@ -41,7 +44,7 @@ const PORTFOLIO_ITEMS = [
 ];
 
 interface PortfolioCardProps {
-  title: string;
+  companyTitle: string;
   description: string;
   image?: string;
   video?: string;
@@ -74,7 +77,8 @@ const Badge = ({ icon, text, bgColor, borderColor, fullWidth = false }: BadgePro
 );
 
 const PortfolioCard = ({
-  title,
+  companyTitle,
+  companyWebsite,
   description,
   image,
   video,
@@ -130,7 +134,9 @@ const PortfolioCard = ({
             alt="Mednow marketing site"
             className="w-6 h-6 aspect-square object-contain"
           />
-          <h4 className="text-xl font-medium">{title}</h4>
+          <a href={companyWebsite} className="underline">
+            <h4 className="text-xl font-medium">{companyTitle}</h4>
+          </a>
         </div>
         <p>{description}</p>
       </div>
@@ -155,7 +161,7 @@ const PortfolioCard = ({
             )}
           </>
         ) : (
-          <img src={image} alt={title} className="w-full object-cover" />
+          <img src={image} alt={companyTitle} className="w-full object-cover" />
         )}
       </div>
     </div>
@@ -166,7 +172,7 @@ export default function PortfolioGrid(): JSX.Element {
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {PORTFOLIO_ITEMS.map((item) => (
-        <PortfolioCard key={item.title} {...item} />
+        <PortfolioCard key={item.companyTitle} {...item} />
       ))}
     </div>
   );

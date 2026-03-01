@@ -9,16 +9,20 @@ const MDXComponents = {
   img: (props: any) => <BlogImage {...props} />,
   p: (props: any) => <p className="mt-2" {...props} />,
   h1: (props: any) => <h1 className="mt-8 text-2xl " {...props} />,
-  h2: (props: any) => <h2 className="mt-6 font-medium" {...props} />,
+  h2: (props: any) => <h2 className="mt-6 mb-2 font-medium" {...props} />,
   blockquote: (props: any) => (
     <blockquote className="pl-2 my-4 border-l border-muted-foreground italic" {...props}>
       <p className="text-muted-foreground m-0">{props.children}</p>
     </blockquote>
   ),
-  table: (props: any) => <table className="border rounded-3xl" {...props} />,
-  th: (props: any) => <th className="border font-medium pt-4" {...props} />,
-  tr: (props: any) => <tr className="border pt-4" {...props} />,
-  td: (props: any) => <td className="border  pb-4" {...props} />,
+  table: (props: any) => (
+    <div className="overflow-hidden rounded-lg mb-8 border border-gray-300">
+      <table className="w-full border-collapse !mb-0" {...props} />
+    </div>
+  ),
+  th: (props: any) => <th className="border border-gray-300 font-medium p-4" {...props} />,
+  tr: (props: any) => <tr className="[&:not(:last-child)]:border-b" {...props} />,
+  td: (props: any) => <td className="p-4" {...props} />,
   ul: (props: any) => <ul className="pl-8 mb-3" {...props} />,
   li: (props: any) => <li className="list-disc mt-2 " {...props} />,
   hr: (props: any) => (

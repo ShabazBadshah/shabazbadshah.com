@@ -6,6 +6,7 @@ import SEO from '@/components/shared/SEO';
 import MainLayout from '@/layouts/MainLayout';
 import BlogAPI from '@/services/blog';
 import { Post as PostType } from '@/services/blog/types';
+import Hero from '../src/components/shared/Hero';
 
 type Props = {
   posts: PostType[];
@@ -21,10 +22,13 @@ const Index = ({ posts, pinnedPosts }: Props): JSX.Element => {
       />
 
       <div className="flex flex-col gap-24">
-        <div className="my-2">
+        <div className="my-2" id="hero">
+          <Hero />
+        </div>
+        <div className="my-2" id="blog">
           <PinnedPosts posts={pinnedPosts} />
         </div>
-        <div className="my-2">
+        <div className="my-2" id="works">
           <PortfolioSection />
         </div>
       </div>
