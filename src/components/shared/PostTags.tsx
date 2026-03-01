@@ -18,7 +18,7 @@ const PostTags = ({ tags, maxNumTagsToShow }: Props): JSX.Element => {
           <Link
             key={tag}
             href={`/tags/${toKebabCase(tag)}`}
-            className="inline-flex items-center rounded-full border border-border bg-background px-2.5 py-0.5 text-sm font-medium text-foreground transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer"
+            className="inline-flex items-center rounded-full border border-border bg-background px-3 py-1 text-sm text-foreground transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer"
           >
             {tag}
           </Link>

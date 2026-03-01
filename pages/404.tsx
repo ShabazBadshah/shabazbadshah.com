@@ -1,43 +1,31 @@
 import React from 'react';
-import { GetStaticPropsResult } from 'next';
-
-import BlogAPI from '@/services/blog';
-import { Post as PostType } from '@/services/blog/types';
 import MainLayout from '@/layouts/MainLayout';
 import SEO from '@/components/shared/SEO';
-import BlogPostsList from '@/components/shared/BlogPostsList';
-import PageTitle from '@/components/shared/PageTitle';
+import { Button } from '../src/components/ui/button';
 
-type Props = {
-  suggestedPosts: PostType[];
-};
-
-const NotFoundPageTitle = (): JSX.Element => (
-  <PageTitle>
-    <h3 className="text-2xl font-bold">Page Not Found 🤡</h3>
-    <h5 className="text-xl font-medium mt-1 mb-4">In the meanwhile, you can check out...</h5>
-  </PageTitle>
-);
-
-export default function PageNotFound({ suggestedPosts }: Props): React.ReactNode {
+export default function PageNotFound() {
   return (
-    <MainLayout pageHeader={<NotFoundPageTitle />}>
+    <MainLayout>
       <SEO
         pageTitle="Not Found | shabazbadshah.com"
         metaDescription="Whoops, couldn't find what you were looking for. Sorry about that"
       />
-      <BlogPostsList posts={suggestedPosts} showTitle={false} />
+
+      <div className="text-center py-16 flex flex-col justify-center items-center h-[calc(100vh-96px)]">
+        <h1 className="mb-12 text-7xl font-semibold">404!</h1>
+        <h4 className="mb-1.5 text-3xl font-semibold">Something went wrong</h4>
+        <p className="mb-6">The page you're looking for doesn't exist, let's go back home.</p>
+        <Button
+          variant="outline"
+          size="sm"
+          className="text-gray-700 text-sm py-4 mt-8 border-gray-400/80 font-normal w-full rounded-full text-center hover:text-primary hover:border-sky-700 hover:bg-sky-100"
+          asChild
+        >
+          <a href="/" data-slot="button">
+            Back to homepage
+          </a>
+        </Button>
+      </div>
     </MainLayout>
   );
 }
-
-export const getStaticProps = async (): Promise<GetStaticPropsResult<any>> => {
-  const apiRef = new BlogAPI();
-  const suggestedPosts = apiRef.getSuggestedBlogPosts(3);
-
-  return {
-    props: {
-      suggestedPosts
-    }
-  };
-};

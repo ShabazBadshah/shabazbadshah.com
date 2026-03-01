@@ -1,8 +1,7 @@
 import { GetStaticPropsResult } from 'next';
 
 import PinnedPosts from '@/components/pages/homepage/PinnedPosts';
-import WeeklySyftableUpdate from '@/components/pages/homepage/WeeklySyftableUpdate';
-import BlogPostsList from '@/components/shared/BlogPostsList';
+import PortfolioSection from '@/components/pages/homepage/PortfolioSection';
 import SEO from '@/components/shared/SEO';
 import MainLayout from '@/layouts/MainLayout';
 import BlogAPI from '@/services/blog';
@@ -20,17 +19,13 @@ const Index = ({ posts, pinnedPosts }: Props): JSX.Element => {
         pageTitle="Home | shabazbadshah.com"
         metaDescription="I'm a Product Manager who develops Fullstack web experiences during his downtime. This site catalogs things I learn, want to share, or anything cool I'm creating"
       />
-      <div className="flex flex-col gap-3 sm:gap-4">
-        <div className="my-2">
-          <WeeklySyftableUpdate />
-        </div>
 
+      <div className="flex flex-col gap-24">
         <div className="my-2">
           <PinnedPosts posts={pinnedPosts} />
         </div>
-
-        <div className="mt-3 mb-5">
-          <BlogPostsList posts={posts} />
+        <div className="my-2">
+          <PortfolioSection />
         </div>
       </div>
     </MainLayout>
@@ -39,7 +34,7 @@ const Index = ({ posts, pinnedPosts }: Props): JSX.Element => {
 
 export default Index;
 
-export const getStaticProps = async (): Promise<GetStaticPropsResult<any>> => {
+export const getStaticProps = async (): Promise<GetStaticPropsResult<Props>> => {
   const posts = new BlogAPI().getAllPosts();
   return {
     props: {

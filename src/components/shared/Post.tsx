@@ -14,9 +14,9 @@ const Post = ({ post }: Props): JSX.Element => {
     <article style={{ width: '100%' }}>
       <div className="no-underline text-foreground flex flex-col justify-between gap-0.5">
         <PostTitleBody post={post} />
-        <div className="flex gap-1 mt-1">
+        {/* <div className="flex gap-1 mt-1">
           <PostTags tags={post.tags} maxNumTagsToShow={3} />
-        </div>
+        </div> */}
       </div>
     </article>
   );

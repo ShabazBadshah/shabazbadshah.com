@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Header from '@/components/shared/Header';
-import Footer from '../components/shared/Footer';
+import Footer from '@/components/shared/Footer';
 
 type Props = {
   pageHeader?: React.ReactNode;
@@ -10,23 +10,20 @@ type Props = {
   children: React.ReactNode;
 };
 
-const MainLayout = ({
-  pageHeader,
-  extraDrawerContent,
-  extraFooterContent,
-  children
-}: Props): JSX.Element => {
+const MainLayout = ({ pageHeader, children }: Props): JSX.Element => {
   return (
     <div className="flex">
-      <Header extraDrawerContent={extraDrawerContent} />
-      <div className="block min-w-0 flex-1 py-2 sm:py-5">
+      <Header />
+      <div className="min-w-0 flex-1 px-4 py-2 sm:py-5 relative">
         {pageHeader && <div className="container">{pageHeader}</div>}
-        <div className="container flex justify-center">
-          <div className="max-w-7xl px-0 lg:px-2">{children}</div>
+        <div className="flex justify-center w-full">
+          <div className="max-w-[1440px]">{children}</div>
         </div>
 
-        <div className="container">
-          <Footer extraFooterContent={extraFooterContent} />
+        <div className="flex justify-center">
+          <div className="w-full max-w-[1440px]">
+            <Footer />
+          </div>
         </div>
       </div>
     </div>

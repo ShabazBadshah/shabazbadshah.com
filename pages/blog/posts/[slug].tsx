@@ -1,7 +1,6 @@
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { Home } from 'lucide-react';
 
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
@@ -13,9 +12,10 @@ import remarkGfm from 'remark-gfm';
 import remarkPrism from 'remark-prism';
 
 import MDXComponents from '@/components/pages/blog/MDXComponents';
+import { BlogImage } from '@/components/pages/blog/BlogImage';
+import { LightboxProvider } from '@/components/pages/blog/LightboxContext';
 import ReadingProgressBar from '@/components/pages/blog/ReadingProgressBar';
 import Link from '@/components/shared/Link';
-import MoreStories from '@/components/shared/MoreStories';
 import PostTags from '@/components/shared/PostTags';
 import SEO from '@/components/shared/SEO';
 import MainLayout from '@/layouts/MainLayout';
@@ -45,14 +45,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
   });
 
   return (
-    <MainLayout
-      pageHeader={''}
-      extraDrawerContent={
-        <>
-          <MoreStories suggestedPosts={suggestedPosts} />
-        </>
-      }
-    >
+    <MainLayout pageHeader={''}>
       <ReadingProgressBar text={post.title} percent={width} />
 
       <SEO pageTitle={`Blog - ${post.title} | shabazbadshah.com`} metaDescription={post.shortBody}>
@@ -62,65 +55,36 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
         <meta property="og:url" content={`https://shabazbadshah.com/blog/posts/${post.slug}`} />
       </SEO>
       <article itemScope itemType="http://schema.org/article">
-        <div className="max-w-3xl mx-auto">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="w-fit -ml-2.5 rounded-md hover:bg-[#eaf1f7]"
-            asChild
-          >
-            <Link href="/">
-              <Home className="text-foreground" />
-            </Link>
-          </Button>
-          <header>
-            <div className="flex items-center gap-2 flex-wrap justify-between">
-              <div className="py-4">
-                <div className="mb-3">
-                  <h1 className="text-[32px] sm:text-4xl font-black leading-9 md:leading-10 tracking-tight mb-4">
-                    {post.title}
-                  </h1>
-                  <p className="text-sm text-muted-foreground">
-                    {dayjs(post.publishedAt).format('MMM D, YYYY')}
-                    &nbsp;&bull;&nbsp;{post.readingTime}
-                  </p>
-                  <div className="flex flex-row items-start gap-1 mt-2 flex-wrap w-full">
-                    <PostTags tags={post.tags} />
+        <LightboxProvider>
+          <div className="max-w-[1440px] mx-auto">
+            <header>
+              <div className="flex items-center gap-2 flex-wrap justify-between">
+                <div className="py-4">
+                  <div className="mb-3">
+                    <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+                    <p className="text-muted-foreground">
+                      {dayjs(post.publishedAt).format('MMM D, YYYY')}
+                      &nbsp;&bull;&nbsp;{post.readingTime}
+                    </p>
+                    {/* <div className="flex flex-row items-start gap-1 mt-2 flex-wrap w-full">
+                      <PostTags tags={post.tags} />
+                    </div> */}
                   </div>
-                </div>
 
-                <h2 className="text-lg font-medium leading-7 text-muted-foreground mb-4">
-                  {post.shortBody}
-                </h2>
-              </div>
-            </div>
-          </header>
-          <MDXRemote
-            {...post.body}
-            components={{
-              ...MDXComponents,
-              // Image component declared here separately so I can pass in the slug. This allows me in the MDX file to just specify the filename, and no path
-              img: ({ src, height, width, ...rest }: any) => (
-                <div className="rounded-lg">
-                  <Image
-                    layout="responsive"
-                    src={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
-                    height={120}
-                    width={200}
-                    objectFit="contain"
-                    loading="eager"
-                    style={{
-                      width: '100%',
-                      height: 'auto'
-                    }}
-                    blurDataURL={src.startsWith('https') ? src : `/images/blog/${post.slug}/${src}`}
-                    {...rest}
-                  />
+                  <h2 className="italic text-muted-foreground">{post.shortBody}</h2>
                 </div>
-              )
-            }}
-          />
-        </div>
+              </div>
+            </header>
+            <MDXRemote
+              {...post.body}
+              components={{
+                ...MDXComponents,
+                // Image component with lightbox functionality
+                img: (props: any) => <BlogImage {...props} slug={post.slug} />
+              }}
+            />
+          </div>
+        </LightboxProvider>
       </article>
     </MainLayout>
   );
