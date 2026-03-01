@@ -4,6 +4,12 @@ import { Button } from '@/components/ui/button';
 import { FaCanadianMapleLeaf } from 'react-icons/fa';
 
 const Hero = () => {
+  const HERO_TITLE = 'Turning Operational Complexity Into Scalable Systems';
+  const HERO_DESC =
+    "I'm Shabaz 👋. I partner with organizations facing complex, high-impact challenges and turn operational friction into secure, scalable digital systems.";
+  const SPECIALITY_DESC =
+    'My specialty is healthcare digitization in Ontario, where I design and deliver secure, compliance-first infrastructure that modernizes clinic operations, and enables scalable growth.';
+
   return (
     <section className="pt-12 md:pt-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -13,22 +19,13 @@ const Hero = () => {
             <span className="text-sm text-muted-foreground">Made in Canada</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-            Turning Operational Complexity Into Scalable Systems
-          </h1>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">{HERO_TITLE}</h1>
 
-          <p className="text-lg text-muted-foreground">
-            I'm Shabaz. I partner with organizations facing complex, high-impact challenges and turn
-            operational friction into secure, scalable digital systems.
-          </p>
+          <p className="text-lg text-muted-foreground">{HERO_DESC}</p>
 
           <span className="flex flex-row justify-center gap-2 border border-gray-300 bg-sky-100/30 px-4 py-2 rounded-lg">
             <BadgeInfo className="shrink-0 w-6 h-6 mt-1.5 text-sky-800" />
-            <p className="text-lg text-muted-foreground">
-              My specialty is healthcare digitization in Ontario, where I design and deliver secure,
-              compliance-first infrastructure that modernizes clinic operations and enables scalable
-              growth.
-            </p>
+            <p className="text-lg text-muted-foreground">{SPECIALITY_DESC}</p>
           </span>
 
           <div className="flex flex-wrap gap-4 mt-10">
@@ -36,7 +33,7 @@ const Hero = () => {
               <Button
                 size="lg"
                 variant="default"
-                className="w-full gap-3 text-md font-normal rounded-full bg-blue-400 text-white hover:bg-black [&_svg]:!w-5 [&_svg]:!h-5"
+                className="w-full gap-3 text-md font-normal rounded-full bg-blue-500 text-white hover:bg-black [&_svg]:!w-5 [&_svg]:!h-5"
               >
                 <MessageCircle />
                 Let's work together
@@ -46,7 +43,7 @@ const Hero = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full gap-2 rounded-full text-gray-500 border-gray-500  hover:border-sky-700 hover:bg-sky-100 hover:text-sky-700 font-normal"
+                className="w-full gap-2 rounded-full text-gray-600 border-gray-500  hover:border-sky-700 hover:bg-sky-100 hover:text-sky-700 font-normal"
               >
                 View selected work
               </Button>

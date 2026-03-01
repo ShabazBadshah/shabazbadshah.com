@@ -43,7 +43,9 @@ export const getStaticProps = async (): Promise<GetStaticPropsResult<Props>> => 
   return {
     props: {
       posts,
-      pinnedPosts: posts.filter((post) => post.pinned)
+      pinnedPosts: posts
+        .filter((post) => post.pinned)
+        .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
     }
   };
 };

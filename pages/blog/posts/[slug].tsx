@@ -53,7 +53,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
 
       <SEO pageTitle={`Blog - ${post.title} | shabazbadshah.com`} metaDescription={post.shortBody}>
         <meta property="og:title" content={`Blog - ${post.title} | shabazbadshah.com`} />
-        <meta property="og:image" content={`/images/blog/${post.slug}/${post.heroImagePath}`} />
+        {/* <meta property="og:image" content={`/images/blog/${post.slug}/${post.heroImagePath}`} /> */}
         <meta property="og:description" content={post.shortBody} />
         <meta property="og:url" content={`https://shabazbadshah.com/blog/posts/${post.slug}`} />
       </SEO>
