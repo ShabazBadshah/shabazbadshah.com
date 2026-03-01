@@ -32,10 +32,7 @@ const Hero = () => {
           </span>
 
           <div className="flex flex-wrap gap-4 mt-10">
-            <a
-              href="mailto:hello@shabazbadshah.com?Subject=Hey%20Shabaz 👋"
-              className="w-full sm:w-auto"
-            >
+            <a href="https://calendly.com/badshahconsulting/30min" className="w-full sm:w-auto">
               <Button
                 size="lg"
                 variant="default"

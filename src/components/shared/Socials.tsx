@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Mail } from 'lucide-react';
+import { Calendar, Linkedin, Mail } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa';
 
 import { siteConfig } from '@/config/site';
@@ -14,10 +14,12 @@ type SocialProfile = {
   cta: string;
 };
 
-export type socialMediaProfileProviders = 'github' | 'linkedin' | 'email';
+export type socialMediaProfileProviders = 'github' | 'linkedin' | 'email' | 'video';
 
 const getIconComponent = (provider: socialMediaProfileProviders) => {
   switch (provider) {
+    case 'video':
+      return <Calendar className="w-5 h-5" />;
     case 'email':
       return <Mail className="w-5 h-5" />;
     case 'linkedin':
@@ -43,7 +45,7 @@ const Socials = ({ onLinkClick }: { onLinkClick?: () => void }): JSX.Element => 
               key={profile.name}
               variant="outline"
               size="sm"
-              className="text-gray-700 text-sm py-4 border-gray-400/80 font-normal w-full rounded-full text-center lowercase hover:text-primary hover:border-sky-700 hover:bg-sky-100"
+              className="text-gray-700 text-sm py-4 border-gray-400/80 font-normal w-full rounded-full text-center hover:text-primary hover:border-sky-700 hover:bg-sky-100"
               asChild
             >
               <a

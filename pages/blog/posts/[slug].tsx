@@ -24,6 +24,7 @@ import { Post as PostType } from '@/services/blog/types';
 import { Button } from '@/components/ui/button';
 import { Sparkles } from 'lucide-react';
 import { FaCanadianMapleLeaf } from 'react-icons/fa';
+import { ArticleCTA } from '../../../src/components/pages/blog/ArticleCTA';
 
 type Props = {
   post: PostType;
@@ -94,6 +95,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
           </div>
         </LightboxProvider>
       </article>
+      <ArticleCTA />
     </MainLayout>
   );
 };

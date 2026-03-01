@@ -18,6 +18,12 @@ export const siteConfig = {
   // Social profiles
   socials: [
     {
+      name: 'Video call',
+      provider: 'video' as const,
+      url: 'https://calendly.com/badshahconsulting/30min',
+      cta: 'Video call'
+    },
+    {
       name: 'hello@shabazbadshah.com',
       provider: 'email' as const,
       url: 'mailto:hello@shabazbadshah.com?Subject=Hey%20Shabaz 👋',

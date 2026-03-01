@@ -4,9 +4,11 @@
 import React from 'react';
 import { Separator } from '@/components/ui/separator';
 import { BlogImage } from './BlogImage';
+import { ArticleCTA } from './ArticleCTA';
 
 const MDXComponents = {
   img: (props: any) => <BlogImage {...props} />,
+  ArticleCTA: ArticleCTA,
   p: (props: any) => <p className="mt-2" {...props} />,
   h1: (props: any) => <h1 className="mt-8 text-2xl " {...props} />,
   h2: (props: any) => <h2 className="mt-6 mb-2 font-medium" {...props} />,
