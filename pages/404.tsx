@@ -7,7 +7,7 @@ export default function PageNotFound() {
   return (
     <MainLayout>
       <SEO
-        pageTitle="Not Found | shabazbadshah.com"
+        pageTitle="Not Found | Badshah Consulting"
         metaDescription="Whoops, couldn't find what you were looking for. Sorry about that"
       />
 

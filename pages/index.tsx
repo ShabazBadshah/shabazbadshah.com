@@ -17,7 +17,7 @@ const Index = ({ posts, pinnedPosts }: Props): JSX.Element => {
   return (
     <MainLayout>
       <SEO
-        pageTitle="Home | shabazbadshah.com"
+        pageTitle="Home | Badshah Consulting"
         metaDescription="I'm Shabaz 👋, a Product Engineer. I partner with organizations facing complex, high-impact challenges and turn operational friction into secure, scalable digital systems."
       />
 

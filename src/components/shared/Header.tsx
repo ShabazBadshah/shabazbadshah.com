@@ -114,7 +114,7 @@ const HeaderContents = ({
             <Button
               variant="ghost"
               size="sm"
-              className="bg-blue-500 text-white hover:bg-black w-full py-6 rounded-lg"
+              className="border border-black text-black hover:text-white hover:bg-black w-full py-4 rounded-lg"
               onClick={onToggleCollapse}
               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >

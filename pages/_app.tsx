@@ -22,8 +22,8 @@ export default function App(props: AppProps): React.ReactNode {
   return (
     <>
       <Head>
-        <title>Home | shabazbadshah.com</title>
-        <link rel="shortcut icon" type="image/svg" href="/favicon.svg" />
+        <title>Home | Badshah Consulting</title>
+        <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
         <meta content="initial-scale=1, width=device-width, user-scalable=yes" name="viewport" />
         <meta
           content="I'm a Product Manager who develops Fullstack web experiences during his downtime. This site catalogs things I learn, want to share, or anything cool I'm creating"
