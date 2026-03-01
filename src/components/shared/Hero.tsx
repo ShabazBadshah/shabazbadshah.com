@@ -33,7 +33,7 @@ const Hero = () => {
               <Button
                 size="lg"
                 variant="default"
-                className="w-full gap-3 text-md font-normal rounded-full bg-blue-500 text-white hover:bg-black [&_svg]:w-5! [&_svg]:h-5!"
+                className="w-full gap-3 text-lg py-6 md:py-4 md:text-md font-normal rounded-full bg-blue-500 text-white hover:bg-black [&_svg]:size-6! md:[&_svg]:size-5!"
               >
                 <MessageCircle />
                 Let's work together
@@ -43,7 +43,7 @@ const Hero = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="w-full gap-2 rounded-full text-gray-600 border-gray-500  hover:border-sky-700 hover:bg-sky-100 hover:text-sky-700 font-normal"
+                className="w-full text-lg md:text-md py-6 md:py-4 rounded-full text-gray-600 border-gray-500  hover:border-sky-700 hover:bg-sky-100 hover:text-sky-700 font-normal"
               >
                 View selected work
               </Button>

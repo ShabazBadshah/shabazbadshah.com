@@ -26,7 +26,7 @@ export const ArticleCTA = ({
             className="gap-2 rounded-full bg-blue-400 text-white hover:bg-black"
             asChild
           >
-            <a href={buttonLink} className="text-md font-normal">
+            <a href={buttonLink} className="text-lg font-normal">
               <Calendar className="w-5 h-5" />
               {buttonText}
             </a>

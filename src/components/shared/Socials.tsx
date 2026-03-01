@@ -19,13 +19,13 @@ export type socialMediaProfileProviders = 'github' | 'linkedin' | 'email' | 'vid
 const getIconComponent = (provider: socialMediaProfileProviders) => {
   switch (provider) {
     case 'video':
-      return <Calendar className="w-5 h-5" />;
+      return <Calendar className="!size-7 md:!size-5" />;
     case 'email':
-      return <Mail className="w-5 h-5" />;
+      return <Mail className="!size-7 md:!size-5" />;
     case 'linkedin':
-      return <Linkedin className="w-5 h-5 text-[#0077B5]" />;
+      return <Linkedin className="!size-7 md:!size-5 text-[#0077B5]" />;
     case 'github':
-      return <FaGithub className="w-5 h-5" />;
+      return <FaGithub className="!size-7 md:!size-5" />;
   }
 };
 
@@ -50,14 +50,13 @@ const Socials = ({
       >
         Let's connect
       </h3>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3 md:gap-2">
         {profiles.map((profile) => {
           return (
             <Button
               key={profile.name}
               variant="outline"
-              size="sm"
-              className="text-gray-700 text-sm py-4 border-gray-400/80 font-normal w-full rounded-full text-center hover:text-primary hover:border-sky-700 hover:bg-sky-100 transition-all duration-300"
+              className="text-gray-700 text-lg md:text-sm py-6 md:py-4 border-gray-400/80 font-normal w-full rounded-full text-center hover:text-primary hover:border-sky-700 hover:bg-sky-100 transition-all duration-300"
               asChild
             >
               <a

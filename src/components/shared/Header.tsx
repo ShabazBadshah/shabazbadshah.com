@@ -67,7 +67,7 @@ const HeaderContents = ({
               />
             </div>
             <span
-              className={`font-medium text-foreground transition-all duration-300 ${
+              className={`font-medium text-foreground transition-all duration-300 text-lg ${
                 isCollapsed ? 'opacity-0 w-0 overflow-hidden' : 'opacity-100 delay-150'
               }`}
             >
@@ -91,7 +91,7 @@ const HeaderContents = ({
                 variant="ghost"
                 className="flex items-center justify-between w-full px-0 h-auto hover:bg-transparent"
               >
-                <span className="text-sm font-normal leading-6 text-foreground whitespace-nowrap">
+                <span className="text-base md:text-sm font-normal text-foreground whitespace-nowrap py-1">
                   About
                 </span>
                 <ChevronDown
@@ -114,15 +114,15 @@ const HeaderContents = ({
             <Button
               variant="ghost"
               size="sm"
-              className="bg-blue-500 text-white hover:bg-black w-full py-2 rounded-lg"
+              className="bg-blue-500 text-white hover:bg-black w-full py-6 rounded-lg"
               onClick={onToggleCollapse}
               aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             >
               {isCollapsed ? (
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-6 h-6" />
               ) : (
                 <div className="flex items-center gap-2">
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-6 h-6" />
                 </div>
               )}
             </Button>
