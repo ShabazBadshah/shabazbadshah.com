@@ -34,10 +34,22 @@ const profiles: SocialProfile[] = siteConfig.socials.map((social) => ({
   IconComponent: getIconComponent(social.provider)
 }));
 
-const Socials = ({ onLinkClick }: { onLinkClick?: () => void }): JSX.Element => {
+const Socials = ({
+  onLinkClick,
+  isCollapsed
+}: {
+  onLinkClick?: () => void;
+  isCollapsed?: boolean;
+}): JSX.Element => {
   return (
     <div className="flex flex-col gap-2 ">
-      <h3 className="text-sm font-normal leading-6 text-foreground">Let's connect</h3>
+      <h3
+        className={`text-sm font-normal leading-6 text-foreground whitespace-nowrap transition-all duration-300 ${
+          isCollapsed ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100 delay-150'
+        }`}
+      >
+        Let's connect
+      </h3>
       <div className="flex flex-col gap-2">
         {profiles.map((profile) => {
           return (
@@ -45,7 +57,7 @@ const Socials = ({ onLinkClick }: { onLinkClick?: () => void }): JSX.Element => 
               key={profile.name}
               variant="outline"
               size="sm"
-              className="text-gray-700 text-sm py-4 border-gray-400/80 font-normal w-full rounded-full text-center hover:text-primary hover:border-sky-700 hover:bg-sky-100"
+              className="text-gray-700 text-sm py-4 border-gray-400/80 font-normal w-full rounded-full text-center hover:text-primary hover:border-sky-700 hover:bg-sky-100 transition-all duration-300"
               asChild
             >
               <a
@@ -55,9 +67,17 @@ const Socials = ({ onLinkClick }: { onLinkClick?: () => void }): JSX.Element => 
                   onLinkClick?.();
                 }}
               >
-                <div className="flex flex-row justify-center items-center gap-3">
+                <div
+                  className={`flex flex-row items-center ${
+                    isCollapsed ? 'justify-center' : 'justify-center gap-3'
+                  }`}
+                >
                   {profile.IconComponent}
-                  {profile.name}
+                  {!isCollapsed && (
+                    <span className="transition-opacity duration-300 delay-150 whitespace-nowrap">
+                      {profile.name}
+                    </span>
+                  )}
                 </div>
               </a>
             </Button>

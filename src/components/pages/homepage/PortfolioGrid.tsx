@@ -1,5 +1,6 @@
-import { Briefcase, Trophy, Blocks, Play } from 'lucide-react';
+import { Briefcase, Trophy, Play } from 'lucide-react';
 import React, { useRef } from 'react';
+import Image from 'next/image';
 
 const PORTFOLIO_ITEMS = [
   {
@@ -45,6 +46,7 @@ const PORTFOLIO_ITEMS = [
 
 interface PortfolioCardProps {
   companyTitle: string;
+  companyWebsite: string;
   description: string;
   image?: string;
   video?: string;
@@ -129,11 +131,15 @@ const PortfolioCard = ({
       </div>
       <div data-slot="card-content" className="space-y-2 px-4 mb-4">
         <div className="flex justify-start items-center gap-2">
-          <img
-            src={brandLogo}
-            alt="Mednow marketing site"
-            className="w-6 h-6 aspect-square object-contain"
-          />
+          <div className="relative w-6 h-6">
+            <Image
+              src={brandLogo}
+              alt={`${companyTitle} logo`}
+              layout="fill"
+              objectFit="contain"
+              sizes="24px"
+            />
+          </div>
           <a href={companyWebsite} className="underline">
             <h4 className="text-xl font-medium">{companyTitle}</h4>
           </a>
@@ -155,13 +161,22 @@ const PortfolioCard = ({
               <button
                 onClick={handlePlayClick}
                 className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/50 transition-colors duration-200 group/play"
+                aria-label="Play video"
               >
                 <Play className="w-16 h-16 text-gray-100 fill-gray-200/50 p-2" />
               </button>
             )}
           </>
         ) : (
-          <img src={image} alt={companyTitle} className="w-full object-cover" />
+          <div className="relative w-full aspect-video">
+            <Image
+              src={image || ''}
+              alt={companyTitle}
+              layout="fill"
+              objectFit="cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+          </div>
         )}
       </div>
     </div>

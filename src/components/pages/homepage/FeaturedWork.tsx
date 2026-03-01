@@ -1,4 +1,5 @@
-import { Star, Globe, ShieldCheck, BrainCircuit, Briefcase, Trophy, Blocks } from 'lucide-react';
+import { Star, Globe, ShieldCheck, BrainCircuit, Briefcase, Trophy } from 'lucide-react';
+import Image from 'next/image';
 
 const FEATURED_WORK_TITLE = 'Mednow';
 const FEATURED_WORK_DESCRIPTION =
@@ -90,9 +91,11 @@ export default function FeaturedWork(): JSX.Element {
           <div className="space-y-8 lg:max-xl:py-6">
             <div className="flex flex-col gap-2 pt-1">
               <div className="flex justify-start items-center gap-2">
-                <img
-                  src="images/portfolio/mednow-logo.png"
-                  alt="Mednow marketing site"
+                <Image
+                  src="/images/portfolio/mednow-logo.png"
+                  alt="Mednow logo"
+                  width={24}
+                  height={24}
                   className="w-6 h-6 aspect-square object-contain"
                 />
                 <h3 className="text-2xl font-medium">{FEATURED_WORK_TITLE}</h3>
@@ -108,9 +111,9 @@ export default function FeaturedWork(): JSX.Element {
           <div className="grid grid-cols-1 max-lg:-mb-5 xl:-mb-16 xl:grid-cols-2 xl:gap-4">
             <div className="flex items-center justify-end xl:col-span-2 xl:items-end">
               <img
-                src="images/portfolio/mednow.png"
+                src="/images/portfolio/mednow.webp"
                 alt="Mednow marketing site"
-                className="w-full rounded-xl object-cover xl:w-[86%] p-3 pb-0 bg-[#c9e8f6]"
+                className="w-full rounded-xl object-cover xl:w-[85%] p-3 pb-0 bg-[#c9e8f6]"
               />
             </div>
           </div>

@@ -33,7 +33,7 @@ const Hero = () => {
               <Button
                 size="lg"
                 variant="default"
-                className="w-full gap-3 text-md font-normal rounded-full bg-blue-500 text-white hover:bg-black [&_svg]:!w-5 [&_svg]:!h-5"
+                className="w-full gap-3 text-md font-normal rounded-full bg-blue-500 text-white hover:bg-black [&_svg]:w-5! [&_svg]:h-5!"
               >
                 <MessageCircle />
                 Let's work together

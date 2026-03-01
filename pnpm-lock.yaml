@@ -138,6 +138,9 @@ importers:
       '@types/gtag.js':
         specifier: ^0.0.10
         version: 0.0.10
+      '@types/minimatch':
+        specifier: ^6.0.0
+        version: 6.0.0
       '@types/node':
         specifier: ^18.7.6
         version: 18.19.130
