@@ -51,7 +51,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
     <MainLayout pageHeader={''}>
       <ReadingProgressBar text={post.title} percent={width} />
 
-      <SEO pageTitle={`Blog - ${post.title} | shabazbadshah.com`} metaDescription={post.shortBody}>
+      <SEO pageTitle={`Blog - ${post.title} | Badshah Consulting`} metaDescription={post.shortBody}>
         <meta property="og:title" content={`Blog - ${post.title} | shabazbadshah.com`} />
         {/* <meta property="og:image" content={`/images/blog/${post.slug}/${post.heroImagePath}`} /> */}
         <meta property="og:description" content={post.shortBody} />
@@ -121,12 +121,7 @@ export const getStaticProps = async ({
   const slug = params.slug as string;
   const post = apiRef.getPostBySlug(slug);
 
-  post.body = await serialize(post.body || '', {
-    mdxOptions: {
-      rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings, remarkGfm],
-      remarkPlugins: [remarkPrism]
-    }
-  });
+  post.body = await serialize(post.body || '', {});
 
   return {
     props: {

@@ -18,7 +18,7 @@ const Index = ({ posts, pinnedPosts }: Props): JSX.Element => {
     <MainLayout>
       <SEO
         pageTitle="Home | shabazbadshah.com"
-        metaDescription="I'm a Product Manager who develops Fullstack web experiences during his downtime. This site catalogs things I learn, want to share, or anything cool I'm creating"
+        metaDescription="I'm Shabaz 👋, a Product Engineer. I partner with organizations facing complex, high-impact challenges and turn operational friction into secure, scalable digital systems."
       />
 
       <div className="flex flex-col gap-24">
