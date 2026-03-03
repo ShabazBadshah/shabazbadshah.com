@@ -19,13 +19,13 @@ export type socialMediaProfileProviders = 'github' | 'linkedin' | 'email' | 'vid
 const getIconComponent = (provider: socialMediaProfileProviders) => {
   switch (provider) {
     case 'video':
-      return <Calendar className="!size-7 md:!size-5" />;
+      return <Calendar className="size-6! md:size-5!" />;
     case 'email':
-      return <Mail className="!size-7 md:!size-5" />;
+      return <Mail className="size-6! md:size-5!" />;
     case 'linkedin':
-      return <Linkedin className="!size-7 md:!size-5 text-[#0077B5]" />;
+      return <Linkedin className="size-6! md:size-5! text-[#0077B5]" />;
     case 'github':
-      return <FaGithub className="!size-7 md:!size-5" />;
+      return <FaGithub className="size-6! md:size-5!" />;
   }
 };
 
@@ -56,7 +56,7 @@ const Socials = ({
             <Button
               key={profile.name}
               variant="outline"
-              className="text-gray-700 text-lg md:text-sm py-6 md:py-4 border-gray-400/80 font-normal w-full rounded-full text-center hover:text-primary hover:border-sky-700 hover:bg-sky-100 transition-all duration-300"
+              className="text-gray-700 text-md md:text-sm py-6 md:py-4 border-gray-400/80 font-normal w-full rounded-full text-center hover:text-primary hover:border-sky-700 hover:bg-sky-100 transition-all duration-300"
               asChild
             >
               <a
