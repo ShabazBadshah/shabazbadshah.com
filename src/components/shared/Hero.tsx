@@ -1,6 +1,6 @@
 import React from 'react';
 import { BadgeInfo, MessageCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/ui/button';
 import { FaCanadianMapleLeaf } from 'react-icons/fa';
 
 const Hero = () => {

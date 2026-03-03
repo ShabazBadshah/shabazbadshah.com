@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Router from 'next/router';
 import { Home } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/ui/button';
 
 export default function ReadingProgressBar(props: any): JSX.Element {
   const [isVisible, setIsVisible] = useState(false);

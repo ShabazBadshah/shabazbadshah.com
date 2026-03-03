@@ -4,7 +4,7 @@ import { FaGithub } from 'react-icons/fa';
 
 import { siteConfig } from '@/config/site';
 import { trackConnectLinkClick } from '@/analytics/tracking';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/ui/button';
 
 type SocialProfile = {
   name: string;

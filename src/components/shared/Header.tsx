@@ -15,9 +15,13 @@ import { siteConfig } from '@/config/site';
 import About from '@/components/shared/About';
 import Link from '@/components/shared/Link';
 import Socials from '@/components/shared/Socials';
-import { Button } from '@/components/ui/button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { Drawer, DrawerContent } from '@/components/ui/drawer';
+import { Button } from '@/components/ui/ui/button';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger
+} from '@/components/ui/ui/collapsible';
+import { Drawer, DrawerContent } from '@/components/ui/ui/drawer';
 import { trackConnectLinkClick } from '@/analytics/tracking';
 import type { socialMediaProfileProviders } from '@/components/shared/Socials';
 

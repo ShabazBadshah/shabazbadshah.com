@@ -1,29 +1,21 @@
 import dayjs from 'dayjs';
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next';
 import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 import { ParsedUrlQuery } from 'querystring';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
-import remarkPrism from 'remark-prism';
 
 import MDXComponents from '@/components/pages/blog/MDXComponents';
 import { BlogImage } from '@/components/pages/blog/BlogImage';
 import { LightboxProvider } from '@/components/pages/blog/LightboxContext';
 import ReadingProgressBar from '@/components/pages/blog/ReadingProgressBar';
-import Link from '@/components/shared/Link';
-import PostTags from '@/components/shared/PostTags';
 import SEO from '@/components/shared/SEO';
 import MainLayout from '@/layouts/MainLayout';
 import BlogAPI from '@/services/blog';
 import { Post as PostType } from '@/services/blog/types';
-import { Button } from '@/components/ui/button';
 import { Sparkles } from 'lucide-react';
-import { FaCanadianMapleLeaf } from 'react-icons/fa';
 import { ArticleCTA } from '../../../src/components/pages/blog/ArticleCTA';
 
 type Props = {
@@ -31,7 +23,7 @@ type Props = {
   suggestedPosts: PostType[];
 };
 
-const BlogPost = ({ post, suggestedPosts }: Props) => {
+const BlogPost = ({ post }: Props) => {
   const [width, setWidth] = useState(0);
   const scrollHeight = () => {
     const el = document.documentElement,
@@ -52,7 +44,7 @@ const BlogPost = ({ post, suggestedPosts }: Props) => {
       <ReadingProgressBar text={post.title} percent={width} />
 
       <SEO pageTitle={`Blog - ${post.title} | Badshah Consulting`} metaDescription={post.shortBody}>
-        <meta property="og:title" content={`Blog - ${post.title} | shabazbadshah.com`} />
+        <meta property="og:title" content={`Blog - ${post.title} | Badshah Consulting`} />
         {/* <meta property="og:image" content={`/images/blog/${post.slug}/${post.heroImagePath}`} /> */}
         <meta property="og:description" content={post.shortBody} />
         <meta property="og:url" content={`https://shabazbadshah.com/blog/posts/${post.slug}`} />
@@ -121,7 +113,11 @@ export const getStaticProps = async ({
   const slug = params.slug as string;
   const post = apiRef.getPostBySlug(slug);
 
-  post.body = await serialize(post.body || '', {});
+  post.body = await serialize(post.body || '', {
+    mdxOptions: {
+      remarkPlugins: [remarkGfm]
+    }
+  });
 
   return {
     props: {

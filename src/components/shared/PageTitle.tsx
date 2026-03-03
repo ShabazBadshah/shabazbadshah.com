@@ -2,7 +2,7 @@ import React from 'react';
 import { Home } from 'lucide-react';
 
 import Link from '@/components/shared/Link';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/ui/button';
 
 type Props = {
   children: React.ReactNode;

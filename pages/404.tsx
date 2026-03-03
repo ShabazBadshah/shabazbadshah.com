@@ -1,7 +1,7 @@
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import SEO from '@/components/shared/SEO';
-import { Button } from '../src/components/ui/button';
+import { Button } from '../src/components/ui/ui/button';
 
 export default function PageNotFound() {
   return (

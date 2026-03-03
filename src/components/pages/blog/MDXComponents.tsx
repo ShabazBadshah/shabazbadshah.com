@@ -2,7 +2,7 @@
 /* eslint-disable  @typescript-eslint/explicit-module-boundary-types */
 
 import React from 'react';
-import { Separator } from '@/components/ui/separator';
+import { Separator } from '@/components/ui/ui/separator';
 import { BlogImage } from './BlogImage';
 import { ArticleCTA } from './ArticleCTA';
 

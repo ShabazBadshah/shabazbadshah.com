@@ -1,7 +1,7 @@
 import { Lightbulb } from 'lucide-react';
 
 import { trackWeeklyUpdateCTAClicked } from '@/analytics/tracking';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/ui/button';
 
 const WeeklySyftableUpdate = (): JSX.Element => {
   return (
