@@ -10,7 +10,6 @@ import remarkGfm from 'remark-gfm';
 import MDXComponents from '@/components/pages/blog/MDXComponents';
 import { BlogImage } from '@/components/pages/blog/BlogImage';
 import { LightboxProvider } from '@/components/pages/blog/LightboxContext';
-import ReadingProgressBar from '@/components/pages/blog/ReadingProgressBar';
 import SEO from '@/components/shared/SEO';
 import MainLayout from '@/layouts/MainLayout';
 import BlogAPI from '@/services/blog';
@@ -40,9 +39,7 @@ const BlogPost = ({ post }: Props) => {
   });
 
   return (
-    <MainLayout pageHeader={''}>
-      <ReadingProgressBar text={post.title} percent={width} />
-
+    <MainLayout>
       <SEO pageTitle={`Blog - ${post.title} | Badshah Consulting`} metaDescription={post.shortBody}>
         <meta property="og:title" content={`Blog - ${post.title} | Badshah Consulting`} />
         {/* <meta property="og:image" content={`/images/blog/${post.slug}/${post.heroImagePath}`} /> */}
