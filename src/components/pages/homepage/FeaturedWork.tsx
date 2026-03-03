@@ -98,7 +98,9 @@ export default function FeaturedWork(): JSX.Element {
                   height={24}
                   className="w-6 h-6 aspect-square object-contain"
                 />
-                <h3 className="text-2xl font-medium">{FEATURED_WORK_TITLE}</h3>
+                <a href="https://mednow.ca/" className="underline">
+                  <h3 className="text-2xl font-medium">{FEATURED_WORK_TITLE}</h3>
+                </a>
               </div>
               <p className="text-foreground/70">{FEATURED_WORK_DESCRIPTION}</p>
             </div>
