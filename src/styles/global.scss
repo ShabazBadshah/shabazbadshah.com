@@ -1,14 +1,6 @@
 html {
   height: 100%;
   scroll-behavior: smooth;
-  @font-face {
-    font-family: 'Inter';
-    src: url('https://fonts.googleapis.com/css2?family=Inter:wght@;400;500;600;700;800&display=swap');
-  }
-}
-
-body {
-  background-color: #fdfdfd;
 }
 
 table {
@@ -21,7 +13,7 @@ table {
 }
 
 table thead tr th {
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--border);
   border-top: none;
   border-left: none;
   border-right: none;
@@ -34,7 +26,7 @@ table tr td {
   padding-top: 12px;
   padding-left: 12px;
   padding-right: 12px;
-  border-right: 1px solid rgba(0, 0, 0, 0.12);
+  border-right: 1px solid var(--border);
 }
 
 table tr td:last-child {
