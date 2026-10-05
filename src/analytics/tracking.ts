@@ -32,10 +32,3 @@ export const trackPinnedPostClicked = (): void => {
     window?.gtag('event', EVENT_NAMES.SELECT_PINNED_POST);
   }
 };
-
-export const trackWeeklyUpdateCTAClicked = (): void => {
-  if (window && (window as any).gtag) {
-    // @ts-ignore
-    window?.gtag('event', EVENT_NAMES.SELECT_WEEKLY_UPDATE_CTA);
-  }
-};
