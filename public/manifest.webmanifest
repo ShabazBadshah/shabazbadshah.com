@@ -1,0 +1,12 @@
+{
+  "name": "shabazbadshah.com",
+  "short_name": "ShabazBadshah",
+  "description": "I integrate product strategy with technical execution to solve impactful business problems.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
+  "icons": [
+    { "src": "/images/favicon.png", "sizes": "500x500", "type": "image/png", "purpose": "any" }
+  ]
+}

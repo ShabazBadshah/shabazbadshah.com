@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import { join } from 'path';
 import matter from 'gray-matter';
+import dayjs from 'dayjs';
 
 const SITE_BASE_URL = 'shabazbadshah.com';
 const RELATIVE_PUBLIC_DIR_TO_SCRIPT_FILE = '../public';
@@ -63,7 +64,7 @@ function generateStaticBlogPostSitemap(): string {
       return `
         <url>
             <loc> ${blogPostURL} </loc>
-            <lastmod> ${publishedAt} </lastmod>
+            <lastmod> ${dayjs(publishedAt).format('YYYY-MM-DD')} </lastmod>
         </url>
       `;
     })

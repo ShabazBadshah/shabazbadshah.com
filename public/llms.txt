@@ -1,0 +1,34 @@
+# Shabaz Badshah (Shabaz Badshah)
+
+> Shabaz Badshah is a Product Engineer (FDE) & Technical Product Consultant based in Ontario, Canada. He integrates product strategy with technical execution to solve impactful business problems, with a specialty in healthcare digitization in Ontario: secure, compliance-first infrastructure for independent clinics.
+
+This site is the personal and consulting website of Shabaz Badshah. Content below is free to summarize and cite with attribution and a link to the source page.
+
+## Pages
+
+- [Home](https://shabazbadshah.com/): Introduction, about, contact links, selected work and blog posts
+
+## Selected work
+
+- [Mednow](https://shabazbadshah.com/#work): Shipped a B2C pharmacy app 0→1 to national launch.. A Canadian digital pharmacy app providing automated medication management and free nationwide delivery. It integrates holistic healthcare through virtual medical consultations, mental health support, and personalized wellness programs.
+- [Planned](https://shabazbadshah.com/#work): Reduced vendor onboarding time from 48h to 6h. REST API for consolidating disparate vendor data (Google Maps, PDFs, Yelp, etc.) using LLM technology to scale curated marketplace.
+- [SOTI](https://shabazbadshah.com/#work): Grew revenue by $27K MRR CAD post-release. A custom instant-messaging and video calling tool (web and mobile apps) to communicate between MDM devices in order to provide technical support.
+- [Project Include](https://shabazbadshah.com/#work): Ran 50+ workshops 250+ students prior to ending. An informational site volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
+
+## Blog
+
+- [2026 Ontario Health Tech Compliance: The Essential Guide for Clinic Owners](https://shabazbadshah.com/blog/posts/2026-ontario-healthcare-compliance-overview): Ontario regulations in 2026 have shifted from 'best practices' to 'enforced mandates.' Between new IPC fine powers, federal anti-data-blocking laws, and strict AI guidelines, clinic owners must ensure their infrastructure is auditable, interoperable, and hosted in Canada to stay protected. (2026-02-03)
+- [The 2026 Digital Patient Journey: Why UX is Your New Sales Engine](https://shabazbadshah.com/blog/posts/your-website-is-a-sales-channel-in-2026): In 2026, reviews get them to the link, but UX gets them into the chair. A terrible website experience is the quietest way to lose patients to the clinic down the street. To win, your site must be a fast, 'Ontario-Proof' conversion engine that respects the patient's time and anxiety levels. (2025-11-23)
+- [The End of the Handover: Why Product-Engineering Fusion is the Only Way to Build in 2026](https://shabazbadshah.com/blog/posts/the-end-of-the-handover-model): In 2025, the gap between 'Strategy' and 'Code' is where projects fail. Product-Engineering fusion is the only way to build resilient, strategically aligned infrastructure. By combining business judgment with personal architectural execution, the Fused Consultant builds operational engines that are technically robust, legally compliant, and built to scale for any industry. (2025-08-23)
+
+## Contact
+
+- [/in/shabaz-badshah](https://www.linkedin.com/in/shabaz-badshah/): Connect
+- [hello@shabazbadshah.com](mailto:hello@shabazbadshah.com): Email
+- [Video call](https://calendly.com/badshahconsulting/30min): Video call
+- [@ShabazBadshah](https://github.com/ShabazBadshah): Follow
+
+## Optional
+
+- [Full content for LLMs](https://shabazbadshah.com/llms-full.txt): Complete text of every blog post and project
+- [Sitemap](https://shabazbadshah.com/sitemap.xml): All indexable URLs
