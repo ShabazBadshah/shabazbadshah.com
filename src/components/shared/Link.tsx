@@ -15,7 +15,7 @@ const NavLink = (
   { href, as, prefetch, openInNewTab, className, ...props }: Props,
   ref: Ref<HTMLAnchorElement>
 ) => {
-  const linkClasses = cn('no-underline text-black cursor-pointer visited:text-black', className);
+  const linkClasses = cn('no-underline text-inherit cursor-pointer', className);
 
   return openInNewTab ? (
     <Link href={href} as={as} prefetch={prefetch} passHref>

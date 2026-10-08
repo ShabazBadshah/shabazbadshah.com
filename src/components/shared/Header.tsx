@@ -1,211 +1,105 @@
-import {
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  MoreHorizontal,
-  Calendar,
-  Linkedin,
-  Mail
-} from 'lucide-react';
-import { FaGithub } from 'react-icons/fa';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import { m } from 'framer-motion';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
+import ThemeToggle from '@/components/shared/ThemeToggle';
 import { siteConfig } from '@/config/site';
-import About from '@/components/shared/About';
-import Link from '@/components/shared/Link';
-import Socials from '@/components/shared/Socials';
-import { Button } from '@/components/ui/ui/button';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger
-} from '@/components/ui/ui/collapsible';
-import { Drawer, DrawerContent } from '@/components/ui/ui/drawer';
-import { trackConnectLinkClick } from '@/analytics/tracking';
-import type { socialMediaProfileProviders } from '@/components/shared/Socials';
+import { LAYOUT_TRANSITION } from '@/lib/motion';
 
-const getIconComponent = (provider: socialMediaProfileProviders) => {
-  switch (provider) {
-    case 'video':
-      return <Calendar className="w-5 h-5 shrink-0" />;
-    case 'email':
-      return <Mail className="w-5 h-5 shrink-0" />;
-    case 'linkedin':
-      return <Linkedin className="w-5 h-5 shrink-0 text-[#0077B5]" />;
-    case 'github':
-      return <FaGithub className="w-5 h-5 shrink-0" />;
-  }
+type Section = 'home' | 'work' | 'blog' | null;
+
+const SCROLL_SECTIONS: Exclude<Section, 'home' | null>[] = ['work', 'blog'];
+
+/** Active nav item: derived from the route on detail pages, from scroll position on the home page. */
+const useActiveSection = (): Section => {
+  const { pathname } = useRouter();
+  const [scrolled, setScrolled] = useState<Section>('home');
+
+  useEffect(() => {
+    if (pathname !== '/') return;
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const threshold = window.innerHeight * 0.4;
+      let current: Section = 'home';
+      for (const id of SCROLL_SECTIONS) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= threshold) current = id;
+      }
+      setScrolled(current);
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, [pathname]);
+
+  if (pathname === '/') return scrolled;
+  if (pathname.startsWith('/blog')) return 'blog';
+  if (pathname.startsWith('/work')) return 'work';
+  return null;
 };
 
-const HeaderContents = ({
-  onLinkClick,
-  isCollapsed,
-  onToggleCollapse,
-  fullHeight = true
-}: {
-  onLinkClick?: () => void;
-  isCollapsed?: boolean;
-  onToggleCollapse?: () => void;
-  fullHeight?: boolean;
-}) => {
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
+export default function Header(): JSX.Element {
+  const active = useActiveSection();
+  const { query } = useRouter();
+
+  // The article sheet takes over the whole screen
+  if (query.post) return <></>;
 
   return (
-    <div
-      className={`sticky top-0 flex flex-col p-4 transition-opacity duration-300 ${
-        fullHeight ? 'h-screen' : 'h-full'
-      }`}
-    >
-      <div>
-        <div className="flex flex-col items-start gap-2 pb-2 border-b -mx-4 px-4 transition-all duration-300">
-          <Link href="/" className="mb-2 flex items-center gap-2" onClick={onLinkClick}>
-            <div className="relative w-10 h-10 shrink-0 border border-sky-700/50 rounded-xl">
-              <Image
-                src={siteConfig.nav.logo.src}
-                alt={siteConfig.nav.logo.alt}
-                layout="fill"
-                objectFit="contain"
-                loading="eager"
-                className="rounded-xl"
-              />
-            </div>
-            <span
-              className={`font-medium text-foreground transition-all duration-300 text-lg ${
-                isCollapsed ? 'opacity-0 w-0 overflow-hidden' : 'opacity-100 delay-150'
-              }`}
+    <header className="pointer-events-none fixed inset-x-0 top-3 z-40 flex justify-center px-3 sm:top-4">
+      <nav
+        aria-label="Primary"
+        className="glass pointer-events-auto flex items-center gap-0.5 rounded-pill border border-line bg-elevated p-1"
+      >
+        <Link href="/" prefetch={false}>
+          <a
+            aria-label="Home"
+            className="inline-flex size-10 shrink-0 items-center justify-center rounded-pill"
+          >
+            <img src="/favicon.svg" alt="" width={32} height={32} className="size-7" />
+          </a>
+        </Link>
+        {siteConfig.nav.items.map((item) => {
+          const isActive = active === item.section;
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              scroll={item.section === 'home'}
+              prefetch={false}
             >
-              {siteConfig.name}
-            </span>
-          </Link>
-        </div>
-      </div>
-
-      <div className={`flex flex-col gap-8 ${fullHeight ? 'mt-auto' : 'mt-4'}`}>
-        <div
-          className={`border bg-gray-50 px-2 rounded-lg overflow-hidden transition-all duration-300 ${
-            isCollapsed
-              ? 'opacity-0 max-h-0 py-0 border-transparent'
-              : 'opacity-100 max-h-96 border-black/10'
-          }`}
-        >
-          <Collapsible open={isAboutOpen} onOpenChange={setIsAboutOpen}>
-            <CollapsibleTrigger asChild className="cursor-pointer">
-              <Button
-                variant="ghost"
-                className="flex items-center justify-between w-full px-0 h-auto hover:bg-transparent"
+              <a
+                aria-current={isActive ? 'true' : undefined}
+                className={`relative inline-flex h-8 items-center rounded-pill px-3 text-[0.9375rem] font-medium no-underline transition-colors duration-150 sm:px-4 ${
+                  isActive ? 'text-accent' : 'text-fg-muted hover:text-fg'
+                }`}
               >
-                <span className="text-base md:text-sm font-normal text-foreground whitespace-nowrap py-1">
-                  About
-                </span>
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform duration-200 ${
-                    isAboutOpen ? 'rotate-180' : ''
-                  }`}
-                />
-              </Button>
-            </CollapsibleTrigger>
-            <CollapsibleContent className="py-2.5">
-              <About />
-            </CollapsibleContent>
-          </Collapsible>
-        </div>
-
-        <Socials onLinkClick={onLinkClick} isCollapsed={isCollapsed} />
-
-        {onToggleCollapse && (
-          <div className="pt-4 px-4 border-t -mx-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="border border-gray-600 text-gray-600 hover:text-white hover:bg-black w-full rounded-lg"
-              onClick={onToggleCollapse}
-              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            >
-              {isCollapsed ? (
-                <ChevronRight className="w-6 h-6" />
-              ) : (
-                <div className="flex items-center gap-2">
-                  <ChevronLeft className="w-6 h-6" />
-                </div>
-              )}
-            </Button>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-export default function Header() {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia('(max-width: 900px)');
-    if (media.matches !== isMobile) {
-      setIsMobile(media.matches);
-    }
-    const listener = () => setIsMobile(media.matches);
-    window.addEventListener('resize', listener);
-    return () => window.removeEventListener('resize', listener);
-  }, [isMobile]);
-
-  // Auto-collapse on iPad and smaller
-  useEffect(() => {
-    const media = window.matchMedia('(max-width: 1024px)');
-    setIsCollapsed(media.matches && !isMobile);
-    const listener = () => setIsCollapsed(media.matches && !isMobile);
-    window.addEventListener('resize', listener);
-    return () => window.removeEventListener('resize', listener);
-  }, [isMobile]);
-
-  return (
-    <>
-      {isMobile && (
-        <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-          <DrawerContent className="bg-white">
-            <div className="overflow-y-auto">
-              <HeaderContents
-                onLinkClick={() => setIsDrawerOpen(false)}
-                isCollapsed={false}
-                fullHeight={false}
-              />
-            </div>
-          </DrawerContent>
-        </Drawer>
-      )}
-
-      <Button
-        variant="default"
-        className="flex md:hidden fixed z-10 bottom-[32px] rounded-full right-[32px] w-[64px] h-[64px] shadow-[0px_0px_25px_15px_rgba(0,0,0,0.05)] bg-black hover:bg-black"
-        onClick={() => setIsDrawerOpen(true)}
-        aria-label="Open navigation menu"
-      >
-        <MoreHorizontal style={{ width: '32px', height: '32px' }} className="text-white" />
-      </Button>
-
-      {/* Spacer for fixed header */}
-      <div
-        className={`hidden md:block transition-all duration-300 ${
-          isCollapsed ? 'w-[68px]' : 'w-[280px]'
-        }`}
-      />
-
-      {/* Fixed header */}
-      <div
-        className={`hidden md:block fixed left-0 top-0 h-screen border-r border-border transition-all duration-300 bg-white z-10 ${
-          isCollapsed ? 'w-[68px]' : 'w-[280px]'
-        }`}
-      >
-        <div className="relative h-full overflow-y-auto">
-          <HeaderContents
-            isCollapsed={isCollapsed}
-            onToggleCollapse={() => setIsCollapsed(!isCollapsed)}
-          />
-        </div>
-      </div>
-    </>
+                {isActive && (
+                  <m.span
+                    layoutId="nav-active"
+                    transition={LAYOUT_TRANSITION}
+                    className="absolute inset-0 rounded-pill bg-fill"
+                    aria-hidden="true"
+                  />
+                )}
+                <span className="relative">{item.label}</span>
+              </a>
+            </Link>
+          );
+        })}
+        <span aria-hidden="true" className="mx-0.5 h-5 w-px bg-line" />
+        <ThemeToggle />
+      </nav>
+    </header>
   );
 }
