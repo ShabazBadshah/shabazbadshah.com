@@ -9,6 +9,8 @@ export type Post = {
   tags: string[];
   readingTime: string;
   pinned: boolean;
+  /** Pre-rendered article HTML (MDX is compiled at build time) */
+  html?: string;
 };
 
 export type PostFrontmatter = {

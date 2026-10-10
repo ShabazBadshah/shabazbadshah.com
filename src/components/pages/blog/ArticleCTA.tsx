@@ -1,6 +1,5 @@
 import React from 'react';
 import { Calendar } from 'lucide-react';
-import { Button } from '@/components/ui/ui/button';
 
 interface ArticleCTAProps {
   title?: string;
@@ -16,23 +15,17 @@ export const ArticleCTA = ({
   buttonLink = 'https://calendly.com/badshahconsulting/30min'
 }: ArticleCTAProps) => {
   return (
-    <div className="my-12 border border-gray-300 bg-sky-100/30 px-4 py-8 rounded-lg">
-      <div className="max-w-2xl mx-auto text-center space-y-4">
-        <h3 className="text-2xl font-bold text-foreground">{title}</h3>
-        <p className="text-muted-foreground leading-relaxed">{description}</p>
+    <aside className="card my-12 px-6 py-10">
+      <div className="mx-auto max-w-2xl space-y-4 text-center">
+        <h2 className="text-2xl font-semibold">{title}</h2>
+        <p className="leading-relaxed text-fg-muted">{description}</p>
         <div className="pt-2">
-          <Button
-            size="lg"
-            className="gap-2 rounded-full bg-blue-400 text-white hover:bg-black"
-            asChild
-          >
-            <a href={buttonLink} className="text-lg font-normal">
-              <Calendar className="w-5 h-5" />
-              {buttonText}
-            </a>
-          </Button>
+          <a href={buttonLink} className="pill pill-accent">
+            <Calendar aria-hidden="true" className="size-[18px]" />
+            {buttonText}
+          </a>
         </div>
       </div>
-    </div>
+    </aside>
   );
 };

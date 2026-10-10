@@ -1,21 +1,19 @@
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import { ArrowLeft } from 'lucide-react';
 
 import { GetStaticPathsResult, GetStaticPropsResult } from 'next';
-import { MDXRemote } from 'next-mdx-remote';
-import { serialize } from 'next-mdx-remote/serialize';
+import Link from 'next/link';
 import { ParsedUrlQuery } from 'querystring';
-import remarkGfm from 'remark-gfm';
 
-import MDXComponents from '@/components/pages/blog/MDXComponents';
-import { BlogImage } from '@/components/pages/blog/BlogImage';
-import { LightboxProvider } from '@/components/pages/blog/LightboxContext';
+import BlogArticle from '@/components/pages/blog/BlogArticle';
+import { renderPostHtml } from '@/components/pages/blog/RenderPostHTML';
+import JsonLd from '@/components/shared/JsonLd';
 import SEO from '@/components/shared/SEO';
 import MainLayout from '@/layouts/MainLayout';
+import { plainText } from '@/lib/hooks';
+import { blogPostStructuredData } from '@/lib/structured-data';
 import BlogAPI from '@/services/blog';
 import { Post as PostType } from '@/services/blog/types';
-import { Sparkles } from 'lucide-react';
-import { ArticleCTA } from '../../../src/components/pages/blog/ArticleCTA';
 
 type Props = {
   post: PostType;
@@ -23,68 +21,26 @@ type Props = {
 };
 
 const BlogPost = ({ post }: Props) => {
-  const [width, setWidth] = useState(0);
-  const scrollHeight = () => {
-    const el = document.documentElement,
-      ScrollTop = el.scrollTop || document.body.scrollTop,
-      ScrollHeight = el.scrollHeight || document.body.scrollHeight;
-    const percent = (ScrollTop / (ScrollHeight - el.clientHeight)) * 100;
-    setWidth(percent);
-  };
-
-  //useEffect to control the component lifecycle
-  useEffect(() => {
-    window.addEventListener('scroll', scrollHeight);
-    return () => window.removeEventListener('scroll', scrollHeight);
-  });
+  const title = `Thoughts - ${post.title} | shabazbadshah.com`;
+  const description = plainText(post.shortBody);
 
   return (
-    <MainLayout>
-      <SEO pageTitle={`Blog - ${post.title} | Badshah Consulting`} metaDescription={post.shortBody}>
-        <meta property="og:title" content={`Blog - ${post.title} | Badshah Consulting`} />
-        {/* <meta property="og:image" content={`/images/blog/${post.slug}/${post.heroImagePath}`} /> */}
-        <meta property="og:description" content={post.shortBody} />
-        <meta property="og:url" content={`https://shabazbadshah.com/blog/posts/${post.slug}`} />
-      </SEO>
-      <article itemScope itemType="http://schema.org/article">
-        <LightboxProvider>
-          <div className="max-w-6xl my-8 mx-auto">
-            <header>
-              <div className="flex items-center gap-2 flex-wrap justify-between">
-                <div className="inline-flex gap-2 justify-center items-center border border-border rounded-full px-4 py-1.5">
-                  <span className="text-sm text-muted-foreground">Blog</span>
-                </div>
-                <div className="py-4">
-                  <div className="mb-3">
-                    <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-                    <p className="text-muted-foreground mb-4">
-                      {dayjs(post.publishedAt).format('MMM D, YYYY')}
-                      &nbsp;&bull;&nbsp;{post.readingTime}
-                    </p>
-                    {/* <div className="flex flex-row items-start gap-1 mt-2 flex-wrap w-full">
-                      <PostTags tags={post.tags} />
-                    </div> */}
-                  </div>
-
-                  <span className="mb-6 border border-gray-300 bg-sky-100/30 px-4 py-2 rounded-lg flex flex-row justify-center gap-2">
-                    <Sparkles className="shrink-0 w-6 h-6 mt-2 text-sky-800" />
-                    <h2 className="italic text-muted-foreground">{post.shortBody}</h2>
-                  </span>
-                </div>
-              </div>
-            </header>
-            <MDXRemote
-              {...post.body}
-              components={{
-                ...MDXComponents,
-                // Image component with lightbox functionality
-                img: (props: any) => <BlogImage {...props} slug={post.slug} />
-              }}
-            />
-          </div>
-        </LightboxProvider>
-      </article>
-      <ArticleCTA />
+    <MainLayout sheet>
+      <SEO
+        pageTitle={title}
+        metaDescription={description}
+        path={`/blog/posts/${post.slug}`}
+        type="article"
+        publishedAt={dayjs(post.publishedAt).format('YYYY-MM-DD')}
+      />
+      <JsonLd id="post-jsonld" data={blogPostStructuredData(post)} />
+      <Link className="cursor-pointer" href="/">
+        <a className="inline-flex h-10 items-center gap-1.5 rounded-pill border border-line bg-elevated px-4 text-sm font-medium text-fg-muted no-underline transition-colors hover:text-fg">
+          <ArrowLeft aria-hidden="true" className="size-4" />
+          Back
+        </a>
+      </Link>
+      <BlogArticle post={post} />
     </MainLayout>
   );
 };
@@ -105,21 +61,19 @@ export const getStaticProps = async ({
   params
 }: {
   params: ParsedUrlQuery;
-}): Promise<GetStaticPropsResult<any>> => {
+}): Promise<GetStaticPropsResult<Props>> => {
   const apiRef = new BlogAPI();
   const slug = params.slug as string;
   const post = apiRef.getPostBySlug(slug);
 
-  post.body = await serialize(post.body || '', {
-    mdxOptions: {
-      remarkPlugins: [remarkGfm]
-    }
-  });
+  const html = await renderPostHtml(post.slug, post.body || '');
 
   return {
     props: {
-      post,
-      suggestedPosts: apiRef.getSuggestedBlogPosts(2, post.tags)
+      post: { ...post, body: '', html },
+      suggestedPosts: apiRef
+        .getSuggestedBlogPosts(2, post.tags)
+        .map((suggested) => ({ ...suggested, body: '' }))
     }
   };
 };
