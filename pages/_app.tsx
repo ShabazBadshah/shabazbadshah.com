@@ -1,11 +1,23 @@
 import React, { useEffect } from 'react';
 import Head from 'next/head';
+import Script from 'next/script';
 import type { AppProps } from 'next/app';
+import { LazyMotion, MotionConfig } from 'framer-motion';
+import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from 'next-themes';
 
 import { trackPageView } from '@/analytics/tracking';
-import getCanonicalUrl from '@/utils/path/get-canonical-url';
+import CardTransitionProvider from '@/components/shared/CardTransition';
 import '@/styles/global.scss';
 import '@/styles/globals.css';
+
+// next-themes is typed for React 18 children; this repo still pins @types/react 17
+const ThemeProvider = NextThemesProvider as React.ComponentType<
+  React.PropsWithChildren<ThemeProviderProps>
+>;
+
+const loadMotionFeatures = () => import('@/lib/motion-features').then((mod) => mod.default);
+
+const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
 
 export default function App(props: AppProps): React.ReactNode {
   const { Component, pageProps, router } = props;
@@ -22,32 +34,46 @@ export default function App(props: AppProps): React.ReactNode {
   return (
     <>
       <Head>
-        <title>Home | Badshah Consulting</title>
-        <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
-        <meta content="initial-scale=1, width=device-width, user-scalable=yes" name="viewport" />
-        <meta
-          content="I'm a Product Manager who develops Fullstack web experiences during his downtime. This site catalogs things I learn, want to share, or anything cool I'm creating"
-          name="description"
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="light dark" />
+        <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="apple-touch-icon" href="/images/favicon.png" />
+        <link rel="manifest" href="/manifest.webmanifest" />
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llms.txt"
+          title="LLM-readable site summary"
         />
-        <link rel="canonical" href={getCanonicalUrl('https://shabazbadshah.com', router.asPath)} />
-        <script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+      </Head>
+      {GA_ID && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+            strategy="lazyOnload"
+          />
+          <Script id="googleAnalyticsTrackingScript" strategy="lazyOnload">
+            {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}', {
-                page_path: window.location.pathname
-              });`
-          }}
-          id="googleAnalyticsTrackingScript"
-        />
-      </Head>
-      <Component {...pageProps} />
+              gtag('config', '${GA_ID}', { page_path: window.location.pathname });
+            `}
+          </Script>
+        </>
+      )}
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+        {/* Layout/shared-element animation features load after first paint */}
+        <LazyMotion features={loadMotionFeatures}>
+          <MotionConfig reducedMotion="user">
+            <CardTransitionProvider>
+              <Component {...pageProps} />
+            </CardTransitionProvider>
+          </MotionConfig>
+        </LazyMotion>
+      </ThemeProvider>
     </>
   );
 }

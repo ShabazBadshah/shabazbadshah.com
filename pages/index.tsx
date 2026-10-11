@@ -1,37 +1,29 @@
 import { GetStaticPropsResult } from 'next';
 
-import PinnedPosts from '@/components/pages/homepage/PinnedPosts';
-import PortfolioSection from '@/components/pages/homepage/PortfolioSection';
+import { renderPostHtml } from '@/components/pages/blog/RenderPostHTML';
+import BentoHome from '@/components/pages/homepage/BentoHome';
+import JsonLd from '@/components/shared/JsonLd';
 import SEO from '@/components/shared/SEO';
+import { siteConfig } from '@/config/site';
 import MainLayout from '@/layouts/MainLayout';
+import { homeStructuredData } from '@/lib/structured-data';
 import BlogAPI from '@/services/blog';
 import { Post as PostType } from '@/services/blog/types';
-import Hero from '../src/components/shared/Hero';
 
 type Props = {
   posts: PostType[];
-  pinnedPosts: PostType[];
 };
 
-const Index = ({ posts, pinnedPosts }: Props): JSX.Element => {
+const Index = ({ posts }: Props): JSX.Element => {
   return (
     <MainLayout>
       <SEO
-        pageTitle="Home | Badshah Consulting"
+        pageTitle={siteConfig.seo.title}
         metaDescription="I'm Shabaz 👋, a Product Engineer. I partner with organizations facing complex, high-impact challenges and turn operational friction into secure, scalable digital systems."
+        path="/"
       />
-
-      <div className="flex flex-col gap-24">
-        <div className="my-2" id="hero">
-          <Hero />
-        </div>
-        <div className="my-2" id="blog">
-          <PinnedPosts posts={pinnedPosts} />
-        </div>
-        <div className="my-2" id="works">
-          <PortfolioSection />
-        </div>
-      </div>
+      <JsonLd id="home-jsonld" data={homeStructuredData()} />
+      <BentoHome posts={posts} />
     </MainLayout>
   );
 };
@@ -39,13 +31,14 @@ const Index = ({ posts, pinnedPosts }: Props): JSX.Element => {
 export default Index;
 
 export const getStaticProps = async (): Promise<GetStaticPropsResult<Props>> => {
-  const posts = new BlogAPI().getAllPosts();
-  return {
-    props: {
-      posts,
-      pinnedPosts: posts
-        .filter((post) => post.pinned)
-        .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-    }
-  };
+  // Articles ship pre-rendered with the home page so a card opens instantly, with no extra request
+  const posts = await Promise.all(
+    new BlogAPI().getAllPosts().map(async (post) => ({
+      ...post,
+      html: await renderPostHtml(post.slug, post.body || ''),
+      body: ''
+    }))
+  );
+
+  return { props: { posts } };
 };
