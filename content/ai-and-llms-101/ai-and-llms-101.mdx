@@ -1,0 +1,121 @@
+---
+title: 'AI and LLMs 101: A practical starter guide'
+shortBody: 'This guide explains the core vocabulary of modern AI, including prompts, tokens, agents, MCP, skills, plugins, and Claude Code, in plain language. It ends with five practical steps to start using AI on real work today.'
+heroImagePath: ''
+publishedAt: '2026-02-03'
+author: 'Shabaz Badshah'
+tags:
+  - healthcare
+  - compliance
+  - legal
+pinned: true
+---
+
+AI tools move fast, and the vocabulary moves faster. Models, agents, MCP, plugins, skills, Claude Code. If you feel behind, you're not alone.
+
+This guide explains the core terms in plain language so you can start using these tools with confidence.
+
+## The basics
+
+### What's an LLM?
+
+A large language model (LLM) is an AI system trained on huge amounts of text to predict what comes next. That simple skill, at enormous scale, lets it write, summarize, answer questions, and code.
+
+Claude (from Anthropic), ChatGPT (from OpenAI), and Gemini (from Google) are all built on LLMs.
+
+### Model vs. app
+
+The _model_ is the engine. The _app_ is the car built around it.
+
+When you use Claude in a browser or on your phone, you're using an app that wraps the model with features like file uploads, web search, memory, and connections to other tools. Developers can also use the model directly through an _API_ and build their own apps on top.
+
+### Prompts
+
+A _prompt_ is whatever you send the model. Better prompts get better results. A few rules that work almost every time:
+
+- **Be specific.** "Write a 300-word email to a client explaining a two-week delay" beats "write an email."
+- **Give context.** Who's the audience? What's the goal? What should it avoid?
+- **Show examples.** If you want a specific format or tone, paste a sample.
+- **Iterate.** Treat the first answer as a draft. Tell it what to change.
+
+### Tokens and context windows
+
+Models read text in chunks called _tokens_, roughly three-quarters of a word each in English. The _context window_ is how much text the model can consider at once, including your messages, its replies, and any files.
+
+When a conversation gets very long, older content may fall out of view. Starting a fresh conversation for a new task often gives better results.
+
+### Hallucinations
+
+LLMs sometimes state wrong things confidently. They're producing plausible text, and plausible isn't always true. Verify anything important, especially numbers, citations, and legal or medical facts.
+
+## Connecting AI to your world
+
+A model on its own only knows what it learned in training. The real power comes from connecting it to your data and tools.
+
+### Tools and agents
+
+A _tool_ is an action the model can take: search the web, read a file, run code, send a message. When a model can use tools, it can do things instead of just talking about them.
+
+An _agent_ is a model that uses tools in a loop to complete a multi-step task. You give it a goal, such as "find last quarter's top support issues and draft a summary," and it decides which tools to use, checks the results, and keeps going until it's done.
+
+### MCP (Model Context Protocol)
+
+The Model Context Protocol (MCP) is an open standard, introduced by Anthropic, for connecting AI apps to outside tools and data.
+
+Think of MCP like USB-C for AI. Before USB-C, every device needed its own cable. Before MCP, every AI app needed a custom integration for every service. With MCP, a service builds one _MCP server_, and any AI app that supports MCP can plug into it.
+
+In practice, MCP is what lets an AI assistant read your Google Drive, check your calendar, query a database, or create a ticket in your project tracker. In many apps, these show up as _connectors_ that you switch on.
+
+### Skills
+
+A _skill_ is a packaged set of instructions, and sometimes scripts or templates, that teaches the AI how to do a specific task well. For example, a skill might cover how to build a spreadsheet, follow your company's writing style, or run your team's code review checklist.
+
+The AI loads a skill only when it's relevant, so you can have many available without cluttering every conversation.
+
+### Plugins
+
+A _plugin_ bundles several of these pieces together, such as skills, commands, and MCP connections, into one installable package. Instead of setting up five things separately, you install one plugin built for a job, like sales workflows or deployments.
+
+## Claude Code and coding agents
+
+### What's Claude Code?
+
+Claude Code is Anthropic's agentic coding tool. Instead of pasting code into a chat window, you give Claude access to your project, and it can read files, write and edit code, run commands, and test its own work.
+
+You describe what you want, such as "add a login page" or "find why this test is failing," and it works through the task across your codebase. It started as a command-line tool and is now available in more places, including the web, desktop, and IDE integrations.
+
+### Why it matters
+
+Coding agents change who can build software and how fast. Engineers hand off routine work and focus on design and review. Non-engineers, like PMs and designers, can prototype ideas themselves instead of waiting on a team.
+
+The skill that matters most shifts from typing code to clearly describing what you want and judging whether the result is right.
+
+## How to get started
+
+1. **Pick one assistant and use it daily.** Claude, ChatGPT, or Gemini. Depth beats switching.
+2. **Start with real work.** Summarize a long document, draft an email you've been avoiding, or explain a concept you don't fully get.
+3. **Connect one tool.** Turn on a connector for something you use daily, like your email, calendar, or drive, and ask questions about your own data.
+4. **Try a coding agent on a small project.** Even if you don't code, ask it to build a simple web page or script and watch how it works.
+5. **Verify, then trust gradually.** Check its work early on. You'll learn quickly where it's reliable and where it needs a second look.
+
+## Quick glossary
+
+| Term           | What it means                                              |
+| :------------- | :--------------------------------------------------------- |
+| LLM            | An AI model trained to understand and generate text        |
+| Prompt         | What you send to the model                                 |
+| Token          | A chunk of text, roughly three-quarters of a word          |
+| Context window | How much text the model can consider at once               |
+| Hallucination  | A confident but false answer                               |
+| Tool           | An action the model can take, like search or run code      |
+| Agent          | A model that uses tools in a loop to finish a task         |
+| MCP            | An open standard for connecting AI apps to tools and data  |
+| Connector      | A ready-made connection to a service, often built on MCP   |
+| Skill          | Packaged instructions that teach the AI a specific task    |
+| Plugin         | A bundle of skills, commands, and connections              |
+| RAG            | Finding relevant documents first, then answering from them |
+| Claude Code    | Anthropic's agentic coding tool                            |
+
+## The takeaway
+
+You don't need to understand every acronym to get value from AI. Learn the core loop: a model predicts text, tools let it act, and standards like MCP connect it to your world. Then start using it on real work. That's where it clicks.

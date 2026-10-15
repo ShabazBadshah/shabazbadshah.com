@@ -1,0 +1,139 @@
+---
+title: 'How LLMs actually work: An intuitive guide'
+shortBody: 'LLMs work by predicting the next token, using embeddings to map meaning and attention to read context, then building a full answer one token at a time. Training on massive amounts of text, followed by fine-tuning for helpfulness, turns that simple loop into a capable assistant, which also explains why these models sometimes hallucinate.'
+heroImagePath: ''
+publishedAt: '2026-02-03'
+author: 'Shabaz Badshah'
+tags:
+  - healthcare
+  - compliance
+  - legal
+pinned: true
+---
+
+Large language models (LLMs) like Claude, ChatGPT, and Gemini can feel like magic. You type a question, and a fluent, often correct answer appears. But under the hood, there's no magic. There's a surprisingly simple core idea, scaled up to an enormous size.
+
+This guide walks through how LLMs work without math. By the end, you'll understand why they're so capable, why they sometimes make things up, and how to use them better.
+
+## The core idea: predict the next word
+
+At its heart, an LLM does one thing: it predicts what comes next.
+
+Give it "The cat sat on the," and it predicts "mat" is likely, "chair" is plausible, and "democracy" is unlikely. It picks a word, adds it to the text, and predicts again. Then again. Then again. A full answer is just this loop running hundreds of times.
+
+That sounds too simple to produce an essay, working code, or a legal summary. The trick is that predicting the next word _well_ requires understanding a lot. To finish "The capital of France is," you need geography. To finish a line of Python, you need to know Python. To finish "She was furious because," you need some model of human emotion.
+
+Train a system to predict text across a huge slice of the internet, books, and code, and it's forced to absorb grammar, facts, reasoning patterns, and style along the way. Next-word prediction is the task. Understanding is the side effect.
+
+## Step 1: Breaking text into tokens
+
+LLMs don't read words the way you do. They read _tokens_, which are chunks of text. A token might be a whole word ("cat"), part of a word ("un" + "believ" + "able"), or punctuation.
+
+In English, a token is roughly three-quarters of a word on average. That's why AI pricing and limits are measured in tokens, not words.
+
+Why chunks instead of letters or whole words? It's a trade-off. Letters are too small; the model would need far more steps to say anything. Whole words are too rigid; the model couldn't handle typos, new slang, or rare names. Chunks hit the middle: common words get one token, and unusual words get assembled from pieces.
+
+## Step 2: Turning tokens into meaning
+
+Computers work with numbers, so each token gets converted into a long list of numbers called an _embedding_. Think of an embedding as coordinates on a map of meaning.
+
+On this map, similar ideas sit close together. "Dog" sits near "puppy" and "wolf." "Paris" sits near "London" and "France." Directions on the map carry meaning too. The famous example: the path from "man" to "woman" runs roughly parallel to the path from "king" to "queen."
+
+Nobody draws this map by hand. The model learns it during training, because placing related ideas close together makes predicting the next word easier.
+
+## Step 3: Attention, or how the model reads context
+
+Words change meaning based on what's around them. "Bank" means something different in "river bank" and "bank account." The model needs a way to let each word look at the others and update its meaning.
+
+That's what _attention_ does. It's the key ingredient of the _transformer_, the architecture behind every modern LLM.
+
+Here's the intuition. Imagine every word in a sentence can ask the other words a question, like "Who here tells me what I'm about?" In "The animal didn't cross the street because it was too tired," the word "it" asks around and finds that "animal" is the best match, not "street." The model then blends information from "animal" into its understanding of "it."
+
+Every word does this, all at once, many times over. Each round is a _layer_, and large models stack dozens of them. Early layers tend to handle grammar and nearby words. Later layers handle bigger ideas: tone, intent, logic, what the whole paragraph is getting at.
+
+By the final layer, the model has a rich picture of the entire text so far, and it uses that picture to predict the next token.
+
+## Step 4: Training, or how the model learns
+
+A brand-new model knows nothing. Its internal settings, called _parameters_, start random. Modern models have billions of them. They're the dials that control how tokens become embeddings and how attention flows.
+
+Training works like this:
+
+1. Show the model some real text with the next word hidden.
+2. Let it guess.
+3. Measure how wrong the guess was.
+4. Nudge every parameter slightly in the direction that would have made the guess better.
+5. Repeat, trillions of times.
+
+No one programs the model to know that Paris is in France. It learns that because guessing "France" after "Paris is the capital of" kept getting rewarded. Everything the model knows emerges from this process.
+
+This first phase is called _pretraining_. It's extremely expensive and produces a model that's brilliant at continuing text but not great at being an assistant. Ask a raw pretrained model a question, and it might respond with more questions, because that's what often follows a question on the internet.
+
+## Step 5: Turning a text predictor into an assistant
+
+To make a model helpful, labs run more training on top:
+
+- **Fine-tuning on examples.** The model studies many examples of good conversations: a question followed by a clear, helpful answer. It learns the shape of being an assistant.
+- **Learning from feedback.** People (and increasingly, other AI systems) compare responses and mark which is better. The model gets nudged toward answers that are helpful, honest, and safe. You'll often see this called reinforcement learning from human feedback (RLHF).
+
+This stage is why assistants follow instructions, admit uncertainty (sometimes), and decline harmful requests. The underlying engine is still next-token prediction. Fine-tuning shapes _which_ tokens it prefers.
+
+## Step 6: Generating a response
+
+When you send a message, here's what happens:
+
+1. Your message, plus any earlier conversation, is converted into tokens.
+2. The model runs those tokens through all its layers.
+3. It outputs a probability for every possible next token.
+4. It picks one, appends it, and repeats until the answer is done.
+
+The model doesn't always pick the single most likely token. A setting called _temperature_ controls how adventurous it is. Low temperature means safe, predictable choices, which suits code and facts. Higher temperature means more variety, which suits brainstorming and creative writing. That's why asking the same question twice can give you two different answers.
+
+## The context window: the model's working memory
+
+An LLM can only consider a limited amount of text at once. That limit is the _context window_, measured in tokens.
+
+Everything the model "knows" about your conversation has to fit inside it: your messages, its replies, any documents you pasted. Once a conversation outgrows the window, older material falls out or has to be summarized.
+
+This matters a lot in practice. The model doesn't remember you between conversations unless a product feature stores and feeds information back in. Within a conversation, it's working from what's in front of it, plus what it absorbed during training.
+
+## Why LLMs make things up
+
+LLMs sometimes state false things with full confidence. This is called _hallucination_, and once you understand next-token prediction, it makes sense.
+
+The model's job is to produce plausible text. Most of the time, plausible and true overlap. But when the model lacks the right information, it doesn't have a built-in instinct to stop. It produces something that _sounds_ like a correct answer: a realistic-looking citation, a believable statistic, an API function that doesn't exist.
+
+Models have gotten much better at saying "I don't know," but the risk never fully disappears. A few habits help:
+
+- Give the model the source material instead of relying on its memory.
+- Ask it to cite where each claim came from.
+- Verify anything you'll act on, especially numbers, names, and legal or medical details.
+
+## What LLMs are good and bad at
+
+**Good at:**
+
+- Writing, rewriting, and summarizing
+- Explaining concepts at any level
+- Writing and debugging code
+- Pulling structure out of messy text
+- Brainstorming and drafting
+
+**Weaker at:**
+
+- Recent events, unless connected to search
+- Exact arithmetic over long chains, unless it can run code
+- Niche facts with little coverage in the training data
+- Knowing what it doesn't know
+
+## Is it really "understanding"?
+
+People argue about this constantly. One side says LLMs are just pattern matchers, predicting words with no real comprehension. The other side says that predicting text this well _requires_ building internal models of the world, and that's a form of understanding.
+
+The honest answer is that it's an open question, and partly a question of definitions. What's clear is that the "just autocomplete" framing undersells what these systems can do, and the "it thinks like a person" framing oversells it. They're a new kind of thing.
+
+## The takeaway
+
+Strip away the hype, and an LLM is a system trained to predict the next token. It chops text into tokens, maps them into a space of meaning, uses attention to understand context, and generates one token at a time. Scale that up with billions of parameters and trillions of training examples, then fine-tune it to be helpful, and you get a tool that can write, reason, and code.
+
+Understand that core loop, and the rest falls into place: why context matters, why it sometimes hallucinates, and why giving it the right information beats hoping it remembers.

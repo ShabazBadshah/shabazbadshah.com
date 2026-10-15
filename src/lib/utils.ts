@@ -1,6 +1,2 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+/** Strip the light markdown (bold) found in post summaries for plain-text display. */
+export const plainText = (value: string): string => value.replace(/\*\*/g, '');

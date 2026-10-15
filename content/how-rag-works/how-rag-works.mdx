@@ -1,0 +1,93 @@
+---
+title: 'How RAG (Retrieval-Augmented Generation) works'
+shortBody: 'RAG lets an AI answer questions about your own documents by finding the most relevant passages first and handing them to the model with the question. The model is the easy part; the quality of your chunking, search, and data freshness decides whether you get accurate answers or confident guesses.'
+heroImagePath: ''
+publishedAt: '2026-02-03'
+author: 'Shabaz Badshah'
+tags:
+  - healthcare
+  - compliance
+  - legal
+pinned: true
+---
+
+#
+
+Large language models (LLMs) know a lot, but they have two big gaps. They only know what was in their training data, which has a cutoff date. And they don't know anything about _your_ stuff: your company docs, your product manual, your support tickets, your contracts.
+
+Retrieval-augmented generation (RAG) fixes both. Instead of asking the model to answer from memory, you find the relevant information first and hand it over with the question.
+
+Think of it as turning a closed-book exam into an open-book one.
+
+## The problem RAG solves
+
+Ask a general AI model, "What's our refund policy for annual plans?" and one of two things happens. It admits it doesn't know, or worse, it invents a plausible-sounding policy.
+
+You could paste your entire policy library into every conversation, but that breaks down fast. Context windows have limits, large prompts cost more, and models get less precise when you bury the answer in thousands of pages.
+
+RAG takes a smarter route: find only the few passages that matter, and give the model those.
+
+## How RAG works, step by step
+
+RAG has two phases. You prepare your documents once, and then you retrieve from them every time someone asks a question.
+
+### Phase 1: Prepare your knowledge base
+
+1. **Collect your documents.** PDFs, help articles, wiki pages, tickets, whatever holds the answers.
+2. **Split them into chunks.** Break each document into smaller pieces, often a few paragraphs each. A whole manual is too big to retrieve usefully; a single sentence loses context. Chunking finds the middle.
+3. **Turn each chunk into an embedding.** An embedding model converts each chunk into a list of numbers that represents its meaning. Chunks about similar topics end up with similar numbers.
+4. **Store the embeddings.** Save them in a vector database, a database built to quickly find embeddings that are close to each other.
+
+### Phase 2: Answer a question
+
+1. **Embed the question.** The user's question goes through the same embedding model.
+2. **Search for similar chunks.** The vector database finds the chunks whose meaning is closest to the question.
+3. **Build the prompt.** Combine the question with the top few chunks, along with an instruction like "Answer using only the information below. If the answer isn't there, say so."
+4. **Generate the answer.** The LLM reads the retrieved material and writes a response grounded in it, ideally with references back to the source.
+
+## Why embeddings matter
+
+The magic of RAG is searching by _meaning_, not keywords.
+
+A keyword search for "cancel my subscription" might miss a help article titled "Ending your plan." An embedding search catches it, because both phrases point to the same idea. This is often called _semantic search_.
+
+That said, keyword search still has a job. Product codes, error messages, and names often match better on exact text. Many production systems use _hybrid search_, combining both methods.
+
+## Where RAG goes wrong
+
+RAG is simple to demo and hard to get right. Most failures come from retrieval, not the model:
+
+- **Bad chunking.** Split a table down the middle or separate a heading from its content, and the retrieved chunk won't make sense on its own.
+- **Wrong chunks retrieved.** If search pulls the wrong passages, the model answers confidently from the wrong source.
+- **Stale data.** If your knowledge base isn't updated when documents change, the AI keeps quoting the old policy.
+- **Missing permissions.** If retrieval ignores access rules, a user can get answers drawn from documents they shouldn't see. This matters a lot in healthcare, finance, and HR.
+- **Model ignores the context.** Sometimes the model blends retrieved facts with its own assumptions. Clear instructions and asking for citations help.
+
+## Making RAG better
+
+Teams improve RAG with a handful of techniques:
+
+- **Reranking.** Retrieve a larger set of candidate chunks, then use a second model to reorder them by true relevance.
+- **Metadata filters.** Tag chunks with date, department, product, or access level, and filter before searching.
+- **Query rewriting.** Rephrase vague or conversational questions into clearer search queries before retrieving.
+- **Citations.** Show users exactly which document each claim came from, so they can verify it.
+- **Evaluation.** Build a set of real questions with known answers and test against it every time you change the system.
+
+## RAG vs. fine-tuning
+
+People often ask whether they should use RAG or fine-tune a model on their data. They solve different problems.
+
+|               | RAG                             | Fine-tuning                             |
+| :------------ | :------------------------------ | :-------------------------------------- |
+| Best for      | Facts and knowledge that change | Style, format, and specialized behavior |
+| Updating      | Add or edit documents anytime   | Retrain the model                       |
+| Citations     | Easy, since you know the source | Hard, since knowledge is baked in       |
+| Cost to start | Lower                           | Higher                                  |
+
+For most "answer questions about our documents" use cases, start with RAG.
+
+## The takeaway
+
+RAG works by finding the right information first and then asking the model to answer from it. Embed your documents, search by meaning, hand the best matches to the model, and require it to stay grounded in what it was given.
+
+The model is the easy part. The quality of your retrieval decides whether your AI gives accurate answers or confident guesses.
