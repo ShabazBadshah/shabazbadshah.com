@@ -6,10 +6,13 @@ export type ProjectFeature = {
 export type Project = {
   slug: string;
   title: string;
+  date: string;
   website: string;
   logo: string;
   description: string;
   role: string;
+  disciplines: string[];
+  skills_and_technologies: string[];
   /** Headline metric, shown like a widget value */
   metric: string;
   expertise?: string;
@@ -24,6 +27,7 @@ export const PROJECTS: Project[] = [
   {
     slug: 'mednow',
     title: 'Mednow',
+    date: '2022',
     website: 'https://mednow.ca/',
     logo: '/images/portfolio/mednow-logo.png',
     description:
@@ -73,11 +77,32 @@ export const PROJECTS: Project[] = [
         height: 1726,
         alt: 'Mednow pharmacy app screen'
       }
+    ],
+    disciplines: [
+      'Product Management (0 to 1 scaling)',
+      'Platform and Systems Integration',
+      'Stakeholder Management and Cross-functional Collaboration',
+      'Healthcare Compliance',
+      'E-commerce and Logistics Integration',
+      'Release Management and Quality Assurance'
+    ],
+    skills_and_technologies: [
+      'iOS and Android mobile app development',
+      'Figma',
+      'TELUS Kroll PMS',
+      'Stripe',
+      'Stream Chat',
+      'PIPEDA compliance',
+      'PHIPA compliance',
+      'Shopify eCommerce integration',
+      'Social SSO (Apple/Google)',
+      'Native push notifications'
     ]
   },
   {
     slug: 'planned',
     title: 'Planned',
+    date: '2023',
     website: 'https://planned.com/',
     logo: '/images/portfolio/planned-logo.png',
     description:
@@ -85,11 +110,26 @@ export const PROJECTS: Project[] = [
     role: 'Product manager',
     metric: 'Reduced vendor onboarding time from 48h to 6h',
     expertise: 'Technical architecture, REST APIs, ETL, AI, LLMs',
-    image: { src: '/images/portfolio/planned.png', width: 1866, height: 1007, alt: 'Planned' }
+    image: { src: '/images/portfolio/planned.png', width: 1866, height: 1007, alt: 'Planned' },
+    disciplines: [
+      'Product Management',
+      'Technical Discovery and Proof-of-Concept',
+      'Data Engineering (Ingestion Pipeline Design)',
+      'Workflow Automation',
+      'System Design and Architecture'
+    ],
+    skills_and_technologies: [
+      'LLMs (ChatGPT)',
+      'Internal REST APIs',
+      'Google Maps API',
+      'Website scraping',
+      'Data enrichment pipelines'
+    ]
   },
   {
     slug: 'soti',
     title: 'SOTI',
+    date: '2024',
     website: 'https://soti.net',
     logo: '/images/portfolio/soti-logo.png',
     description:
@@ -106,11 +146,26 @@ export const PROJECTS: Project[] = [
     video: {
       src: '/images/portfolio/xsight-video.mp4',
       poster: '/images/portfolio/soti-poster.jpg'
-    }
+    },
+    disciplines: [
+      'Technical Product Management',
+      'UI/UX Design',
+      'Quality Assurance (Design QA)',
+      'Technical Writing (API and System Specifications)',
+      'Systems Integration Architecture'
+    ],
+    skills_and_technologies: [
+      'Android Enterprise',
+      'WebRTC',
+      'Real-time communication tools',
+      'REST APIs and request/response schemas',
+      'Data modeling'
+    ]
   },
   {
     slug: 'project-include',
     title: 'Project Include',
+    date: '2020',
     website: 'https://www.facebook.com/hashtagprojectinclude/',
     logo: '/images/portfolio/project-include-logo.png',
     description:
@@ -123,6 +178,14 @@ export const PROJECTS: Project[] = [
       width: 1842,
       height: 983,
       alt: 'Project Include'
-    }
+    },
+    disciplines: [
+      'Frontend Web Development',
+      'Software Migration',
+      'Content Management System (CMS) Integration',
+      'Marketing Automation',
+      'Web Analytics'
+    ],
+    skills_and_technologies: ['React.JS', 'Next.JS', 'Contentful CMS', 'GA4']
   }
 ];
