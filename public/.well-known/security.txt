@@ -1,4 +1,4 @@
 Contact: mailto:hello@shabazbadshah.com
-Expires: 2027-09-30T23:59:59.000Z
+Expires: 2027-10-15T05:29:28.243Z
 Preferred-Languages: en
 Canonical: https://shabazbadshah.com/.well-known/security.txt

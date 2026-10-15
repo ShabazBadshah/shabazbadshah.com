@@ -1,6 +1,6 @@
 # Shabaz Badshah (Shabaz Badshah)
 
-> Shabaz Badshah is a Product Engineer (FDE) & Technical Product Consultant based in Ontario, Canada. He integrates product strategy with technical execution to solve impactful business problems, with a specialty in healthcare digitization in Ontario: secure, compliance-first infrastructure for independent clinics.
+> Shabaz Badshah is a Product Engineer (FDE) & Technical Product Consultant based in Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
 
 This site is the personal and consulting website of Shabaz Badshah. Content below is free to summarize and cite with attribution and a link to the source page.
 
@@ -17,16 +17,18 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 
 ## Blog
 
-- [2026 Ontario Health Tech Compliance: The Essential Guide for Clinic Owners](https://shabazbadshah.com/blog/posts/2026-ontario-healthcare-compliance-overview): Ontario regulations in 2026 have shifted from 'best practices' to 'enforced mandates.' Between new IPC fine powers, federal anti-data-blocking laws, and strict AI guidelines, clinic owners must ensure their infrastructure is auditable, interoperable, and hosted in Canada to stay protected. (2026-02-03)
-- [The 2026 Digital Patient Journey: Why UX is Your New Sales Engine](https://shabazbadshah.com/blog/posts/your-website-is-a-sales-channel-in-2026): In 2026, reviews get them to the link, but UX gets them into the chair. A terrible website experience is the quietest way to lose patients to the clinic down the street. To win, your site must be a fast, 'Ontario-Proof' conversion engine that respects the patient's time and anxiety levels. (2025-11-23)
-- [The End of the Handover: Why Product-Engineering Fusion is the Only Way to Build in 2026](https://shabazbadshah.com/blog/posts/the-end-of-the-handover-model): In 2025, the gap between 'Strategy' and 'Code' is where projects fail. Product-Engineering fusion is the only way to build resilient, strategically aligned infrastructure. By combining business judgment with personal architectural execution, the Fused Consultant builds operational engines that are technically robust, legally compliant, and built to scale for any industry. (2025-08-23)
+- [What Ontario clinics need to know about digital health rules in 2026](https://shabazbadshah.com/blog/posts/2026-ontario-healthcare-compliance-overview): Ontario clinics now face direct privacy fines, new oversight expectations for AI scribes, federal rules against vendors locking up patient data, and a push toward a shared provincial health record. To stay compliant, clinics should check their audit logs, AI review processes, data export capabilities, staff access controls, and where their patient data is stored. (2026-02-03)
+- [AI and LLMs 101: A practical starter guide](https://shabazbadshah.com/blog/posts/ai-and-llms-101): This guide explains the core vocabulary of modern AI, including prompts, tokens, agents, MCP, skills, plugins, and Claude Code, in plain language. It ends with five practical steps to start using AI on real work today. (2026-02-03)
+- [How LLMs actually work: An intuitive guide](https://shabazbadshah.com/blog/posts/how-llms-actually-work): LLMs work by predicting the next token, using embeddings to map meaning and attention to read context, then building a full answer one token at a time. Training on massive amounts of text, followed by fine-tuning for helpfulness, turns that simple loop into a capable assistant, which also explains why these models sometimes hallucinate. (2026-02-03)
+- [How RAG (Retrieval-Augmented Generation) works](https://shabazbadshah.com/blog/posts/how-rag-works): RAG lets an AI answer questions about your own documents by finding the most relevant passages first and handing them to the model with the question. The model is the easy part; the quality of your chunking, search, and data freshness decides whether you get accurate answers or confident guesses. (2026-02-03)
+- [The end of the handoff: Why product and engineering need to merge](https://shabazbadshah.com/blog/posts/the-end-of-the-handover-model): AI has made building software cheap, so the real bottleneck is now knowing what to build, and the old handoff between product managers and engineers wastes time, loses intent, and creates technical debt. Product-engineering fusion, modeled on the forward deployed engineer, puts business judgment and technical execution in one owner, producing simpler, compliant, and more usable systems faster than a traditional siloed agency. (2025-08-23)
 
 ## Contact
 
 - [/in/shabaz-badshah](https://www.linkedin.com/in/shabaz-badshah/): Connect
-- [hello@shabazbadshah.com](mailto:hello@shabazbadshah.com): Email
-- [Video call](https://calendly.com/badshahconsulting/30min): Video call
 - [@ShabazBadshah](https://github.com/ShabazBadshah): Follow
+- [hello@shabazbadshah.com](mailto:hello@shabazbadshah.com): Email
+- [Video call](https://calendly.com/badshah-shabaz/30min): Video call
 
 ## Optional
 
@@ -85,191 +87,485 @@ An informational site volunteer nonprofit that empowers low socio-economic commu
 
 # Blog posts (full text)
 
-## 2026 Ontario Health Tech Compliance: The Essential Guide for Clinic Owners
+## What Ontario clinics need to know about digital health rules in 2026
 
 URL: https://shabazbadshah.com/blog/posts/2026-ontario-healthcare-compliance-overview
 Published: 2026-02-03
 Author: Shabaz Badshah
 Tags: healthcare, compliance, legal
 
-In 2026, healthcare digitization in Ontario is no longer a "recommendation"—it is a strictly regulated environment. With the **Information and Privacy Commissioner (IPC)** now issuing direct financial penalties and the federal government enforcing **Bill S-5 (The Connected Care for Canadians Act)**, clinic owners face a new level of accountability.
+Running a clinic in Ontario now means meeting real legal standards for how you handle patient data. The privacy commissioner can fine you directly, and new federal rules are changing how health software has to work. This article covers five areas to check.
 
-If you are navigating the transition to a digital-first practice, these are the five non-negotiable regulatory updates you must implement to stay compliant and avoid significant liability.
+## 1. Privacy fines no longer need a court
 
-## Administrative Monetary Penalties (AMPs)
+The Information and Privacy Commissioner of Ontario (IPC) can now fine you without going to court first.
 
-As of 2024 and expanding into 2026, the IPC no longer requires a court order to fine you for privacy breaches.
+- **What changed:** Under the Personal Health Information Protection Act (PHIPA), the IPC can issue fines called administrative monetary penalties.
+- **How much:** Up to $50,000 for an individual and $500,000 for an organization.
+- **What triggers them:** Serious breaches, such as staff looking at records they have no reason to see.
+- **What to do:** Make sure your system logs every time someone opens or changes a patient record. Each log entry should show who did it, when, and what they did. Nobody, including admins, should be able to edit those logs.
 
-- **The Regulation:** Under updated PHIPA regulations, the IPC can now issue **Administrative Monetary Penalties (AMPs)** directly for non-compliance.
-- **The Risk:** Fines can reach up to **$50,000 for individuals** and **$500,000 for organizations** for serious violations like unauthorized "snooping" or failing to maintain proper electronic audit logs.
-- **The Fix:** Your system must have **Immutable Audit Logs**. Every time a patient record is accessed or modified, it must be logged with the user’s identity, timestamp, and action. These logs must be tamper-proof and ready for immediate provincial review.
+## 2. AI scribes need oversight
 
-## "Trustworthy AI" Governance
+If you use an AI tool to write clinical notes, the IPC expects you to manage it carefully.
 
-With the surge in AI note-taking tools (AI Scribes), Ontario has introduced strict transparency principles.
+- **Before you start:** Complete a privacy impact assessment.
+- **Tell patients:** Let patients know you use AI in their care.
+- **Check every note:** A clinician must review and approve each AI-generated note before it goes in the chart.
+- **Check your vendor:** Find out whether the vendor uses your patient data to train its models. If it does, ask how it removes identifying details.
 
-- **The Regulation:** The IPC’s _"AI Scribes: Key Considerations for the Health Sector"_ framework.
-- **The Requirement:** You must conduct a **Privacy Impact Assessment (PIA)** before deploying AI tools. You are also required to disclose AI use to patients and maintain a "human-in-the-loop"—meaning a clinician must verify every AI-generated note for medical accuracy.
-- **The Fix:** Ensure your vendor contracts explicitly state compliance with Ontario’s 2026 AI Governance framework. If the AI model "learns" from your patient data without anonymization, you are in violation of PHIPA.
+## 3. Your software vendor can't hold your data hostage
 
-## The End of "Data Blocking"
+The federal Connected Care for Canadians Act targets vendors that make it hard to move or share your data.
 
-The federal **Connected Care for Canadians Act (Bill S-5)**, fully active in 2026, targets software vendors that trap your data.
+- **What it bans:** Charging unreasonable fees or using closed formats to stop you from exporting data or sharing it with other providers.
+- **What it expects:** Health software that uses common standards, such as HL7 FHIR.
+- **What to do:** At your next contract renewal, ask the vendor to show that you can export your data for referrals or a switch to another system.
 
-- **The Regulation:** It prohibits "Data Blocking." Software vendors can no longer charge exorbitant fees or use proprietary formats to prevent you from moving your data or sharing it with other health providers.
-- **The Requirement:** All digital health technology used in Ontario must adopt common standards (like **HL7 FHIR**) for secure information exchange.
-- **The Fix:** When renewing software contracts, demand proof of **interoperability conformance**. If your vendor can’t export your data easily for a referral or a system migration, they are likely in breach of the new federal mandate.
+## 4. Ontario is connecting records across the province
 
-## The Move to "Integrated Care"
+Ontario Health is building a shared provincial health record.
 
-Ontario Health is aggressively centralizing the **Provincial Electronic Health Record (EHR)** via the _Digital Health Information Exchange (DHIEX)_.
+- **What it means for you:** Some primary care models must contribute data to the provincial record.
+- **Patient access:** Patients use verified digital identities to see their own records.
+- **What to do:** Check whether your patient portal and virtual care tools meet Ontario Health's requirements, especially if your funding depends on them.
 
-- **The Regulation:** Mandatory contribution to the provincial record for specific primary care models.
-- **The Requirement:** Secure digital health identifiers are now mandatory for patients to access their own records via verified portals.
-- **The Fix:** Ensure your patient portal is **Ontario Health Verified**. Non-verified systems may exclude your clinic from provincial funding incentives tied to roster size and data quality.
+## 5. Know where your data lives
 
-## Mandatory Canadian Data Residency
+Data location matters, but the rules are narrower than many people assume.
 
-A common 2026 pitfall is assuming any "Cloud" provider is safe. For Ontario healthcare, server location is a matter of law.
+- **What the law says:** PHIPA doesn't require you to store data in Canada. You are responsible for protecting it wherever it's stored.
+- **The real risk:** Data on US servers can fall under US laws that let authorities request access. Many clinics, health organizations, and patients prefer Canadian hosting for that reason.
+- **What to do:** Find out where your EMR, backups, and messaging tools store data. If any of it is outside Canada, document why and how you protect it, and check whether your contracts or funding agreements require Canadian hosting.
 
-- **The Reality:** PHIPA and provincial stewardship expectations require that personal health information (PHI) be stored and processed on **Canadian soil**.
-- **The Risk:** US-based servers are subject to the Patriot Act, which creates a jurisdictional conflict that the Ontario IPC increasingly rejects.
-- **The Fix:** Audit your vendors. Your EMR, your cloud backup, and even your secure messaging tools must be hosted in Canadian data centers.
+## Quick checklist
 
-## 2026 Compliance Checklist
-
-| Requirement      | 2026 Status | Immediate Action                                         |
-| :--------------- | :---------- | :------------------------------------------------------- |
-| Audit Logs       | Mandatory   | Verify logs record User ID, Time, and Patient ID.        |
-| AI Governance    | New         | Complete a Privacy Impact Assessment (PIA) for AI tools. |
-| Data Residency   | Mandatory   | Confirm all PHI is stored on Canadian servers.           |
-| Interoperability | New         | Ensure software supports HL7 FHIR standards.             |
-| Access Control   | Mandatory   | Implement Role-Based Access (RBAC) for all staff.        |
-
-## Conclusion
-
-The 2026 regulatory landscape is designed to protect patients, but it places a heavy technical burden on clinic owners. You don't have to be a privacy expert to run a modern practice—you just need a system that is **Compliant by Design.** Is your clinic ready for a 2026 IPC Audit?
-
-I help Ontario clinics audit their current infrastructure against these new mandates. We’ll identify your risks and build a roadmap to total provincial compliance, giving you the peace of mind to focus on what matters: patient care.
+| Area          | What to check                                                                         |
+| :------------ | :------------------------------------------------------------------------------------ |
+| Audit logs    | Every record access is logged with user, time, and patient, and logs can't be edited. |
+| AI tools      | You've done a privacy impact assessment and clinicians review every AI note.          |
+| Data location | You know where every system stores patient data and have a reason for each choice.    |
+| Data sharing  | Your software can export data in a standard format such as HL7 FHIR.                  |
+| Staff access  | Each staff member can see only what their role needs.                                 |
 
 ---
 
-## The 2026 Digital Patient Journey: Why UX is Your New Sales Engine
+## AI and LLMs 101: A practical starter guide
 
-URL: https://shabazbadshah.com/blog/posts/your-website-is-a-sales-channel-in-2026
-Published: 2025-11-23
+URL: https://shabazbadshah.com/blog/posts/ai-and-llms-101
+Published: 2026-02-03
 Author: Shabaz Badshah
-Tags: healthcare, compliance, legal, websites, patient experience, sales
+Tags: healthcare, compliance, legal
 
-As we move into 2026, the digital landscape for Ontario healthcare has shifted. A common mistake clinic owners make is believing that a high Google Maps rating is enough to sustain a practice.
+AI tools move fast, and the vocabulary moves faster. Models, agents, MCP, plugins, skills, Claude Code. If you feel behind, you're not alone.
 
-The reality? **In 2026, your website is no longer a digital brochure—it is your primary sales funnel.** While a 4.8-star rating might get a patient to click your link, a terrible user experience (UX) acts as an immediate "rejection signal." If your site is slow, cluttered, or difficult to navigate on a phone, patients don't just leave; they subconsciously conclude that your **clinical care** will be just as disorganized.
+This guide explains the core terms in plain language so you can start using these tools with confidence.
 
-Here is why your website’s UX is the "make or break" factor for patient acquisition and engagement this year.
+## The basics
 
-## The "Trust Gap"
+### What's an LLM?
 
-In 2026, patients are more "digitally literate" than ever. They know that star ratings can be managed, but a **clunky website cannot be hidden.** * **The Psychology of Friction:** When a patient encounters a "broken" experience—like a booking button that doesn't work on mobile or a confusing menu—they experience a micro-spike in cortisol (stress). In a healthcare context, this is fatal. A patient in pain or seeking a specialist is looking for *relief\*, not another obstacle.
+A large language model (LLM) is an AI system trained on huge amounts of text to predict what comes next. That simple skill, at enormous scale, lets it write, summarize, answer questions, and code.
 
-- **The 3-Second Rule:** Data shows that 53% of mobile users abandon a site that takes longer than three seconds to load. In 2026, if your site is slow, your "sales funnel" isn't leaking—it’s wide open.
+Claude (from Anthropic), ChatGPT (from OpenAI), and Gemini (from Google) are all built on LLMs.
 
-## The Website as an Operational "Proof of Concept"
+### Model vs. app
 
-Your website is the first "clinical interaction" a patient has with you. If the digital front door is stuck, they assume the exam room will be too.
+The _model_ is the engine. The _app_ is the car built around it.
 
-- **Professionalism vs. Neglect:** A modern, high-performing site signals that you invest in quality and efficiency. Conversely, an outdated site with blurry photos and "Under Construction" tags signals a practice that is "hanging on" rather than thriving.
-- **Conversion Optimization (CRO):** A successful 2026 clinic website treats every visitor as a high-intent lead. It uses **Clear Call-to-Actions (CTAs)** like _"Check Today's Availability"_ instead of passive "Contact Us" forms. This shift alone can increase patient intake by 20% without spending an extra dollar on ads.
+When you use Claude in a browser or on your phone, you're using an app that wraps the model with features like file uploads, web search, memory, and connections to other tools. Developers can also use the model directly through an _API_ and build their own apps on top.
 
-# Pillars of the 2026 High-Conversion Clinic Website
+### Prompts
 
-To optimize for sales and engagement, your site must solve for **Friction, Anxiety, and Trust.**
+A _prompt_ is whatever you send the model. Better prompts get better results. A few rules that work almost every time:
 
-### 1. The UX of "Calm": Reducing Cognitive Load
+- **Be specific.** "Write a 300-word email to a client explaining a two-week delay" beats "write an email."
+- **Give context.** Who's the audience? What's the goal? What should it avoid?
+- **Show examples.** If you want a specific format or tone, paste a sample.
+- **Iterate.** Treat the first answer as a draft. Tell it what to change.
 
-- **Mobile-First is Non-Negotiable:** Over 70% of patient searches in Ontario now happen on smartphones. If your "Book Now" button isn't thumb-friendly, you are effectively "closed" to the majority of the market.
-- **Progressive Disclosure:** Instead of overwhelming patients with a 20-field intake form, use multi-step logic. _Step 1: What is your pain point? Step 2: Choose your provider. Step 3: Pick a time._ This "micro-commitment" strategy keeps patients moving through the funnel.
+### Tokens and context windows
 
-### 2. Strategic Engagement: The "Invisible" Clinic
+Models read text in chunks called _tokens_, roughly three-quarters of a word each in English. The _context window_ is how much text the model can consider at once, including your messages, its replies, and any files.
 
-Engagement is measured by how much "invisible work" the patient can complete without calling your front desk.
+When a conversation gets very long, older content may fall out of view. Starting a fresh conversation for a new task often gives better results.
 
-- **Immediate Booking Paths:** 77% of patients now prioritize the ability to book, change, or cancel appointments online. A live scheduling tool that syncs with your EMR is the single most effective "sales" feature you can add.
-- **AI-Powered Triage:** 24/7 AI agents can answer: _"Do I need a referral for this?"_ or _"Is parking validated?"_ These interactions reduce abandonment by up to 85% by providing immediate value before the "sale."
+### Hallucinations
 
-### 3. The Ontario Competitive Edge: "Compliance as a Brand"
+LLMs sometimes state wrong things confidently. They're producing plausible text, and plausible isn't always true. Verify anything important, especially numbers, citations, and legal or medical facts.
 
-In 2026, data privacy is a top-three concern for Canadian patients.
+## Connecting AI to your world
 
-- **Trust Badging:** Proudly display "PHIPA Compliant" and "Canadian Data Residency" badges.
-- **Bill S-5 Transparency:** Explicitly mention that you support **HL7 FHIR (Data Portability)**. This tells patients that their data is theirs to keep, removing the "fear of being trapped" by a provider—a common deterrent in switching clinics.
+A model on its own only knows what it learned in training. The real power comes from connecting it to your data and tools.
 
-## Comparison: The Cost of Poor UX in 2026
+### Tools and agents
 
-| Metric               | The "Static" Site (Bad UX)          | The "Sales Funnel" Site (High UX)      |
-| :------------------- | :---------------------------------- | :------------------------------------- |
-| **First Impression** | "This looks like an old template."  | "This clinic is modern and efficient." |
-| **Conversion Rate**  | 1–2% (High Bounce Rate)             | 5–15% (Low Friction)                   |
-| **Patient Trust**    | Skeptical; relies only on reviews.  | High; the site _proves_ competence.    |
-| **Admin Burden**     | Staff spends 4+ hours/day on calls. | 60% of bookings are autonomous.        |
-| **Compliance**       | Hidden or non-existent.             | Visible "Security Fortress" branding.  |
+A _tool_ is an action the model can take: search the web, read a file, run code, send a message. When a model can use tools, it can do things instead of just talking about them.
+
+An _agent_ is a model that uses tools in a loop to complete a multi-step task. You give it a goal, such as "find last quarter's top support issues and draft a summary," and it decides which tools to use, checks the results, and keeps going until it's done.
+
+### MCP (Model Context Protocol)
+
+The Model Context Protocol (MCP) is an open standard, introduced by Anthropic, for connecting AI apps to outside tools and data.
+
+Think of MCP like USB-C for AI. Before USB-C, every device needed its own cable. Before MCP, every AI app needed a custom integration for every service. With MCP, a service builds one _MCP server_, and any AI app that supports MCP can plug into it.
+
+In practice, MCP is what lets an AI assistant read your Google Drive, check your calendar, query a database, or create a ticket in your project tracker. In many apps, these show up as _connectors_ that you switch on.
+
+### Skills
+
+A _skill_ is a packaged set of instructions, and sometimes scripts or templates, that teaches the AI how to do a specific task well. For example, a skill might cover how to build a spreadsheet, follow your company's writing style, or run your team's code review checklist.
+
+The AI loads a skill only when it's relevant, so you can have many available without cluttering every conversation.
+
+### Plugins
+
+A _plugin_ bundles several of these pieces together, such as skills, commands, and MCP connections, into one installable package. Instead of setting up five things separately, you install one plugin built for a job, like sales workflows or deployments.
+
+## Claude Code and coding agents
+
+### What's Claude Code?
+
+Claude Code is Anthropic's agentic coding tool. Instead of pasting code into a chat window, you give Claude access to your project, and it can read files, write and edit code, run commands, and test its own work.
+
+You describe what you want, such as "add a login page" or "find why this test is failing," and it works through the task across your codebase. It started as a command-line tool and is now available in more places, including the web, desktop, and IDE integrations.
+
+### Why it matters
+
+Coding agents change who can build software and how fast. Engineers hand off routine work and focus on design and review. Non-engineers, like PMs and designers, can prototype ideas themselves instead of waiting on a team.
+
+The skill that matters most shifts from typing code to clearly describing what you want and judging whether the result is right.
+
+## How to get started
+
+1. **Pick one assistant and use it daily.** Claude, ChatGPT, or Gemini. Depth beats switching.
+2. **Start with real work.** Summarize a long document, draft an email you've been avoiding, or explain a concept you don't fully get.
+3. **Connect one tool.** Turn on a connector for something you use daily, like your email, calendar, or drive, and ask questions about your own data.
+4. **Try a coding agent on a small project.** Even if you don't code, ask it to build a simple web page or script and watch how it works.
+5. **Verify, then trust gradually.** Check its work early on. You'll learn quickly where it's reliable and where it needs a second look.
+
+## Quick glossary
+
+| Term           | What it means                                              |
+| :------------- | :--------------------------------------------------------- |
+| LLM            | An AI model trained to understand and generate text        |
+| Prompt         | What you send to the model                                 |
+| Token          | A chunk of text, roughly three-quarters of a word          |
+| Context window | How much text the model can consider at once               |
+| Hallucination  | A confident but false answer                               |
+| Tool           | An action the model can take, like search or run code      |
+| Agent          | A model that uses tools in a loop to finish a task         |
+| MCP            | An open standard for connecting AI apps to tools and data  |
+| Connector      | A ready-made connection to a service, often built on MCP   |
+| Skill          | Packaged instructions that teach the AI a specific task    |
+| Plugin         | A bundle of skills, commands, and connections              |
+| RAG            | Finding relevant documents first, then answering from them |
+| Claude Code    | Anthropic's agentic coding tool                            |
+
+## The takeaway
+
+You don't need to understand every acronym to get value from AI. Learn the core loop: a model predicts text, tools let it act, and standards like MCP connect it to your world. Then start using it on real work. That's where it clicks.
 
 ---
 
-## The End of the Handover: Why Product-Engineering Fusion is the Only Way to Build in 2026
+## How LLMs actually work: An intuitive guide
+
+URL: https://shabazbadshah.com/blog/posts/how-llms-actually-work
+Published: 2026-02-03
+Author: Shabaz Badshah
+Tags: healthcare, compliance, legal
+
+Large language models (LLMs) like Claude, ChatGPT, and Gemini can feel like magic. You type a question, and a fluent, often correct answer appears. But under the hood, there's no magic. There's a surprisingly simple core idea, scaled up to an enormous size.
+
+This guide walks through how LLMs work without math. By the end, you'll understand why they're so capable, why they sometimes make things up, and how to use them better.
+
+## The core idea: predict the next word
+
+At its heart, an LLM does one thing: it predicts what comes next.
+
+Give it "The cat sat on the," and it predicts "mat" is likely, "chair" is plausible, and "democracy" is unlikely. It picks a word, adds it to the text, and predicts again. Then again. Then again. A full answer is just this loop running hundreds of times.
+
+That sounds too simple to produce an essay, working code, or a legal summary. The trick is that predicting the next word _well_ requires understanding a lot. To finish "The capital of France is," you need geography. To finish a line of Python, you need to know Python. To finish "She was furious because," you need some model of human emotion.
+
+Train a system to predict text across a huge slice of the internet, books, and code, and it's forced to absorb grammar, facts, reasoning patterns, and style along the way. Next-word prediction is the task. Understanding is the side effect.
+
+## Step 1: Breaking text into tokens
+
+LLMs don't read words the way you do. They read _tokens_, which are chunks of text. A token might be a whole word ("cat"), part of a word ("un" + "believ" + "able"), or punctuation.
+
+In English, a token is roughly three-quarters of a word on average. That's why AI pricing and limits are measured in tokens, not words.
+
+Why chunks instead of letters or whole words? It's a trade-off. Letters are too small; the model would need far more steps to say anything. Whole words are too rigid; the model couldn't handle typos, new slang, or rare names. Chunks hit the middle: common words get one token, and unusual words get assembled from pieces.
+
+## Step 2: Turning tokens into meaning
+
+Computers work with numbers, so each token gets converted into a long list of numbers called an _embedding_. Think of an embedding as coordinates on a map of meaning.
+
+On this map, similar ideas sit close together. "Dog" sits near "puppy" and "wolf." "Paris" sits near "London" and "France." Directions on the map carry meaning too. The famous example: the path from "man" to "woman" runs roughly parallel to the path from "king" to "queen."
+
+Nobody draws this map by hand. The model learns it during training, because placing related ideas close together makes predicting the next word easier.
+
+## Step 3: Attention, or how the model reads context
+
+Words change meaning based on what's around them. "Bank" means something different in "river bank" and "bank account." The model needs a way to let each word look at the others and update its meaning.
+
+That's what _attention_ does. It's the key ingredient of the _transformer_, the architecture behind every modern LLM.
+
+Here's the intuition. Imagine every word in a sentence can ask the other words a question, like "Who here tells me what I'm about?" In "The animal didn't cross the street because it was too tired," the word "it" asks around and finds that "animal" is the best match, not "street." The model then blends information from "animal" into its understanding of "it."
+
+Every word does this, all at once, many times over. Each round is a _layer_, and large models stack dozens of them. Early layers tend to handle grammar and nearby words. Later layers handle bigger ideas: tone, intent, logic, what the whole paragraph is getting at.
+
+By the final layer, the model has a rich picture of the entire text so far, and it uses that picture to predict the next token.
+
+## Step 4: Training, or how the model learns
+
+A brand-new model knows nothing. Its internal settings, called _parameters_, start random. Modern models have billions of them. They're the dials that control how tokens become embeddings and how attention flows.
+
+Training works like this:
+
+1. Show the model some real text with the next word hidden.
+2. Let it guess.
+3. Measure how wrong the guess was.
+4. Nudge every parameter slightly in the direction that would have made the guess better.
+5. Repeat, trillions of times.
+
+No one programs the model to know that Paris is in France. It learns that because guessing "France" after "Paris is the capital of" kept getting rewarded. Everything the model knows emerges from this process.
+
+This first phase is called _pretraining_. It's extremely expensive and produces a model that's brilliant at continuing text but not great at being an assistant. Ask a raw pretrained model a question, and it might respond with more questions, because that's what often follows a question on the internet.
+
+## Step 5: Turning a text predictor into an assistant
+
+To make a model helpful, labs run more training on top:
+
+- **Fine-tuning on examples.** The model studies many examples of good conversations: a question followed by a clear, helpful answer. It learns the shape of being an assistant.
+- **Learning from feedback.** People (and increasingly, other AI systems) compare responses and mark which is better. The model gets nudged toward answers that are helpful, honest, and safe. You'll often see this called reinforcement learning from human feedback (RLHF).
+
+This stage is why assistants follow instructions, admit uncertainty (sometimes), and decline harmful requests. The underlying engine is still next-token prediction. Fine-tuning shapes _which_ tokens it prefers.
+
+## Step 6: Generating a response
+
+When you send a message, here's what happens:
+
+1. Your message, plus any earlier conversation, is converted into tokens.
+2. The model runs those tokens through all its layers.
+3. It outputs a probability for every possible next token.
+4. It picks one, appends it, and repeats until the answer is done.
+
+The model doesn't always pick the single most likely token. A setting called _temperature_ controls how adventurous it is. Low temperature means safe, predictable choices, which suits code and facts. Higher temperature means more variety, which suits brainstorming and creative writing. That's why asking the same question twice can give you two different answers.
+
+## The context window: the model's working memory
+
+An LLM can only consider a limited amount of text at once. That limit is the _context window_, measured in tokens.
+
+Everything the model "knows" about your conversation has to fit inside it: your messages, its replies, any documents you pasted. Once a conversation outgrows the window, older material falls out or has to be summarized.
+
+This matters a lot in practice. The model doesn't remember you between conversations unless a product feature stores and feeds information back in. Within a conversation, it's working from what's in front of it, plus what it absorbed during training.
+
+## Why LLMs make things up
+
+LLMs sometimes state false things with full confidence. This is called _hallucination_, and once you understand next-token prediction, it makes sense.
+
+The model's job is to produce plausible text. Most of the time, plausible and true overlap. But when the model lacks the right information, it doesn't have a built-in instinct to stop. It produces something that _sounds_ like a correct answer: a realistic-looking citation, a believable statistic, an API function that doesn't exist.
+
+Models have gotten much better at saying "I don't know," but the risk never fully disappears. A few habits help:
+
+- Give the model the source material instead of relying on its memory.
+- Ask it to cite where each claim came from.
+- Verify anything you'll act on, especially numbers, names, and legal or medical details.
+
+## What LLMs are good and bad at
+
+**Good at:**
+
+- Writing, rewriting, and summarizing
+- Explaining concepts at any level
+- Writing and debugging code
+- Pulling structure out of messy text
+- Brainstorming and drafting
+
+**Weaker at:**
+
+- Recent events, unless connected to search
+- Exact arithmetic over long chains, unless it can run code
+- Niche facts with little coverage in the training data
+- Knowing what it doesn't know
+
+## Is it really "understanding"?
+
+People argue about this constantly. One side says LLMs are just pattern matchers, predicting words with no real comprehension. The other side says that predicting text this well _requires_ building internal models of the world, and that's a form of understanding.
+
+The honest answer is that it's an open question, and partly a question of definitions. What's clear is that the "just autocomplete" framing undersells what these systems can do, and the "it thinks like a person" framing oversells it. They're a new kind of thing.
+
+## The takeaway
+
+Strip away the hype, and an LLM is a system trained to predict the next token. It chops text into tokens, maps them into a space of meaning, uses attention to understand context, and generates one token at a time. Scale that up with billions of parameters and trillions of training examples, then fine-tune it to be helpful, and you get a tool that can write, reason, and code.
+
+Understand that core loop, and the rest falls into place: why context matters, why it sometimes hallucinates, and why giving it the right information beats hoping it remembers.
+
+---
+
+## How RAG (Retrieval-Augmented Generation) works
+
+URL: https://shabazbadshah.com/blog/posts/how-rag-works
+Published: 2026-02-03
+Author: Shabaz Badshah
+Tags: healthcare, compliance, legal
+
+#
+
+Large language models (LLMs) know a lot, but they have two big gaps. They only know what was in their training data, which has a cutoff date. And they don't know anything about _your_ stuff: your company docs, your product manual, your support tickets, your contracts.
+
+Retrieval-augmented generation (RAG) fixes both. Instead of asking the model to answer from memory, you find the relevant information first and hand it over with the question.
+
+Think of it as turning a closed-book exam into an open-book one.
+
+## The problem RAG solves
+
+Ask a general AI model, "What's our refund policy for annual plans?" and one of two things happens. It admits it doesn't know, or worse, it invents a plausible-sounding policy.
+
+You could paste your entire policy library into every conversation, but that breaks down fast. Context windows have limits, large prompts cost more, and models get less precise when you bury the answer in thousands of pages.
+
+RAG takes a smarter route: find only the few passages that matter, and give the model those.
+
+## How RAG works, step by step
+
+RAG has two phases. You prepare your documents once, and then you retrieve from them every time someone asks a question.
+
+### Phase 1: Prepare your knowledge base
+
+1. **Collect your documents.** PDFs, help articles, wiki pages, tickets, whatever holds the answers.
+2. **Split them into chunks.** Break each document into smaller pieces, often a few paragraphs each. A whole manual is too big to retrieve usefully; a single sentence loses context. Chunking finds the middle.
+3. **Turn each chunk into an embedding.** An embedding model converts each chunk into a list of numbers that represents its meaning. Chunks about similar topics end up with similar numbers.
+4. **Store the embeddings.** Save them in a vector database, a database built to quickly find embeddings that are close to each other.
+
+### Phase 2: Answer a question
+
+1. **Embed the question.** The user's question goes through the same embedding model.
+2. **Search for similar chunks.** The vector database finds the chunks whose meaning is closest to the question.
+3. **Build the prompt.** Combine the question with the top few chunks, along with an instruction like "Answer using only the information below. If the answer isn't there, say so."
+4. **Generate the answer.** The LLM reads the retrieved material and writes a response grounded in it, ideally with references back to the source.
+
+## Why embeddings matter
+
+The magic of RAG is searching by _meaning_, not keywords.
+
+A keyword search for "cancel my subscription" might miss a help article titled "Ending your plan." An embedding search catches it, because both phrases point to the same idea. This is often called _semantic search_.
+
+That said, keyword search still has a job. Product codes, error messages, and names often match better on exact text. Many production systems use _hybrid search_, combining both methods.
+
+## Where RAG goes wrong
+
+RAG is simple to demo and hard to get right. Most failures come from retrieval, not the model:
+
+- **Bad chunking.** Split a table down the middle or separate a heading from its content, and the retrieved chunk won't make sense on its own.
+- **Wrong chunks retrieved.** If search pulls the wrong passages, the model answers confidently from the wrong source.
+- **Stale data.** If your knowledge base isn't updated when documents change, the AI keeps quoting the old policy.
+- **Missing permissions.** If retrieval ignores access rules, a user can get answers drawn from documents they shouldn't see. This matters a lot in healthcare, finance, and HR.
+- **Model ignores the context.** Sometimes the model blends retrieved facts with its own assumptions. Clear instructions and asking for citations help.
+
+## Making RAG better
+
+Teams improve RAG with a handful of techniques:
+
+- **Reranking.** Retrieve a larger set of candidate chunks, then use a second model to reorder them by true relevance.
+- **Metadata filters.** Tag chunks with date, department, product, or access level, and filter before searching.
+- **Query rewriting.** Rephrase vague or conversational questions into clearer search queries before retrieving.
+- **Citations.** Show users exactly which document each claim came from, so they can verify it.
+- **Evaluation.** Build a set of real questions with known answers and test against it every time you change the system.
+
+## RAG vs. fine-tuning
+
+People often ask whether they should use RAG or fine-tune a model on their data. They solve different problems.
+
+|               | RAG                             | Fine-tuning                             |
+| :------------ | :------------------------------ | :-------------------------------------- |
+| Best for      | Facts and knowledge that change | Style, format, and specialized behavior |
+| Updating      | Add or edit documents anytime   | Retrain the model                       |
+| Citations     | Easy, since you know the source | Hard, since knowledge is baked in       |
+| Cost to start | Lower                           | Higher                                  |
+
+For most "answer questions about our documents" use cases, start with RAG.
+
+## The takeaway
+
+RAG works by finding the right information first and then asking the model to answer from it. Embed your documents, search by meaning, hand the best matches to the model, and require it to stay grounded in what it was given.
+
+The model is the easy part. The quality of your retrieval decides whether your AI gives accurate answers or confident guesses.
+
+---
+
+## The end of the handoff: Why product and engineering need to merge
 
 URL: https://shabazbadshah.com/blog/posts/the-end-of-the-handover-model
 Published: 2025-08-23
 Author: Shabaz Badshah
 Tags: software-development, product-engineering, ai
 
-# The End of the Handover: Why Product-Engineering Fusion is the Only Way to Build in 2025
+#
 
-The traditional separation between **Product** and **Engineering** is a relic of a slower era. In 2026, the most successful ventures—from specialized healthcare systems to global SaaS platforms—are built by those who have collapsed the wall between strategy and code.
+For years, software teams split the work in two. Product managers decided what to build, and engineers decided how to build it. That made sense when building was the expensive part. It isn't anymore.
 
-This methodology, defined as **Product-Engineering Fusion**, is the tight integration of high-level business judgment with deep technical execution. It is the rejection of the "handover" model in favor of a singular, bilingual approach to building modern infrastructure.
+The teams and consultants winning today have collapsed the wall between strategy and code. Call it product-engineering fusion: one person, or one tight unit, that owns both the business judgment and the technical execution.
 
-## 1. The Death of the "Handover" Model
+## Building got cheap. Knowing what to build didn't.
 
-In most organizations, a "Product" team defines requirements and tosses them over a wall to an "Engineering" team. This creates a **"Translation Tax"** that slows down every project:
+AI coding tools have cut the cost of writing software dramatically. A prototype that once took a team two weeks can now take one person an afternoon. When execution is cheap, the bottleneck moves upstream: understanding the customer, picking the right problem, and defining what "done" means.
 
-- **Misaligned Intent:** Engineers build exactly what is on the ticket, even if it is technically inefficient, because they don't understand the underlying business "Why."
-- **Hidden Technical Debt:** Product Managers promise features without understanding the architectural constraints, leading to expensive retrofits and "duct-tape" solutions.
+## The translation tax
 
-By eliminating this gap, the **Fused Consultant** operates with 10x the decision velocity. There are no "alignment meetings" because the strategic vision and the technical architecture are designed by the same mind, in the same moment.
+In the traditional model, product writes requirements and hands them to engineering. Every handoff costs something:
 
-## 2. Engineering-Informed Product Thinking
+- **Lost intent.** Engineers build exactly what the ticket says, even when it's the wrong solution, because the "why" got lost in translation.
+- **Hidden technical debt.** Product promises features without knowing the architectural constraints, which leads to expensive rework and duct-tape fixes.
+- **Slow cycles.** Alignment meetings, spec reviews, and clarification threads eat weeks.
 
-This is the ability to look at a business bottleneck and immediately visualize the data models required to solve it.
+When the same person holds the strategy and the architecture, most of that overhead disappears.
 
-- **Vision with Constraints:** Instead of dreaming up features that are technically impossible or prohibitively expensive, the Fused approach identifies the **High-Leverage Path.**
-- **Architectural Foresight:** A major financial mistake is often spotted before a single line of code is written. By understanding how data residency, API latency, and security protocols impact the user, the product is shaped by reality, not just wishful thinking.
+## The forward deployed engineer model
 
-## 3. Product-Aware Engineering Execution
+Palantir popularized the forward deployed engineer (FDE): an engineer who sits with the customer, learns their workflow firsthand, and builds the solution on the spot. AI companies have adopted the role because their products only prove their value inside a specific customer's real environment.
 
-This is the practice of writing code that prioritizes **Operational Outcomes** over abstract technical elegance.
+FDEs don't wait for a spec. They watch the problem, form a hypothesis, ship a fix, and check whether it worked. The feedback loop that used to span three people and a month now lives in one person's head.
 
-- **Code as a Strategic Asset:** Every technical choice—from the database schema to the cloud provider—is directly tied to the business objective.
-- **Operational Observability:** Systems are built to be "Self-Reporting." If a process fails, the architecture is designed to identify the "Why" immediately, reducing downtime and protecting the bottom line.
+## What fusion looks like in practice
 
-## 4. Why Fusion Builds Anything Faster
+### Engineering-informed product thinking
 
-This methodology is a universal framework for solving complex problems with technology. It is not limited to one industry; it is a blueprint for **Scalable Infrastructure.**
+You look at a business bottleneck and immediately see the data model needed to solve it.
 
-### The Competitive Advantage of Fusion:
+- **Vision with constraints.** You skip features that are impossible or too expensive and find the highest-leverage path instead.
+- **Early warnings.** You spot costly mistakes before anyone writes code, because you understand how data residency, API latency, and security requirements affect the user.
 
-1.  **Reduced Complexity:** Systems aren't "over-engineered" for problems that don't exist yet. The architecture is built for the current business stage with a clear path for future scaling.
-2.  **Compliance-by-Design:** Whether dealing with Ontario's **PHIPA** or global data privacy standards, security is a structural foundation, not a "checkbox" added at the end.
-3.  **Human-Centric UX:** By applying product judgment to technical builds, the final tool is actually usable. The technology disappears so the user can focus on their actual work.
+### Product-aware engineering
 
-## Comparison: The Traditional Agency vs. The Fused Consultant
+You write code that serves business outcomes, not abstract technical elegance.
 
-| Feature             | The Traditional Agency (Siloed)     | The Fused Consultant (Integrated)     |
-| :------------------ | :---------------------------------- | :------------------------------------ |
-| **Communication**   | Endless "Requirements" cycles       | Direct, high-velocity execution       |
-| **Problem Solving** | Fixes symptoms with "Features"      | Fixes root causes with "Architecture" |
-| **Accountability**  | Shared across multiple departments  | Single-point strategic ownership      |
-| **Technical Debt**  | High (often discovered post-launch) | Low (mitigated by design)             |
-| **Outcome**         | A tool that matches the specs       | A system that achieves the goal       |
+- **Every technical choice has a reason.** The database schema, the cloud provider, and the integration approach all tie back to the business goal.
+- **Systems that explain themselves.** When something fails, good observability tells you why right away, which cuts downtime.
+
+## Why fusion builds better systems
+
+1. **Less complexity.** You build for the business you have today, with a clear path to scale, instead of over-engineering for problems that don't exist yet.
+2. **Compliance by design.** Whether you're working under Ontario's PHIPA or another privacy framework, security is part of the foundation, not a checkbox at the end.
+3. **Usable tools.** Product judgment applied during the build means the final tool fits how people actually work.
+4. **Clear accountability.** One owner for the outcome. No "the spec was wrong" or "engineering built it wrong."
+
+## Traditional agency vs. fused consultant
+
+| Area            | Traditional agency (siloed)     | Fused consultant (integrated)         |
+| :-------------- | :------------------------------ | :------------------------------------ |
+| Communication   | Long requirements cycles        | Direct, fast execution                |
+| Problem solving | Adds features to treat symptoms | Fixes root causes in the architecture |
+| Accountability  | Spread across departments       | One owner                             |
+| Technical debt  | Often found after launch        | Caught during design                  |
+| Outcome         | A tool that matches the spec    | A system that achieves the goal       |
+
+## What this means for you
+
+If you're a PM, learn to build. You don't need to be a senior engineer, but you should be able to prototype, read code, and ship small changes.
+
+If you're an engineer, learn the customer. Sit in on sales calls, read support tickets, and form your own view on what to build next.
+
+If you're a business owner, look for partners who can do both. The people who combine product judgment with engineering skill will set the pace for everyone else.
 
 ---
-

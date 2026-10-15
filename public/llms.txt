@@ -1,6 +1,6 @@
 # Shabaz Badshah (Shabaz Badshah)
 
-> Shabaz Badshah is a Product Engineer (FDE) & Technical Product Consultant based in Ontario, Canada. He integrates product strategy with technical execution to solve impactful business problems, with a specialty in healthcare digitization in Ontario: secure, compliance-first infrastructure for independent clinics.
+> Shabaz Badshah is a Product Engineer (FDE) & Technical Product Consultant based in Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
 
 This site is the personal and consulting website of Shabaz Badshah. Content below is free to summarize and cite with attribution and a link to the source page.
 
@@ -17,16 +17,18 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 
 ## Blog
 
-- [2026 Ontario Health Tech Compliance: The Essential Guide for Clinic Owners](https://shabazbadshah.com/blog/posts/2026-ontario-healthcare-compliance-overview): Ontario regulations in 2026 have shifted from 'best practices' to 'enforced mandates.' Between new IPC fine powers, federal anti-data-blocking laws, and strict AI guidelines, clinic owners must ensure their infrastructure is auditable, interoperable, and hosted in Canada to stay protected. (2026-02-03)
-- [The 2026 Digital Patient Journey: Why UX is Your New Sales Engine](https://shabazbadshah.com/blog/posts/your-website-is-a-sales-channel-in-2026): In 2026, reviews get them to the link, but UX gets them into the chair. A terrible website experience is the quietest way to lose patients to the clinic down the street. To win, your site must be a fast, 'Ontario-Proof' conversion engine that respects the patient's time and anxiety levels. (2025-11-23)
-- [The End of the Handover: Why Product-Engineering Fusion is the Only Way to Build in 2026](https://shabazbadshah.com/blog/posts/the-end-of-the-handover-model): In 2025, the gap between 'Strategy' and 'Code' is where projects fail. Product-Engineering fusion is the only way to build resilient, strategically aligned infrastructure. By combining business judgment with personal architectural execution, the Fused Consultant builds operational engines that are technically robust, legally compliant, and built to scale for any industry. (2025-08-23)
+- [What Ontario clinics need to know about digital health rules in 2026](https://shabazbadshah.com/blog/posts/2026-ontario-healthcare-compliance-overview): Ontario clinics now face direct privacy fines, new oversight expectations for AI scribes, federal rules against vendors locking up patient data, and a push toward a shared provincial health record. To stay compliant, clinics should check their audit logs, AI review processes, data export capabilities, staff access controls, and where their patient data is stored. (2026-02-03)
+- [AI and LLMs 101: A practical starter guide](https://shabazbadshah.com/blog/posts/ai-and-llms-101): This guide explains the core vocabulary of modern AI, including prompts, tokens, agents, MCP, skills, plugins, and Claude Code, in plain language. It ends with five practical steps to start using AI on real work today. (2026-02-03)
+- [How LLMs actually work: An intuitive guide](https://shabazbadshah.com/blog/posts/how-llms-actually-work): LLMs work by predicting the next token, using embeddings to map meaning and attention to read context, then building a full answer one token at a time. Training on massive amounts of text, followed by fine-tuning for helpfulness, turns that simple loop into a capable assistant, which also explains why these models sometimes hallucinate. (2026-02-03)
+- [How RAG (Retrieval-Augmented Generation) works](https://shabazbadshah.com/blog/posts/how-rag-works): RAG lets an AI answer questions about your own documents by finding the most relevant passages first and handing them to the model with the question. The model is the easy part; the quality of your chunking, search, and data freshness decides whether you get accurate answers or confident guesses. (2026-02-03)
+- [The end of the handoff: Why product and engineering need to merge](https://shabazbadshah.com/blog/posts/the-end-of-the-handover-model): AI has made building software cheap, so the real bottleneck is now knowing what to build, and the old handoff between product managers and engineers wastes time, loses intent, and creates technical debt. Product-engineering fusion, modeled on the forward deployed engineer, puts business judgment and technical execution in one owner, producing simpler, compliant, and more usable systems faster than a traditional siloed agency. (2025-08-23)
 
 ## Contact
 
 - [/in/shabaz-badshah](https://www.linkedin.com/in/shabaz-badshah/): Connect
-- [hello@shabazbadshah.com](mailto:hello@shabazbadshah.com): Email
-- [Video call](https://calendly.com/badshahconsulting/30min): Video call
 - [@ShabazBadshah](https://github.com/ShabazBadshah): Follow
+- [hello@shabazbadshah.com](mailto:hello@shabazbadshah.com): Email
+- [Video call](https://calendly.com/badshah-shabaz/30min): Video call
 
 ## Optional
 

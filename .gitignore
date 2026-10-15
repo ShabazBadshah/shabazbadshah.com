@@ -85,3 +85,14 @@ node_modules/
 
 # vercel
 .vercel
+
+# Generated from src/config/site.ts by `pnpm generate` (bin/generate.ts)
+/public/robots.txt
+/public/sitemap.xml
+/public/manifest.webmanifest
+/public/llms.txt
+/public/llms-full.txt
+/public/.well-known/security.txt
+
+# TypeScript incremental build info
+tsconfig.tsbuildinfo
