@@ -36,6 +36,15 @@ const securityHeaders = [
 const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  // The SWC minifier in this Next version miscompiles framer-motion, so no animation ever runs in
+  // production builds (the article sheet stays clipped to its card). Terser is correct.
+  swcMinify: false,
+  // Ship source maps so large first-party bundles can be debugged in production
+  productionBrowserSourceMaps: true,
+  compiler: {
+    // Drop all console output (including console.error) from production bundles
+    removeConsole: isProd
+  },
   eslint: {
     // Don't fail builds on ESLint warnings during next build
     ignoreDuringBuilds: true
@@ -54,7 +63,29 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
   },
-  webpack: (config) => {
+  webpack: (config, { dev, isServer, webpack }) => {
+    if (!isServer) {
+      // Next's built-in polyfills (flat, flatMap, fromEntries, trimStart/End) are native in our targets
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /build[\\/]polyfills[\\/]polyfill-module/,
+          require.resolve('./src/lib/empty-polyfill.js')
+        )
+      );
+    }
+    if (dev && !isServer) {
+      // Minify client bundles in dev too, with real source maps so they stay debuggable
+      const TerserPlugin = require('terser-webpack-plugin');
+      // Next reverts config.devtool, so set it from a plugin before webpack applies its options
+      config.plugins.push({
+        apply(compiler) {
+          compiler.options.devtool = 'source-map';
+        }
+      });
+      config.optimization.minimize = true;
+      config.optimization.minimizer = [new TerserPlugin()];
+    }
+
     // Handle ESM packages from Radix UI
     config.module.rules.push({
       test: /\.mjs$/,
