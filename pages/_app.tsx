@@ -6,8 +6,8 @@ import { LazyMotion, MotionConfig } from 'framer-motion';
 import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from 'next-themes';
 
 import { trackPageView } from '@/analytics/tracking';
-import CardTransitionProvider from '@/components/shared/CardTransition';
-import '@/styles/global.scss';
+import CardTransitionProvider from '@/components/CardTransition';
+import { siteConfig } from '@/config/site';
 import '@/styles/globals.css';
 
 // next-themes is typed for React 18 children; this repo still pins @types/react 17
@@ -36,10 +36,18 @@ export default function App(props: AppProps): React.ReactNode {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="color-scheme" content="light dark" />
-        <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="apple-touch-icon" href="/images/favicon.png" />
+        <meta
+          name="theme-color"
+          content={siteConfig.themeColor.light}
+          media="(prefers-color-scheme: light)"
+        />
+        <meta
+          name="theme-color"
+          content={siteConfig.themeColor.dark}
+          media="(prefers-color-scheme: dark)"
+        />
+        <link rel="icon" type="image/svg+xml" href={siteConfig.assets.favicon} />
+        <link rel="apple-touch-icon" href={siteConfig.assets.touchIcon} />
         <link rel="manifest" href="/manifest.webmanifest" />
         <link
           rel="alternate"

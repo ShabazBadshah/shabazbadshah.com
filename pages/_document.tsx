@@ -1,14 +1,11 @@
-import React from 'react';
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+
+import { siteConfig } from '@/config/site';
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
   render(): JSX.Element {
     return (
-      <Html lang="en-CA" dir="ltr">
+      <Html lang={siteConfig.locale} dir="ltr" className="h-full scroll-smooth scroll-pt-22">
         <Head />
         <body>
           <Main />

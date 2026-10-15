@@ -3,49 +3,23 @@
 /* Class-based dark mode (next-themes toggles `.dark` on <html>) */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* -------------------------------------------------------------------------- */
-/* Design tokens                                                              */
-/* -------------------------------------------------------------------------- */
-
+/* Colour tokens: neutral greyscale + a single accent (links, focus and active states only) */
 :root {
   color-scheme: light;
 
-  /* Colour: neutral greyscale + a single accent */
   --bg: #f5f5f7;
   --surface: #ffffff;
   --surface-elevated: rgb(255 255 255 / 0.72);
-  --surface-modal: #ffffff;
   --fill: rgb(0 0 0 / 0.05);
   --border: rgb(0 0 0 / 0.09);
   --border-strong: rgb(0 0 0 / 0.22);
   --text: #1d1d1f;
   --text-secondary: #636366;
-  /* Accent: links, focus and active states only (5.6:1 on white) */
   --accent: #2590fa;
   --accent-contrast: #ffffff;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.04);
-  --scrim: rgb(0 0 0 / 0.32);
-
-  /* Radii */
-  --radius-pill: 9999px;
-  --radius-card: 24px;
-  --radius-inner: 16px;
-  --radius-chip: 10px;
-
-  /* Motion */
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --duration-hover: 150ms;
-  --duration-layout: 350ms;
-
-  /* Spacing: grid gap */
-  --grid-gap: 16px;
-  --nav-offset: 88px;
-
-  /* Typography */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Inter Fallback', 'Segoe UI', sans-serif;
-
-  /* Legacy shadcn radius (used by src/components/ui) */
-  --radius: 0.5rem;
+  /* Strength of the accent glow in the top right corner */
+  --glow: 7%;
 }
 
 :root.dark {
@@ -54,7 +28,6 @@
   --bg: #000000;
   --surface: #161618;
   --surface-elevated: rgb(36 36 38 / 0.72);
-  --surface-modal: #1c1c1e;
   --fill: rgb(255 255 255 / 0.08);
   --border: rgb(255 255 255 / 0.12);
   --border-strong: rgb(255 255 255 / 0.3);
@@ -63,27 +36,14 @@
   --accent: #2997ff;
   --accent-contrast: #000000;
   --shadow-card: 0 0 0 rgb(0 0 0 / 0);
-  --scrim: rgb(0 0 0 / 0.6);
+  --glow: 9%;
 }
 
-@media (min-width: 640px) {
-  :root {
-    --grid-gap: 20px;
-  }
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --grid-gap: 24px;
-  }
-}
-
-/* Expose tokens to Tailwind utilities */
+/* Expose the tokens to Tailwind (bg-surface, text-fg-muted, border-line, ...) */
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-elevated: var(--surface-elevated);
-  --color-modal: var(--surface-modal);
   --color-fill: var(--fill);
   --color-line: var(--border);
   --color-line-strong: var(--border-strong);
@@ -91,34 +51,19 @@
   --color-fg-muted: var(--text-secondary);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-contrast);
-  --color-scrim: var(--scrim);
-
-  --radius-pill: var(--radius-pill);
-  --radius-card: var(--radius-card);
-  --radius-inner: var(--radius-inner);
-  --radius-chip: var(--radius-chip);
-
-  --font-sans: var(--font-sans);
-  --ease-out-expo: var(--ease);
   --shadow-card: var(--shadow-card);
+}
 
-  /* Compatibility aliases for the legacy shadcn components in src/components/ui */
-  --color-background: var(--bg);
-  --color-foreground: var(--text);
-  --color-border: var(--border);
-  --color-input: var(--border);
-  --color-ring: var(--accent);
-  --color-primary: var(--accent);
-  --color-primary-foreground: var(--accent-contrast);
-  --color-secondary: var(--fill);
-  --color-secondary-foreground: var(--text);
-  --color-muted: var(--fill);
-  --color-muted-foreground: var(--text-secondary);
-  --color-destructive: #d70015;
-  --color-destructive-foreground: #ffffff;
-  --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+@theme {
+  --radius-pill: 9999px;
+  --radius-card: 24px;
+  --radius-inner: 16px;
+  --radius-chip: 10px;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'Inter Fallback', 'Segoe UI', sans-serif;
+
+  /* Column width of a single article (max-w-article) */
+  --container-article: 54.4rem;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -154,19 +99,8 @@
     border-color: var(--border);
   }
 
-  html {
-    font-size: 100%;
-    scroll-padding-top: var(--nav-offset);
-    -webkit-text-size-adjust: 100%;
-  }
-
   body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
+    @apply bg-bg text-base leading-[1.55] text-fg antialiased;
     text-rendering: optimizeLegibility;
   }
 
@@ -179,16 +113,8 @@
     pointer-events: none;
     background: radial-gradient(
       ellipse 70% 60% at 100% 0%,
-      color-mix(in srgb, var(--accent) 7%, transparent),
-      transparent 70%
-    );
-  }
-
-  :root.dark body::before {
-    background: radial-gradient(
-      ellipse 70% 60% at 100% 0%,
-      color-mix(in srgb, var(--accent) 9%, transparent),
-      transparent 70%
+      color-mix(in srgb, var(--accent) var(--glow), transparent),
+      transparent 80%
     );
   }
 
@@ -196,18 +122,11 @@
   h2,
   h3,
   h4 {
-    letter-spacing: -0.02em;
-    line-height: 1.12;
-    text-wrap: balance;
-  }
-
-  a {
-    color: inherit;
+    @apply text-balance leading-[1.12] tracking-[-0.02em];
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
+    @apply outline-2 outline-offset-3 outline-accent;
   }
 
   ::selection {
@@ -215,109 +134,29 @@
   }
 }
 
-/* -------------------------------------------------------------------------- */
-/* Components                                                                 */
-/* -------------------------------------------------------------------------- */
-
 @layer components {
-  .bento {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--grid-gap);
-  }
-
-  @media (min-width: 640px) {
-    .bento {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .bento {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-  }
-
   .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-card);
-    box-shadow: var(--shadow-card);
-    /* Hover lift is driven by framer-motion (whileHover) so it composes with layoutId animations */
-    transition: border-color var(--duration-hover) var(--ease);
-  }
-
-  a.card:hover {
-    border-color: var(--border-strong);
-  }
-
-  .glass {
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    backdrop-filter: blur(16px) saturate(180%);
+    @apply relative flex flex-col overflow-hidden rounded-card border bg-surface shadow-card transition-colors;
   }
 
   .pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    min-height: 2.75rem;
-    padding: 0 1rem;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--border);
-    background: var(--fill);
-    color: var(--text);
-    font-size: 0.9375rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: background-color var(--duration-hover) var(--ease),
-      border-color var(--duration-hover) var(--ease);
-  }
-
-  .pill:hover {
-    border-color: var(--border-strong);
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-pill border bg-fill px-4 text-[0.9375rem] font-medium text-fg no-underline transition-colors hover:border-line-strong;
   }
 
   .pill-accent {
-    background: var(--accent);
-    border-color: transparent;
-    color: var(--accent-contrast);
-  }
-
-  .pill-accent:hover {
-    border-color: transparent;
-    filter: brightness(1.08);
+    @apply border-transparent bg-accent text-accent-fg hover:border-transparent hover:brightness-110;
   }
 
   .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.375rem;
-    padding: 0.25rem 0.625rem;
-    border-radius: var(--radius-chip);
-    border: 1px solid var(--border);
-    background: var(--fill);
-    color: var(--text-secondary);
-    font-size: 0.8125rem;
-    line-height: 1.3;
+    @apply inline-flex items-center gap-1.5 rounded-chip border bg-fill px-2.5 py-1 text-[0.8125rem] leading-[1.3] text-fg-muted;
   }
 
   .eyebrow {
-    color: var(--text-secondary);
-    font-size: 0.8125rem;
-    font-weight: 500;
-    letter-spacing: 0;
+    @apply text-[0.8125rem] font-medium tracking-normal text-fg-muted;
   }
 }
 
-/* -------------------------------------------------------------------------- */
-/* Reduced motion: no transforms, no layout animation, no smooth scroll       */
-/* -------------------------------------------------------------------------- */
-
+/* Reduced motion: no transforms, no layout animation, no smooth scroll */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto !important;
@@ -330,14 +169,4 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-.sr-only-focusable:not(:focus):not(:focus-within) {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
 }

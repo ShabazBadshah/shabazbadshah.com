@@ -1,27 +1,53 @@
+/**
+ * Single source of truth for site-wide metadata. Everything that describes the site (SEO tags,
+ * structured data, manifest, robots.txt, sitemap.xml, llms.txt, security.txt, nav, socials) is
+ * read from here. The public/ files are generated from it by `pnpm generate` (bin/generate.ts).
+ */
+
+const BOOKING_URL = 'https://calendly.com/badshah-shabaz/30min';
+const HOST = 'shabazbadshah.com';
+
+export type SocialProvider = 'linkedin' | 'email' | 'video' | 'github';
+
 export const siteConfig = {
-  // Site metadata
   name: 'Shabaz Badshah',
+  host: HOST,
+  url: `https://${HOST}`,
+  locale: 'en-CA',
+  ogLocale: 'en_CA',
+  /** One-liner used by structured data, the manifest and llms.txt */
   description:
     'I integrate product strategy with technical execution to solve impactful business problems.',
-  url: 'https://shabazbadshah.com',
 
-  // SEO
   seo: {
     title: 'Shabaz Badshah - Product Engineer (FDE) & Technical Product Consultant',
+    /** Home page meta description */
     description:
-      'I integrate product strategy with technical execution to solve impactful business problems.',
-    keywords: ['product management', 'technical consulting', 'healthcare digitization'],
-    author: 'Shabaz Badshah',
-    ogImage: '/images/og-image.png'
+      "I’m a product engineer with 5+ years in technical product management and software development roles, I build things end-to-end. I figure out what’s worth making, why it's useful, write the code, and make sure it's supported after launch.",
+    keywords: [
+      'product management',
+      'technical consulting',
+      'healthcare digitization',
+      'product engineering',
+      'forward deployed engineering',
+      'software architecture'
+    ],
+    ogImage: '/images/og-image.png',
+    postTitle: (title: string) => `Thoughts - ${title} | ${HOST}`,
+    notFound: {
+      title: 'Not Found | Badshah Consulting',
+      description: "Whoops, couldn't find what you were looking for. Sorry about that"
+    }
   },
 
-  // Person / entity (structured data, llms.txt)
   person: {
     name: 'Shabaz Badshah',
     jobTitle: 'Product Engineer (FDE) & Technical Product Consultant',
     email: 'hello@shabazbadshah.com',
-    image: '/images/avatar.webp',
+    image: '/images/profile.webp',
     location: 'Ontario, Canada',
+    region: 'ON',
+    country: 'CA',
     knowsAbout: [
       'Product management',
       'Healthcare digitization',
@@ -32,44 +58,94 @@ export const siteConfig = {
     ]
   },
 
-  // Social profiles
+  hero: {
+    title: `Hey 👋, I'm Shabaz Badshah`,
+    intro:
+      "I’m a product engineer with 5+ years in technical product management and software development roles, I build things end-to-end. I figure out what’s worth making, why it's useful, write the code, and make sure it's supported after launch.",
+    syftable: { name: 'Syftable', url: 'https://syftable.com', logo: '/images/logos/syftable.svg' }
+  },
+
+  booking: BOOKING_URL,
+
   socials: [
     {
+      provider: 'linkedin',
       name: '/in/shabaz-badshah',
-      provider: 'linkedin' as const,
+      label: 'LinkedIn',
+      cta: 'Connect',
       url: 'https://www.linkedin.com/in/shabaz-badshah/',
-      cta: 'Connect'
+      logo: '/images/logos/linkedin.svg'
     },
     {
-      name: 'hello@shabazbadshah.com',
-      provider: 'email' as const,
-      url: 'mailto:hello@shabazbadshah.com?subject=Hey%20Shabaz%20%F0%9F%91%8B',
-      cta: 'Email'
-    },
-    {
-      name: 'Video call',
-      provider: 'video' as const,
-      url: 'https://calendly.com/badshahconsulting/30min',
-      cta: 'Video call'
-    },
-    {
+      provider: 'github',
       name: '@ShabazBadshah',
-      provider: 'github' as const,
+      label: 'GitHub',
+      cta: 'Follow',
       url: 'https://github.com/ShabazBadshah',
-      cta: 'Follow'
+      logo: '/images/logos/github.svg'
+    },
+    {
+      provider: 'email',
+      name: 'hello@shabazbadshah.com',
+      label: 'Send an email',
+      cta: 'Email',
+      url: 'mailto:hello@shabazbadshah.com?subject=Hey%20Shabaz%20%F0%9F%91%8B',
+      logo: '/images/logos/gmail.svg'
+    },
+    {
+      provider: 'video',
+      name: 'Video call',
+      label: 'Book a video call',
+      cta: 'Video call',
+      url: BOOKING_URL,
+      logo: '/images/logos/google-meet.svg'
     }
+  ] as {
+    provider: SocialProvider;
+    name: string;
+    label: string;
+    cta: string;
+    url: string;
+    logo: string;
+  }[],
+
+  nav: [
+    { label: 'About', href: '/', section: 'home' },
+    { label: 'Work', href: '/#work', section: 'work' },
+    { label: 'Blog', href: '/#blog', section: 'blog' }
+  ] as { label: string; href: string; section: 'home' | 'work' | 'blog' }[],
+
+  /** Brand assets referenced by <head>, the manifest and structured data */
+  assets: {
+    logo: '/images/logo.png',
+    favicon: '/favicon.svg',
+    touchIcon: '/images/favicon.png'
+  },
+
+  themeColor: { light: '#f5f5f7', dark: '#000000' },
+
+  /** Crawlers explicitly welcomed in robots.txt */
+  crawlers: [
+    'GPTBot',
+    'OAI-SearchBot',
+    'ChatGPT-User',
+    'ClaudeBot',
+    'Claude-SearchBot',
+    'Claude-User',
+    'PerplexityBot',
+    'Perplexity-User',
+    'Google-Extended',
+    'Applebot-Extended'
   ],
 
-  // Navigation
-  nav: {
-    items: [
-      { label: 'About', href: '/', section: 'home' },
-      { label: 'Work', href: '/#work', section: 'work' },
-      { label: 'Blog', href: '/#blog', section: 'blog' }
-    ] as { label: string; href: string; section: 'home' | 'about' | 'work' | 'blog' }[],
-    logo: {
-      src: '/images/logo.png',
-      alt: 'Shabaz Badshah Logo'
-    }
+  /** How far ahead /.well-known/security.txt expires (it is regenerated on every build) */
+  securityTxtMonths: 12,
+
+  llms: {
+    /** Follows "<name> is a <jobTitle> based in <location>." in the llms.txt summary */
+    focus:
+      'He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.',
+    usage:
+      'Content below is free to summarize and cite with attribution and a link to the source page.'
   }
 };
