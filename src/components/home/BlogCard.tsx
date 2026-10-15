@@ -4,10 +4,10 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import { trackPinnedPostClicked } from '@/analytics/tracking';
-import CornerButton from '@/components/shared/CornerButton';
-import { useCardTransition } from '@/components/shared/CardTransition';
-import { plainText } from '@/lib/hooks';
-import type { Post } from '@/services/blog/types';
+import { useCardTransition } from '@/components/CardTransition';
+import CornerButton from '@/components/CornerButton';
+import type { Post } from '@/lib/blog';
+import { plainText } from '@/lib/utils';
 
 const isPlainLeftClick = (event: React.MouseEvent): boolean =>
   event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
@@ -29,7 +29,7 @@ export default function BlogCard({ post, featured = false, className = '' }: Pro
       <a
         href={href}
         data-card={post.slug}
-        className={`card group h-full justify-between gap-6 p-5 no-underline sm:p-6 ${
+        className={`card group h-full justify-between gap-6 p-5 no-underline hover:border-line-strong sm:p-6 ${
           featured ? 'lg:p-8' : ''
         }`}
         onPointerEnter={() => router.prefetch(href).catch(() => undefined)}

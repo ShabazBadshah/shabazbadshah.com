@@ -3,16 +3,17 @@ import { Minimize2 } from 'lucide-react';
 import Head from 'next/head';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import BlogArticle from '@/components/pages/blog/BlogArticle';
+import BlogArticle from '@/components/blog/BlogArticle';
 import {
   EXPAND_DURATION,
   EXPAND_EASE,
   useCardTransition,
   type CardOrigin
-} from '@/components/shared/CardTransition';
-import CornerButton from '@/components/shared/CornerButton';
-import Footer from '@/components/shared/Footer';
-import type { Post } from '@/services/blog/types';
+} from '@/components/CardTransition';
+import CornerButton from '@/components/CornerButton';
+import Footer from '@/components/Footer';
+import { siteConfig } from '@/config/site';
+import type { Post } from '@/lib/blog';
 
 type Props = {
   post: Post;
@@ -64,6 +65,22 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
       [documentElement.style.overflow, body.style.overflow, body.style.paddingRight] = previous;
     };
   }, []);
+
+  // The page behind never moves while the sheet exists: the router (or the browser, on Back) may
+  // try to scroll it, and <html> is scroll-smooth, so undo any such scroll before it is painted
+  useEffect(() => {
+    const root = document.documentElement;
+    const previous = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    const pin = () => {
+      if (window.scrollY !== homeScroll) window.scrollTo(0, homeScroll);
+    };
+    window.addEventListener('scroll', pin);
+    return () => {
+      window.removeEventListener('scroll', pin);
+      root.style.scrollBehavior = previous;
+    };
+  }, [homeScroll]);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
@@ -125,7 +142,7 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
         }}
       >
         <Head>
-          <title>{`Thoughts - ${post.title} | shabazbadshah.com`}</title>
+          <title>{siteConfig.seo.postTitle(post.title)}</title>
         </Head>
         <div
           ref={scroller}
@@ -134,7 +151,7 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
           tabIndex={-1}
           className="absolute inset-0 scroll-pt-16 overflow-y-auto overscroll-contain outline-none"
         >
-          <div className="mx-auto w-full max-w-[54.4rem] px-4 pb-16 pt-20 sm:px-6">
+          <div className="mx-auto w-full max-w-article px-4 pb-16 pt-20 sm:px-6">
             <BlogArticle post={post} />
           </div>
           <Footer narrow />

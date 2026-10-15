@@ -1,13 +1,114 @@
-import { ArrowLeft, BrainCircuit, Briefcase, Globe, Info, ShieldCheck, Star } from 'lucide-react';
+import { m, useReducedMotion } from 'framer-motion';
+import {
+  ArrowLeft,
+  BrainCircuit,
+  Briefcase,
+  CalendarDays,
+  Globe,
+  Info,
+  ShieldCheck,
+  Star
+} from 'lucide-react';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import CornerButton from '@/components/shared/CornerButton';
+import CornerButton from '@/components/CornerButton';
 import type { Project } from '@/content/projects';
 
-import AppCardStack from './AppCardStack';
-
 const FEATURE_ICONS = [Star, Globe, ShieldCheck, BrainCircuit];
+
+const STACK_INTERVAL_MS = 4000;
+
+/** Pose per depth: 0 is the front card, the rest fan out behind it. */
+const STACK_POSES = [
+  { x: '0%', rotate: 0, scale: 1 },
+  { x: '8%', rotate: 8, scale: 0.9 },
+  { x: '-8%', rotate: -8, scale: 0.9 }
+];
+
+/** Poster is shown at ~424px; 640 is the nearest Next image size above it */
+const POSTER_WIDTH = 640;
+
+/** next/image's optimizer URL, for attributes that can't take srcset (e.g. video poster) */
+const optimizedImageUrl = (src: string, width: number) =>
+  `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=75`;
+
+/** Demo video that downloads and plays only while on screen */
+function LazyVideo({ src, poster, label }: { src: string; poster?: string; label: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) video.play().catch(() => {});
+      else video.pause();
+    });
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      loop
+      controls
+      muted
+      playsInline
+      preload="none"
+      poster={poster}
+      aria-label={label}
+      width={1280}
+      height={720}
+      className="block aspect-video h-auto w-full"
+    >
+      <source src={src} type="video/mp4" />
+    </video>
+  );
+}
+
+/** Phone mockups that take turns at the front of a fanned-out stack */
+function AppCardStack({ images }: { images: NonNullable<Project['appImages']> }): JSX.Element {
+  const [active, setActive] = useState(0);
+  const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (reduceMotion) return undefined;
+    const id = setInterval(
+      () => setActive((current) => (current + 1) % images.length),
+      STACK_INTERVAL_MS
+    );
+    return () => clearInterval(id);
+  }, [images.length, reduceMotion]);
+
+  const { width, height } = images[0];
+
+  return (
+    <div className="relative w-full max-w-56" style={{ aspectRatio: `${width} / ${height}` }}>
+      {images.map((image, index) => {
+        const depth = (index - active + images.length) % images.length;
+        return (
+          // Plain <img>: next/image does not optimize SVG
+          <m.img
+            key={image.src}
+            src={image.src}
+            alt={depth === 0 ? image.alt : ''}
+            aria-hidden={depth !== 0}
+            width={image.width}
+            height={image.height}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            // @types/react predates fetchPriority
+            {...(index === 0 ? ({ fetchPriority: 'high' } as object) : {})}
+            initial={false}
+            animate={{ ...STACK_POSES[depth % STACK_POSES.length], zIndex: images.length - depth }}
+            transition={{ type: 'spring', stiffness: 180, damping: 22 }}
+            className="absolute inset-0 size-full origin-bottom object-contain drop-shadow-md"
+          />
+        );
+      })}
+    </div>
+  );
+}
 
 type Props = {
   project: Project;
@@ -31,32 +132,61 @@ function InfoPanel({
   className = 'absolute inset-0',
   showTitle = false
 }: PanelProps): JSX.Element {
-  const skills = project.expertise?.split(',').map((skill) => skill.trim()) ?? [];
+  const label = 'text-xs font-medium uppercase tracking-wide text-fg-muted';
+  const list = 'list-disc space-y-1 pl-5 text-sm marker:text-fg-muted';
+  const disciplines = (
+    <div className="flex flex-col gap-2">
+      <span className={label}>Disciplines</span>
+      <ul className={list}>
+        {project.disciplines.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
+  const skills = (
+    <div className="flex flex-col gap-2">
+      <span className={label}>Skills</span>
+      <ul className={list}>
+        {project.skills_and_technologies.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
   return (
     <div
       data-keep
       aria-hidden={!open}
-      className={`${className} flex flex-col gap-8 ${
+      className={`${className} flex flex-col gap-6 overflow-y-auto ${
         open ? 'visible opacity-100' : 'invisible opacity-0'
       }`}
     >
       {showTitle && <Title project={project} className="absolute left-5 top-3 h-8 sm:left-6" />}
-      <div className="flex flex-col items-start gap-2">
-        <span className="text-xs font-medium uppercase tracking-wide text-fg-muted">Role</span>
-        <span className="chip">
-          <Briefcase aria-hidden="true" className="size-3.5" />
-          {project.role}
-        </span>
-      </div>
-      {skills.length > 0 && (
-        <div className="flex flex-col gap-2">
-          <span className="text-xs font-medium uppercase tracking-wide text-fg-muted">Skills</span>
-          <ul className="list-disc space-y-1 pl-5 text-sm marker:text-fg-muted">
-            {skills.map((skill) => (
-              <li key={skill}>{skill}</li>
-            ))}
-          </ul>
+      <div className="flex flex-wrap items-end gap-2">
+        <div className="flex flex-col items-start gap-2">
+          <span className="chip">
+            <CalendarDays aria-hidden="true" className="size-3.5" />
+            {project.date}
+          </span>
         </div>
+        <div className="flex flex-col items-start gap-2">
+          <span className="chip">
+            <Briefcase aria-hidden="true" className="size-3.5" />
+            {project.role}
+          </span>
+        </div>
+      </div>
+      {showTitle ? (
+        <div className="grid gap-6 sm:grid-cols-2 sm:gap-10">
+          {disciplines}
+          {skills}
+        </div>
+      ) : (
+        <>
+          {disciplines}
+          {skills}
+        </>
       )}
     </div>
   );
@@ -123,8 +253,8 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
       icon={showInfo ? ArrowLeft : Info}
       data-keep
       aria-expanded={showInfo}
-      aria-label={showInfo ? 'Back to project' : 'Show role and expertise'}
-      title={showInfo ? 'Back' : 'Role & expertise'}
+      aria-label={showInfo ? 'Back to project' : 'Show project details'}
+      title={showInfo ? 'Back' : 'Project details'}
       onClick={flip}
     />
   );
@@ -152,7 +282,7 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
               {project.features.map((feature, index) => {
                 const Icon = FEATURE_ICONS[index % FEATURE_ICONS.length];
                 return (
-                  <li key={feature.title} className="">
+                  <li key={feature.title}>
                     <div className="flex align-middle gap-2">
                       <Icon aria-hidden="true" className="mb-3 size-5 text-fg-muted" />
                       <p className="text-sm">{feature.title}</p>
@@ -186,21 +316,11 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
 
         <div className="relative mt-auto overflow-hidden rounded-inner border border-line bg-fill">
           {project.video ? (
-            <video
-              autoPlay
-              loop
-              controls
-              muted
-              playsInline
-              preload="auto"
-              poster={project.video.poster}
-              aria-label={`${project.title} product demo`}
-              width={1920}
-              height={1080}
-              className="block aspect-video h-auto w-full"
-            >
-              <source src={project.video.src} type="video/mp4" />
-            </video>
+            <LazyVideo
+              src={project.video.src}
+              poster={optimizedImageUrl(project.video.poster, POSTER_WIDTH)}
+              label={`${project.title} product demo`}
+            />
           ) : (
             <div className="relative aspect-video w-full">
               <Image

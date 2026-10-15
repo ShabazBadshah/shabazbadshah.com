@@ -3,7 +3,7 @@ import type { LucideIcon } from 'lucide-react';
 // One size, position and icon for every control pinned to a card's top-right corner (info,
 // expand, collapse), so a card and the article it grows into keep it in the same place.
 const BASE =
-  'absolute right-4 top-4 z-10 grid size-9 place-items-center glass rounded-pill border border-line bg-elevated text-fg-muted transition-colors';
+  'absolute right-4 top-4 z-10 grid size-9 place-items-center rounded-pill border bg-elevated text-fg-muted backdrop-blur-lg backdrop-saturate-180 transition-colors';
 
 type Props = {
   icon: LucideIcon;

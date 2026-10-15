@@ -1,34 +1,16 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { SocialProvider } from '@/config/site';
 
-import { EVENT_NAMES } from '@/analytics/event-names';
-import { socialMediaProfileProviders } from '@/components/shared/Socials';
+// gtag only exists once the (lazy-loaded) Google Analytics script has run
+const gtag = (...args: unknown[]): void => (window as any).gtag?.(...args);
 
-const NODE_ENV = process.env.NODE_ENV === 'production' ? 'production' : 'development';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const trackPageView = (url: string): void => {
-  // Gtag not existing fix: https://stackoverflow.com/questions/56457935/typescript-error-property-x-does-not-exist-on-type-window
-  if (window && (window as any).gtag && NODE_ENV === 'production') {
-    // @ts-ignore
-    window?.gtag('config', process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID, {
-      page_path: url
-    });
+  if (process.env.NODE_ENV === 'production') {
+    gtag('config', process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID, { page_path: url });
   }
 };
 
-export const trackConnectLinkClick = (provider: socialMediaProfileProviders): void => {
-  if (window && (window as any).gtag) {
-    // @ts-ignore
-    window?.gtag('event', EVENT_NAMES.SELECT_CONNECT_OPTION, {
-      provider
-    });
-  }
-};
+export const trackConnectLinkClick = (provider: SocialProvider): void =>
+  gtag('event', 'select_connect_option', { provider });
 
-export const trackPinnedPostClicked = (): void => {
-  if (window && (window as any).gtag) {
-    // @ts-ignore
-    window?.gtag('event', EVENT_NAMES.SELECT_PINNED_POST);
-  }
-};
+export const trackPinnedPostClicked = (): void => gtag('event', 'select_pinned_post');
