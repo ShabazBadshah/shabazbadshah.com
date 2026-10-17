@@ -1,6 +1,7 @@
-import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
-import type { ComponentProps } from 'react';
+import type { ComponentProps, ComponentType } from 'react';
+import * as jsxDevRuntime from 'react/jsx-dev-runtime';
+import * as jsxRuntime from 'react/jsx-runtime';
 import { renderToStaticMarkup } from 'react-dom/server';
 import remarkGfm from 'remark-gfm';
 
@@ -72,17 +73,19 @@ const createComponents = (slug: string) => ({
  * Doing this in getStaticProps means the browser never evaluates compiled MDX,
  * so the site's CSP can stay free of 'unsafe-eval' and no MDX runtime is shipped.
  */
-const render = async (slug: string, markdown: string): Promise<string> => {
-  const source = await serialize(markdown, { mdxOptions: { remarkPlugins: [remarkGfm] } });
-  return renderToStaticMarkup(<MDXRemote {...source} components={createComponents(slug)} />);
-};
-
-// Renders run one at a time: overlapping renderToStaticMarkup calls share MDXProvider's context
-// and trigger React's "multiple renderers concurrently rendering the same context provider" warning.
-let queue: Promise<unknown> = Promise.resolve();
-
-export const renderPostHtml = (slug: string, markdown: string): Promise<string> => {
-  const result = queue.then(() => render(slug, markdown));
-  queue = result.catch(() => undefined);
-  return result;
+export const renderPostHtml = async (slug: string, markdown: string): Promise<string> => {
+  const { compiledSource } = await serialize(markdown, {
+    mdxOptions: { remarkPlugins: [remarkGfm] }
+  });
+  // Run the compiled MDX directly with components as a prop instead of through <MDXRemote>, whose
+  // MDXProvider context is shared across the separately bundled renderers of each page and makes
+  // React warn about "multiple renderers concurrently rendering the same context provider"
+  const run = new Function('opts', compiledSource);
+  const Content: ComponentType<{ components: ReturnType<typeof createComponents> }> = run({
+    ...jsxRuntime,
+    // Dev builds of serialize() compile to jsxDEV
+    ...jsxDevRuntime,
+    useMDXComponents: () => ({})
+  }).default;
+  return renderToStaticMarkup(<Content components={createComponents(slug)} />);
 };
