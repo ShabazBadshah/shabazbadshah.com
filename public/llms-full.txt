@@ -1,6 +1,6 @@
 # Shabaz Badshah (Shabaz Badshah)
 
-> Shabaz Badshah is a Product Engineer (FDE) & Technical Product Consultant based in Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
+> Shabaz Badshah is a Product Engineer & Technical Product Consultant based in Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
 
 This site is the personal and consulting website of Shabaz Badshah. Content below is free to summarize and cite with attribution and a link to the source page.
 
@@ -17,17 +17,17 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 
 ## Blog
 
+- [How LLMs actually work: An intuitive guide](https://shabazbadshah.com/blog/posts/how-llms-actually-work): LLMs work by predicting the next token, using embeddings to map meaning and attention to read context, then building a full answer one token at a time. Training on massive amounts of text, followed by fine-tuning for helpfulness, turns that simple loop into a capable assistant, which also explains why these models sometimes hallucinate. (2026-09-27)
+- [How RAG (Retrieval-Augmented Generation) works](https://shabazbadshah.com/blog/posts/how-rag-works): RAG lets an AI answer questions about your own documents by finding the most relevant passages first and handing them to the model with the question. The model is the easy part; the quality of your chunking, search, and data freshness decides whether you get accurate answers or confident guesses. (2026-06-18)
+- [AI and LLMs 101: A practical starter guide](https://shabazbadshah.com/blog/posts/ai-and-llms-101): This guide explains the core vocabulary of modern AI, including prompts, tokens, agents, MCP, skills, plugins, and Claude Code, in plain language. It ends with five practical steps to start using AI on real work today. (2026-04-12)
 - [What Ontario clinics need to know about digital health rules in 2026](https://shabazbadshah.com/blog/posts/2026-ontario-healthcare-compliance-overview): Ontario clinics now face direct privacy fines, new oversight expectations for AI scribes, federal rules against vendors locking up patient data, and a push toward a shared provincial health record. To stay compliant, clinics should check their audit logs, AI review processes, data export capabilities, staff access controls, and where their patient data is stored. (2026-02-03)
-- [AI and LLMs 101: A practical starter guide](https://shabazbadshah.com/blog/posts/ai-and-llms-101): This guide explains the core vocabulary of modern AI, including prompts, tokens, agents, MCP, skills, plugins, and Claude Code, in plain language. It ends with five practical steps to start using AI on real work today. (2026-02-03)
-- [How LLMs actually work: An intuitive guide](https://shabazbadshah.com/blog/posts/how-llms-actually-work): LLMs work by predicting the next token, using embeddings to map meaning and attention to read context, then building a full answer one token at a time. Training on massive amounts of text, followed by fine-tuning for helpfulness, turns that simple loop into a capable assistant, which also explains why these models sometimes hallucinate. (2026-02-03)
-- [How RAG (Retrieval-Augmented Generation) works](https://shabazbadshah.com/blog/posts/how-rag-works): RAG lets an AI answer questions about your own documents by finding the most relevant passages first and handing them to the model with the question. The model is the easy part; the quality of your chunking, search, and data freshness decides whether you get accurate answers or confident guesses. (2026-02-03)
 - [The end of the handoff: Why product and engineering need to merge](https://shabazbadshah.com/blog/posts/the-end-of-the-handover-model): AI has made building software cheap, so the real bottleneck is now knowing what to build, and the old handoff between product managers and engineers wastes time, loses intent, and creates technical debt. Product-engineering fusion, modeled on the forward deployed engineer, puts business judgment and technical execution in one owner, producing simpler, compliant, and more usable systems faster than a traditional siloed agency. (2025-08-23)
 
 ## Contact
 
 - [/in/shabaz-badshah](https://www.linkedin.com/in/shabaz-badshah/): Connect
 - [@ShabazBadshah](https://github.com/ShabazBadshah): Follow
-- [hello@shabazbadshah.com](mailto:hello@shabazbadshah.com): Email
+- [badshah.shabaz@gmail.com](mailto:badshah.shabaz@gmail.com): Email
 - [Video call](https://calendly.com/badshah-shabaz/30min): Video call
 
 ## Optional
@@ -87,191 +87,10 @@ An informational site volunteer nonprofit that empowers low socio-economic commu
 
 # Blog posts (full text)
 
-## What Ontario clinics need to know about digital health rules in 2026
-
-URL: https://shabazbadshah.com/blog/posts/2026-ontario-healthcare-compliance-overview
-Published: 2026-02-03
-Author: Shabaz Badshah
-Tags: healthcare, compliance, legal
-
-Running a clinic in Ontario now means meeting real legal standards for how you handle patient data. The privacy commissioner can fine you directly, and new federal rules are changing how health software has to work. This article covers five areas to check.
-
-## 1. Privacy fines no longer need a court
-
-The Information and Privacy Commissioner of Ontario (IPC) can now fine you without going to court first.
-
-- **What changed:** Under the Personal Health Information Protection Act (PHIPA), the IPC can issue fines called administrative monetary penalties.
-- **How much:** Up to $50,000 for an individual and $500,000 for an organization.
-- **What triggers them:** Serious breaches, such as staff looking at records they have no reason to see.
-- **What to do:** Make sure your system logs every time someone opens or changes a patient record. Each log entry should show who did it, when, and what they did. Nobody, including admins, should be able to edit those logs.
-
-## 2. AI scribes need oversight
-
-If you use an AI tool to write clinical notes, the IPC expects you to manage it carefully.
-
-- **Before you start:** Complete a privacy impact assessment.
-- **Tell patients:** Let patients know you use AI in their care.
-- **Check every note:** A clinician must review and approve each AI-generated note before it goes in the chart.
-- **Check your vendor:** Find out whether the vendor uses your patient data to train its models. If it does, ask how it removes identifying details.
-
-## 3. Your software vendor can't hold your data hostage
-
-The federal Connected Care for Canadians Act targets vendors that make it hard to move or share your data.
-
-- **What it bans:** Charging unreasonable fees or using closed formats to stop you from exporting data or sharing it with other providers.
-- **What it expects:** Health software that uses common standards, such as HL7 FHIR.
-- **What to do:** At your next contract renewal, ask the vendor to show that you can export your data for referrals or a switch to another system.
-
-## 4. Ontario is connecting records across the province
-
-Ontario Health is building a shared provincial health record.
-
-- **What it means for you:** Some primary care models must contribute data to the provincial record.
-- **Patient access:** Patients use verified digital identities to see their own records.
-- **What to do:** Check whether your patient portal and virtual care tools meet Ontario Health's requirements, especially if your funding depends on them.
-
-## 5. Know where your data lives
-
-Data location matters, but the rules are narrower than many people assume.
-
-- **What the law says:** PHIPA doesn't require you to store data in Canada. You are responsible for protecting it wherever it's stored.
-- **The real risk:** Data on US servers can fall under US laws that let authorities request access. Many clinics, health organizations, and patients prefer Canadian hosting for that reason.
-- **What to do:** Find out where your EMR, backups, and messaging tools store data. If any of it is outside Canada, document why and how you protect it, and check whether your contracts or funding agreements require Canadian hosting.
-
-## Quick checklist
-
-| Area          | What to check                                                                         |
-| :------------ | :------------------------------------------------------------------------------------ |
-| Audit logs    | Every record access is logged with user, time, and patient, and logs can't be edited. |
-| AI tools      | You've done a privacy impact assessment and clinicians review every AI note.          |
-| Data location | You know where every system stores patient data and have a reason for each choice.    |
-| Data sharing  | Your software can export data in a standard format such as HL7 FHIR.                  |
-| Staff access  | Each staff member can see only what their role needs.                                 |
-
----
-
-## AI and LLMs 101: A practical starter guide
-
-URL: https://shabazbadshah.com/blog/posts/ai-and-llms-101
-Published: 2026-02-03
-Author: Shabaz Badshah
-Tags: healthcare, compliance, legal
-
-AI tools move fast, and the vocabulary moves faster. Models, agents, MCP, plugins, skills, Claude Code. If you feel behind, you're not alone.
-
-This guide explains the core terms in plain language so you can start using these tools with confidence.
-
-## The basics
-
-### What's an LLM?
-
-A large language model (LLM) is an AI system trained on huge amounts of text to predict what comes next. That simple skill, at enormous scale, lets it write, summarize, answer questions, and code.
-
-Claude (from Anthropic), ChatGPT (from OpenAI), and Gemini (from Google) are all built on LLMs.
-
-### Model vs. app
-
-The _model_ is the engine. The _app_ is the car built around it.
-
-When you use Claude in a browser or on your phone, you're using an app that wraps the model with features like file uploads, web search, memory, and connections to other tools. Developers can also use the model directly through an _API_ and build their own apps on top.
-
-### Prompts
-
-A _prompt_ is whatever you send the model. Better prompts get better results. A few rules that work almost every time:
-
-- **Be specific.** "Write a 300-word email to a client explaining a two-week delay" beats "write an email."
-- **Give context.** Who's the audience? What's the goal? What should it avoid?
-- **Show examples.** If you want a specific format or tone, paste a sample.
-- **Iterate.** Treat the first answer as a draft. Tell it what to change.
-
-### Tokens and context windows
-
-Models read text in chunks called _tokens_, roughly three-quarters of a word each in English. The _context window_ is how much text the model can consider at once, including your messages, its replies, and any files.
-
-When a conversation gets very long, older content may fall out of view. Starting a fresh conversation for a new task often gives better results.
-
-### Hallucinations
-
-LLMs sometimes state wrong things confidently. They're producing plausible text, and plausible isn't always true. Verify anything important, especially numbers, citations, and legal or medical facts.
-
-## Connecting AI to your world
-
-A model on its own only knows what it learned in training. The real power comes from connecting it to your data and tools.
-
-### Tools and agents
-
-A _tool_ is an action the model can take: search the web, read a file, run code, send a message. When a model can use tools, it can do things instead of just talking about them.
-
-An _agent_ is a model that uses tools in a loop to complete a multi-step task. You give it a goal, such as "find last quarter's top support issues and draft a summary," and it decides which tools to use, checks the results, and keeps going until it's done.
-
-### MCP (Model Context Protocol)
-
-The Model Context Protocol (MCP) is an open standard, introduced by Anthropic, for connecting AI apps to outside tools and data.
-
-Think of MCP like USB-C for AI. Before USB-C, every device needed its own cable. Before MCP, every AI app needed a custom integration for every service. With MCP, a service builds one _MCP server_, and any AI app that supports MCP can plug into it.
-
-In practice, MCP is what lets an AI assistant read your Google Drive, check your calendar, query a database, or create a ticket in your project tracker. In many apps, these show up as _connectors_ that you switch on.
-
-### Skills
-
-A _skill_ is a packaged set of instructions, and sometimes scripts or templates, that teaches the AI how to do a specific task well. For example, a skill might cover how to build a spreadsheet, follow your company's writing style, or run your team's code review checklist.
-
-The AI loads a skill only when it's relevant, so you can have many available without cluttering every conversation.
-
-### Plugins
-
-A _plugin_ bundles several of these pieces together, such as skills, commands, and MCP connections, into one installable package. Instead of setting up five things separately, you install one plugin built for a job, like sales workflows or deployments.
-
-## Claude Code and coding agents
-
-### What's Claude Code?
-
-Claude Code is Anthropic's agentic coding tool. Instead of pasting code into a chat window, you give Claude access to your project, and it can read files, write and edit code, run commands, and test its own work.
-
-You describe what you want, such as "add a login page" or "find why this test is failing," and it works through the task across your codebase. It started as a command-line tool and is now available in more places, including the web, desktop, and IDE integrations.
-
-### Why it matters
-
-Coding agents change who can build software and how fast. Engineers hand off routine work and focus on design and review. Non-engineers, like PMs and designers, can prototype ideas themselves instead of waiting on a team.
-
-The skill that matters most shifts from typing code to clearly describing what you want and judging whether the result is right.
-
-## How to get started
-
-1. **Pick one assistant and use it daily.** Claude, ChatGPT, or Gemini. Depth beats switching.
-2. **Start with real work.** Summarize a long document, draft an email you've been avoiding, or explain a concept you don't fully get.
-3. **Connect one tool.** Turn on a connector for something you use daily, like your email, calendar, or drive, and ask questions about your own data.
-4. **Try a coding agent on a small project.** Even if you don't code, ask it to build a simple web page or script and watch how it works.
-5. **Verify, then trust gradually.** Check its work early on. You'll learn quickly where it's reliable and where it needs a second look.
-
-## Quick glossary
-
-| Term           | What it means                                              |
-| :------------- | :--------------------------------------------------------- |
-| LLM            | An AI model trained to understand and generate text        |
-| Prompt         | What you send to the model                                 |
-| Token          | A chunk of text, roughly three-quarters of a word          |
-| Context window | How much text the model can consider at once               |
-| Hallucination  | A confident but false answer                               |
-| Tool           | An action the model can take, like search or run code      |
-| Agent          | A model that uses tools in a loop to finish a task         |
-| MCP            | An open standard for connecting AI apps to tools and data  |
-| Connector      | A ready-made connection to a service, often built on MCP   |
-| Skill          | Packaged instructions that teach the AI a specific task    |
-| Plugin         | A bundle of skills, commands, and connections              |
-| RAG            | Finding relevant documents first, then answering from them |
-| Claude Code    | Anthropic's agentic coding tool                            |
-
-## The takeaway
-
-You don't need to understand every acronym to get value from AI. Learn the core loop: a model predicts text, tools let it act, and standards like MCP connect it to your world. Then start using it on real work. That's where it clicks.
-
----
-
 ## How LLMs actually work: An intuitive guide
 
 URL: https://shabazbadshah.com/blog/posts/how-llms-actually-work
-Published: 2026-02-03
+Published: 2026-09-27
 Author: Shabaz Badshah
 Tags: healthcare, compliance, legal
 
@@ -407,11 +226,9 @@ Understand that core loop, and the rest falls into place: why context matters, w
 ## How RAG (Retrieval-Augmented Generation) works
 
 URL: https://shabazbadshah.com/blog/posts/how-rag-works
-Published: 2026-02-03
+Published: 2026-06-18
 Author: Shabaz Badshah
 Tags: healthcare, compliance, legal
-
-#
 
 Large language models (LLMs) know a lot, but they have two big gaps. They only know what was in their training data, which has a cutoff date. And they don't know anything about _your_ stuff: your company docs, your product manual, your support tickets, your contracts.
 
@@ -494,14 +311,193 @@ The model is the easy part. The quality of your retrieval decides whether your A
 
 ---
 
+## AI and LLMs 101: A practical starter guide
+
+URL: https://shabazbadshah.com/blog/posts/ai-and-llms-101
+Published: 2026-04-12
+Author: Shabaz Badshah
+Tags: healthcare, compliance, legal
+
+AI tools move fast, and the vocabulary moves faster. Models, agents, MCP, plugins, skills, Claude Code. If you feel behind, you're not alone.
+
+This guide explains the core terms in plain language so you can start using these tools with confidence.
+
+## The basics
+
+### What's an LLM?
+
+A large language model (LLM) is an AI system trained on huge amounts of text to predict what comes next. That simple skill, at enormous scale, lets it write, summarize, answer questions, and code.
+
+Claude (from Anthropic), ChatGPT (from OpenAI), and Gemini (from Google) are all built on LLMs.
+
+### Model vs. app
+
+The _model_ is the engine. The _app_ is the car built around it.
+
+When you use Claude in a browser or on your phone, you're using an app that wraps the model with features like file uploads, web search, memory, and connections to other tools. Developers can also use the model directly through an _API_ and build their own apps on top.
+
+### Prompts
+
+A _prompt_ is whatever you send the model. Better prompts get better results. A few rules that work almost every time:
+
+- **Be specific.** "Write a 300-word email to a client explaining a two-week delay" beats "write an email."
+- **Give context.** Who's the audience? What's the goal? What should it avoid?
+- **Show examples.** If you want a specific format or tone, paste a sample.
+- **Iterate.** Treat the first answer as a draft. Tell it what to change.
+
+### Tokens and context windows
+
+Models read text in chunks called _tokens_, roughly three-quarters of a word each in English. The _context window_ is how much text the model can consider at once, including your messages, its replies, and any files.
+
+When a conversation gets very long, older content may fall out of view. Starting a fresh conversation for a new task often gives better results.
+
+### Hallucinations
+
+LLMs sometimes state wrong things confidently. They're producing plausible text, and plausible isn't always true. Verify anything important, especially numbers, citations, and legal or medical facts.
+
+## Connecting AI to your world
+
+A model on its own only knows what it learned in training. The real power comes from connecting it to your data and tools.
+
+### Tools and agents
+
+A _tool_ is an action the model can take: search the web, read a file, run code, send a message. When a model can use tools, it can do things instead of just talking about them.
+
+An _agent_ is a model that uses tools in a loop to complete a multi-step task. You give it a goal, such as "find last quarter's top support issues and draft a summary," and it decides which tools to use, checks the results, and keeps going until it's done.
+
+### MCP (Model Context Protocol)
+
+The Model Context Protocol (MCP) is an open standard, introduced by Anthropic, for connecting AI apps to outside tools and data.
+
+Think of MCP like USB-C for AI. Before USB-C, every device needed its own cable. Before MCP, every AI app needed a custom integration for every service. With MCP, a service builds one _MCP server_, and any AI app that supports MCP can plug into it.
+
+In practice, MCP is what lets an AI assistant read your Google Drive, check your calendar, query a database, or create a ticket in your project tracker. In many apps, these show up as _connectors_ that you switch on.
+
+### Skills
+
+A _skill_ is a packaged set of instructions, and sometimes scripts or templates, that teaches the AI how to do a specific task well. For example, a skill might cover how to build a spreadsheet, follow your company's writing style, or run your team's code review checklist.
+
+The AI loads a skill only when it's relevant, so you can have many available without cluttering every conversation.
+
+### Plugins
+
+A _plugin_ bundles several of these pieces together, such as skills, commands, and MCP connections, into one installable package. Instead of setting up five things separately, you install one plugin built for a job, like sales workflows or deployments.
+
+## Claude Code and coding agents
+
+### What's Claude Code?
+
+Claude Code is Anthropic's agentic coding tool. Instead of pasting code into a chat window, you give Claude access to your project, and it can read files, write and edit code, run commands, and test its own work.
+
+You describe what you want, such as "add a login page" or "find why this test is failing," and it works through the task across your codebase. It started as a command-line tool and is now available in more places, including the web, desktop, and IDE integrations.
+
+### Why it matters
+
+Coding agents change who can build software and how fast. Engineers hand off routine work and focus on design and review. Non-engineers, like PMs and designers, can prototype ideas themselves instead of waiting on a team.
+
+The skill that matters most shifts from typing code to clearly describing what you want and judging whether the result is right.
+
+## How to get started
+
+1. **Pick one assistant and use it daily.** Claude, ChatGPT, or Gemini. Depth beats switching.
+2. **Start with real work.** Summarize a long document, draft an email you've been avoiding, or explain a concept you don't fully get.
+3. **Connect one tool.** Turn on a connector for something you use daily, like your email, calendar, or drive, and ask questions about your own data.
+4. **Try a coding agent on a small project.** Even if you don't code, ask it to build a simple web page or script and watch how it works.
+5. **Verify, then trust gradually.** Check its work early on. You'll learn quickly where it's reliable and where it needs a second look.
+
+## Quick glossary
+
+| Term           | What it means                                              |
+| :------------- | :--------------------------------------------------------- |
+| LLM            | An AI model trained to understand and generate text        |
+| Prompt         | What you send to the model                                 |
+| Token          | A chunk of text, roughly three-quarters of a word          |
+| Context window | How much text the model can consider at once               |
+| Hallucination  | A confident but false answer                               |
+| Tool           | An action the model can take, like search or run code      |
+| Agent          | A model that uses tools in a loop to finish a task         |
+| MCP            | An open standard for connecting AI apps to tools and data  |
+| Connector      | A ready-made connection to a service, often built on MCP   |
+| Skill          | Packaged instructions that teach the AI a specific task    |
+| Plugin         | A bundle of skills, commands, and connections              |
+| RAG            | Finding relevant documents first, then answering from them |
+| Claude Code    | Anthropic's agentic coding tool                            |
+
+## The takeaway
+
+You don't need to understand every acronym to get value from AI. Learn the core loop: a model predicts text, tools let it act, and standards like MCP connect it to your world. Then start using it on real work. That's where it clicks.
+
+---
+
+## What Ontario clinics need to know about digital health rules in 2026
+
+URL: https://shabazbadshah.com/blog/posts/2026-ontario-healthcare-compliance-overview
+Published: 2026-02-03
+Author: Shabaz Badshah
+Tags: healthcare, compliance, legal
+
+Running a clinic in Ontario now means meeting real legal standards for how you handle patient data. The privacy commissioner can fine you directly, and new federal rules are changing how health software has to work. This article covers five areas to check.
+
+## 1. Privacy fines no longer need a court
+
+The Information and Privacy Commissioner of Ontario (IPC) can now fine you without going to court first.
+
+- **What changed:** Under the Personal Health Information Protection Act (PHIPA), the IPC can issue fines called administrative monetary penalties.
+- **How much:** Up to $50,000 for an individual and $500,000 for an organization.
+- **What triggers them:** Serious breaches, such as staff looking at records they have no reason to see.
+- **What to do:** Make sure your system logs every time someone opens or changes a patient record. Each log entry should show who did it, when, and what they did. Nobody, including admins, should be able to edit those logs.
+
+## 2. AI scribes need oversight
+
+If you use an AI tool to write clinical notes, the IPC expects you to manage it carefully.
+
+- **Before you start:** Complete a privacy impact assessment.
+- **Tell patients:** Let patients know you use AI in their care.
+- **Check every note:** A clinician must review and approve each AI-generated note before it goes in the chart.
+- **Check your vendor:** Find out whether the vendor uses your patient data to train its models. If it does, ask how it removes identifying details.
+
+## 3. Your software vendor can't hold your data hostage
+
+The federal Connected Care for Canadians Act targets vendors that make it hard to move or share your data.
+
+- **What it bans:** Charging unreasonable fees or using closed formats to stop you from exporting data or sharing it with other providers.
+- **What it expects:** Health software that uses common standards, such as HL7 FHIR.
+- **What to do:** At your next contract renewal, ask the vendor to show that you can export your data for referrals or a switch to another system.
+
+## 4. Ontario is connecting records across the province
+
+Ontario Health is building a shared provincial health record.
+
+- **What it means for you:** Some primary care models must contribute data to the provincial record.
+- **Patient access:** Patients use verified digital identities to see their own records.
+- **What to do:** Check whether your patient portal and virtual care tools meet Ontario Health's requirements, especially if your funding depends on them.
+
+## 5. Know where your data lives
+
+Data location matters, but the rules are narrower than many people assume.
+
+- **What the law says:** PHIPA doesn't require you to store data in Canada. You are responsible for protecting it wherever it's stored.
+- **The real risk:** Data on US servers can fall under US laws that let authorities request access. Many clinics, health organizations, and patients prefer Canadian hosting for that reason.
+- **What to do:** Find out where your EMR, backups, and messaging tools store data. If any of it is outside Canada, document why and how you protect it, and check whether your contracts or funding agreements require Canadian hosting.
+
+## Quick checklist
+
+| Area          | What to check                                                                         |
+| :------------ | :------------------------------------------------------------------------------------ |
+| Audit logs    | Every record access is logged with user, time, and patient, and logs can't be edited. |
+| AI tools      | You've done a privacy impact assessment and clinicians review every AI note.          |
+| Data location | You know where every system stores patient data and have a reason for each choice.    |
+| Data sharing  | Your software can export data in a standard format such as HL7 FHIR.                  |
+| Staff access  | Each staff member can see only what their role needs.                                 |
+
+---
+
 ## The end of the handoff: Why product and engineering need to merge
 
 URL: https://shabazbadshah.com/blog/posts/the-end-of-the-handover-model
 Published: 2025-08-23
 Author: Shabaz Badshah
 Tags: software-development, product-engineering, ai
-
-#
 
 For years, software teams split the work in two. Product managers decided what to build, and engineers decided how to build it. That made sense when building was the expensive part. It isn't anymore.
 
