@@ -1,4 +1,4 @@
-import { CalendarDays } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { useState } from 'react';
 
 import { trackConnectLinkClick } from '@/analytics/tracking';
@@ -73,10 +73,10 @@ export default function Hero(): JSX.Element {
 
       <div className="mt-8 flex flex-wrap gap-3">
         <a href={siteConfig.booking} className="pill pill-accent text-sm">
-          <CalendarDays aria-hidden="true" className="size-5" />
-          Let's work together
+          <Send aria-hidden="true" className="size-5" />
+          Let's talk
         </a>
-        <a href="#work" className="pill bg-gray-50 text-sm">
+        <a href="#work" className="pill bg-gray-50 dark:bg-transparent dark:border-gray-50 text-sm">
           View selected works
         </a>
       </div>
@@ -101,7 +101,7 @@ export default function Hero(): JSX.Element {
                 alt=""
                 aria-hidden="true"
                 className={`relative size-6 object-contain ${
-                  provider === 'github' ? 'transition-[filter] group-hover:invert dark:invert' : ''
+                  provider === 'github' ? 'transition-[filter] group-hover:invert' : ''
                 }`}
               />
             </a>

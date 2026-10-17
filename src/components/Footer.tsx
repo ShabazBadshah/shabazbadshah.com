@@ -20,14 +20,12 @@ const Footer = ({ narrow = false }: { narrow?: boolean }): JSX.Element => (
       narrow ? 'max-w-article' : 'max-w-5xl'
     }`}
   >
-    <p className="text-sm text-fg-muted">Have a project in mind?</p>
+    <p className="text-sm text-fg-muted">Does my skillset sound like a great fit for your team?</p>
     <a
-      href={siteConfig.booking}
+      href={siteConfig.socials.find((s) => s.provider === 'email')?.url}
       className="mt-3 block break-words text-[clamp(2.25rem,9vw,6.5rem)] font-semibold leading-[0.95] tracking-tighter no-underline transition-colors hover:text-accent"
     >
-      Let&apos;s work
-      <br />
-      together.
+      Let&apos;s talk
     </a>
 
     <div className="mt-16 flex flex-col gap-6 border-t pt-6 sm:mt-24 sm:flex-row sm:items-center sm:justify-between">

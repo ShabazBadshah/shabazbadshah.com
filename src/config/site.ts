@@ -20,30 +20,30 @@ export const siteConfig = {
     'I integrate product strategy with technical execution to solve impactful business problems.',
 
   seo: {
-    title: 'Shabaz Badshah - Product Engineer (FDE) & Technical Product Consultant',
+    title: 'Shabaz Badshah - Product Engineer & Technical Product Consultant',
     /** Home page meta description */
     description:
       "I’m a product engineer with 5+ years in technical product management and software development roles, I build things end-to-end. I figure out what’s worth making, why it's useful, write the code, and make sure it's supported after launch.",
     keywords: [
       'product management',
+      'product engineering',
+      'software engineer',
       'technical consulting',
       'healthcare digitization',
-      'product engineering',
-      'forward deployed engineering',
       'software architecture'
     ],
     ogImage: '/images/og-image.png',
     postTitle: (title: string) => `Thoughts - ${title} | ${HOST}`,
     notFound: {
-      title: 'Not Found | Badshah Consulting',
+      title: 'Not Found | shabazbadshah.com',
       description: "Whoops, couldn't find what you were looking for. Sorry about that"
     }
   },
 
   person: {
     name: 'Shabaz Badshah',
-    jobTitle: 'Product Engineer (FDE) & Technical Product Consultant',
-    email: 'hello@shabazbadshah.com',
+    jobTitle: 'Product Engineer & Technical Product Consultant',
+    email: 'badshah.shabaz@gmail.com',
     image: '/images/profile.webp',
     location: 'Ontario, Canada',
     region: 'ON',
@@ -86,10 +86,10 @@ export const siteConfig = {
     },
     {
       provider: 'email',
-      name: 'hello@shabazbadshah.com',
+      name: 'badshah.shabaz@gmail.com',
       label: 'Send an email',
       cta: 'Email',
-      url: 'mailto:hello@shabazbadshah.com?subject=Hey%20Shabaz%20%F0%9F%91%8B',
+      url: 'mailto:badshah.shabaz@gmail.com?subject=Hey%20Shabaz%20%F0%9F%91%8B',
       logo: '/images/logos/gmail.svg'
     },
     {
