@@ -1,9 +1,10 @@
 import { m } from 'framer-motion';
-import { Moon, Sun } from 'lucide-react';
+import { ArrowLeft, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
+import { flushSync } from 'react-dom';
 
 import { siteConfig } from '@/config/site';
 
@@ -54,12 +55,48 @@ function ThemeToggle(): JSX.Element {
   useEffect(() => setMounted(true), []);
 
   const isDark = resolvedTheme === 'dark';
+
+  // Reveal the new theme as a circle expanding from the button. The View Transitions API is
+  // missing from this TypeScript version's DOM types; browsers without it switch instantly.
+  const toggle = (event: MouseEvent<HTMLButtonElement>) => {
+    const next = isDark ? 'light' : 'dark';
+    const doc = document as Document & {
+      startViewTransition?: (update: () => void) => { ready: Promise<void> };
+    };
+    if (!doc.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setTheme(next);
+      return;
+    }
+
+    const { left, top, width, height } = event.currentTarget.getBoundingClientRect();
+    const x = left + width / 2;
+    const y = top + height / 2;
+    const radius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    // flushSync commits the theme (next-themes applies its class in an effect) before the snapshot
+    doc
+      .startViewTransition(() => flushSync(() => setTheme(next)))
+      .ready.then(() => {
+        document.documentElement.animate(
+          { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
+          {
+            duration: 750,
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+            pseudoElement: '::view-transition-new(root)'
+          }
+        );
+      });
+  };
+
   const label = !mounted ? 'Toggle color theme' : `Switch to ${isDark ? 'light' : 'dark'} theme`;
 
   return (
     <button
       type="button"
-      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      onClick={toggle}
       aria-label={label}
       className="grid size-10 shrink-0 cursor-pointer place-items-center rounded-pill text-fg-muted transition-colors hover:text-fg"
     >
@@ -72,16 +109,28 @@ function ThemeToggle(): JSX.Element {
 
 export default function Header(): JSX.Element | null {
   const active = useActiveSection();
-  const { query } = useRouter();
+  const { pathname, query } = useRouter();
 
   // The article sheet takes over the whole screen
   if (query.post) return null;
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-3 z-40 flex justify-center px-3 sm:top-4">
+    <header className="pointer-events-none fixed inset-x-0 top-3 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 sm:top-4 sm:px-4">
+      {/* Full article page only; the article sheet has its own collapse control */}
+      {pathname === '/blog/posts/[slug]' && (
+        <Link href="/">
+          <a
+            aria-label="Back"
+            className="pointer-events-auto inline-flex h-10 items-center gap-1.5 justify-self-start rounded-pill border bg-elevated px-3 text-sm font-medium text-fg-muted no-underline backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg sm:px-4"
+          >
+            <ArrowLeft aria-hidden="true" className="size-4" />
+            <span className="hidden sm:inline">Back</span>
+          </a>
+        </Link>
+      )}
       <nav
         aria-label="Primary"
-        className="pointer-events-auto flex items-center gap-0.5 rounded-pill border bg-elevated p-1 backdrop-blur-lg backdrop-saturate-180"
+        className="pointer-events-auto col-start-2 flex items-center gap-0.5 rounded-pill border bg-elevated p-1 backdrop-blur-lg backdrop-saturate-180"
       >
         <Link href="/" prefetch={false}>
           <a

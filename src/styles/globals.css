@@ -156,6 +156,14 @@
   }
 }
 
+/* Theme switch: the new theme is revealed as a circle growing from the toggle (see Header.tsx),
+   so the browser's default cross-fade of the snapshots is turned off */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 /* Reduced motion: no transforms, no layout animation, no smooth scroll */
 @media (prefers-reduced-motion: reduce) {
   html {
