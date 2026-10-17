@@ -60,7 +60,7 @@ const Index = ({ posts }: { posts: Post[] }): JSX.Element => {
 
         <section aria-labelledby="blog-heading">
           <h2 id="blog" className={SECTION_TITLE}>
-            <span id="blog-heading">Thoughts</span>
+            <span id="blog-heading">Blog</span>
             <p className="text-lg font-medium text-fg-muted">
               Some of my thoughts and things I&apos;d like to share.
             </p>

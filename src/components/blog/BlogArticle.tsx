@@ -170,7 +170,7 @@ export default function BlogArticle({
 
       <header className="mb-14 text-center">
         <h1 className="mb-4 mt-3 text-3xl font-semibold sm:text-4xl">{post.title}</h1>
-        <p className="mt-3 inline-block rounded-pill border bg-gray-50 text-fg-muted px-3 py-2 text-sm font-medium">
+        <p className="mt-3 inline-block rounded-pill border text-fg-muted px-3 py-2 text-sm font-medium">
           <time dateTime={dayjs(post.publishedAt).format('YYYY-MM-DD')}>
             {dayjs(post.publishedAt).format('MMM D, YYYY')}
           </time>

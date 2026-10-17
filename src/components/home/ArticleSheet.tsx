@@ -11,7 +11,6 @@ import {
   type CardOrigin
 } from '@/components/CardTransition';
 import CornerButton from '@/components/CornerButton';
-import Footer from '@/components/Footer';
 import { siteConfig } from '@/config/site';
 import type { Post } from '@/lib/blog';
 
@@ -154,7 +153,6 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
           <div className="mx-auto w-full max-w-article px-4 pb-16 pt-20 sm:px-6">
             <BlogArticle post={post} />
           </div>
-          <Footer narrow />
         </div>
         <CornerButton
           icon={Minimize2}

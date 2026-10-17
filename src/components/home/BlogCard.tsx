@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { ArrowUpRight, Maximize2 } from 'lucide-react';
+import { Maximize2 } from 'lucide-react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -29,7 +29,7 @@ export default function BlogCard({ post, featured = false, className = '' }: Pro
       <a
         href={href}
         data-card={post.slug}
-        className={`card group h-full justify-between gap-6 p-5 no-underline hover:border-line-strong sm:p-6 ${
+        className={`card group h-full justify-between gap-6 p-5 no-underline sm:p-6 ${
           featured ? 'lg:p-8' : ''
         }`}
         onPointerEnter={() => router.prefetch(href).catch(() => undefined)}
@@ -48,7 +48,9 @@ export default function BlogCard({ post, featured = false, className = '' }: Pro
           <p className="eyebrow">
             {featured && (
               <>
-                <span className="text-accent">Featured</span>
+                <span className="text-accent rounded-pill border border-accent py-1 px-2 bg-blue-50">
+                  Featured
+                </span>
                 <span aria-hidden="true"> · </span>
                 <span className="sr-only">, </span>
               </>
@@ -75,13 +77,13 @@ export default function BlogCard({ post, featured = false, className = '' }: Pro
             {plainText(post.shortBody)}
           </p>
         </div>
-        <span className="inline-flex items-center gap-1 text-sm font-medium text-fg">
+        {/* <span className="inline-flex items-center gap-1 text-sm font-medium text-fg">
           Read article
           <ArrowUpRight
             aria-hidden="true"
             className="size-4 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
           />
-        </span>
+        </span> */}
       </a>
     </li>
   );
