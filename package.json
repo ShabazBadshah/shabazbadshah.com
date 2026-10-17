@@ -13,9 +13,9 @@
   ],
   "scripts": {
     "generate": "ts-node ./bin/copy-blog-images-to-public.ts && ts-node ./bin/generate.ts",
-    "dev": "pnpm generate && next dev -p 8080",
+    "dev": "pnpm generate && next dev",
     "build": "pnpm generate && next build",
-    "start": "next start -p 8080",
+    "start": "next start",
     "export": "next export",
     "build:analyze": "cross-env ANALYZE=true pnpm run build",
     "lint": "eslint '{src,pages}**/*.{js,jsx,ts,tsx}'",
