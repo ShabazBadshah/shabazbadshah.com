@@ -6,6 +6,7 @@ import {
   CalendarDays,
   Globe,
   Info,
+  Maximize,
   ShieldCheck,
   Star
 } from 'lucide-react';
@@ -45,25 +46,52 @@ function LazyVideo({ src, poster, label }: { src: string; poster?: string; label
       else video.pause();
     });
     observer.observe(video);
-    return () => observer.disconnect();
+    // Native controls only while fullscreen, so the card itself stays clean
+    const onFullscreenChange = () => {
+      video.controls = document.fullscreenElement === video;
+    };
+    video.addEventListener('fullscreenchange', onFullscreenChange);
+    return () => {
+      observer.disconnect();
+      video.removeEventListener('fullscreenchange', onFullscreenChange);
+    };
   }, []);
 
+  const enterFullscreen = () => {
+    const video = ref.current as (HTMLVideoElement & { webkitEnterFullscreen?: () => void }) | null;
+    if (!video) return;
+    if (video.requestFullscreen) video.requestFullscreen().catch(() => {});
+    // iOS Safari only supports fullscreen on the video element through this API
+    else video.webkitEnterFullscreen?.();
+  };
+
   return (
-    <video
-      ref={ref}
-      loop
-      controls
-      muted
-      playsInline
-      preload="none"
-      poster={poster}
-      aria-label={label}
-      width={1280}
-      height={720}
-      className="block aspect-video h-auto w-full"
-    >
-      <source src={src} type="video/mp4" />
-    </video>
+    <>
+      <video
+        ref={ref}
+        loop
+        // controls
+        muted
+        playsInline
+        preload="none"
+        poster={poster}
+        aria-label={label}
+        width={1280}
+        height={720}
+        className="block aspect-video h-auto w-full"
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+      <button
+        type="button"
+        aria-label={`View ${label} fullscreen`}
+        title="Fullscreen"
+        onClick={enterFullscreen}
+        className="absolute bottom-3 right-3 grid size-9 cursor-pointer place-items-center rounded-pill border bg-elevated text-fg-muted backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg"
+      >
+        <Maximize aria-hidden="true" className="size-4" />
+      </button>
+    </>
   );
 }
 
@@ -97,8 +125,8 @@ function AppCardStack({ images }: { images: NonNullable<Project['appImages']> })
             width={image.width}
             height={image.height}
             loading={index === 0 ? 'eager' : 'lazy'}
-            // @types/react predates fetchPriority
-            {...(index === 0 ? ({ fetchPriority: 'high' } as object) : {})}
+            // React 18 only passes the attribute through in its lowercase HTML spelling
+            {...(index === 0 && { fetchpriority: 'high' })}
             initial={false}
             animate={{ ...STACK_POSES[depth % STACK_POSES.length], zIndex: images.length - depth }}
             transition={{ type: 'spring', stiffness: 180, damping: 22 }}
@@ -118,7 +146,13 @@ type Props = {
 function Title({ project, className = '' }: { project: Project; className?: string }): JSX.Element {
   return (
     <div data-keep className={`flex items-center gap-2.5 ${className}`}>
-      <Image src={project.logo} alt="" width={28} height={28} className="size-7 object-contain" />
+      <Image
+        src={project.logo}
+        alt=""
+        width={28}
+        height={28}
+        className={`size-7 object-contain ${project.logoInvertOnDark ? 'dark:invert' : ''}`}
+      />
       <h3 className="text-lg font-semibold">{project.title}</h3>
     </div>
   );

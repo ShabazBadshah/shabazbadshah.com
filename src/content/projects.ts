@@ -9,6 +9,8 @@ export type Project = {
   date: string;
   website: string;
   logo: string;
+  /** Monochrome dark logo that should render white in dark mode */
+  logoInvertOnDark?: boolean;
   description: string;
   role: string;
   disciplines: string[];
@@ -87,7 +89,7 @@ export const PROJECTS: Project[] = [
       'Release Management and Quality Assurance'
     ],
     skills_and_technologies: [
-      'iOS and Android mobile app development',
+      'iOS and Android mobile apps',
       'Figma',
       'TELUS Kroll PMS',
       'Stripe',
@@ -105,6 +107,7 @@ export const PROJECTS: Project[] = [
     date: '2023',
     website: 'https://planned.com/',
     logo: '/images/portfolio/planned-logo.png',
+    logoInvertOnDark: true,
     description:
       'REST API for consolidating disparate vendor data (Google Maps, PDFs, Yelp, etc.) using LLM technology to scale curated marketplace.',
     role: 'Product manager',
