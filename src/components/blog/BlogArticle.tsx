@@ -65,7 +65,7 @@ function Toc({ items, collapsible = false }: { items: TocItem[]; collapsible?: b
               }}
               className={`block w-fit rounded-3xl px-3 py-1.5 text-sm leading-snug no-underline transition-colors hover:bg-fill hover:text-fg ${
                 collapsible ? '' : 'max-w-full truncate'
-              } ${item.level === 3 ? 'pr-6 text-[0.8125rem]' : ''} ${
+              } ${item.level === 3 ? 'pr-6 text-[0.8125rem]' : 'font-semibold'} ${
                 isActive ? 'bg-fill font-medium text-fg' : 'text-fg-muted'
               }`}
             >
@@ -81,7 +81,7 @@ function Toc({ items, collapsible = false }: { items: TocItem[]; collapsible?: b
     return (
       <nav aria-label="Table of contents" className="mb-8 rounded-3xl border">
         <details className="group">
-          <summary className="eyebrow flex cursor-pointer list-none items-center justify-between px-4 py-3 [&::-webkit-details-marker]:hidden">
+          <summary className="eyebrow flex cursor-pointer list-none items-center justify-between px-4 py-2 [&::-webkit-details-marker]:hidden">
             Contents
             <ChevronDown
               aria-hidden="true"
@@ -106,7 +106,7 @@ function Toc({ items, collapsible = false }: { items: TocItem[]; collapsible?: b
 
 export default function BlogArticle({
   post,
-  className = 'pb-10 pt-6 sm:pt-10'
+  className = 'pb-10'
 }: {
   post: Post;
   className?: string;

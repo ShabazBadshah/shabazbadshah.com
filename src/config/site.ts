@@ -95,7 +95,7 @@ export const siteConfig = {
     {
       provider: 'video',
       name: 'Video call',
-      label: 'Book a video call',
+      label: "Let's meet virtually",
       cta: 'Video call',
       url: BOOKING_URL,
       logo: '/images/logos/google-meet.svg'

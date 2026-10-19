@@ -3,11 +3,11 @@ import { siteConfig } from '@/config/site';
 const SOCIAL_LINKS: Record<string, string> = {
   linkedin: 'LinkedIn',
   github: 'GitHub',
-  video: 'Book a call'
+  video: 'Meet virtually'
 };
 
 const LINKS = [
-  ...siteConfig.nav,
+  // ...siteConfig.nav,
   ...siteConfig.socials
     .filter(({ provider }) => provider in SOCIAL_LINKS)
     .map(({ provider, url }) => ({ label: SOCIAL_LINKS[provider], href: url }))

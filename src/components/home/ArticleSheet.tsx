@@ -24,23 +24,18 @@ type Props = {
 
 type Box = Pick<CardOrigin, 'left' | 'top' | 'width' | 'height'>;
 
-const margin = () => (window.innerWidth >= 640 ? 12 : 8);
-
-/** clip-path revealing a viewport-space box inside the frame (the viewport inset by `margin`) */
+/** clip-path revealing a viewport-space box inside the full-viewport frame */
 const clipTo = (box: Box, radius: number) => {
-  const m = margin();
-  const frameW = window.innerWidth - m * 2;
-  const frameH = window.innerHeight - m * 2;
-  const top = Math.max(box.top - m, 0);
-  const left = Math.max(box.left - m, 0);
-  const right = Math.max(frameW - left - box.width, 0);
-  const bottom = Math.max(frameH - top - box.height, 0);
+  const top = Math.max(box.top, 0);
+  const left = Math.max(box.left, 0);
+  const right = Math.max(window.innerWidth - left - box.width, 0);
+  const bottom = Math.max(window.innerHeight - top - box.height, 0);
   return `inset(${top}px ${right}px ${bottom}px ${left}px round ${radius}px)`;
 };
 
 /**
- * Full-screen article over the home page. It is the clicked card, grown: a bordered frame whose
- * clip-path expands from the card's box to the whole frame (and back), with the card's snapshot
+ * Full-screen article over the home page. It is the clicked card, grown: a viewport-sized frame whose
+ * clip-path expands from the card's box to the whole viewport (and back), with the card's snapshot
  * fading out on top. The article is already rendered inside, so there is nothing to load.
  */
 export default function ArticleSheet({ post, closing, onClose, onExited }: Props): JSX.Element {
@@ -105,16 +100,13 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
     return () => cancelAnimationFrame(frame);
   }, [closing, post.slug, homeScroll]);
 
-  const open = clipTo(
-    { left: margin(), top: margin(), width: window.innerWidth, height: window.innerHeight },
-    radius
-  );
+  const open = clipTo({ left: 0, top: 0, width: window.innerWidth, height: window.innerHeight }, 0);
   const collapseBox = collapseTo ?? from;
   const target = closing && collapseBox ? clipTo(collapseBox, radius) : open;
 
   return (
     <>
-      {/* Darkens the strip of page left visible around the sheet */}
+      {/* Darkens the page around the card while it grows and shrinks */}
       <m.div
         aria-hidden="true"
         className="fixed inset-0 z-30 bg-black/70"
@@ -125,12 +117,8 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
       />
       <m.div
         aria-hidden={closing || undefined}
-        className="fixed z-30 overflow-hidden border border-line bg-surface"
-        style={{
-          inset: margin(),
-          borderRadius: radius,
-          pointerEvents: closing ? 'none' : undefined
-        }}
+        className="fixed inset-0 z-30 overflow-hidden bg-surface"
+        style={{ pointerEvents: closing ? 'none' : undefined }}
         initial={{ clipPath: from ? clipTo(from, radius) : open }}
         animate={{ clipPath: target }}
         transition={{ duration: from ? EXPAND_DURATION : 0, ease: EXPAND_EASE }}
@@ -165,8 +153,8 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
             aria-hidden="true"
             className="pointer-events-none absolute [&>*]:!m-0 [&>*]:!transform-none"
             style={{
-              left: from.left - margin() - 1,
-              top: from.top - margin() - 1,
+              left: from.left,
+              top: from.top,
               width: from.width,
               height: from.height
             }}

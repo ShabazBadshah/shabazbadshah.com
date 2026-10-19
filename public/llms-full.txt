@@ -355,7 +355,7 @@ When a conversation gets very long, older content may fall out of view. Starting
 
 LLMs sometimes state wrong things confidently. They're producing plausible text, and plausible isn't always true. Verify anything important, especially numbers, citations, and legal or medical facts.
 
-## Connecting AI to your world
+## Connecting AI to your world\*\*\*\*
 
 A model on its own only knows what it learned in training. The real power comes from connecting it to your data and tools.
 
