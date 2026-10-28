@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import { content } from '@/content/content';
 
 /** Floating button, shown once the reader has scrolled past the hero (or one viewport on pages without one) */
 function ScrollToTop(): JSX.Element | null {
@@ -35,12 +36,12 @@ function ScrollToTop(): JSX.Element | null {
   return (
     <button
       type="button"
-      aria-label="Scroll to top"
-      title="Back to top"
+      aria-label={content.layout.scrollToTop.label}
+      title={content.layout.scrollToTop.title}
       tabIndex={visible ? 0 : -1}
       aria-hidden={!visible}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className={`fixed bottom-4 right-4 z-40 grid size-11 cursor-pointer place-items-center rounded-full border bg-elevated text-fg backdrop-blur-lg backdrop-saturate-180 transition-[opacity,transform] duration-200 hover:border-line-strong sm:bottom-6 sm:right-6 ${
+      className={`fixed bottom-20 right-4 z-40 grid size-11 cursor-pointer place-items-center rounded-full border bg-elevated text-fg backdrop-blur-lg backdrop-saturate-180 transition-[opacity,transform] duration-200 hover:border-line-strong sm:bottom-6 sm:right-6 ${
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'
       } cursor-pointer`}
     >
@@ -61,12 +62,12 @@ const MainLayout = ({ children, narrow = false }: Props): JSX.Element => (
       href="#main"
       className="sr-only left-4 top-4 z-50 rounded-pill bg-accent px-4 py-2 text-accent-fg focus:not-sr-only focus:fixed"
     >
-      Skip to content
+      {content.layout.skipToContent}
     </a>
     <Header />
     <main
       id="main"
-      className={`mx-auto w-full px-4 pb-16 pt-24 sm:px-6 sm:pt-28 ${
+      className={`mx-auto w-full px-4 pb-16 pt-8 sm:px-6 sm:pt-28 ${
         narrow ? 'max-w-article' : 'max-w-5xl'
       }`}
     >

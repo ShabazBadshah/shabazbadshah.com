@@ -3,8 +3,10 @@ import { useState } from 'react';
 
 import { trackConnectLinkClick } from '@/analytics/tracking';
 import { siteConfig, type SocialProvider } from '@/config/site';
+import { content } from '@/content/content';
 
-const { hero, socials } = siteConfig;
+const { socials } = siteConfig;
+const { hero } = content;
 
 // Fill colour that expands from behind the logo on hover
 const HOVER_BG: Record<SocialProvider, string> = {
@@ -20,7 +22,7 @@ const externalProps = (href: string) =>
 /** Intro card content: name, one-line description and contact links */
 export default function Hero(): JSX.Element {
   const [syftableActive, setSyftableActive] = useState(false);
-  const { syftable } = hero;
+  const { syftable } = siteConfig.hero;
 
   return (
     <>
@@ -45,7 +47,7 @@ export default function Hero(): JSX.Element {
         </div>
         <p className="text-fg-muted">{hero.intro}</p>
         <p className="text-fg-muted">
-          I'm currently bootstrapping{' '}
+          {hero.syftable.before}{' '}
           <a
             href={syftable.url}
             target="_blank"
@@ -64,31 +66,36 @@ export default function Hero(): JSX.Element {
               height={16}
               className="size-4 transition-[filter] group-hover:invert group-focus-visible:invert"
             />
-            {syftable.name}
+            {hero.syftable.name}
           </a>
-          which keeps track of your work so you don't have to. It catches what you owe and surfaces
-          what you need, without a single prompt, all on your computer.
+          {hero.syftable.after}
         </p>
       </div>
 
-      <div className="mt-8 flex flex-wrap gap-3">
-        <a href={siteConfig.booking} className="pill pill-accent text-sm">
+      <div className="mt-8 flex gap-3 sm:flex-wrap sm:justify-start">
+        <a href={siteConfig.booking} className="pill pill-accent flex-1 text-sm sm:flex-none">
           <Send aria-hidden="true" className="size-5" />
-          Let's talk
+          {hero.ctaPrimary}
         </a>
-        <a href="#work" className="pill bg-gray-50 dark:bg-transparent dark:border-gray-50 text-sm">
-          View selected works
+        <a
+          href="#work"
+          className="pill flex-1 text-center sm:flex-none bg-gray-50 dark:bg-transparent dark:border-gray-50 text-sm"
+        >
+          {hero.ctaSecondary}
         </a>
       </div>
 
-      <ul aria-label="Connect" className="mt-6 flex gap-2">
+      <ul
+        aria-label={hero.socialsLabel}
+        className="mt-6 flex justify-center gap-4 sm:justify-start sm:gap-2"
+      >
         {socials.map(({ provider, url, label, logo }) => (
           <li key={provider}>
             <a
               href={url}
               aria-label={label}
               title={label}
-              className="group relative grid size-10 place-items-center overflow-hidden rounded-lg border bg-white transition-colors hover:border-line-strong"
+              className="group relative grid size-[46px] place-items-center sm:size-10 overflow-hidden rounded-lg border bg-white transition-colors hover:border-line-strong"
               {...externalProps(url)}
               onClick={() => trackConnectLinkClick(provider)}
             >
@@ -100,7 +107,7 @@ export default function Hero(): JSX.Element {
                 src={logo}
                 alt=""
                 aria-hidden="true"
-                className={`relative size-6 object-contain ${
+                className={`relative size-7 object-contain sm:size-6 ${
                   provider === 'github' ? 'transition-[filter] group-hover:invert' : ''
                 }`}
               />

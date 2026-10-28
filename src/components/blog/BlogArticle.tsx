@@ -3,6 +3,7 @@ import { ChevronDown } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 
+import { content } from '@/content/content';
 import type { Post } from '@/lib/blog';
 
 const ImageLightbox = dynamic(() => import('./ImageLightbox'), { ssr: false });
@@ -79,10 +80,10 @@ function Toc({ items, collapsible = false }: { items: TocItem[]; collapsible?: b
 
   if (collapsible) {
     return (
-      <nav aria-label="Table of contents" className="mb-8 rounded-3xl border">
+      <nav aria-label={content.blog.toc.label} className="mb-8 rounded-3xl border">
         <details className="group">
           <summary className="eyebrow flex cursor-pointer list-none items-center justify-between px-4 py-2 [&::-webkit-details-marker]:hidden">
-            Contents
+            {content.blog.toc.summary}
             <ChevronDown
               aria-hidden="true"
               className="size-4 transition-transform group-open:rotate-180"
@@ -96,7 +97,7 @@ function Toc({ items, collapsible = false }: { items: TocItem[]; collapsible?: b
 
   return (
     <nav
-      aria-label="Table of contents"
+      aria-label={content.blog.toc.label}
       className="sticky top-32 max-h-[calc(100dvh-9rem)] overflow-y-auto whitespace-nowrap text-right"
     >
       {list}
@@ -144,7 +145,7 @@ export default function BlogArticle({
     images.forEach((img) => {
       img.tabIndex = 0;
       img.setAttribute('role', 'button');
-      img.setAttribute('aria-label', `Enlarge image: ${img.alt || 'article image'}`);
+      img.setAttribute('aria-label', content.blog.enlargeImage(img.alt));
       img.style.cursor = 'zoom-in';
     });
     setSlides(
@@ -170,7 +171,7 @@ export default function BlogArticle({
 
       <header className="mb-14 text-center">
         <h1 className="mb-4 mt-3 text-3xl font-semibold sm:text-4xl">{post.title}</h1>
-        <p className="mt-3 inline-block rounded-pill border text-fg-muted px-3 py-2 text-sm font-medium">
+        <p className="mt-3 inline-block rounded-pill text-fg-muted px-3 py-2 text-sm font-medium">
           <time dateTime={dayjs(post.publishedAt).format('YYYY-MM-DD')}>
             {dayjs(post.publishedAt).format('MMM D, YYYY')}
           </time>

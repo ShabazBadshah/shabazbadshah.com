@@ -7,6 +7,7 @@ import { useEffect, useState, type MouseEvent } from 'react';
 import { flushSync } from 'react-dom';
 
 import { siteConfig } from '@/config/site';
+import { content } from '@/content/content';
 
 type Section = 'home' | 'work' | 'blog' | null;
 
@@ -91,7 +92,8 @@ function ThemeToggle(): JSX.Element {
       });
   };
 
-  const label = !mounted ? 'Toggle color theme' : `Switch to ${isDark ? 'light' : 'dark'} theme`;
+  const { theme } = content.nav;
+  const label = !mounted ? theme.toggle : isDark ? theme.toLight : theme.toDark;
 
   return (
     <button
@@ -115,26 +117,26 @@ export default function Header(): JSX.Element | null {
   if (query.post) return null;
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-3 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 sm:top-4 sm:px-4">
+    <header className="pointer-events-none fixed inset-x-0 bottom-3 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 sm:bottom-auto sm:top-4 sm:px-4">
       {/* Full article page only; the article sheet has its own collapse control */}
       {pathname === '/blog/posts/[slug]' && (
         <Link href="/">
           <a
-            aria-label="Back"
-            className="pointer-events-auto inline-flex h-10 items-center gap-1.5 justify-self-start rounded-pill border bg-elevated px-3 text-sm font-medium text-fg-muted no-underline backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg sm:px-4"
+            aria-label={content.nav.back}
+            className="pointer-events-auto inline-flex h-10 items-center gap-1.5 justify-self-start rounded-pill border bg-elevated px-3 text-sm shadow-float font-medium text-fg-muted no-underline backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg sm:px-4"
           >
             <ArrowLeft aria-hidden="true" className="size-4" />
-            <span className="hidden sm:inline">Back</span>
+            <span className="hidden sm:inline">{content.nav.back}</span>
           </a>
         </Link>
       )}
       <nav
-        aria-label="Primary"
-        className="pointer-events-auto col-start-2 flex items-center gap-0.5 rounded-pill border bg-elevated p-1 backdrop-blur-lg backdrop-saturate-180"
+        aria-label={content.nav.label}
+        className="pointer-events-auto col-start-2 flex items-center gap-0.5 rounded-pill border bg-elevated p-1 shadow-float backdrop-blur-lg backdrop-saturate-180"
       >
         <Link href="/" prefetch={false}>
           <a
-            aria-label="Home"
+            aria-label={content.nav.home}
             className="inline-flex size-10 shrink-0 items-center justify-center rounded-pill"
           >
             <img src={siteConfig.assets.favicon} alt="" width={32} height={32} className="size-7" />

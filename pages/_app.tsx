@@ -8,6 +8,7 @@ import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from 'ne
 import { trackPageView } from '@/analytics/tracking';
 import CardTransitionProvider from '@/components/CardTransition';
 import { siteConfig } from '@/config/site';
+import { content } from '@/content/content';
 import '@/styles/globals.css';
 
 // next-themes is typed for React 18 children; this repo still pins @types/react 17
@@ -53,7 +54,7 @@ export default function App(props: AppProps): React.ReactNode {
           rel="alternate"
           type="text/plain"
           href="/llms.txt"
-          title="LLM-readable site summary"
+          title={content.seo.llmsLinkTitle}
         />
       </Head>
       {GA_ID && (

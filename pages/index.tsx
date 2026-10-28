@@ -9,6 +9,7 @@ import Hero from '@/components/home/Hero';
 import ProjectCard from '@/components/home/ProjectCard';
 import SEO from '@/components/SEO';
 import { siteConfig } from '@/config/site';
+import { content } from '@/content/content';
 import { PROJECTS } from '@/content/projects';
 import MainLayout from '@/layouts/MainLayout';
 import { getAllPosts, type Post } from '@/lib/blog';
@@ -39,13 +40,13 @@ const Index = ({ posts }: { posts: Post[] }): JSX.Element => {
         jsonLd={homeStructuredData()}
       />
       <div className="flex flex-col gap-16 sm:gap-20">
-        <section id="hero" aria-label="Introduction" className="pt-6 sm:pt-10 lg:pt-14">
+        <section id="hero" aria-label={content.hero.sectionLabel}>
           <Hero />
         </section>
 
         <section aria-labelledby="work-heading">
           <h2 id="work" className={SECTION_TITLE}>
-            <span id="work-heading">Selected Works</span>
+            <span id="work-heading">{content.work.title}</span>
           </h2>
           <div className={`mt-6 grid lg:grid-cols-2 ${GRID_GAP}`}>
             {PROJECTS.map((project) => (
@@ -60,10 +61,8 @@ const Index = ({ posts }: { posts: Post[] }): JSX.Element => {
 
         <section aria-labelledby="blog-heading">
           <h2 id="blog" className={SECTION_TITLE}>
-            <span id="blog-heading">Blog</span>
-            <p className="text-lg font-medium text-fg-muted">
-              Some of my thoughts and things I&apos;d like to share.
-            </p>
+            <span id="blog-heading">{content.blog.title}</span>
+            <p className="text-lg font-medium text-fg-muted">{content.blog.subtitle}</p>
           </h2>
           <ul className={`mt-6 grid sm:grid-cols-2 lg:grid-cols-3 ${GRID_GAP}`}>
             {featured && (

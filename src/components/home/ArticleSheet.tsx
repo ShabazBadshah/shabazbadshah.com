@@ -12,6 +12,7 @@ import {
 } from '@/components/CardTransition';
 import CornerButton from '@/components/CornerButton';
 import { siteConfig } from '@/config/site';
+import { content } from '@/content/content';
 import type { Post } from '@/lib/blog';
 
 type Props = {
@@ -145,8 +146,8 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
         <CornerButton
           icon={Minimize2}
           onClick={onClose}
-          aria-label="Collapse article"
-          title="Collapse"
+          aria-label={content.blog.collapse.label}
+          title={content.blog.collapse.title}
         />
         {from && (
           <m.div

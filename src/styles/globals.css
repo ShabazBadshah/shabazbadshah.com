@@ -18,6 +18,8 @@
   --accent: #2590fa;
   --accent-contrast: #ffffff;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.04);
+  /* Lifts the fixed nav off the page */
+  --shadow-float: 0 2px 6px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.08);
   /* Strength of the accent glow in the top right corner */
   --glow: 7%;
 }
@@ -36,6 +38,7 @@
   --accent: #2997ff;
   --accent-contrast: #000000;
   --shadow-card: 0 0 0 rgb(0 0 0 / 0);
+  --shadow-float: 0 2px 6px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.4);
   --glow: 9%;
 }
 
@@ -52,6 +55,7 @@
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-contrast);
   --shadow-card: var(--shadow-card);
+  --shadow-float: var(--shadow-float);
 }
 
 @theme {

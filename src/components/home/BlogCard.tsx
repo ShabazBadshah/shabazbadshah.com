@@ -6,6 +6,7 @@ import React from 'react';
 import { trackPinnedPostClicked } from '@/analytics/tracking';
 import { useCardTransition } from '@/components/CardTransition';
 import CornerButton from '@/components/CornerButton';
+import { content } from '@/content/content';
 import type { Post } from '@/lib/blog';
 import { plainText } from '@/lib/utils';
 
@@ -49,7 +50,7 @@ export default function BlogCard({ post, featured = false, className = '' }: Pro
             {featured && (
               <>
                 <span className="text-accent rounded-pill border border-accent py-1 px-2 bg-blue-50">
-                  Featured
+                  {content.blog.featured}
                 </span>
                 <span aria-hidden="true"> · </span>
                 <span className="sr-only">, </span>

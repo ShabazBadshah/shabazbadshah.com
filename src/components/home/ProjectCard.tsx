@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 import CornerButton from '@/components/CornerButton';
+import { content } from '@/content/content';
 import type { Project } from '@/content/projects';
 
 const FEATURE_ICONS = [Star, Globe, ShieldCheck, BrainCircuit];
@@ -84,8 +85,8 @@ function LazyVideo({ src, poster, label }: { src: string; poster?: string; label
       </video>
       <button
         type="button"
-        aria-label={`View ${label} fullscreen`}
-        title="Fullscreen"
+        aria-label={content.projectCard.fullscreen.label(label)}
+        title={content.projectCard.fullscreen.title}
         onClick={enterFullscreen}
         className="absolute bottom-3 right-3 grid size-9 cursor-pointer place-items-center rounded-pill border bg-elevated text-fg-muted backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg"
       >
@@ -170,7 +171,7 @@ function InfoPanel({
   const list = 'list-disc space-y-1 pl-5 text-sm marker:text-fg-muted';
   const disciplines = (
     <div className="flex flex-col gap-2">
-      <span className={label}>Disciplines</span>
+      <span className={label}>{content.projectCard.disciplines}</span>
       <ul className={list}>
         {project.disciplines.map((item) => (
           <li key={item}>{item}</li>
@@ -180,7 +181,7 @@ function InfoPanel({
   );
   const skills = (
     <div className="flex flex-col gap-2">
-      <span className={label}>Skills</span>
+      <span className={label}>{content.projectCard.skills}</span>
       <ul className={list}>
         {project.skills_and_technologies.map((item) => (
           <li key={item}>{item}</li>
@@ -282,13 +283,14 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
         flipping.current = false;
       });
   };
+  const { showDetails, hideDetails } = content.projectCard;
   const toggle = (
     <CornerButton
       icon={showInfo ? ArrowLeft : Info}
       data-keep
       aria-expanded={showInfo}
-      aria-label={showInfo ? 'Back to project' : 'Show project details'}
-      title={showInfo ? 'Back' : 'Project details'}
+      aria-label={showInfo ? hideDetails.label : showDetails.label}
+      title={showInfo ? hideDetails.title : showDetails.title}
       onClick={flip}
     />
   );
@@ -353,7 +355,7 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
             <LazyVideo
               src={project.video.src}
               poster={optimizedImageUrl(project.video.poster, POSTER_WIDTH)}
-              label={`${project.title} product demo`}
+              label={content.projectCard.demoLabel(project.title)}
             />
           ) : (
             <div className="relative aspect-video w-full">
