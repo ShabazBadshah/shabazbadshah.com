@@ -227,7 +227,7 @@ export const content = {
       date: '2026',
       website: 'https://uoc-intake-clone.vercel.app/',
       logo: '/images/portfolio/uoc-logo.png',
-      logoInvertOnDark: true,
+      logoInvertOnDark: false,
       description:
         'Patient acquisition website and in-clinic digital intake system for an Oakville chiropractic clinic. The site is engineered for search and AI answer engines; the self-serve intake flow replaces paper forms and staff transcription at check-in.',
       role: 'Product Engineer Consultant',
