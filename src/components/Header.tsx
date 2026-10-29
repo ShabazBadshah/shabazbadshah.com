@@ -1,5 +1,5 @@
 import { m } from 'framer-motion';
-import { ArrowLeft, Moon, Sun } from 'lucide-react';
+import { ArrowLeft, ArrowUp, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -109,6 +109,52 @@ function ThemeToggle(): JSX.Element {
   );
 }
 
+/**
+ * Shown once the reader has scrolled past the hero (or one viewport on pages without one).
+ * Sits in the nav row on mobile and floats bottom-right from sm.
+ */
+function ScrollToTop(): JSX.Element {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const hero = document.getElementById('hero');
+      const threshold = hero ? hero.offsetTop + hero.offsetHeight : window.innerHeight;
+      setVisible(window.scrollY > threshold);
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return (
+    <button
+      type="button"
+      aria-label={content.layout.scrollToTop.label}
+      title={content.layout.scrollToTop.title}
+      tabIndex={visible ? 0 : -1}
+      aria-hidden={!visible}
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className={`col-start-3 grid size-11 justify-self-end cursor-pointer place-items-center rounded-full border bg-elevated text-fg shadow-float backdrop-blur-lg backdrop-saturate-180 transition-[opacity,transform] duration-200 hover:border-line-strong sm:fixed sm:bottom-6 sm:right-6 ${
+        visible
+          ? 'pointer-events-auto translate-y-0 opacity-100'
+          : 'pointer-events-none translate-y-2 opacity-0'
+      }`}
+    >
+      <ArrowUp aria-hidden="true" className="size-5" />
+    </button>
+  );
+}
+
 export default function Header(): JSX.Element | null {
   const active = useActiveSection();
   const { pathname, query } = useRouter();
@@ -117,7 +163,7 @@ export default function Header(): JSX.Element | null {
   if (query.post) return null;
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 bottom-3 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 sm:bottom-auto sm:top-4 sm:px-4">
+    <header className="pointer-events-none fixed inset-x-0 bottom-6 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 sm:bottom-auto sm:top-4 sm:px-4">
       {/* Full article page only; the article sheet has its own collapse control */}
       {pathname === '/blog/posts/[slug]' && (
         <Link href="/">
@@ -173,6 +219,7 @@ export default function Header(): JSX.Element | null {
         <span aria-hidden="true" className="mx-0.5 h-5 w-px bg-line" />
         <ThemeToggle />
       </nav>
+      <ScrollToTop />
     </header>
   );
 }
