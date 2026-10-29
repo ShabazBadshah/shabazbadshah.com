@@ -162,6 +162,15 @@ export default function Header(): JSX.Element | null {
   // The article sheet takes over the whole screen
   if (query.post) return null;
 
+  // Next's router jumps to the top on a route change; on the home page glide there instead,
+  // like the hash links do, and drop any #work/#blog from the URL
+  const scrollHome = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (pathname !== '/') return;
+    event.preventDefault();
+    window.history.replaceState(window.history.state, '', '/');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <header className="pointer-events-none fixed inset-x-0 bottom-6 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 sm:bottom-auto sm:top-4 sm:px-4">
       {/* Full article page only; the article sheet has its own collapse control */}
@@ -183,6 +192,7 @@ export default function Header(): JSX.Element | null {
         <Link href="/" prefetch={false}>
           <a
             aria-label={content.nav.home}
+            onClick={scrollHome}
             className="inline-flex size-10 shrink-0 items-center justify-center rounded-pill"
           >
             <img src={siteConfig.assets.favicon} alt="" width={32} height={32} className="size-7" />
@@ -199,6 +209,7 @@ export default function Header(): JSX.Element | null {
             >
               <a
                 aria-current={isActive ? 'true' : undefined}
+                onClick={item.section === 'home' ? scrollHome : undefined}
                 className={`relative inline-flex h-8 items-center rounded-pill px-3 text-[0.9375rem] font-medium no-underline transition-colors duration-150 sm:px-4 ${
                   isActive ? 'text-accent' : 'text-fg-muted hover:text-fg'
                 }`}
