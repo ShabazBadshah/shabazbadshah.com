@@ -154,7 +154,7 @@ export const content = {
       logo: '/images/portfolio/mednow-logo.png',
       description:
         'A Canadian digital pharmacy app providing automated medication management and free nationwide delivery. It integrates holistic healthcare through virtual medical consultations, mental health support, and personalized wellness programs.',
-      role: 'Product manager',
+      role: 'Product Manager',
       metric: 'Shipped a B2C pharmacy app 0→1 to national launch.',
       features: [
         {
@@ -229,10 +229,10 @@ export const content = {
       logo: '/images/portfolio/uoc-logo.png',
       logoInvertOnDark: false,
       description:
-        'Patient acquisition website and in-clinic digital intake system for an Oakville chiropractic clinic. The site is engineered for search and AI answer engines; the self-serve intake flow replaces paper forms and staff transcription at check-in.',
+        'Established online presence to drive patient bookings by designing, building, and launching a clinic website end-to-end, including branding, WordPress development, post-launch support, PHIPA/PIPEDA/CCO compliance, and AEO/SEO.',
       role: 'Product Engineer Consultant',
-      metric: 'Reduced patient intake time by ~1 hour per week via self-service intake form',
-      expertise: 'Technical SEO and AEO, full-stack engineering, form UX, clinic workflow design',
+      metric: 'Cut monthly hosting costs by 90% ($50 → $5)',
+      expertise: 'Technical SEO and AEO, form UX, clinic workflow design',
       image: {
         src: '/images/portfolio/uoc.png',
         width: 1866,
@@ -240,19 +240,19 @@ export const content = {
         alt: 'Upper Oakville Chiropractic homepage hero section'
       },
       disciplines: [
-        'Full-Stack Engineering',
-        'Product Management',
-        'Technical SEO and AEO',
-        'Patient onboarding and form UX',
+        'Product management',
+        'Brand design',
+        'Stakeholder management',
+        'SEO and AEO',
+        'Patient onboarding',
         'Clinic workflow design'
       ],
       skills_and_technologies: [
-        'Next.js',
-        'TypeScript',
-        'React Hook Form',
-        'Zod',
-        'REST APIs',
-        'PostgreSQL'
+        'PHP',
+        'Wordpress',
+        'Post-launch support and maintenance',
+        'Departmental training and documentation',
+        'PHIPA and PIPEDA compliance'
       ]
     },
     {
@@ -264,7 +264,7 @@ export const content = {
       logoInvertOnDark: true,
       description:
         'REST API for consolidating disparate vendor data (Google Maps, PDFs, Yelp, etc.) using LLM technology to scale curated marketplace.',
-      role: 'Product manager',
+      role: 'Product Manager',
       metric: 'Reduced vendor onboarding time from 48h to 6h',
       expertise: 'Technical architecture, REST APIs, ETL, AI, LLMs',
       image: { src: '/images/portfolio/planned.png', width: 1866, height: 1007, alt: 'Planned' },
@@ -291,7 +291,7 @@ export const content = {
       logo: '/images/portfolio/soti-logo.png',
       description:
         'A custom instant-messaging and video calling tool (web and mobile apps) to communicate between MDM devices in order to provide technical support.',
-      role: 'Product manager',
+      role: 'Product Manager',
       metric: 'Grew revenue by $27K MRR CAD post-release',
       expertise: 'Technical architecture, B2B, low-latency realtime systems',
       image: {
@@ -327,7 +327,7 @@ export const content = {
       logo: '/images/portfolio/project-include-logo.png',
       description:
         'An informational site volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.',
-      role: 'Frontend developer',
+      role: 'Frontend Developer',
       metric: 'Ran 50+ workshops 250+ students prior to ending',
       expertise: 'Web development, design, sales, marketing',
       image: {

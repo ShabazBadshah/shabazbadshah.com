@@ -11,6 +11,7 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 ## Selected work
 
 - [Mednow](https://shabazbadshah.com/#work): Shipped a B2C pharmacy app 0→1 to national launch.. A Canadian digital pharmacy app providing automated medication management and free nationwide delivery. It integrates holistic healthcare through virtual medical consultations, mental health support, and personalized wellness programs.
+- [Upper Oakville Chiropractic](https://shabazbadshah.com/#work): Cut monthly hosting costs by 90%.. Website for an Oakville Chiropractic Clinic, built to establish its online presence and direct prospective patients to book. Migrated the clinic from Wix to a custom WordPress deployment while accounting for PHIPA, PIPEDA, and CCO regulations, and AEO+SEO optimizations.
 - [Planned](https://shabazbadshah.com/#work): Reduced vendor onboarding time from 48h to 6h. REST API for consolidating disparate vendor data (Google Maps, PDFs, Yelp, etc.) using LLM technology to scale curated marketplace.
 - [SOTI](https://shabazbadshah.com/#work): Grew revenue by $27K MRR CAD post-release. A custom instant-messaging and video calling tool (web and mobile apps) to communicate between MDM devices in order to provide technical support.
 - [Project Include](https://shabazbadshah.com/#work): Ran 50+ workshops 250+ students prior to ending. An informational site volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
