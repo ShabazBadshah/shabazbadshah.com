@@ -64,7 +64,7 @@ export default function BlogCard({ post, featured = false, className = '' }: Pro
             {post.readingTime}
           </p>
           <h3
-            className={`font-semibold leading-tight ${
+            className={`font-semibold leading-tight max-sm:pt-2 ${
               featured ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-xl'
             }`}
           >
