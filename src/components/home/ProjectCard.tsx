@@ -236,8 +236,12 @@ function Body({ project }: { project: Project }): JSX.Element {
   );
 }
 
-// Content below the title is hidden while the info panel is open; [data-keep] elements stay
-const FACE_HIDDEN = '[&>:not([data-keep])]:invisible [&>:not([data-keep])]:opacity-0';
+// Content below the title is hidden while the info panel is open; [data-keep] elements stay.
+// Below lg it is taken out of the flow so the card sizes to the panel instead.
+const FACE_HIDDEN =
+  '[&>:not([data-keep])]:invisible [&>:not([data-keep])]:opacity-0 max-lg:[&>:not([data-keep])]:hidden';
+// Below lg the open panel sits in the flow (sizing the card); from lg it overlays the face
+const PANEL_OPEN = 'max-lg:relative lg:absolute lg:inset-0';
 
 const FLIP_MS = 220;
 
@@ -304,13 +308,13 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
       >
         <div
           className={`flex shrink-0 justify-center lg:w-[25%] ${
-            showInfo ? 'invisible opacity-0' : ''
+            showInfo ? 'invisible opacity-0 max-lg:hidden' : ''
           }`}
         >
           <AppCardStack images={project.appImages} />
         </div>
 
-        <div className="flex min-w-0 flex-1 flex-col gap-6">
+        <div className={`flex min-w-0 flex-1 flex-col gap-6 ${showInfo ? 'max-lg:hidden' : ''}`}>
           <Title project={project} className={`${showInfo ? 'invisible opacity-0' : ''}`} />
           <div className={`relative flex flex-col gap-6 ${face}`}>
             <Body project={project} />
@@ -333,7 +337,10 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
           project={project}
           open={showInfo}
           showTitle
-          className="absolute inset-0 px-5 pb-5 pt-16 sm:px-6 sm:pb-6"
+          // In the flow, the negative margin cancels the card padding so the layout matches inset-0
+          className={`px-5 pb-5 pt-16 sm:px-6 sm:pb-6 ${
+            showInfo ? `${PANEL_OPEN} max-lg:-m-5 max-lg:sm:-m-6` : 'absolute inset-0'
+          }`}
         />
         {toggle}
       </article>
@@ -370,7 +377,11 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
             </div>
           )}
         </div>
-        <InfoPanel project={project} open={showInfo} />
+        <InfoPanel
+          project={project}
+          open={showInfo}
+          className={showInfo ? PANEL_OPEN : 'absolute inset-0'}
+        />
       </div>
       {toggle}
     </article>
