@@ -231,7 +231,7 @@ export const content = {
       description:
         'Established online presence to drive patient bookings by designing, building, and launching a clinic website end-to-end, including branding, WordPress development, post-launch support, PHIPA/PIPEDA/CCO compliance, and AEO/SEO.',
       role: 'Product Engineer Consultant',
-      metric: 'Cut monthly hosting costs by 90% ($50 → $5)',
+      metric: 'Reduce monthly hosting costs by 90% and rebranded site',
       expertise: 'Technical SEO and AEO, form UX, clinic workflow design',
       image: {
         src: '/images/portfolio/uoc.png',
