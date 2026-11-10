@@ -1,14 +1,17 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import type { ContactSource } from '@/config/site';
 import { content } from '@/content/content';
 
 type Props = {
   children: React.ReactNode;
   /** Article-width column, for pages that are a single article */
   narrow?: boolean;
+  /** Audience of the page, for the footer's call to action */
+  source?: ContactSource;
 };
 
-const MainLayout = ({ children, narrow = false }: Props): JSX.Element => (
+const MainLayout = ({ children, narrow = false, source }: Props): JSX.Element => (
   <>
     <a
       href="#main"
@@ -25,7 +28,7 @@ const MainLayout = ({ children, narrow = false }: Props): JSX.Element => (
     >
       {children}
     </main>
-    <Footer narrow={narrow} />
+    <Footer narrow={narrow} source={source} />
   </>
 );
 

@@ -1,6 +1,7 @@
 import { m, useReducedMotion } from 'framer-motion';
 import {
   ArrowLeft,
+  ArrowRight,
   BrainCircuit,
   Briefcase,
   CalendarDays,
@@ -11,11 +12,15 @@ import {
   Star
 } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 import CornerButton from '@/components/CornerButton';
+import Todo from '@/components/Todo';
 import { content } from '@/content/content';
-import type { Project } from '@/content/projects';
+import type { ProjectMedia, PublicProject } from '@/content/projects';
+import { shown } from '@/lib/todo';
+import { dateRange } from '@/lib/utils';
 
 const FEATURE_ICONS = [Star, Globe, ShieldCheck, BrainCircuit];
 
@@ -97,7 +102,7 @@ function LazyVideo({ src, poster, label }: { src: string; poster?: string; label
 }
 
 /** Phone mockups that take turns at the front of a fanned-out stack */
-function AppCardStack({ images }: { images: NonNullable<Project['appImages']> }): JSX.Element {
+function AppCardStack({ images }: { images: NonNullable<ProjectMedia['appImages']> }): JSX.Element {
   const [active, setActive] = useState(0);
   const reduceMotion = useReducedMotion();
 
@@ -140,26 +145,42 @@ function AppCardStack({ images }: { images: NonNullable<Project['appImages']> })
 }
 
 type Props = {
-  project: Project;
+  project: PublicProject;
   className?: string;
 };
 
-function Title({ project, className = '' }: { project: Project; className?: string }): JSX.Element {
+function Title({
+  project,
+  className = ''
+}: {
+  project: PublicProject;
+  className?: string;
+}): JSX.Element {
+  const logo = project.media?.logo;
   return (
     <div data-keep className={`flex items-center gap-2.5 ${className}`}>
-      <Image
-        src={project.logo}
-        alt=""
-        width={28}
-        height={28}
-        className={`size-7 object-contain ${project.logoInvertOnDark ? 'dark:invert' : ''}`}
-      />
-      <h3 className="text-lg font-semibold">{project.title}</h3>
+      {logo && (
+        <Image
+          src={logo}
+          alt=""
+          width={28}
+          height={28}
+          className={`size-7 object-contain ${
+            project.media?.logoInvertOnDark ? 'dark:invert' : ''
+          }`}
+        />
+      )}
+      <h3 className="text-lg font-semibold">{project.name}</h3>
     </div>
   );
 }
 
-type PanelProps = { project: Project; open: boolean; className?: string; showTitle?: boolean };
+type PanelProps = {
+  project: PublicProject;
+  open: boolean;
+  className?: string;
+  showTitle?: boolean;
+};
 
 function InfoPanel({
   project,
@@ -169,7 +190,8 @@ function InfoPanel({
 }: PanelProps): JSX.Element {
   const label = 'text-xs font-medium uppercase tracking-wide text-fg-muted';
   const list = 'list-disc space-y-1 pl-5 text-sm marker:text-fg-muted';
-  const disciplines = (
+  const dates = dateRange(project.start, project.end);
+  const disciplines = project.disciplines.length > 0 && (
     <div className="flex flex-col gap-2">
       <span className={label}>{content.projectCard.disciplines}</span>
       <ul className={list}>
@@ -183,7 +205,7 @@ function InfoPanel({
     <div className="flex flex-col gap-2">
       <span className={label}>{content.projectCard.skills}</span>
       <ul className={list}>
-        {project.skills_and_technologies.map((item) => (
+        {project.stack.map((item) => (
           <li key={item}>{item}</li>
         ))}
       </ul>
@@ -199,18 +221,18 @@ function InfoPanel({
     >
       {showTitle && <Title project={project} className="absolute left-5 top-3 h-8 sm:left-6" />}
       <div className="flex flex-wrap items-end gap-2">
-        <div className="flex flex-col items-start gap-2">
+        {shown(dates) && (
           <span className="chip">
             <CalendarDays aria-hidden="true" className="size-3.5" />
-            {project.date}
+            <Todo value={dates} />
           </span>
-        </div>
-        <div className="flex flex-col items-start gap-2">
+        )}
+        {project.role && (
           <span className="chip">
             <Briefcase aria-hidden="true" className="size-3.5" />
             {project.role}
           </span>
-        </div>
+        )}
       </div>
       {showTitle ? (
         <div className="grid gap-6 sm:grid-cols-2 sm:gap-10">
@@ -227,12 +249,32 @@ function InfoPanel({
   );
 }
 
-function Body({ project }: { project: Project }): JSX.Element {
+function Body({ project }: { project: PublicProject }): JSX.Element {
   return (
     <>
-      <p className="text-sm text-fg-muted">{project.description}</p>
-      <p className="text-lg font-semibold leading-[1.2] tracking-tight">{project.metric}</p>
+      <p className="text-sm text-fg-muted">{project.summary}</p>
+      {shown(project.outcome) && (
+        <p className="text-lg font-semibold leading-[1.2] tracking-tight">
+          <Todo value={project.outcome} />
+        </p>
+      )}
     </>
+  );
+}
+
+function CaseStudyLink({ project }: { project: PublicProject }): JSX.Element | null {
+  if (!project.hasCaseStudy) return null;
+  return (
+    <Link href={`/work/${project.slug}`}>
+      <a className="group inline-flex items-center gap-1 self-start text-sm font-medium text-accent no-underline hover:underline">
+        {content.caseStudy.read}
+        <span className="sr-only">: {project.name}</span>
+        <ArrowRight
+          aria-hidden="true"
+          className="size-4 transition-transform duration-150 group-hover:translate-x-0.5"
+        />
+      </a>
+    </Link>
   );
 }
 
@@ -299,7 +341,9 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
     />
   );
 
-  if (project.features && project.appImages) {
+  const media = project.media;
+
+  if (media?.features && media.appImages) {
     return (
       <article
         ref={cardRef}
@@ -311,7 +355,7 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
             showInfo ? 'invisible opacity-0 max-lg:hidden' : ''
           }`}
         >
-          <AppCardStack images={project.appImages} />
+          <AppCardStack images={media.appImages} />
         </div>
 
         <div className={`flex min-w-0 flex-1 flex-col gap-6 ${showInfo ? 'max-lg:hidden' : ''}`}>
@@ -319,18 +363,19 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
           <div className={`relative flex flex-col gap-6 ${face}`}>
             <Body project={project} />
             <ul className="grid gap-1">
-              {project.features.map((feature, index) => {
+              {media.features.map((feature, index) => {
                 const Icon = FEATURE_ICONS[index % FEATURE_ICONS.length];
                 return (
-                  <li key={feature.title}>
+                  <li key={feature}>
                     <div className="flex align-middle gap-2">
                       <Icon aria-hidden="true" className="mb-3 size-5 text-fg-muted" />
-                      <p className="text-sm">{feature.title}</p>
+                      <p className="text-sm">{feature}</p>
                     </div>
                   </li>
                 );
               })}
             </ul>
+            <CaseStudyLink project={project} />
           </div>
         </div>
         <InfoPanel
@@ -356,27 +401,30 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
       <Title project={project} />
       <div className={`relative flex flex-1 flex-col gap-4 ${face}`}>
         <Body project={project} />
+        <CaseStudyLink project={project} />
 
-        <div className="relative mt-auto overflow-hidden rounded-inner border border-line bg-fill">
-          {project.video ? (
-            <LazyVideo
-              src={project.video.src}
-              poster={optimizedImageUrl(project.video.poster, POSTER_WIDTH)}
-              label={content.projectCard.demoLabel(project.title)}
-            />
-          ) : (
-            <div className="relative aspect-video w-full">
-              <Image
-                src={project.image.src}
-                alt={project.image.alt}
-                layout="fill"
-                objectFit="cover"
-                objectPosition="top"
-                sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 400px"
+        {(media?.video || media?.image) && (
+          <div className="relative mt-auto overflow-hidden rounded-inner border border-line bg-fill">
+            {media.video ? (
+              <LazyVideo
+                src={media.video.src}
+                poster={optimizedImageUrl(media.video.poster, POSTER_WIDTH)}
+                label={content.projectCard.demoLabel(project.name)}
               />
-            </div>
-          )}
-        </div>
+            ) : (
+              <div className="relative aspect-video w-full">
+                <Image
+                  src={media.image.src}
+                  alt={media.image.alt}
+                  layout="fill"
+                  objectFit="cover"
+                  objectPosition="top"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 400px"
+                />
+              </div>
+            )}
+          </div>
+        )}
         <InfoPanel
           project={project}
           open={showInfo}

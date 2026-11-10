@@ -1,4 +1,5 @@
 import { Send } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 
 import { trackConnectLinkClick } from '@/analytics/tracking';
@@ -19,10 +20,10 @@ const HOVER_BG: Record<SocialProvider, string> = {
 const externalProps = (href: string) =>
   href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {};
 
-/** Intro card content: name, one-line description and contact links */
+/** Intro: name, headline, what I'm doing now and contact links */
 export default function Hero(): JSX.Element {
   const [syftableActive, setSyftableActive] = useState(false);
-  const { syftable } = siteConfig.hero;
+  const { syftable } = siteConfig;
 
   return (
     <>
@@ -34,20 +35,21 @@ export default function Hero(): JSX.Element {
         }`}
       />
 
-      <div className="flex max-w-xl flex-col gap-4">
+      <div className="flex max-w-2xl flex-col gap-5">
         <div className="flex items-center gap-3">
           <img
             src={siteConfig.person.image}
-            alt={hero.title}
-            width={80}
-            height={80}
-            className="size-20 rounded-full border object-cover"
+            alt=""
+            width={56}
+            height={56}
+            className="size-14 rounded-full border object-cover"
           />
-          <h1 className="text-lg">{hero.title}</h1>
+          <p className="text-lg font-medium">{hero.name}</p>
         </div>
-        <p className="text-fg-muted">{hero.intro}</p>
-        <p className="text-fg-muted">
-          {hero.syftable.before}{' '}
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">{hero.title}</h1>
+        <p className="text-fg-muted sm:text-lg">
+          <span className="font-medium text-fg">{hero.currentlyLabel}: </span>
+          {hero.currently.before}{' '}
           <a
             href={syftable.url}
             target="_blank"
@@ -56,7 +58,7 @@ export default function Hero(): JSX.Element {
             onMouseLeave={() => setSyftableActive(false)}
             onFocus={() => setSyftableActive(true)}
             onBlur={() => setSyftableActive(false)}
-            className="group relative z-50 mr-1 inline-flex items-center gap-1.5 rounded-lg bg-fill px-1.5 align-middle font-medium text-fg no-underline transition-colors hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-white"
+            className="group relative z-50 inline-flex items-center gap-1.5 rounded-lg bg-fill px-1.5 align-middle font-medium text-fg no-underline transition-colors hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-white"
           >
             <img
               src={syftable.logo}
@@ -66,23 +68,27 @@ export default function Hero(): JSX.Element {
               height={16}
               className="size-4 transition-[filter] group-hover:invert group-focus-visible:invert"
             />
-            {hero.syftable.name}
+            {hero.currently.syftable}
           </a>
-          {hero.syftable.after}
+          {hero.currently.after}
         </p>
       </div>
 
       <div className="mt-8 flex gap-3 sm:flex-wrap sm:justify-start">
-        <a href={siteConfig.booking} className="pill pill-accent flex-1 text-sm sm:flex-none">
+        <a
+          href={siteConfig.contact.booking('career')}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pill pill-accent flex-1 text-sm sm:flex-none"
+        >
           <Send aria-hidden="true" className="size-5" />
           {hero.ctaPrimary}
         </a>
-        <a
-          href="#work"
-          className="pill flex-1 text-center sm:flex-none bg-gray-50 dark:bg-transparent dark:border-gray-50 text-sm"
-        >
-          {hero.ctaSecondary}
-        </a>
+        <Link href="/work">
+          <a className="pill flex-1 text-center sm:flex-none bg-gray-50 dark:bg-transparent dark:border-gray-50 text-sm">
+            {hero.ctaSecondary}
+          </a>
+        </Link>
       </div>
 
       <ul

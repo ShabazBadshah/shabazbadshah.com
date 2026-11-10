@@ -6,47 +6,23 @@ import { useRouter } from 'next/router';
 import { useEffect, useState, type MouseEvent } from 'react';
 import { flushSync } from 'react-dom';
 
-import { siteConfig } from '@/config/site';
+import { siteConfig, type NavSection } from '@/config/site';
 import { content } from '@/content/content';
 
-type Section = 'home' | 'work' | 'blog' | null;
-
-const SCROLL_SECTIONS = ['work', 'blog'] as const;
 const LAYOUT_TRANSITION = { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };
 
-/** Active nav item: derived from the route on blog pages, from scroll position on the home page. */
-const useActiveSection = (): Section => {
-  const { pathname } = useRouter();
-  const [scrolled, setScrolled] = useState<Section>('home');
+/** Active nav item, from the route. /clinics belongs to Consulting. */
+const activeSection = (pathname: string): NavSection | null => {
+  if (pathname.startsWith('/work')) return 'work';
+  if (pathname === '/consulting' || pathname === '/clinics') return 'consulting';
+  if (pathname.startsWith('/blog')) return 'blog';
+  return null;
+};
 
-  useEffect(() => {
-    if (pathname !== '/') return;
-
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const threshold = window.innerHeight * 0.4;
-      let current: Section = 'home';
-      for (const id of SCROLL_SECTIONS) {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top <= threshold) current = id;
-      }
-      setScrolled(current);
-    };
-    const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      if (frame) window.cancelAnimationFrame(frame);
-    };
-  }, [pathname]);
-
-  if (pathname === '/') return scrolled;
-  return pathname.startsWith('/blog') ? 'blog' : null;
+/** Detail pages get a back button to their index */
+const BACK: Record<string, string> = {
+  '/blog/posts/[slug]': '/blog',
+  '/work/[slug]': '/work'
 };
 
 function ThemeToggle(): JSX.Element {
@@ -111,7 +87,7 @@ function ThemeToggle(): JSX.Element {
 
 /**
  * Shown once the reader has scrolled past the hero (or one viewport on pages without one).
- * Sits in the nav row on mobile and floats bottom-right from sm.
+ * Sits above the nav on mobile and floats bottom-right from sm.
  */
 function ScrollToTop(): JSX.Element {
   const [visible, setVisible] = useState(false);
@@ -144,7 +120,7 @@ function ScrollToTop(): JSX.Element {
       tabIndex={visible ? 0 : -1}
       aria-hidden={!visible}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className={`col-start-3 grid size-11 justify-self-end cursor-pointer place-items-center rounded-full border bg-elevated text-fg shadow-float backdrop-blur-lg backdrop-saturate-180 transition-[opacity,transform] duration-200 hover:border-line-strong sm:fixed sm:bottom-6 sm:right-6 ${
+      className={`col-start-3 row-start-1 grid size-11 justify-self-end cursor-pointer place-items-center rounded-full border bg-elevated text-fg shadow-float backdrop-blur-lg backdrop-saturate-180 transition-[opacity,transform] duration-200 hover:border-line-strong sm:fixed sm:bottom-6 sm:right-6 ${
         visible
           ? 'pointer-events-auto translate-y-0 opacity-100'
           : 'pointer-events-none translate-y-2 opacity-0'
@@ -156,14 +132,15 @@ function ScrollToTop(): JSX.Element {
 }
 
 export default function Header(): JSX.Element | null {
-  const active = useActiveSection();
   const { pathname, query } = useRouter();
+  const active = activeSection(pathname);
+  const back = BACK[pathname];
 
   // The article sheet takes over the whole screen
   if (query.post) return null;
 
   // Next's router jumps to the top on a route change; on the home page glide there instead,
-  // like the hash links do, and drop any #work/#blog from the URL
+  // like the hash links do, and drop any #contact from the URL
   const scrollHome = (event: MouseEvent<HTMLAnchorElement>) => {
     if (pathname !== '/') return;
     event.preventDefault();
@@ -173,21 +150,22 @@ export default function Header(): JSX.Element | null {
 
   return (
     <header className="pointer-events-none fixed inset-x-0 bottom-6 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 sm:bottom-auto sm:top-4 sm:px-4">
-      {/* Full article page only; the article sheet has its own collapse control */}
-      {pathname === '/blog/posts/[slug]' && (
-        <Link href="/">
+      {/* Detail pages only; the article sheet has its own collapse control */}
+      {back && (
+        <Link href={back}>
           <a
             aria-label={content.nav.back}
-            className="pointer-events-auto inline-flex h-10 items-center gap-1.5 justify-self-start rounded-pill border bg-elevated px-3 text-sm shadow-float font-medium text-fg-muted no-underline backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg sm:px-4"
+            className="pointer-events-auto col-start-1 row-start-1 inline-flex h-10 items-center gap-1.5 justify-self-start rounded-pill border bg-elevated px-3 text-sm shadow-float font-medium text-fg-muted no-underline backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg sm:px-4"
           >
             <ArrowLeft aria-hidden="true" className="size-4" />
             <span className="hidden sm:inline">{content.nav.back}</span>
           </a>
         </Link>
       )}
+      {/* Below sm the nav gets its own full-width row, with the back and scroll buttons above it */}
       <nav
         aria-label={content.nav.label}
-        className="pointer-events-auto col-start-2 flex items-center gap-0.5 rounded-pill border bg-elevated p-1 shadow-float backdrop-blur-lg backdrop-saturate-180"
+        className="pointer-events-auto col-span-3 row-start-2 flex items-center gap-0.5 justify-self-center rounded-pill sm:col-span-1 sm:col-start-2 sm:row-start-1 border bg-elevated p-1 shadow-float backdrop-blur-lg backdrop-saturate-180"
       >
         <Link href="/" prefetch={false}>
           <a
@@ -200,29 +178,31 @@ export default function Header(): JSX.Element | null {
         </Link>
         {siteConfig.nav.map((item) => {
           const isActive = active === item.section;
-          return (
-            <Link
-              key={item.label}
-              href={item.href}
-              scroll={item.section === 'home'}
-              prefetch={false}
-            >
-              <a
-                aria-current={isActive ? 'true' : undefined}
-                onClick={item.section === 'home' ? scrollHome : undefined}
-                className={`relative inline-flex h-8 items-center rounded-pill px-3 text-[0.9375rem] font-medium no-underline transition-colors duration-150 sm:px-4 ${
-                  isActive ? 'text-accent' : 'text-fg-muted hover:text-fg'
-                }`}
-              >
-                {isActive && (
-                  <m.span
-                    layoutId="nav-active"
-                    transition={LAYOUT_TRANSITION}
-                    className="absolute inset-0 rounded-pill bg-fill"
-                    aria-hidden="true"
-                  />
-                )}
-                <span className="relative">{item.label}</span>
+          const className = `relative inline-flex h-8 items-center rounded-pill px-1.5 text-sm font-medium no-underline transition-colors duration-150 sm:px-4 sm:text-[0.9375rem] ${
+            isActive ? 'text-accent' : 'text-fg-muted hover:text-fg'
+          }`;
+          const label = (
+            <>
+              {isActive && (
+                <m.span
+                  layoutId="nav-active"
+                  transition={LAYOUT_TRANSITION}
+                  className="absolute inset-0 rounded-pill bg-fill"
+                  aria-hidden="true"
+                />
+              )}
+              <span className="relative">{item.label}</span>
+            </>
+          );
+          // #contact is the footer of the current page, so a plain in-page link
+          return item.href.startsWith('#') ? (
+            <a key={item.label} href={item.href} className={className}>
+              {label}
+            </a>
+          ) : (
+            <Link key={item.label} href={item.href} prefetch={false}>
+              <a aria-current={isActive ? 'page' : undefined} className={className}>
+                {label}
               </a>
             </Link>
           );
