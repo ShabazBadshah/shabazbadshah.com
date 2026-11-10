@@ -3,11 +3,16 @@ dotenv.config();
 
 const isProd = process.env.NODE_ENV === 'production';
 
+/** Keep in sync with SYFTABLE_URL in src/config/site.ts */
+const SYFTABLE_URL = 'https://syftable.com';
+
 // Next injects inline bootstrap scripts (and next-themes an inline no-flash script), so
 // script-src needs 'unsafe-inline'. Dev additionally needs 'unsafe-eval' for React Refresh.
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${isProd ? '' : " 'unsafe-eval'"}`,
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com${
+    isProd ? '' : " 'unsafe-eval'"
+  }`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://www.google-analytics.com https://*.googletagmanager.com https://avatars.githubusercontent.com",
   "font-src 'self'",
@@ -112,12 +117,19 @@ const nextConfig = {
     ];
   },
   async redirects() {
+    // `permanent: true` sends a 308; these need a true 301
+    const moved = (source, destination) => ({ source, destination, statusCode: 301 });
     return [
       {
         source: '/blog/posts',
         destination: '/blog',
         permanent: true
-      }
+      },
+      moved('/writing', '/blog'),
+      moved('/writing/:path*', '/blog'),
+      // Syftable lives on its own domain
+      moved('/syftable', SYFTABLE_URL),
+      moved('/syftable/:path*', SYFTABLE_URL)
     ];
   }
 };

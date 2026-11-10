@@ -1,20 +1,25 @@
 # Shabaz Badshah (Shabaz Badshah)
 
-> Shabaz Badshah is a Product Engineer & Technical Product Consultant based in Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
+> Shabaz Badshah is a Product Engineer based in the Greater Toronto Area, Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
 
 This site is the personal and consulting website of Shabaz Badshah. Content below is free to summarize and cite with attribution and a link to the source page.
 
 ## Pages
 
-- [Home](https://shabazbadshah.com/): Introduction, about, contact links, selected work and blog posts
+- [Home](https://shabazbadshah.com/): Introduction, selected work, how I work and recent blog posts
+- [Work](https://shabazbadshah.com/work): Work history timeline and case studies
+- [Badshah Consulting](https://shabazbadshah.com/consulting): Software for Ontario clinics and end-to-end product builds for founders
+- [Clinics](https://shabazbadshah.com/clinics): Clinic websites for Ontario, focused on the GTA
+- [Blog](https://shabazbadshah.com/blog): All blog posts
 
-## Selected work
+## Case studies
 
-- [Mednow](https://shabazbadshah.com/#work): Shipped a B2C pharmacy app 0→1 to national launch.. A Canadian digital pharmacy app providing automated medication management and free nationwide delivery. It integrates holistic healthcare through virtual medical consultations, mental health support, and personalized wellness programs.
-- [Upper Oakville Chiropractic](https://shabazbadshah.com/#work): Reduce monthly hosting costs by 90% and rebranded site. Established online presence to drive patient bookings by designing, building, and launching a clinic website end-to-end, including branding, WordPress development, post-launch support, PHIPA/PIPEDA/CCO compliance, and AEO/SEO.
-- [Planned](https://shabazbadshah.com/#work): Reduced vendor onboarding time from 48h to 6h. REST API for consolidating disparate vendor data (Google Maps, PDFs, Yelp, etc.) using LLM technology to scale curated marketplace.
-- [SOTI](https://shabazbadshah.com/#work): Grew revenue by $27K MRR CAD post-release. A custom instant-messaging and video calling tool (web and mobile apps) to communicate between MDM devices in order to provide technical support.
-- [Project Include](https://shabazbadshah.com/#work): Ran 50+ workshops 250+ students prior to ending. An informational site volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
+- [Mednow](https://shabazbadshah.com/work/mednow): Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
+- [SOTI](https://shabazbadshah.com/work/soti): Shipped Windows chat and video calling in an enterprise B2B/government product.
+- [Planned](https://shabazbadshah.com/work/planned): Senior PM on an enterprise event management platform.
+- [Project Include](https://shabazbadshah.com/work/project-include): An informational site for a volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
+- [Chiropractic clinic, Oakville](https://shabazbadshah.com/work/chiropractic-clinic-oakville): Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
+- [Travel app MVP](https://shabazbadshah.com/work/travel-app-mvp): React Native/Expo MVP for iOS and Android, built on Firebase with Google sign-in.
 
 ## Blog
 
@@ -42,57 +47,66 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 
 ## Mednow
 
-URL: https://shabazbadshah.com/#work
+URL: https://shabazbadshah.com/work/mednow
 Website: https://mednow.ca/
 Role: Product Manager
-Headline result: Shipped a B2C pharmacy app 0→1 to national launch.
 
-A Canadian digital pharmacy app providing automated medication management and free nationwide delivery. It integrates holistic healthcare through virtual medical consultations, mental health support, and personalized wellness programs.
-
-- Loved by patients: 400+ 5-star Google reviews.: 400+ 5-star Google reviews.
-- Available across Canada: Localized in English and French.: Localized across Canada (including Québec).
-- PIPEDA & PHIPA adherence: Patient data/privacy, and operations compliant.: Patient data/privacy, and operations compliant.
-- Integrations: PharmacyLink, StreamChat, Stripe payments, etc.: PharmacyLink, instant messaging, Stripe payments, notifications.
-
-## Upper Oakville Chiropractic
-
-URL: https://shabazbadshah.com/#work
-Website: https://uoc-intake-clone.vercel.app/
-Role: Product Engineer Consultant
-Headline result: Reduce monthly hosting costs by 90% and rebranded site
-Expertise: Technical SEO and AEO, form UX, clinic workflow design
-
-Established online presence to drive patient bookings by designing, building, and launching a clinic website end-to-end, including branding, WordPress development, post-launch support, PHIPA/PIPEDA/CCO compliance, and AEO/SEO.
-
-## Planned
-
-URL: https://shabazbadshah.com/#work
-Website: https://planned.com/
-Role: Product Manager
-Headline result: Reduced vendor onboarding time from 48h to 6h
-Expertise: Technical architecture, REST APIs, ETL, AI, LLMs
-
-REST API for consolidating disparate vendor data (Google Maps, PDFs, Yelp, etc.) using LLM technology to scale curated marketplace.
+Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
+- What I built: A B2C pharmacy app for iOS and Android, localized in English and French, with PharmacyLink, Stream Chat, Stripe payments, social sign-in and push notifications.
+- Outcome: Shipped 0→1 to national launch. 400+ 5-star Google reviews.
+- Stack: iOS and Android mobile apps, Figma, TELUS Kroll PMS, Stripe, Stream Chat, Shopify eCommerce integration, Social SSO (Apple/Google), Native push notifications, PIPEDA compliance, PHIPA compliance
 
 ## SOTI
 
-URL: https://shabazbadshah.com/#work
+URL: https://shabazbadshah.com/work/soti
 Website: https://soti.net
 Role: Product Manager
-Headline result: Grew revenue by $27K MRR CAD post-release
-Expertise: Technical architecture, B2B, low-latency realtime systems
 
-A custom instant-messaging and video calling tool (web and mobile apps) to communicate between MDM devices in order to provide technical support.
+Shipped Windows chat and video calling in an enterprise B2B/government product.
+- Problem: Support teams needed to message and video call managed (MDM) devices to give technical support.
+- What I built: Instant messaging and video calling between support staff and managed devices, with the API and system specifications behind it.
+- Outcome: Grew revenue by $27K MRR CAD post-release.
+- Stack: Android Enterprise, WebRTC, Real-time communication tools, REST APIs and request/response schemas, Data modeling
+
+## Planned
+
+URL: https://shabazbadshah.com/work/planned
+Website: https://planned.com/
+Role: Senior Product Manager
+
+Senior PM on an enterprise event management platform.
+- Problem: Vendor data for the curated marketplace was spread across Google Maps, PDFs, Yelp and other sources, which made onboarding slow.
+- What I built: A REST API that uses LLMs to consolidate vendor data from those sources into the marketplace.
+- Outcome: Reduced vendor onboarding time from 48h to 6h.
+- Stack: LLMs (ChatGPT), Internal REST APIs, Google Maps API, Website scraping, Data enrichment pipelines
 
 ## Project Include
 
-URL: https://shabazbadshah.com/#work
+URL: https://shabazbadshah.com/work/project-include
 Website: https://www.facebook.com/hashtagprojectinclude/
 Role: Frontend Developer
-Headline result: Ran 50+ workshops 250+ students prior to ending
-Expertise: Web development, design, sales, marketing
 
-An informational site volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
+An informational site for a volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
+- What I built: Frontend development for the site, a Contentful CMS integration, and marketing automation and analytics.
+- Outcome: Ran 50+ workshops for 250+ students before ending.
+- Stack: React.JS, Next.JS, Contentful CMS, GA4
+
+## Chiropractic clinic, Oakville
+
+URL: https://shabazbadshah.com/work/chiropractic-clinic-oakville
+
+Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
+- Problem: The clinic needed an online presence that brings in patient bookings.
+- What I built: A new brand and a WordPress website, built to PHIPA, PIPEDA and CCO compliance, with technical SEO and AEO, clear forms, and staff training and documentation.
+- Stack: WordPress, PHP, Technical SEO and AEO, Form UX, PHIPA and PIPEDA compliance, Post-launch support and maintenance
+
+## Travel app MVP
+
+URL: https://shabazbadshah.com/work/travel-app-mvp
+
+React Native/Expo MVP for iOS and Android, built on Firebase with Google sign-in.
+- What I built: An iOS and Android MVP built with React Native and Expo, on Firebase, with Google sign-in.
+- Stack: React Native, Expo, Firebase, Google sign-in, iOS, Android
 
 ---
 

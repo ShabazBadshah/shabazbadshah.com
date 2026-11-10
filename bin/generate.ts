@@ -3,8 +3,9 @@ import fs from 'fs';
 import path from 'path';
 
 import { siteConfig } from '../src/config/site';
-import { PROJECTS } from '../src/content/projects';
+import { caseStudyProjects, type PublicProject } from '../src/content/projects';
 import { getAllPosts } from '../src/lib/blog';
+import { filled } from '../src/lib/todo';
 import { plainText } from '../src/lib/utils';
 
 /**
@@ -16,6 +17,10 @@ import { plainText } from '../src/lib/utils';
 const { url: URL, name, person, llms } = siteConfig;
 const PUBLIC_DIR = path.join(process.cwd(), 'public');
 const posts = getAllPosts();
+/** Public views only: unnamed clients appear under their anonymized names */
+const projects = caseStudyProjects();
+const projectUrl = (project: PublicProject): string => `${URL}/work/${project.slug}`;
+const blogPages = Math.max(1, Math.ceil(posts.length / siteConfig.postsPerPage));
 const day = (date: string): string => dayjs(date).format('YYYY-MM-DD');
 
 const write = (file: string, content: string): void => {
@@ -36,7 +41,14 @@ const robots = [
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  `  <url><loc>${URL}/</loc></url>`,
+  ...['/', '/work', '/consulting', '/clinics', '/blog'].map(
+    (route) => `  <url><loc>${URL}${route}</loc></url>`
+  ),
+  ...projects.map((project) => `  <url><loc>${projectUrl(project)}</loc></url>`),
+  ...Array.from(
+    { length: blogPages - 1 },
+    (_, i) => `  <url><loc>${URL}/blog/page/${i + 2}</loc></url>`
+  ),
   ...posts.map(
     (post) =>
       `  <url><loc>${URL}/blog/posts/${post.slug}</loc><lastmod>${day(
@@ -79,13 +91,15 @@ const llmsIndex = [
   '',
   '## Pages',
   '',
-  `- [Home](${URL}/): Introduction, about, contact links, selected work and blog posts`,
+  `- [Home](${URL}/): Introduction, selected work, how I work and recent blog posts`,
+  `- [Work](${URL}/work): Work history timeline and case studies`,
+  `- [Badshah Consulting](${URL}/consulting): Software for Ontario clinics and end-to-end product builds for founders`,
+  `- [Clinics](${URL}/clinics): Clinic websites for Ontario, focused on the GTA`,
+  `- [Blog](${URL}/blog): All blog posts`,
   '',
-  '## Selected work',
+  '## Case studies',
   '',
-  ...PROJECTS.map(
-    (project) => `- [${project.title}](${URL}/#work): ${project.metric}. ${project.description}`
-  ),
+  ...projects.map((project) => `- [${project.name}](${projectUrl(project)}): ${project.summary}`),
   '',
   '## Blog',
   '',
@@ -115,19 +129,22 @@ const llmsFull = [
   '',
   '# Projects (full detail)',
   '',
-  ...PROJECTS.flatMap((project) => [
-    `## ${project.title}`,
+  ...projects.flatMap((project) => [
+    `## ${project.name}`,
     '',
-    `URL: ${URL}/#work`,
-    `Website: ${project.website}`,
-    `Role: ${project.role}`,
-    `Headline result: ${project.metric}`,
-    ...(project.expertise ? [`Expertise: ${project.expertise}`] : []),
+    `URL: ${projectUrl(project)}`,
+    ...(project.externalUrl ? [`Website: ${project.externalUrl}`] : []),
+    ...(project.role ? [`Role: ${project.role}`] : []),
     '',
-    project.description,
-    ...(project.features
-      ? ['', ...project.features.map((f) => `- ${f.title}: ${f.description}`)]
-      : []),
+    project.summary,
+    ...[
+      ['Problem', project.problem],
+      ['What I built', project.whatIBuilt],
+      ['Outcome', project.outcome]
+    ]
+      .filter(([, value]) => filled(value))
+      .map(([label, value]) => `- ${label}: ${value}`),
+    ...(project.stack.length ? [`- Stack: ${project.stack.join(', ')}`] : []),
     ''
   ]),
   '---',
@@ -157,5 +174,5 @@ write('llms.txt', llmsIndex);
 write('llms-full.txt', llmsFull);
 
 console.log(
-  `Generated public/ files from site config (${posts.length} posts, ${PROJECTS.length} projects)`
+  `Generated public/ files from site config (${posts.length} posts, ${projects.length} projects)`
 );

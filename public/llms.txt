@@ -1,20 +1,25 @@
 # Shabaz Badshah (Shabaz Badshah)
 
-> Shabaz Badshah is a Product Engineer & Technical Product Consultant based in Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
+> Shabaz Badshah is a Product Engineer based in the Greater Toronto Area, Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
 
 This site is the personal and consulting website of Shabaz Badshah. Content below is free to summarize and cite with attribution and a link to the source page.
 
 ## Pages
 
-- [Home](https://shabazbadshah.com/): Introduction, about, contact links, selected work and blog posts
+- [Home](https://shabazbadshah.com/): Introduction, selected work, how I work and recent blog posts
+- [Work](https://shabazbadshah.com/work): Work history timeline and case studies
+- [Badshah Consulting](https://shabazbadshah.com/consulting): Software for Ontario clinics and end-to-end product builds for founders
+- [Clinics](https://shabazbadshah.com/clinics): Clinic websites for Ontario, focused on the GTA
+- [Blog](https://shabazbadshah.com/blog): All blog posts
 
-## Selected work
+## Case studies
 
-- [Mednow](https://shabazbadshah.com/#work): Shipped a B2C pharmacy app 0→1 to national launch.. A Canadian digital pharmacy app providing automated medication management and free nationwide delivery. It integrates holistic healthcare through virtual medical consultations, mental health support, and personalized wellness programs.
-- [Upper Oakville Chiropractic](https://shabazbadshah.com/#work): Reduce monthly hosting costs by 90% and rebranded site. Established online presence to drive patient bookings by designing, building, and launching a clinic website end-to-end, including branding, WordPress development, post-launch support, PHIPA/PIPEDA/CCO compliance, and AEO/SEO.
-- [Planned](https://shabazbadshah.com/#work): Reduced vendor onboarding time from 48h to 6h. REST API for consolidating disparate vendor data (Google Maps, PDFs, Yelp, etc.) using LLM technology to scale curated marketplace.
-- [SOTI](https://shabazbadshah.com/#work): Grew revenue by $27K MRR CAD post-release. A custom instant-messaging and video calling tool (web and mobile apps) to communicate between MDM devices in order to provide technical support.
-- [Project Include](https://shabazbadshah.com/#work): Ran 50+ workshops 250+ students prior to ending. An informational site volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
+- [Mednow](https://shabazbadshah.com/work/mednow): Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
+- [SOTI](https://shabazbadshah.com/work/soti): Shipped Windows chat and video calling in an enterprise B2B/government product.
+- [Planned](https://shabazbadshah.com/work/planned): Senior PM on an enterprise event management platform.
+- [Project Include](https://shabazbadshah.com/work/project-include): An informational site for a volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
+- [Chiropractic clinic, Oakville](https://shabazbadshah.com/work/chiropractic-clinic-oakville): Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
+- [Travel app MVP](https://shabazbadshah.com/work/travel-app-mvp): React Native/Expo MVP for iOS and Android, built on Firebase with Google sign-in.
 
 ## Blog
 
