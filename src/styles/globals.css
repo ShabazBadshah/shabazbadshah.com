@@ -15,7 +15,8 @@
   --border-strong: rgb(0 0 0 / 0.22);
   --text: #1d1d1f;
   --text-secondary: #636366;
-  --accent: #2590fa;
+  /* 5.6:1 against white text, 5.0:1 on --bg (WCAG AA) */
+  --accent: #0066cc;
   --accent-contrast: #ffffff;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.04);
   /* Lifts the fixed nav off the page */
