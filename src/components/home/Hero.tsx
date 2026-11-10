@@ -35,19 +35,20 @@ export default function Hero(): JSX.Element {
         }`}
       />
 
-      <div className="flex max-w-2xl flex-col gap-5">
+      <div className="flex max-w-xl flex-col gap-4">
         <div className="flex items-center gap-3">
           <img
             src={siteConfig.person.image}
             alt=""
-            width={56}
-            height={56}
-            className="size-14 rounded-full border object-cover"
+            width={80}
+            height={80}
+            className="size-20 rounded-full border object-cover"
           />
-          <p className="text-lg font-medium">{hero.name}</p>
+          <p className="text-lg">{hero.name}</p>
         </div>
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-5xl">{hero.title}</h1>
-        <p className="text-fg-muted sm:text-lg">
+        {/* Body-sized, like the intro line it replaced */}
+        <h1 className="text-base font-normal leading-[1.55] tracking-normal">{hero.title}</h1>
+        <p className="text-fg-muted">
           <span className="font-medium text-fg">{hero.currentlyLabel}: </span>
           {hero.currently.before}{' '}
           <a
