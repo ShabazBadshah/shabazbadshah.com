@@ -6,9 +6,18 @@
  */
 
 import { content } from '../content/content';
+import { todo } from '../lib/todo';
 
 const BOOKING_URL = 'https://calendly.com/badshah-shabaz/30min';
+const EMAIL = 'badshah.shabaz@gmail.com';
 const HOST = 'shabazbadshah.com';
+/** Syftable lives on its own domain; this site only links to it */
+const SYFTABLE_URL = 'https://syftable.com';
+/** TODO: resume file path; the download link on /work is left out of production builds until set */
+const RESUME_URL = todo('resume file path');
+
+/** Which audience a contact link came from; carried into the email and the booking link */
+export type ContactSource = 'career' | 'consulting' | 'clinics';
 
 export type SocialProvider = 'linkedin' | 'email' | 'video' | 'github';
 
@@ -21,17 +30,30 @@ const SOCIAL_LINKS: { provider: SocialProvider; url: string; logo: string }[] = 
   { provider: 'github', url: 'https://github.com/ShabazBadshah', logo: '/images/logos/github.svg' },
   {
     provider: 'email',
-    url: 'mailto:badshah.shabaz@gmail.com?subject=Hey%20Shabaz%20%F0%9F%91%8B',
+    url: `mailto:${EMAIL}?subject=Hey%20Shabaz%20%F0%9F%91%8B`,
     logo: '/images/logos/gmail.svg'
   },
   { provider: 'video', url: BOOKING_URL, logo: '/images/logos/google-meet.svg' }
 ];
 
-const NAV_LINKS: { href: string; section: 'home' | 'work' | 'blog' }[] = [
-  { href: '/', section: 'home' },
-  { href: '/#work', section: 'work' },
-  { href: '/#blog', section: 'blog' }
+export type NavSection = 'work' | 'consulting' | 'blog' | 'contact';
+
+/** /clinics is reached from /consulting and direct links, never from the nav */
+const NAV_LINKS: { href: string; section: NavSection }[] = [
+  { href: '/work', section: 'work' },
+  { href: '/consulting', section: 'consulting' },
+  { href: '/blog', section: 'blog' },
+  // The footer holds each page's contact call to action
+  { href: '#contact', section: 'contact' }
 ];
+
+const contact = {
+  email: (source: ContactSource): string =>
+    `mailto:${EMAIL}?subject=${encodeURIComponent(
+      content.contact.subject[source]
+    )}&body=${encodeURIComponent(`\n\n--\n${content.contact.signature} ${source}`)}`,
+  booking: (source: ContactSource): string => `${BOOKING_URL}?utm_source=${source}`
+};
 
 export const siteConfig = {
   name: content.site.name,
@@ -48,6 +70,13 @@ export const siteConfig = {
     description: content.seo.description,
     keywords: content.seo.keywords,
     ogImage: '/images/og-image.png',
+    work: { ...content.seo.work, title: `${content.seo.work.title} | ${HOST}` },
+    caseStudyTitle: (name: string) => `${name} - ${content.seo.caseStudy.suffix} | ${HOST}`,
+    consulting: content.seo.consulting,
+    clinics: content.seo.clinics,
+    blog: { ...content.seo.blog, title: `${content.seo.blog.title} | ${HOST}` },
+    blogPageTitle: (page: number) =>
+      `${content.seo.blog.title} - ${content.blog.pagination.page(page)} | ${HOST}`,
     postTitle: (title: string) => `${content.seo.postTitlePrefix} - ${title} | ${HOST}`,
     notFound: {
       title: `${content.seo.notFound.title} | ${HOST}`,
@@ -57,17 +86,26 @@ export const siteConfig = {
 
   person: {
     ...content.person,
-    email: 'badshah.shabaz@gmail.com',
+    email: EMAIL,
     image: '/images/profile.webp',
     region: 'ON',
     country: 'CA'
   },
 
-  hero: {
-    syftable: { url: 'https://syftable.com', logo: '/images/logos/syftable.svg' }
+  business: {
+    ...content.business,
+    path: '/consulting',
+    /** Ontario, focused on the GTA */
+    areaServed: 'Ontario'
   },
 
+  syftable: { url: SYFTABLE_URL, logo: '/images/logos/syftable.svg' },
+
   booking: BOOKING_URL,
+  contact,
+  resume: RESUME_URL,
+  /** Posts per page of the blog index (/blog, then /blog/page/<n>) */
+  postsPerPage: 9,
 
   socials: SOCIAL_LINKS.map((link) => ({ ...link, ...content.socials[link.provider] })),
 

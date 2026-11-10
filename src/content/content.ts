@@ -1,25 +1,26 @@
 /**
- * Every piece of copy on the site: page and component text, accessible labels, SEO text and project
- * cards. Components read from here directly; src/config/site.ts and src/content/projects.ts read
- * their text from here too, so bin/generate.ts picks up edits as well. Blog posts stay in content/.
+ * Every piece of copy on the site: page and component text, accessible labels and SEO text.
+ * Components read from here directly; src/config/site.ts reads its text from here too, so
+ * bin/generate.ts picks up edits as well. Projects live in src/content/projects.ts and blog posts
+ * in content/.
  *
  * Uses relative imports only: bin/generate.ts loads this file through ts-node, which has no `@/` alias.
  */
-import type { Project } from './projects';
+import { todo } from '../lib/todo';
 
 export const content = {
   site: {
     name: 'Shabaz Badshah',
     /** One-liner used by structured data, the manifest and llms.txt */
     description:
-      'I integrate product strategy with technical execution to solve impactful business problems.'
+      'Product engineer. I take products from the problem to production, then keep them running.'
   },
 
   seo: {
-    title: 'Shabaz Badshah - Product Engineer & Technical Product Consultant',
+    title: 'Shabaz Badshah - Product Engineer',
     /** Home page meta description */
     description:
-      "I’m a product engineer with 5+ years in technical product management and software development roles, I build things end-to-end. I figure out what’s worth making, why it's useful, write the code, and make sure it's supported after launch.",
+      'Shabaz Badshah is a product engineer in the GTA. I own products end to end: problem framing, design, engineering, release and support after launch.',
     keywords: [
       'product management',
       'product engineering',
@@ -28,6 +29,29 @@ export const content = {
       'healthcare digitization',
       'software architecture'
     ],
+    work: {
+      title: 'Work',
+      description:
+        'Where I’ve worked and what I’ve shipped: Mednow, SOTI, Planned and independent product work since 2024, with case studies.'
+    },
+    caseStudy: {
+      /** "<project> - <suffix>" */
+      suffix: 'Case study'
+    },
+    consulting: {
+      title: 'Badshah Consulting Inc. - Software for Ontario clinics',
+      description:
+        'Badshah Consulting builds and supports software for Ontario clinics, and takes on a limited number of end-to-end product builds for founders.'
+    },
+    clinics: {
+      title: 'Clinic websites in Ontario - Badshah Consulting',
+      description:
+        'Websites that help patients find and book what they need, so your front desk handles fewer repetitive calls. Serving Ontario, focused on the GTA.'
+    },
+    blog: {
+      title: 'Blog',
+      description: "Some of Shabaz Badshah's thoughts on product, engineering, AI and healthcare."
+    },
     /** Blog post <title>: "<prefix> - <post title> | <host>" */
     postTitlePrefix: 'Thoughts',
     notFound: {
@@ -41,8 +65,8 @@ export const content = {
 
   person: {
     name: 'Shabaz Badshah',
-    jobTitle: 'Product Engineer & Technical Product Consultant',
-    location: 'Ontario, Canada',
+    jobTitle: 'Product Engineer',
+    location: 'the Greater Toronto Area, Ontario, Canada',
     knowsAbout: [
       'Product management',
       'Healthcare digitization',
@@ -51,6 +75,12 @@ export const content = {
       'Large language models',
       'PIPEDA and PHIPA compliance'
     ]
+  },
+
+  business: {
+    name: 'Badshah Consulting Inc.',
+    description:
+      'Badshah Consulting builds and supports software for Ontario clinics, and takes on a limited number of end-to-end product builds for founders.'
   },
 
   llms: {
@@ -65,7 +95,7 @@ export const content = {
     label: 'Primary',
     home: 'Home',
     back: 'Back',
-    items: { home: 'About', work: 'Work', blog: 'Blog' },
+    items: { work: 'Work', consulting: 'Consulting', blog: 'Writing', contact: 'Contact' },
     theme: {
       toggle: 'Toggle color theme',
       toLight: 'Switch to light theme',
@@ -80,6 +110,17 @@ export const content = {
     video: { name: 'Video call', label: "Let's meet virtually", cta: 'Video call' }
   },
 
+  /** Email subject per contact source, so each inquiry says where it came from */
+  contact: {
+    subject: {
+      career: 'Hey Shabaz 👋 (product engineer role)',
+      consulting: 'Hey Shabaz 👋 (product build)',
+      clinics: 'Hey Shabaz 👋 (free website review)'
+    },
+    /** Appended to the email body: "<signature> <source>" */
+    signature: 'Sent from shabazbadshah.com, source:'
+  },
+
   layout: {
     skipToContent: 'Skip to content',
     scrollToTop: { label: 'Scroll to top', title: 'Back to top' }
@@ -87,23 +128,182 @@ export const content = {
 
   hero: {
     sectionLabel: 'Introduction',
-    title: `Hey 👋, I'm Shabaz Badshah`,
-    intro:
-      "I’m a product engineer with 5+ years in technical product management and software development roles, I build things end-to-end. I figure out what’s worth making, why it's useful, write the code, and make sure it's supported after launch.",
-    /** "<before> [Syftable] <after>" */
-    syftable: {
-      name: 'Syftable',
-      before: "I'm currently bootstrapping",
-      after:
-        "which keeps track of your work so you don't have to. It catches what you owe and surfaces what you need, without a single prompt, all on your computer."
+    name: 'Shabaz Badshah',
+    title:
+      'Product engineer. I take products from the problem to production, then keep them running.',
+    currentlyLabel: 'Currently',
+    /** "<before> [Syftable]<after>" */
+    currently: {
+      before: 'Shipping software for Ontario clinics through Badshah Consulting. Building',
+      syftable: 'Syftable',
+      after: '. Open to a full-time Product Engineer role on a small team.'
     },
     ctaPrimary: "Let's talk",
-    ctaSecondary: 'View selected works',
+    ctaSecondary: 'View my work',
     socialsLabel: 'Connect'
   },
 
+  home: {
+    proof: {
+      title: 'Selected work',
+      syftable: {
+        eyebrow: 'My own product',
+        title: 'Syftable',
+        body: "It keeps track of your work so you don't have to.",
+        link: 'Visit syftable.com'
+      },
+      clients: {
+        eyebrow: 'Independent',
+        title: 'Client work',
+        body: 'Projects for clients through Badshah Consulting, from a clinic website to a mobile app MVP.',
+        link: 'See the timeline'
+      }
+    },
+    howIWork: {
+      title: 'How I work',
+      steps: [
+        {
+          title: 'Frame the problem',
+          body: 'I start with who has the problem, what it costs them, and what would change if it went away.'
+        },
+        {
+          title: 'Design',
+          body: 'I design the smallest flow that solves it and check it with the people who will use it.'
+        },
+        {
+          title: 'Engineer',
+          body: 'I build it myself across the stack, and write down the trade-offs as I make them.'
+        },
+        {
+          title: 'Release',
+          body: 'I ship in small, reversible steps with monitoring in place, so launch day is uneventful.'
+        },
+        {
+          title: 'Support',
+          body: 'After launch I watch how it is used, fix what breaks, and keep improving it.'
+        }
+      ]
+    },
+    blog: { viewAll: 'View all posts' }
+  },
+
   work: {
-    title: 'Selected Works'
+    title: 'Work',
+    subtitle: 'Where I’ve worked and what I’ve shipped.',
+    resume: 'Download resume',
+    timeline: {
+      title: 'Experience',
+      independent: {
+        org: 'Independent',
+        role: 'Product Engineer',
+        dates: 'Oct 2024–present',
+        consulting: { name: 'Badshah Consulting Inc.', note: 'Incorporated 2026' },
+        syftableLink: 'syftable.com'
+      }
+    },
+    caseStudies: { title: 'Case studies' }
+  },
+
+  caseStudy: {
+    back: 'All work',
+    problem: 'The problem',
+    whatIBuilt: 'What I built',
+    outcome: 'Outcome',
+    stack: 'Stack',
+    phases: 'Phases',
+    phase: (n: number): string => `Phase ${n}`,
+    testimonial: 'Testimonial',
+    visit: 'Visit site',
+    read: 'Read case study'
+  },
+
+  consulting: {
+    hero: {
+      title: 'Badshah Consulting builds and supports software for Ontario clinics.',
+      subtitle: 'I also take on a limited number of end-to-end product builds for founders.',
+      cta: 'Book a call'
+    },
+    clinics: {
+      title: 'Clinics',
+      body: 'Clinic websites that are clear for patients and easy on the front desk, built with Ontario’s privacy and advertising rules in mind. I design, build and launch the site, then keep it running.',
+      link: 'Software for clinics'
+    },
+    builds: {
+      title: 'End-to-end product builds',
+      scopeTitle: 'What’s included',
+      scope: ['Product definition', 'Design', 'Build', 'Release', 'Support'],
+      processTitle: 'How an engagement works',
+      steps: [
+        {
+          title: 'Discovery',
+          body: 'We talk through the problem, the users and the constraints, and agree on what success looks like.'
+        },
+        {
+          title: 'Scoped proposal',
+          body: 'You get a written scope, timeline and price before any work starts.'
+        },
+        {
+          title: 'Build in short milestones',
+          body: 'I build in short milestones, and you see working software at the end of each one.'
+        },
+        {
+          title: 'Launch',
+          body: 'I handle the release, from hosting and app stores to monitoring and handover notes.'
+        },
+        {
+          title: 'Support period',
+          body: 'After launch, a support period covers fixes and small changes while real users settle in.'
+        }
+      ],
+      caseStudiesTitle: 'Client work'
+    }
+  },
+
+  clinics: {
+    hero: {
+      title: 'Patients find and book what they need on your website.',
+      subtitle: 'Your front desk spends less time on the same calls and questions.',
+      cta: 'Get a free website review'
+    },
+    offers: {
+      title: 'What I can help with',
+      /** TODO: confirm which offers are live; unconfirmed offers are left out of production builds */
+      items: [
+        {
+          title: 'A website that guides patients to booking',
+          body: 'A redesign that answers common questions up front and leads patients to book, with less back-and-forth with your front desk.',
+          confirmed: false
+        },
+        {
+          title: 'A compliant, accessible clinic website',
+          body: 'Built to Ontario’s privacy and advertising rules, easy to use for every patient, and easy to find on Google.',
+          confirmed: false
+        },
+        {
+          title: 'CDCP coverage helper for dental offices',
+          body: todo('describe the CDCP coverage helper'),
+          confirmed: false
+        }
+      ],
+      unconfirmed: todo('confirm this offer is live')
+    },
+    background: {
+      label: 'Previous role',
+      body: "I've built patient-facing software in Canadian healthcare. At Mednow, I helped build a patient pharmacy app through its national launch."
+    },
+    work: { title: 'Clinic work' },
+    support: {
+      title: 'After launch',
+      items: [
+        { title: 'Maintenance', body: todo('maintenance terms') },
+        { title: 'Updates', body: todo('update terms') },
+        { title: 'Response time', body: todo('response time') }
+      ]
+    },
+    area: {
+      title: 'Where I work',
+      body: 'Ontario, focused on the GTA. In-person visits available.'
+    }
   },
 
   projectCard: {
@@ -124,18 +324,30 @@ export const content = {
     featured: 'Featured',
     collapse: { label: 'Collapse article', title: 'Collapse' },
     toc: { label: 'Table of contents', summary: 'Contents' },
-    enlargeImage: (alt: string): string => `Enlarge image: ${alt || 'article image'}`
+    enlargeImage: (alt: string): string => `Enlarge image: ${alt || 'article image'}`,
+    pagination: {
+      label: 'Blog pages',
+      previous: 'Newer posts',
+      next: 'Older posts',
+      page: (n: number): string => `Page ${n}`
+    }
   },
 
   footer: {
-    prompt: 'Does my skillset sound like a great fit for your team?',
-    cta: "Let's talk",
+    /** The large call to action at the bottom of every page, per audience */
+    cta: {
+      career: { prompt: 'Hiring a product engineer?', label: "Let's talk." },
+      consulting: { prompt: 'Have a product to build?', label: 'Book a call.' },
+      clinics: { prompt: 'Curious how your website is doing?', label: 'Get a free website review.' }
+    },
+    /** "<or> [email]" under a booking call to action, "<or> [book a call]" under an email one */
+    or: 'Or',
+    orBook: 'book a call',
     navLabel: 'Footer',
+    consulting: 'Badshah Consulting Inc.',
+    syftable: 'Syftable',
     /** Footer link text per social provider; providers left out are not linked */
-    links: { linkedin: 'LinkedIn', github: 'GitHub', video: 'Meet virtually' } as Record<
-      string,
-      string
-    >
+    links: { linkedin: 'LinkedIn', github: 'GitHub' } as Record<string, string>
   },
 
   notFound: {
@@ -143,207 +355,5 @@ export const content = {
     title: 'Something went wrong',
     body: "The page you're looking for doesn't exist, let's go back home.",
     cta: 'Back to homepage'
-  },
-
-  projects: [
-    {
-      slug: 'mednow',
-      title: 'Mednow',
-      date: '2022',
-      website: 'https://mednow.ca/',
-      logo: '/images/portfolio/mednow-logo.png',
-      description:
-        'A Canadian digital pharmacy app providing automated medication management and free nationwide delivery. It integrates holistic healthcare through virtual medical consultations, mental health support, and personalized wellness programs.',
-      role: 'Product Manager',
-      metric: 'Shipped a B2C pharmacy app 0→1 to national launch.',
-      features: [
-        {
-          title: 'Loved by patients: 400+ 5-star Google reviews.',
-          description: '400+ 5-star Google reviews.'
-        },
-        {
-          title: 'Available across Canada: Localized in English and French.',
-          description: 'Localized across Canada (including Québec).'
-        },
-        {
-          title: 'PIPEDA & PHIPA adherence: Patient data/privacy, and operations compliant.',
-          description: 'Patient data/privacy, and operations compliant.'
-        },
-        {
-          title: 'Integrations: PharmacyLink, StreamChat, Stripe payments, etc.',
-          description: 'PharmacyLink, instant messaging, Stripe payments, notifications.'
-        }
-      ],
-      image: {
-        src: '/images/portfolio/mednow.webp',
-        width: 1500,
-        height: 1123,
-        alt: 'Mednow marketing site'
-      },
-      appImages: [
-        {
-          src: '/images/portfolio/mednow-app.svg',
-          width: 851,
-          height: 1726,
-          alt: 'Mednow pharmacy app on a phone'
-        },
-        {
-          src: '/images/portfolio/mednow-app-2.svg',
-          width: 851,
-          height: 1726,
-          alt: 'Mednow pharmacy app screen'
-        },
-        {
-          src: '/images/portfolio/mednow-app-3.svg',
-          width: 851,
-          height: 1726,
-          alt: 'Mednow pharmacy app screen'
-        }
-      ],
-      disciplines: [
-        'Product Management (0 to 1 scaling)',
-        'Platform and Systems Integration',
-        'Stakeholder Management and Cross-functional Collaboration',
-        'Healthcare Compliance',
-        'E-commerce and Logistics Integration',
-        'Release Management and Quality Assurance'
-      ],
-      skills_and_technologies: [
-        'iOS and Android mobile apps',
-        'Figma',
-        'TELUS Kroll PMS',
-        'Stripe',
-        'Stream Chat',
-        'PIPEDA compliance',
-        'PHIPA compliance',
-        'Shopify eCommerce integration',
-        'Social SSO (Apple/Google)',
-        'Native push notifications'
-      ]
-    },
-    {
-      slug: 'uoc',
-      title: 'Upper Oakville Chiropractic',
-      date: '2026',
-      website: 'https://uoc-intake-clone.vercel.app/',
-      logo: '/images/portfolio/uoc-logo.png',
-      logoInvertOnDark: false,
-      description:
-        'Established online presence to drive patient bookings by designing, building, and launching a clinic website end-to-end, including branding, WordPress development, post-launch support, PHIPA/PIPEDA/CCO compliance, and AEO/SEO.',
-      role: 'Product Engineer Consultant',
-      metric: 'Reduce monthly hosting costs by 90% and rebranded site',
-      expertise: 'Technical SEO and AEO, form UX, clinic workflow design',
-      image: {
-        src: '/images/portfolio/uoc.png',
-        width: 1866,
-        height: 1007,
-        alt: 'Upper Oakville Chiropractic homepage hero section'
-      },
-      disciplines: [
-        'Product management',
-        'Brand design',
-        'Stakeholder management',
-        'SEO and AEO',
-        'Patient onboarding',
-        'Clinic workflow design'
-      ],
-      skills_and_technologies: [
-        'PHP',
-        'Wordpress',
-        'Post-launch support and maintenance',
-        'Departmental training and documentation',
-        'PHIPA and PIPEDA compliance'
-      ]
-    },
-    {
-      slug: 'planned',
-      title: 'Planned',
-      date: '2023',
-      website: 'https://planned.com/',
-      logo: '/images/portfolio/planned-logo.png',
-      logoInvertOnDark: true,
-      description:
-        'REST API for consolidating disparate vendor data (Google Maps, PDFs, Yelp, etc.) using LLM technology to scale curated marketplace.',
-      role: 'Product Manager',
-      metric: 'Reduced vendor onboarding time from 48h to 6h',
-      expertise: 'Technical architecture, REST APIs, ETL, AI, LLMs',
-      image: { src: '/images/portfolio/planned.png', width: 1866, height: 1007, alt: 'Planned' },
-      disciplines: [
-        'Product Management',
-        'Technical Discovery and Proof-of-Concept',
-        'Data Engineering (Ingestion Pipeline Design)',
-        'Workflow Automation',
-        'System Design and Architecture'
-      ],
-      skills_and_technologies: [
-        'LLMs (ChatGPT)',
-        'Internal REST APIs',
-        'Google Maps API',
-        'Website scraping',
-        'Data enrichment pipelines'
-      ]
-    },
-    {
-      slug: 'soti',
-      title: 'SOTI',
-      date: '2024',
-      website: 'https://soti.net',
-      logo: '/images/portfolio/soti-logo.png',
-      description:
-        'A custom instant-messaging and video calling tool (web and mobile apps) to communicate between MDM devices in order to provide technical support.',
-      role: 'Product Manager',
-      metric: 'Grew revenue by $27K MRR CAD post-release',
-      expertise: 'Technical architecture, B2B, low-latency realtime systems',
-      image: {
-        src: '/images/portfolio/soti-poster.jpg',
-        width: 1280,
-        height: 720,
-        alt: 'SOTI instant messaging and video calling tool'
-      },
-      video: {
-        src: '/images/portfolio/xsight-video.mp4',
-        poster: '/images/portfolio/soti-poster.jpg'
-      },
-      disciplines: [
-        'Technical Product Management',
-        'UI/UX Design',
-        'Quality Assurance (Design QA)',
-        'Technical Writing (API and System Specifications)',
-        'Systems Integration Architecture'
-      ],
-      skills_and_technologies: [
-        'Android Enterprise',
-        'WebRTC',
-        'Real-time communication tools',
-        'REST APIs and request/response schemas',
-        'Data modeling'
-      ]
-    },
-    {
-      slug: 'project-include',
-      title: 'Project Include',
-      date: '2020',
-      website: 'https://www.facebook.com/hashtagprojectinclude/',
-      logo: '/images/portfolio/project-include-logo.png',
-      description:
-        'An informational site volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.',
-      role: 'Frontend Developer',
-      metric: 'Ran 50+ workshops 250+ students prior to ending',
-      expertise: 'Web development, design, sales, marketing',
-      image: {
-        src: '/images/portfolio/project-include.png',
-        width: 1842,
-        height: 983,
-        alt: 'Project Include'
-      },
-      disciplines: [
-        'Frontend Web Development',
-        'Software Migration',
-        'Content Management System (CMS) Integration',
-        'Marketing Automation',
-        'Web Analytics'
-      ],
-      skills_and_technologies: ['React.JS', 'Next.JS', 'Contentful CMS', 'GA4']
-    }
-  ] as Project[]
+  }
 };
