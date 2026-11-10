@@ -4,9 +4,9 @@ import { siteConfig } from '@/config/site';
 import type { Post } from '@/lib/blog';
 import { plainText } from '@/lib/utils';
 
-const { url, locale, person: me, assets } = siteConfig;
+const { url, locale, person: me, assets, business } = siteConfig;
 const PERSON_ID = `${url}/#person`;
-const ORG_ID = `${url}/#organization`;
+const ORG_ID = `${url}${business.path}#organization`;
 const WEBSITE_ID = `${url}/#website`;
 const CONTEXT = 'https://schema.org';
 
@@ -25,22 +25,24 @@ const person = {
   email: `mailto:${me.email}`,
   sameAs,
   knowsAbout: me.knowsAbout,
-  worksFor: { '@id': ORG_ID },
+  worksFor: { '@type': 'Organization', name: business.name, url: `${url}${business.path}` },
   address: { '@type': 'PostalAddress', addressRegion: me.region, addressCountry: me.country }
 };
 
+/** Badshah Consulting Inc., on /consulting and /clinics */
 const organization = {
-  '@type': ['Organization', 'ProfessionalService'],
+  '@type': 'ProfessionalService',
   '@id': ORG_ID,
-  name: siteConfig.name,
-  url,
+  name: business.name,
+  url: `${url}${business.path}`,
   logo: `${url}${assets.logo}`,
   image: `${url}${me.image}`,
-  description: siteConfig.description,
-  founder: { '@id': PERSON_ID },
+  description: business.description,
+  // Name only: these pages carry no career details
+  founder: { '@type': 'Person', name: me.name, url },
   email: me.email,
-  areaServed: { '@type': 'Country', name: 'Canada' },
-  sameAs
+  areaServed: { '@type': 'AdministrativeArea', name: business.areaServed },
+  address: { '@type': 'PostalAddress', addressRegion: me.region, addressCountry: me.country }
 };
 
 export const homeStructuredData = (): Record<string, unknown> => ({
@@ -53,11 +55,10 @@ export const homeStructuredData = (): Record<string, unknown> => ({
       name: siteConfig.name,
       description: siteConfig.description,
       inLanguage: locale,
-      publisher: { '@id': ORG_ID },
+      publisher: { '@id': PERSON_ID },
       author: { '@id': PERSON_ID }
     },
     person,
-    organization,
     {
       '@type': 'ProfilePage',
       '@id': `${url}/#webpage`,
@@ -90,18 +91,33 @@ export const blogPostStructuredData = (post: Post): Record<string, unknown> => {
         mainEntityOfPage: postUrl,
         isPartOf: { '@id': WEBSITE_ID },
         author: { '@id': PERSON_ID },
-        publisher: { '@id': ORG_ID }
+        publisher: { '@id': PERSON_ID }
       },
       person,
-      organization,
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { name: 'Home', item: `${url}/` },
-          { name: 'Blog', item: `${url}/#blog` },
+          { name: 'Blog', item: `${url}/blog` },
           { name: post.title, item: postUrl }
         ].map((crumb, index) => ({ '@type': 'ListItem', position: index + 1, ...crumb }))
       }
     ]
   };
 };
+
+/** ProfessionalService for Badshah Consulting Inc., with the page that describes it */
+export const businessStructuredData = (path: string, title: string): Record<string, unknown> => ({
+  '@context': CONTEXT,
+  '@graph': [
+    organization,
+    {
+      '@type': 'WebPage',
+      '@id': `${url}${path}#webpage`,
+      url: `${url}${path}`,
+      name: title,
+      about: { '@id': ORG_ID },
+      inLanguage: locale
+    }
+  ]
+});
