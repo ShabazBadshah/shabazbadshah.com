@@ -5,6 +5,8 @@ import * as jsxRuntime from 'react/jsx-runtime';
 import { renderToStaticMarkup } from 'react-dom/server';
 import remarkGfm from 'remark-gfm';
 
+import type { Post } from '@/lib/blog';
+
 // The post title is the page's only <h1>, so a "# Heading" inside an article renders as an <h2>
 const H2 = (props: ComponentProps<'h2'>) => (
   <h2 className="mb-4 mt-12 text-3xl font-medium text-fg" {...props} />
@@ -89,3 +91,13 @@ export const renderPostHtml = async (slug: string, markdown: string): Promise<st
   }).default;
   return renderToStaticMarkup(<Content components={createComponents(slug)} />);
 };
+
+/** Posts with their article HTML pre-rendered, so a card opens instantly with no extra request */
+export const getRenderedPosts = (posts: Post[]): Promise<Post[]> =>
+  Promise.all(
+    posts.map(async (post) => ({
+      ...post,
+      html: await renderPostHtml(post.slug, post.body),
+      body: ''
+    }))
+  );

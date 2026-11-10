@@ -39,8 +39,9 @@ export default function BlogCard({ post, featured = false, className = '' }: Pro
           if (!isPlainLeftClick(event)) return;
           event.preventDefault();
           trackPinnedPostClicked();
-          // Shallow route: the home page already holds the article, so nothing is fetched
-          open(`/?post=${post.slug}`, event.currentTarget, href);
+          // Shallow route: this page already holds the article, so nothing is fetched
+          const page = router.asPath.split(/[?#]/)[0];
+          open(`${page}?post=${post.slug}`, event.currentTarget, href);
         }}
       >
         {/* Visual cue only: the whole card opens the article, this is part of that same link */}
