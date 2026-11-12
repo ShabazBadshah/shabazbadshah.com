@@ -6,15 +6,12 @@
  */
 
 import { content } from '../content/content';
-import { todo } from '../lib/todo';
 
 const BOOKING_URL = 'https://calendly.com/badshah-shabaz/30min';
 const EMAIL = 'badshah.shabaz@gmail.com';
 const HOST = 'shabazbadshah.com';
 /** Syftable lives on its own domain; this site only links to it */
 const SYFTABLE_URL = 'https://syftable.com';
-/** TODO: resume file path; the download link on /work is left out of production builds until set */
-const RESUME_URL = todo('resume file path');
 
 /** Which audience a contact link came from; carried into the email and the booking link */
 export type ContactSource = 'career' | 'consulting' | 'clinics';
@@ -101,7 +98,6 @@ export const siteConfig = {
 
   booking: BOOKING_URL,
   contact,
-  resume: RESUME_URL,
   /** Posts per page of the blog index (/blog, then /blog/page/<n>) */
   postsPerPage: 10,
 

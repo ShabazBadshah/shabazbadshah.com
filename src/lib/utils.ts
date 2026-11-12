@@ -8,5 +8,5 @@ export const plainText = (value: string): string => value.replace(/\*\*/g, '');
 export const dateRange = (start: string, end: string): string => {
   const missing = [start, end].find((value) => value.startsWith('TODO'));
   if (missing) return missing;
-  return end ? `${start}–${end}` : start;
+  return end ? `${start} – ${end}` : start;
 };

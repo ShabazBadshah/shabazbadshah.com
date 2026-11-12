@@ -23,12 +23,18 @@ type Transition = {
    * `mask`, and remember the card so the article can grow out of it.
    */
   open: (href: string, card: HTMLElement, mask: string) => void;
+  /** Remember the card without routing, for a sheet the page opens from its own state */
+  remember: (card: HTMLElement) => void;
   /** Origin of the last opened card, undefined when motion is reduced */
   origin: () => CardOrigin | undefined;
 };
 
 const noop = () => undefined;
-const CardTransitionContext = createContext<Transition>({ open: noop, origin: noop });
+const CardTransitionContext = createContext<Transition>({
+  open: noop,
+  remember: noop,
+  origin: noop
+});
 
 export const useCardTransition = (): Transition => useContext(CardTransitionContext);
 
@@ -41,8 +47,8 @@ export default function CardTransitionProvider({
   const reduceMotion = useReducedMotion();
   const originRef = useRef<CardOrigin | undefined>();
 
-  const open = useCallback(
-    (href: string, card: HTMLElement, mask: string) => {
+  const remember = useCallback(
+    (card: HTMLElement) => {
       const rect = card.getBoundingClientRect();
       originRef.current = reduceMotion
         ? undefined
@@ -54,12 +60,22 @@ export default function CardTransitionProvider({
             radius: parseFloat(getComputedStyle(card).borderTopLeftRadius) || 24,
             html: card.outerHTML
           };
-      router.push(href, mask, { scroll: false, shallow: true });
     },
-    [reduceMotion, router]
+    [reduceMotion]
   );
 
-  const value = useMemo(() => ({ open, origin: () => originRef.current }), [open]);
+  const open = useCallback(
+    (href: string, card: HTMLElement, mask: string) => {
+      remember(card);
+      router.push(href, mask, { scroll: false, shallow: true });
+    },
+    [remember, router]
+  );
+
+  const value = useMemo(
+    () => ({ open, remember, origin: () => originRef.current }),
+    [open, remember]
+  );
 
   return <CardTransitionContext.Provider value={value}>{children}</CardTransitionContext.Provider>;
 }

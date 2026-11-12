@@ -8,6 +8,9 @@
  */
 import { todo } from '../lib/todo';
 
+const BUSINESS_DESCRIPTION =
+  'Building and supporting solutions for Ontario clinics, and taking on a limited number of end-to-end product builds.';
+
 export const content = {
   site: {
     name: 'Shabaz Badshah',
@@ -39,9 +42,8 @@ export const content = {
       suffix: 'Case study'
     },
     consulting: {
-      title: 'Badshah Consulting Inc. - Software for Ontario clinics',
-      description:
-        'Badshah Consulting builds and supports software for Ontario clinics, and takes on a limited number of end-to-end product builds for founders.'
+      title: 'Badshah Consulting - Software for Ontario clinics',
+      description: BUSINESS_DESCRIPTION
     },
     clinics: {
       title: 'Clinic websites in Ontario - Badshah Consulting',
@@ -79,8 +81,7 @@ export const content = {
 
   business: {
     name: 'Badshah Consulting Inc.',
-    description:
-      'Badshah Consulting builds and supports software for Ontario clinics, and takes on a limited number of end-to-end product builds for founders.'
+    description: BUSINESS_DESCRIPTION
   },
 
   llms: {
@@ -156,23 +157,28 @@ export const content = {
 
   work: {
     title: 'Work',
-    subtitle: 'Where I’ve worked and what I’ve shipped.',
+    subtitle:
+      'The titles change, but the purpose remains. Solve meaningful problems and create lasting value for users.',
     resume: 'Download resume',
-    timeline: {
-      title: 'Experience',
-      independent: {
-        org: 'Independent',
-        role: 'Product Engineer',
-        dates: 'Oct 2024–present',
-        consulting: { name: 'Badshah Consulting Inc.', note: 'Incorporated 2026' },
-        syftableLink: 'syftable.com'
-      }
-    },
-    caseStudies: { title: 'Case studies' }
+    /** The role at the top of the page (CURRENT_ROLE in projects.ts); its description is the business description */
+    current: { label: 'Current role', clientsLabel: 'Client work' },
+    filters: {
+      label: 'Filter work history',
+      employment: 'Work',
+      volunteer: 'Volunteer',
+      project: 'Projects'
+    }
   },
 
   caseStudy: {
     back: 'All work',
+    summary: 'Summary',
+    company: 'Company',
+    client: 'Client',
+    role: 'Role',
+    timeline: 'Timeline',
+    disciplines: 'Disciplines',
+    skills: 'Skills',
     problem: 'The problem',
     whatIBuilt: 'What I built',
     outcome: 'Outcome',
@@ -274,8 +280,6 @@ export const content = {
   },
 
   projectCard: {
-    disciplines: 'Disciplines',
-    skills: 'Skills',
     showDetails: { label: 'Show project details', title: 'Project details' },
     hideDetails: { label: 'Back to project', title: 'Back' },
     demoLabel: (project: string): string => `${project} product demo`,

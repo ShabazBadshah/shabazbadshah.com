@@ -41,7 +41,15 @@ const optimizedImageUrl = (src: string, width: number) =>
   `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=75`;
 
 /** Demo video that downloads and plays only while on screen */
-function LazyVideo({ src, poster, label }: { src: string; poster?: string; label: string }) {
+export function LazyVideo({
+  src,
+  poster,
+  label
+}: {
+  src: string;
+  poster?: string;
+  label: string;
+}): JSX.Element {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -149,7 +157,8 @@ type Props = {
   className?: string;
 };
 
-function Title({
+/** Logo and name, as the card's header; also used by the rows on /work */
+export function Title({
   project,
   className = ''
 }: {
@@ -193,7 +202,7 @@ function InfoPanel({
   const dates = dateRange(project.start, project.end);
   const disciplines = project.disciplines.length > 0 && (
     <div className="flex flex-col gap-2">
-      <span className={label}>{content.projectCard.disciplines}</span>
+      <span className={label}>{content.caseStudy.disciplines}</span>
       <ul className={list}>
         {project.disciplines.map((item) => (
           <li key={item}>{item}</li>
@@ -203,7 +212,7 @@ function InfoPanel({
   );
   const skills = (
     <div className="flex flex-col gap-2">
-      <span className={label}>{content.projectCard.skills}</span>
+      <span className={label}>{content.caseStudy.skills}</span>
       <ul className={list}>
         {project.stack.map((item) => (
           <li key={item}>{item}</li>

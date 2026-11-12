@@ -8,11 +8,17 @@ import type { Post } from '@/lib/blog';
 
 const ImageLightbox = dynamic(() => import('./ImageLightbox'), { ssr: false });
 
-type TocItem = { id: string; text: string; level: 2 | 3 };
+export type TocItem = { id: string; text: string; level: 2 | 3 };
 type Slide = { src: string; alt?: string; title?: string };
 
 /** "On this page" list with the current section highlighted; `collapsible` folds it into a dropdown. */
-function Toc({ items, collapsible = false }: { items: TocItem[]; collapsible?: boolean }) {
+export function Toc({
+  items,
+  collapsible = false
+}: {
+  items: TocItem[];
+  collapsible?: boolean;
+}): JSX.Element | null {
   const [active, setActive] = useState(items[0]?.id);
 
   useEffect(() => {
@@ -64,10 +70,10 @@ function Toc({ items, collapsible = false }: { items: TocItem[]; collapsible?: b
                 });
                 setActive(item.id);
               }}
-              className={`block w-fit rounded-3xl px-3 py-1.5 text-sm leading-snug no-underline transition-colors hover:bg-fill hover:text-fg ${
+              className={`block w-fit rounded-3xl px-3 py-1.5 text-sm leading-snug no-underline transition-colors hover:bg-accent-soft hover:text-fg ${
                 collapsible ? '' : 'max-w-full truncate'
               } ${item.level === 3 ? 'pr-6 text-[0.8125rem]' : 'font-semibold'} ${
-                isActive ? 'bg-fill font-medium text-fg' : 'text-fg-muted'
+                isActive ? 'bg-accent-soft font-medium text-fg' : 'text-fg-muted'
               }`}
             >
               {item.text}
@@ -100,6 +106,7 @@ function Toc({ items, collapsible = false }: { items: TocItem[]; collapsible?: b
       aria-label={content.blog.toc.label}
       className="sticky top-32 max-h-[calc(100dvh-9rem)] overflow-y-auto whitespace-nowrap text-right"
     >
+      <p className="mb-2 px-3 text-sm font-semibold leading-snug">{content.blog.toc.summary}</p>
       {list}
     </nav>
   );

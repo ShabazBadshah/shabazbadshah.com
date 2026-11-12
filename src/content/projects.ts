@@ -5,10 +5,12 @@
  *
  * Uses relative imports only: bin/generate.ts loads this file through ts-node, which has no `@/` alias.
  */
+import { siteConfig } from '../config/site';
 import { isTodo, SHOW_PLACEHOLDERS, todo } from '../lib/todo';
 
 export type Audience = 'career' | 'consulting' | 'clinics';
-export type ProjectKind = 'employment' | 'client' | 'own-product';
+/** Which filter a project sits under on /work: Work, Volunteer or Projects */
+export type ProjectKind = 'employment' | 'volunteer' | 'project';
 
 export type Phase = {
   title: string;
@@ -37,10 +39,12 @@ export type Project = {
   slug: string;
   title: string;
   kind: ProjectKind;
+  /** Client work through Badshah Consulting: under the current role on /work, and on /consulting */
+  client?: boolean;
   org: string;
   publicName: boolean;
   anonymizedName: string;
-  /** Not shown for client projects */
+  /** Empty for client projects, which take the current role's */
   role: string;
   /** Not shown for client projects, which sit under the Independent entry on the timeline */
   start: string;
@@ -56,10 +60,104 @@ export type Project = {
   phases?: Phase[];
   /** Extra detail on the card's flip side */
   disciplines?: string[];
+  skills?: string[];
   media?: ProjectMedia;
 };
 
+/** The current role, at the top of /work. Client projects are done through it. */
+export const CURRENT_ROLE = {
+  company: 'Badshah Consulting',
+  role: 'Product Engineer Consultant',
+  start: '2024',
+  end: 'present'
+};
+
+/** Newest first within each kind, the order /work lists them in */
 export const PROJECTS: Project[] = [
+  {
+    slug: 'soti',
+    title: 'SOTI',
+    kind: 'employment',
+    org: 'SOTI',
+    publicName: true,
+    anonymizedName: 'Enterprise mobility software',
+    role: 'Technical Product Manager',
+    start: 'Nov 2023',
+    end: 'Oct 2024',
+    audiences: ['career'],
+    summary: 'Shipped Windows chat and video calling in an enterprise B2B/government product.',
+    problem:
+      'Support teams needed to message and video call managed (MDM) devices to give technical support.',
+    whatIBuilt:
+      'Instant messaging and video calling between support staff and managed devices, with the API and system specifications behind it.',
+    outcome: 'Grew revenue by $27K MRR CAD post-release.',
+    stack: [
+      'Android Enterprise',
+      'WebRTC',
+      'Real-time communication tools',
+      'REST APIs and request/response schemas',
+      'Data modeling'
+    ],
+    externalUrl: 'https://soti.net',
+    disciplines: [
+      'Technical Product Management',
+      'UI/UX Design',
+      'Quality Assurance (Design QA)',
+      'Technical Writing (API and System Specifications)',
+      'Systems Integration Architecture'
+    ],
+    media: {
+      logo: '/images/portfolio/soti-logo.png',
+      image: {
+        src: '/images/portfolio/soti-poster.jpg',
+        width: 1280,
+        height: 720,
+        alt: 'SOTI instant messaging and video calling tool'
+      },
+      video: {
+        src: '/images/portfolio/xsight-video.mp4',
+        poster: '/images/portfolio/soti-poster.jpg'
+      }
+    }
+  },
+  {
+    slug: 'planned',
+    title: 'Planned',
+    kind: 'employment',
+    org: 'Planned',
+    publicName: true,
+    anonymizedName: 'Event management platform',
+    role: 'Senior Product Manager',
+    start: 'Nov 2022',
+    end: 'May 2023',
+    audiences: ['career'],
+    summary: 'Senior PM on an enterprise event management platform.',
+    problem:
+      'Vendor data for the curated marketplace was spread across Google Maps, PDFs, Yelp and other sources, which made onboarding slow.',
+    whatIBuilt:
+      'A REST API that uses LLMs to consolidate vendor data from those sources into the marketplace.',
+    outcome: 'Reduced vendor onboarding time from 48h to 6h.',
+    stack: [
+      'LLMs (ChatGPT)',
+      'Internal REST APIs',
+      'Google Maps API',
+      'Website scraping',
+      'Data enrichment pipelines'
+    ],
+    externalUrl: 'https://planned.com/',
+    disciplines: [
+      'Product Management',
+      'Technical Discovery and Proof-of-Concept',
+      'Data Engineering (Ingestion Pipeline Design)',
+      'Workflow Automation',
+      'System Design and Architecture'
+    ],
+    media: {
+      logo: '/images/portfolio/planned-logo.png',
+      logoInvertOnDark: true,
+      image: { src: '/images/portfolio/planned.png', width: 1866, height: 1007, alt: 'Planned' }
+    }
+  },
   {
     slug: 'mednow',
     title: 'Mednow',
@@ -68,8 +166,8 @@ export const PROJECTS: Project[] = [
     publicName: true,
     anonymizedName: 'Digital pharmacy',
     role: 'Product Manager',
-    start: todo('Mednow start date'),
-    end: todo('Mednow end date'),
+    start: 'Feb 2021',
+    end: 'Sep 2022',
     audiences: ['career'],
     summary:
       'Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.',
@@ -135,99 +233,15 @@ export const PROJECTS: Project[] = [
     }
   },
   {
-    slug: 'soti',
-    title: 'SOTI',
-    kind: 'employment',
-    org: 'SOTI',
-    publicName: true,
-    anonymizedName: 'Enterprise mobility software',
-    role: 'Product Manager',
-    start: todo('SOTI start date'),
-    end: todo('SOTI end date'),
-    audiences: ['career'],
-    summary: 'Shipped Windows chat and video calling in an enterprise B2B/government product.',
-    problem:
-      'Support teams needed to message and video call managed (MDM) devices to give technical support.',
-    whatIBuilt:
-      'Instant messaging and video calling between support staff and managed devices, with the API and system specifications behind it.',
-    outcome: 'Grew revenue by $27K MRR CAD post-release.',
-    stack: [
-      'Android Enterprise',
-      'WebRTC',
-      'Real-time communication tools',
-      'REST APIs and request/response schemas',
-      'Data modeling'
-    ],
-    externalUrl: 'https://soti.net',
-    disciplines: [
-      'Technical Product Management',
-      'UI/UX Design',
-      'Quality Assurance (Design QA)',
-      'Technical Writing (API and System Specifications)',
-      'Systems Integration Architecture'
-    ],
-    media: {
-      logo: '/images/portfolio/soti-logo.png',
-      image: {
-        src: '/images/portfolio/soti-poster.jpg',
-        width: 1280,
-        height: 720,
-        alt: 'SOTI instant messaging and video calling tool'
-      },
-      video: {
-        src: '/images/portfolio/xsight-video.mp4',
-        poster: '/images/portfolio/soti-poster.jpg'
-      }
-    }
-  },
-  {
-    slug: 'planned',
-    title: 'Planned',
-    kind: 'employment',
-    org: 'Planned',
-    publicName: true,
-    anonymizedName: 'Event management platform',
-    role: 'Senior Product Manager',
-    start: todo('Planned start date'),
-    end: todo('Planned end date'),
-    audiences: ['career'],
-    summary: 'Senior PM on an enterprise event management platform.',
-    problem:
-      'Vendor data for the curated marketplace was spread across Google Maps, PDFs, Yelp and other sources, which made onboarding slow.',
-    whatIBuilt:
-      'A REST API that uses LLMs to consolidate vendor data from those sources into the marketplace.',
-    outcome: 'Reduced vendor onboarding time from 48h to 6h.',
-    stack: [
-      'LLMs (ChatGPT)',
-      'Internal REST APIs',
-      'Google Maps API',
-      'Website scraping',
-      'Data enrichment pipelines'
-    ],
-    externalUrl: 'https://planned.com/',
-    disciplines: [
-      'Product Management',
-      'Technical Discovery and Proof-of-Concept',
-      'Data Engineering (Ingestion Pipeline Design)',
-      'Workflow Automation',
-      'System Design and Architecture'
-    ],
-    media: {
-      logo: '/images/portfolio/planned-logo.png',
-      logoInvertOnDark: true,
-      image: { src: '/images/portfolio/planned.png', width: 1866, height: 1007, alt: 'Planned' }
-    }
-  },
-  {
     slug: 'project-include',
     title: 'Project Include',
-    kind: 'employment',
+    kind: 'volunteer',
     org: 'Project Include',
     publicName: true,
     anonymizedName: 'Coding education nonprofit',
     role: 'Frontend Developer',
-    start: '2020',
-    end: '',
+    start: 'Feb 2020',
+    end: 'Feb 2021',
     audiences: ['career'],
     summary:
       'An informational site for a volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.',
@@ -257,28 +271,29 @@ export const PROJECTS: Project[] = [
   {
     slug: 'syftable',
     title: 'Syftable',
-    kind: 'own-product',
+    kind: 'project',
     org: 'Syftable',
     publicName: true,
     anonymizedName: 'Syftable',
-    role: '',
-    start: '',
-    end: '',
+    role: 'Founder',
+    start: 'Jun 2024',
+    end: 'present',
     audiences: ['career'],
     summary: "My own product. It keeps track of your work so you don't have to.",
     problem: '',
     whatIBuilt: '',
     outcome: '',
     stack: [],
-    externalUrl: 'https://syftable.com'
+    externalUrl: siteConfig.syftable.url,
+    media: { logo: siteConfig.syftable.logo }
   },
   {
     slug: 'upper-oakville-chiro',
     title: 'Upper Oakville Chiropractic',
-    kind: 'client',
+    kind: 'employment',
+    client: true,
     org: 'Upper Oakville Chiropractic',
-    // TODO: pending client approval to be named
-    publicName: false,
+    publicName: true,
     anonymizedName: 'Chiropractic clinic, Oakville',
     role: '',
     start: '',
@@ -316,7 +331,7 @@ export const PROJECTS: Project[] = [
       }
     ],
     media: {
-      logo: '/images/portfolio/uoc-logo.png',
+      logo: '/images/portfolio/uoc-logo.svg',
       image: {
         src: '/images/portfolio/uoc.png',
         width: 1866,
@@ -328,9 +343,10 @@ export const PROJECTS: Project[] = [
   {
     slug: 'travel-app',
     title: 'Travel app MVP',
-    kind: 'client',
+    kind: 'employment',
+    client: true,
     org: 'Confidential client',
-    // TODO: pending client approval and NDA check
+    // The client is under NDA: never show the app's name, logo or screenshots
     publicName: false,
     anonymizedName: 'Travel app MVP',
     role: '',
@@ -351,7 +367,10 @@ export type PublicProject = {
   /** URL slug; derived from the anonymized name when the client can't be named */
   slug: string;
   kind: ProjectKind;
+  client: boolean;
   name: string;
+  /** The employer, or for client work the business it was done through */
+  company: string;
   role: string;
   start: string;
   end: string;
@@ -361,6 +380,7 @@ export type PublicProject = {
   outcome: string;
   stack: string[];
   disciplines: string[];
+  skills: string[];
   externalUrl: string | null;
   testimonial: Testimonial | null;
   /** Live phases only, in order */
@@ -384,8 +404,14 @@ const clean = (value: string): string => (SHOW_PLACEHOLDERS || !isTodo(value) ? 
 export const toPublic = (project: Project): PublicProject => ({
   slug: routeSlug(project),
   kind: project.kind,
+  client: project.client ?? false,
   name: project.publicName ? project.title : project.anonymizedName,
-  role: project.role,
+  company: project.client
+    ? CURRENT_ROLE.company
+    : project.publicName
+    ? project.title
+    : project.anonymizedName,
+  role: project.role || (project.client ? CURRENT_ROLE.role : ''),
   start: clean(project.start),
   end: clean(project.end),
   summary: clean(project.summary),
@@ -394,6 +420,7 @@ export const toPublic = (project: Project): PublicProject => ({
   outcome: clean(project.outcome),
   stack: project.stack,
   disciplines: project.disciplines ?? [],
+  skills: project.skills ?? [],
   externalUrl: project.publicName ? project.externalUrl ?? null : null,
   testimonial: project.testimonial && clean(project.testimonial.quote) ? project.testimonial : null,
   phases: (project.phases ?? [])
@@ -401,7 +428,7 @@ export const toPublic = (project: Project): PublicProject => ({
     .map((phase) => ({ ...phase, summary: clean(phase.summary), outcome: clean(phase.outcome) })),
   // Round-trip drops undefined fields, which getStaticProps can't serialize
   media: project.publicName && project.media ? JSON.parse(JSON.stringify(project.media)) : null,
-  hasCaseStudy: project.kind !== 'own-product'
+  hasCaseStudy: project.kind !== 'project'
 });
 
 const bySlug = (slug: string): Project => {
@@ -413,19 +440,20 @@ const bySlug = (slug: string): Project => {
 export const publicProject = (slug: string): PublicProject => toPublic(bySlug(slug));
 
 /**
- * Case studies for an audience's grid. Employment entries never appear in a client grid, so
- * `clientsOnly` is set everywhere except /work.
+ * Case studies for an audience's grid. Only client work appears in a client grid, so `clientsOnly`
+ * is set everywhere except /work.
  */
 export const caseStudiesFor = (audience: Audience, { clientsOnly = true } = {}): PublicProject[] =>
   PROJECTS.filter(
-    (p) =>
-      p.audiences.includes(audience) &&
-      p.kind !== 'own-product' &&
-      (!clientsOnly || p.kind !== 'employment')
+    (p) => p.audiences.includes(audience) && p.kind !== 'project' && (!clientsOnly || p.client)
   ).map(toPublic);
 
+/** A filter's rows on /work; client work sits under the current role instead */
 export const projectsOfKind = (kind: ProjectKind): PublicProject[] =>
-  PROJECTS.filter((p) => p.kind === kind).map(toPublic);
+  PROJECTS.filter((p) => p.kind === kind && !p.client).map(toPublic);
 
 export const caseStudyProjects = (): PublicProject[] =>
-  PROJECTS.filter((p) => p.kind !== 'own-product').map(toPublic);
+  PROJECTS.filter((p) => p.kind !== 'project').map(toPublic);
+
+/** Client work through Badshah Consulting, the current role on /work */
+export const clientProjects = (): PublicProject[] => PROJECTS.filter((p) => p.client).map(toPublic);
