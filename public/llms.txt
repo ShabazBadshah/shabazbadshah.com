@@ -14,11 +14,11 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 
 ## Case studies
 
-- [Mednow](https://shabazbadshah.com/work/mednow): Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
 - [SOTI](https://shabazbadshah.com/work/soti): Shipped Windows chat and video calling in an enterprise B2B/government product.
 - [Planned](https://shabazbadshah.com/work/planned): Senior PM on an enterprise event management platform.
+- [Mednow](https://shabazbadshah.com/work/mednow): Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
 - [Project Include](https://shabazbadshah.com/work/project-include): An informational site for a volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
-- [Chiropractic clinic, Oakville](https://shabazbadshah.com/work/chiropractic-clinic-oakville): Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
+- [Upper Oakville Chiropractic](https://shabazbadshah.com/work/upper-oakville-chiro): Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
 - [Travel app MVP](https://shabazbadshah.com/work/travel-app-mvp): React Native/Expo MVP for iOS and Android, built on Firebase with Google sign-in.
 
 ## Blog
@@ -34,7 +34,7 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 - [/in/shabaz-badshah](https://www.linkedin.com/in/shabaz-badshah/): Connect
 - [@ShabazBadshah](https://github.com/ShabazBadshah): Follow
 - [badshah.shabaz@gmail.com](mailto:badshah.shabaz@gmail.com): Email
-- [Video call](https://calendly.com/badshah-shabaz/30min): Video call
+- [Video call](https://calendly.com/badshah-shabaz/30min): Video or phone call
 
 ## Optional
 

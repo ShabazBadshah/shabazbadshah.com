@@ -14,11 +14,11 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 
 ## Case studies
 
-- [Mednow](https://shabazbadshah.com/work/mednow): Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
 - [SOTI](https://shabazbadshah.com/work/soti): Shipped Windows chat and video calling in an enterprise B2B/government product.
 - [Planned](https://shabazbadshah.com/work/planned): Senior PM on an enterprise event management platform.
+- [Mednow](https://shabazbadshah.com/work/mednow): Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
 - [Project Include](https://shabazbadshah.com/work/project-include): An informational site for a volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
-- [Chiropractic clinic, Oakville](https://shabazbadshah.com/work/chiropractic-clinic-oakville): Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
+- [Upper Oakville Chiropractic](https://shabazbadshah.com/work/upper-oakville-chiro): Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
 - [Travel app MVP](https://shabazbadshah.com/work/travel-app-mvp): React Native/Expo MVP for iOS and Android, built on Firebase with Google sign-in.
 
 ## Blog
@@ -34,7 +34,7 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 - [/in/shabaz-badshah](https://www.linkedin.com/in/shabaz-badshah/): Connect
 - [@ShabazBadshah](https://github.com/ShabazBadshah): Follow
 - [badshah.shabaz@gmail.com](mailto:badshah.shabaz@gmail.com): Email
-- [Video call](https://calendly.com/badshah-shabaz/30min): Video call
+- [Video call](https://calendly.com/badshah-shabaz/30min): Video or phone call
 
 ## Optional
 
@@ -45,22 +45,11 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 
 # Projects (full detail)
 
-## Mednow
-
-URL: https://shabazbadshah.com/work/mednow
-Website: https://mednow.ca/
-Role: Product Manager
-
-Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
-- What I built: A B2C pharmacy app for iOS and Android, localized in English and French, with PharmacyLink, Stream Chat, Stripe payments, social sign-in and push notifications.
-- Outcome: Shipped 0→1 to national launch. 400+ 5-star Google reviews.
-- Stack: iOS and Android mobile apps, Figma, TELUS Kroll PMS, Stripe, Stream Chat, Shopify eCommerce integration, Social SSO (Apple/Google), Native push notifications, PIPEDA compliance, PHIPA compliance
-
 ## SOTI
 
 URL: https://shabazbadshah.com/work/soti
 Website: https://soti.net
-Role: Product Manager
+Role: Technical Product Manager
 
 Shipped Windows chat and video calling in an enterprise B2B/government product.
 - Problem: Support teams needed to message and video call managed (MDM) devices to give technical support.
@@ -80,6 +69,17 @@ Senior PM on an enterprise event management platform.
 - Outcome: Reduced vendor onboarding time from 48h to 6h.
 - Stack: LLMs (ChatGPT), Internal REST APIs, Google Maps API, Website scraping, Data enrichment pipelines
 
+## Mednow
+
+URL: https://shabazbadshah.com/work/mednow
+Website: https://mednow.ca/
+Role: Product Manager
+
+Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
+- What I built: A B2C pharmacy app for iOS and Android, localized in English and French, with PharmacyLink, Stream Chat, Stripe payments, social sign-in and push notifications.
+- Outcome: Shipped 0→1 to national launch. 400+ 5-star Google reviews.
+- Stack: iOS and Android mobile apps, Figma, TELUS Kroll PMS, Stripe, Stream Chat, Shopify eCommerce integration, Social SSO (Apple/Google), Native push notifications, PIPEDA compliance, PHIPA compliance
+
 ## Project Include
 
 URL: https://shabazbadshah.com/work/project-include
@@ -91,9 +91,11 @@ An informational site for a volunteer nonprofit that empowers low socio-economic
 - Outcome: Ran 50+ workshops for 250+ students before ending.
 - Stack: React.JS, Next.JS, Contentful CMS, GA4
 
-## Chiropractic clinic, Oakville
+## Upper Oakville Chiropractic
 
-URL: https://shabazbadshah.com/work/chiropractic-clinic-oakville
+URL: https://shabazbadshah.com/work/upper-oakville-chiro
+Website: https://uoc-intake-clone.vercel.app/
+Role: Product Engineer Consultant
 
 Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
 - Problem: The clinic needed an online presence that brings in patient bookings.
@@ -103,6 +105,7 @@ Brand, website and compliance for a chiropractic clinic, designed, built and lau
 ## Travel app MVP
 
 URL: https://shabazbadshah.com/work/travel-app-mvp
+Role: Product Engineer Consultant
 
 React Native/Expo MVP for iOS and Android, built on Firebase with Google sign-in.
 - What I built: An iOS and Android MVP built with React Native and Expo, on Firebase, with Google sign-in.
