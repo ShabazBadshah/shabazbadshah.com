@@ -38,7 +38,8 @@ export default function BlogIndex({ posts, page, pages }: BlogIndexProps): JSX.E
         <p className="mt-2 text-lg font-medium text-fg-muted">{blog.subtitle}</p>
       </section>
 
-      <PostGrid posts={posts} featureFirst={first} className="mt-8" />
+      {/* Page 1 leads with the featured post and the two most recent, as on the home page */}
+      <PostGrid posts={posts} listFrom={first ? 3 : 0} className="mt-8" />
 
       {pages > 1 && (
         <nav aria-label={pagination.label} className="mt-10 flex flex-wrap items-center gap-2">

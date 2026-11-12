@@ -103,7 +103,7 @@ export const siteConfig = {
   contact,
   resume: RESUME_URL,
   /** Posts per page of the blog index (/blog, then /blog/page/<n>) */
-  postsPerPage: 9,
+  postsPerPage: 10,
 
   socials: SOCIAL_LINKS.map((link) => ({ ...link, ...content.socials[link.provider] })),
 

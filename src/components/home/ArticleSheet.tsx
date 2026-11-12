@@ -3,7 +3,6 @@ import { Minimize2 } from 'lucide-react';
 import Head from 'next/head';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import BlogArticle from '@/components/blog/BlogArticle';
 import {
   EXPAND_DURATION,
   EXPAND_EASE,
@@ -11,13 +10,18 @@ import {
   type CardOrigin
 } from '@/components/CardTransition';
 import CornerButton from '@/components/CornerButton';
-import { siteConfig } from '@/config/site';
 import { content } from '@/content/content';
-import type { Post } from '@/lib/blog';
+import { useCloseSound } from '@/lib/close-sound';
 
 type Props = {
-  post: Post;
-  /** The route has left the article: shrink back into its card, then call onExited */
+  /** `data-card` of the card the sheet grew out of, to shrink back into */
+  card: string;
+  /** Dialog label */
+  label: string;
+  /** Document title while the sheet is open */
+  pageTitle: string;
+  children: React.ReactNode;
+  /** The article is closing: shrink back into its card, then call onExited */
   closing: boolean;
   onClose: () => void;
   onExited: () => void;
@@ -35,17 +39,26 @@ const clipTo = (box: Box, radius: number) => {
 };
 
 /**
- * Full-screen article over the home page. It is the clicked card, grown: a viewport-sized frame whose
+ * Full-screen article over the page. It is the clicked card, grown: a viewport-sized frame whose
  * clip-path expands from the card's box to the whole viewport (and back), with the card's snapshot
  * fading out on top. The article is already rendered inside, so there is nothing to load.
  */
-export default function ArticleSheet({ post, closing, onClose, onExited }: Props): JSX.Element {
+export default function ArticleSheet({
+  card,
+  label,
+  pageTitle,
+  children,
+  closing,
+  onClose,
+  onExited
+}: Props): JSX.Element {
   const { origin } = useCardTransition();
   const [from] = useState(origin);
   const scroller = useRef<HTMLDivElement>(null);
   // Where the home page was scrolled when the card was opened, restored exactly on the way out
   const [homeScroll] = useState(() => window.scrollY);
   const radius = from?.radius ?? 24;
+  useCloseSound(!closing);
 
   // Lock the page behind the sheet, keeping its width steady when the scrollbar disappears
   useEffect(() => {
@@ -93,13 +106,13 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
     // The router may scroll once its own transition finishes, so reassert on the next frame
     const frame = requestAnimationFrame(() => window.scrollTo(0, homeScroll));
     const rect = document
-      .querySelector<HTMLElement>(`[data-card="${post.slug}"]`)
+      .querySelector<HTMLElement>(`[data-card="${card}"]`)
       ?.getBoundingClientRect();
     if (rect) {
       setCollapseTo({ left: rect.left, top: rect.top, width: rect.width, height: rect.height });
     }
     return () => cancelAnimationFrame(frame);
-  }, [closing, post.slug, homeScroll]);
+  }, [closing, card, homeScroll]);
 
   const open = clipTo({ left: 0, top: 0, width: window.innerWidth, height: window.innerHeight }, 0);
   const collapseBox = collapseTo ?? from;
@@ -110,7 +123,7 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
       {/* Darkens the page around the card while it grows and shrinks */}
       <m.div
         aria-hidden="true"
-        className="fixed inset-0 z-30 bg-black/70"
+        className="fixed inset-0 z-50 bg-black/70"
         initial={{ opacity: from ? 0 : 1 }}
         animate={{ opacity: closing ? 0 : 1 }}
         transition={{ duration: from ? EXPAND_DURATION : 0, ease: EXPAND_EASE }}
@@ -118,7 +131,7 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
       />
       <m.div
         aria-hidden={closing || undefined}
-        className="fixed inset-0 z-30 overflow-hidden bg-surface"
+        className="fixed inset-0 z-50 overflow-hidden bg-surface"
         style={{ pointerEvents: closing ? 'none' : undefined }}
         initial={{ clipPath: from ? clipTo(from, radius) : open }}
         animate={{ clipPath: target }}
@@ -130,22 +143,21 @@ export default function ArticleSheet({ post, closing, onClose, onExited }: Props
         }}
       >
         <Head>
-          <title>{siteConfig.seo.postTitle(post.title)}</title>
+          <title>{pageTitle}</title>
         </Head>
         <div
           ref={scroller}
           role="dialog"
-          aria-label={post.title}
+          aria-label={label}
           tabIndex={-1}
           className="absolute inset-0 scroll-pt-16 overflow-y-auto overscroll-contain outline-none"
         >
-          <div className="mx-auto w-full max-w-article px-4 pb-16 pt-20 sm:px-6">
-            <BlogArticle post={post} />
-          </div>
+          <div className="mx-auto w-full max-w-article px-4 pb-16 pt-20 sm:px-6">{children}</div>
         </div>
         <CornerButton
           icon={Minimize2}
           onClick={onClose}
+          data-close-sound
           aria-label={content.blog.collapse.label}
           title={content.blog.collapse.title}
         />

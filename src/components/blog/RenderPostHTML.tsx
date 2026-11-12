@@ -1,8 +1,8 @@
 import { serialize } from 'next-mdx-remote/serialize';
 import type { ComponentProps, ComponentType } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import * as jsxDevRuntime from 'react/jsx-dev-runtime';
 import * as jsxRuntime from 'react/jsx-runtime';
-import { renderToStaticMarkup } from 'react-dom/server';
 import remarkGfm from 'remark-gfm';
 
 import type { Post } from '@/lib/blog';
@@ -37,7 +37,7 @@ const createComponents = (slug: string) => ({
   ),
   ul: (props: ComponentProps<'ul'>) => <ul className="mb-3 pl-8" {...props} />,
   ol: (props: ComponentProps<'ol'>) => <ol className="mb-3 pl-8 [&>li]:list-decimal" {...props} />,
-  li: (props: ComponentProps<'li'>) => <li className="mt-2 list-disc" {...props} />,
+  li: (props: ComponentProps<'li'>) => <li className="list-disc" {...props} />,
   hr: (props: ComponentProps<'hr'>) => (
     <hr
       className="my-8 border-0 text-center before:text-[2rem] before:tracking-[16px] before:content-['...']"
