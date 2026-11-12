@@ -177,6 +177,8 @@ export const content = {
     client: 'Client',
     role: 'Role',
     timeline: 'Timeline',
+    team: 'Team',
+    customers: 'Customers',
     disciplines: 'Disciplines',
     skills: 'Skills',
     problem: 'The problem',

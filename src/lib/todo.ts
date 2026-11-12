@@ -18,3 +18,6 @@ export const shown = (value: string | null | undefined): boolean =>
 /** Has real content (placeholders never count) */
 export const filled = (value: string | null | undefined): boolean =>
   Boolean(value) && !isTodo(value);
+
+/** An unconfirmed fact in a case study, "[VERIFY ...]"; the author confirms or removes each one */
+export const VERIFY = /\[VERIFY[^\]]*\]/;

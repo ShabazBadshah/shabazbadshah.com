@@ -6,6 +6,7 @@ import { LazyVideo } from '@/components/home/ProjectCard';
 import Todo from '@/components/Todo';
 import { content } from '@/content/content';
 import type { PublicProject } from '@/content/projects';
+import type { CaseStudy } from '@/lib/case-studies';
 import { shown } from '@/lib/todo';
 import { dateRange } from '@/lib/utils';
 
@@ -13,6 +14,15 @@ const { caseStudy } = content;
 const HEADING = 'scroll-mt-8 text-xl font-semibold tracking-tight sm:text-2xl';
 /** The article's body text, used by the summary's text too */
 const BODY = 'leading-[1.75] text-fg-muted';
+/** Rendered Markdown from a case study file */
+const PROSE =
+  '[&>:first-child]:mt-0 [&_strong]:font-medium [&_strong]:text-fg [&_table]:text-left [&_table]:text-sm';
+
+const kebab = (value: string): string =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 
 function Section({ title, value }: { title: string; value: string }): JSX.Element | null {
   if (!shown(value)) return null;
@@ -42,17 +52,39 @@ function Meta({ title, value }: { title: string; value: string | string[] }): JS
   );
 }
 
-/** The project's facts: in the left gutter on wide screens, under the summary otherwise */
-function Facts({ project, className }: { project: PublicProject; className: string }): JSX.Element {
+/**
+ * The project's facts, from its case study file when it has one: in the left gutter on wide
+ * screens, under the summary otherwise
+ */
+function Facts({
+  project,
+  study,
+  className
+}: {
+  project: PublicProject;
+  study: CaseStudy | null;
+  className: string;
+}): JSX.Element {
   return (
     <dl className={`flex flex-col gap-5 ${className}`}>
-      <Meta title={caseStudy.company} value={project.company} />
-      {project.client && <Meta title={caseStudy.client} value={project.name} />}
-      <Meta title={caseStudy.role} value={project.role} />
-      {!project.client && (
-        <Meta title={caseStudy.timeline} value={dateRange(project.start, project.end)} />
+      <Meta
+        title={caseStudy.company}
+        value={!project.client && study ? study.client : project.company}
+      />
+      {project.client && (
+        <Meta title={caseStudy.client} value={study ? study.client : project.name} />
       )}
-      <Meta title={caseStudy.stack} value={project.stack} />
+      <Meta title={caseStudy.role} value={study ? study.role : project.role} />
+      {study ? (
+        <Meta title={caseStudy.timeline} value={study.timeline} />
+      ) : (
+        !project.client && (
+          <Meta title={caseStudy.timeline} value={dateRange(project.start, project.end)} />
+        )
+      )}
+      {study?.team && <Meta title={caseStudy.team} value={study.team} />}
+      {study?.customers && <Meta title={caseStudy.customers} value={study.customers} />}
+      <Meta title={caseStudy.stack} value={study ? study.stack : project.stack} />
       <Meta title={caseStudy.disciplines} value={project.disciplines} />
       <Meta title={caseStudy.skills} value={project.skills} />
     </dl>
@@ -61,6 +93,8 @@ function Facts({ project, className }: { project: PublicProject; className: stri
 
 type Props = {
   project: PublicProject;
+  /** The long-form case study, when the project has one (and it is shown in this build) */
+  study?: CaseStudy | null;
   /** Inside the /work panel or sheet rather than its own page: no page heading or hero id */
   embedded?: boolean;
 };
@@ -70,19 +104,29 @@ type Props = {
  * of the case study, with the project's facts in the left gutter and a table of contents in the
  * right one, like a blog article.
  */
-export default function CaseStudyArticle({ project, embedded = false }: Props): JSX.Element {
+export default function CaseStudyArticle({
+  project,
+  study = null,
+  embedded = false
+}: Props): JSX.Element {
   const media = project.media;
   const testimonial = project.testimonial;
   const Title = embedded ? 'h2' : 'h1';
   const Heading = embedded ? 'h3' : 'h2';
   const id = (section: string) => `${section}-${project.slug}`;
+  // A case study file replaces the fields' body sections; the testimonial still comes from the fields
+  const sections = study?.sections.map((section) => ({ ...section, id: id(kebab(section.title)) }));
   // The header watches #hero on a page of its own
   const summaryId = embedded ? id('summary') : 'hero';
 
   const toc: TocItem[] = [
     { id: summaryId, text: caseStudy.summary, level: 2 },
-    shown(project.whatIBuilt) && { id: id('built'), text: caseStudy.whatIBuilt, level: 2 },
-    project.phases.length > 0 && { id: id('phases'), text: caseStudy.phases, level: 2 },
+    ...(sections
+      ? sections.map((section) => ({ id: section.id, text: section.title, level: 2 as const }))
+      : [
+          shown(project.whatIBuilt) && { id: id('built'), text: caseStudy.whatIBuilt, level: 2 },
+          project.phases.length > 0 && { id: id('phases'), text: caseStudy.phases, level: 2 }
+        ]),
     testimonial &&
       shown(testimonial.quote) && { id: id('testimonial'), text: caseStudy.testimonial, level: 2 }
   ].filter((item): item is TocItem => Boolean(item));
@@ -98,6 +142,7 @@ export default function CaseStudyArticle({ project, embedded = false }: Props): 
       <aside className="absolute bottom-0 right-full top-0 mr-6 hidden w-[calc((100vw-100%)/2-3.5rem)] 2xl:block">
         <Facts
           project={project}
+          study={study}
           className="sticky top-32 max-h-[calc(100dvh-9rem)] overflow-y-auto"
         />
       </aside>
@@ -113,19 +158,36 @@ export default function CaseStudyArticle({ project, embedded = false }: Props): 
           className="flex scroll-mt-8 flex-col gap-8"
         >
           <header className="flex flex-col gap-4">
+            {study?.status && (
+              <p className="chip self-start">
+                <Todo value={study.status} />
+              </p>
+            )}
             <Title
               // Fills the column instead of the headings' balanced wrapping
               className={`mb-3 text-wrap font-semibold tracking-tight ${
                 embedded ? 'text-3xl sm:text-4xl' : 'text-4xl sm:text-5xl'
               }`}
             >
-              {project.name}
+              {study ? <Todo value={study.title} /> : project.name}
             </Title>
-            <p className={BODY}>{project.summary}</p>
+            <p className={BODY}>
+              <Todo value={study ? study.summary : project.summary} />
+            </p>
           </header>
 
-          <Section title={caseStudy.problem} value={project.problem} />
-          <Section title={caseStudy.outcome} value={project.outcome} />
+          {study?.problemHtml ? (
+            <div className="flex flex-col gap-4">
+              <h2 className={HEADING}>{caseStudy.problem}</h2>
+              <div
+                className={`${BODY} ${PROSE}`}
+                dangerouslySetInnerHTML={{ __html: study.problemHtml }}
+              />
+            </div>
+          ) : (
+            <Section title={caseStudy.problem} value={project.problem} />
+          )}
+          <Section title={caseStudy.outcome} value={study ? study.outcome : project.outcome} />
 
           {project.externalUrl && (
             <a
@@ -164,10 +226,22 @@ export default function CaseStudyArticle({ project, embedded = false }: Props): 
             )
           )}
 
-          <Facts project={project} className="rounded-3xl border py-4 2xl:hidden" />
+          <Facts project={project} study={study} className="rounded-3xl border py-4 2xl:hidden" />
         </section>
 
-        {shown(project.whatIBuilt) && (
+        {sections?.map((section) => (
+          <section key={section.id} aria-labelledby={section.id} className="flex flex-col gap-4">
+            <Heading id={section.id} className={HEADING}>
+              {section.title}
+            </Heading>
+            <div
+              className={`${BODY} ${PROSE}`}
+              dangerouslySetInnerHTML={{ __html: section.html }}
+            />
+          </section>
+        ))}
+
+        {!sections && shown(project.whatIBuilt) && (
           <section aria-labelledby={id('built')} className="flex flex-col gap-4">
             <Heading id={id('built')} className={HEADING}>
               {caseStudy.whatIBuilt}
@@ -178,7 +252,7 @@ export default function CaseStudyArticle({ project, embedded = false }: Props): 
           </section>
         )}
 
-        {project.phases.length > 0 && (
+        {!sections && project.phases.length > 0 && (
           <section aria-labelledby={id('phases')}>
             <Heading id={id('phases')} className={HEADING}>
               {caseStudy.phases}

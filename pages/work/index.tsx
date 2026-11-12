@@ -17,6 +17,7 @@ import {
   type PublicProject
 } from '@/content/projects';
 import MainLayout from '@/layouts/MainLayout';
+import { getCaseStudy, type CaseStudy } from '@/lib/case-studies';
 
 const { work } = content;
 
@@ -24,13 +25,15 @@ type Props = {
   current: typeof CURRENT_ROLE;
   groups: Record<ProjectKind, PublicProject[]>;
   clients: PublicProject[];
+  /** Each project's case study by slug, so a row opens it with nothing to load */
+  studies: Record<string, CaseStudy | null>;
 };
 
 /**
  * The current role and its client work, then the work history as a filterable table. A card or row
  * grows into its case study, like a blog card into its article.
  */
-const Work = ({ current, groups, clients }: Props): JSX.Element => {
+const Work = ({ current, groups, clients, studies }: Props): JSX.Element => {
   const { remember } = useCardTransition();
   // Kept mounted after closing so the sheet can shrink back into its card or row
   const [sheet, setSheet] = useState<PublicProject>();
@@ -70,7 +73,7 @@ const Work = ({ current, groups, clients }: Props): JSX.Element => {
           onClose={() => setSheetOpen(false)}
           onExited={() => setSheet(undefined)}
         >
-          <CaseStudyArticle project={sheet} embedded />
+          <CaseStudyArticle project={sheet} study={studies[sheet.slug]} embedded />
         </ArticleSheet>
       )}
     </MainLayout>
@@ -79,14 +82,18 @@ const Work = ({ current, groups, clients }: Props): JSX.Element => {
 
 export default Work;
 
-export const getStaticProps = async (): Promise<GetStaticPropsResult<Props>> => ({
-  props: {
-    current: CURRENT_ROLE,
-    groups: {
-      employment: projectsOfKind('employment'),
-      volunteer: projectsOfKind('volunteer'),
-      project: projectsOfKind('project')
-    },
-    clients: clientProjects()
-  }
-});
+export const getStaticProps = async (): Promise<GetStaticPropsResult<Props>> => {
+  const groups = {
+    employment: projectsOfKind('employment'),
+    volunteer: projectsOfKind('volunteer'),
+    project: projectsOfKind('project')
+  };
+  const clients = clientProjects();
+  const projects = [...clients, ...Object.values(groups).flat()];
+  const studies = Object.fromEntries(
+    await Promise.all(
+      projects.map(async (project) => [project.slug, await getCaseStudy(project.caseStudy)])
+    )
+  );
+  return { props: { current: CURRENT_ROLE, groups, clients, studies } };
+};

@@ -61,6 +61,8 @@ export type Project = {
   /** Extra detail on the card's flip side */
   disciplines?: string[];
   skills?: string[];
+  /** File name in src/content/case-studies/ with the long-form case study */
+  caseStudy?: string;
   media?: ProjectMedia;
 };
 
@@ -76,6 +78,7 @@ export const CURRENT_ROLE = {
 export const PROJECTS: Project[] = [
   {
     slug: 'soti',
+    caseStudy: 'soti-frontline-support-chat',
     title: 'SOTI',
     kind: 'employment',
     org: 'SOTI',
@@ -122,6 +125,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'planned',
+    caseStudy: 'planned-vendor-onboarding',
     title: 'Planned',
     kind: 'employment',
     org: 'Planned',
@@ -160,6 +164,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'mednow',
+    caseStudy: 'mednow-digital-pharmacy',
     title: 'Mednow',
     kind: 'employment',
     org: 'Mednow',
@@ -289,6 +294,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'upper-oakville-chiro',
+    caseStudy: 'upper-oakville-chiropractic',
     title: 'Upper Oakville Chiropractic',
     kind: 'employment',
     client: true,
@@ -342,6 +348,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'travel-app',
+    caseStudy: 'travel-companion-app',
     title: 'Travel app MVP',
     kind: 'employment',
     client: true,
@@ -387,6 +394,7 @@ export type PublicProject = {
   phases: Phase[];
   media: ProjectMedia | null;
   hasCaseStudy: boolean;
+  caseStudy: string | null;
 };
 
 const kebab = (value: string): string =>
@@ -428,7 +436,8 @@ export const toPublic = (project: Project): PublicProject => ({
     .map((phase) => ({ ...phase, summary: clean(phase.summary), outcome: clean(phase.outcome) })),
   // Round-trip drops undefined fields, which getStaticProps can't serialize
   media: project.publicName && project.media ? JSON.parse(JSON.stringify(project.media)) : null,
-  hasCaseStudy: project.kind !== 'project'
+  hasCaseStudy: project.kind !== 'project',
+  caseStudy: project.caseStudy ?? null
 });
 
 const bySlug = (slug: string): Project => {
