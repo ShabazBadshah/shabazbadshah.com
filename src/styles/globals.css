@@ -18,6 +18,10 @@
   /* 5.6:1 against white text, 5.0:1 on --bg (WCAG AA) */
   --accent: #0066cc;
   --accent-contrast: #ffffff;
+  /* A lighter tint of the logo's background (#daedfc); list row hovers */
+  --accent-soft: #edf6fe;
+  /* The logo's background; the click ripple */
+  --accent-ripple: #daedfc;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.04);
   /* Lifts the fixed nav off the page */
   --shadow-float: 0 2px 6px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.08);
@@ -38,6 +42,8 @@
   --text-secondary: #a1a1a6;
   --accent: #2997ff;
   --accent-contrast: #000000;
+  --accent-soft: rgb(41 151 255 / 0.16); 
+  --accent-ripple: rgb(41 151 255 / 0.32);
   --shadow-card: 0 0 0 rgb(0 0 0 / 0);
   --shadow-float: 0 2px 6px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.4);
   --glow: 9%;
@@ -55,6 +61,7 @@
   --color-fg-muted: var(--text-secondary);
   --color-accent: var(--accent);
   --color-accent-fg: var(--accent-contrast);
+  --color-accent-soft: var(--accent-soft);
   --shadow-card: var(--shadow-card);
   --shadow-float: var(--shadow-float);
 }
@@ -102,6 +109,32 @@
 @layer base {
   * {
     border-color: var(--border);
+  }
+
+  /*
+   * Custom cursors replace the system ones: the arrow everywhere (its tip is the hotspot), and a
+   * matching I-beam over selectable text and text fields (centred hotspot). All three rules use
+   * zero-specificity selectors, so the later one wins: a link inside a paragraph keeps the arrow.
+   */
+  *,
+  *::before,
+  *::after {
+    cursor: url('/cursor.svg?v=3') 2 2, default !important;
+  }
+
+  :where(p, h1, h2, h3, h4, h5, h6, li, blockquote, figcaption, dd, dt, td, th, pre, code, time),
+  :where(p, h1, h2, h3, h4, h5, h6, li, blockquote, figcaption, dd, dt, td, th, pre, code, time) *,
+  :where(
+      textarea,
+      [contenteditable]:not([contenteditable='false']),
+      input:not([type='checkbox'], [type='radio'], [type='button'], [type='submit'], [type='reset'], [type='range'], [type='color'], [type='file'])
+    ) {
+    cursor: url('/cursor-text.svg?v=3') 10 10, text !important;
+  }
+
+  :where(a[href], button, [role='button'], summary, label, select, .select-none),
+  :where(a[href], button, [role='button'], summary, label, select, .select-none) * {
+    cursor: url('/cursor.svg?v=3') 2 2, default !important;
   }
 
   body {

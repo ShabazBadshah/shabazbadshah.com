@@ -10,6 +10,8 @@ import CardTransitionProvider from '@/components/CardTransition';
 import { siteConfig } from '@/config/site';
 import { content } from '@/content/content';
 import '@/styles/globals.css';
+import { useClickRipple } from '@/lib/click-ripple';
+import { useClickSound } from '@/lib/click-sound';
 
 // next-themes is typed for React 18 children; this repo still pins @types/react 17
 const ThemeProvider = NextThemesProvider as React.ComponentType<
@@ -26,6 +28,9 @@ export default function App(props: AppProps): React.ReactNode {
   const handleRouteChange = () => trackPageView(window.location.pathname);
 
   useEffect(() => {
+  useClickSound();
+  useClickRipple();
+
     router.events.on('routeChangeComplete', handleRouteChange);
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
