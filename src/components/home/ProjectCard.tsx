@@ -8,6 +8,7 @@ import {
   Globe,
   Info,
   Maximize,
+  Plane,
   ShieldCheck,
   Star
 } from 'lucide-react';
@@ -18,11 +19,12 @@ import { useEffect, useRef, useState } from 'react';
 import CornerButton from '@/components/CornerButton';
 import Todo from '@/components/Todo';
 import { content } from '@/content/content';
-import type { ProjectMedia, PublicProject } from '@/content/projects';
+import type { ProjectIcon, ProjectMedia, PublicProject } from '@/content/projects';
 import { shown } from '@/lib/todo';
 import { dateRange } from '@/lib/utils';
 
 const FEATURE_ICONS = [Star, Globe, ShieldCheck, BrainCircuit];
+const PROJECT_ICONS: Record<ProjectIcon, typeof Plane> = { plane: Plane };
 
 const STACK_INTERVAL_MS = 4000;
 
@@ -166,6 +168,7 @@ export function Title({
   className?: string;
 }): JSX.Element {
   const logo = project.media?.logo;
+  const Icon = project.icon && PROJECT_ICONS[project.icon];
   return (
     <div data-keep className={`flex items-center gap-2.5 ${className}`}>
       {logo && (
@@ -178,6 +181,14 @@ export function Title({
             project.media?.logoInvertOnDark ? 'dark:invert' : ''
           }`}
         />
+      )}
+      {!logo && Icon && (
+        <span
+          aria-hidden="true"
+          className="grid size-7 shrink-0 place-items-center rounded-lg bg-accent-soft text-accent"
+        >
+          <Icon className="size-4" />
+        </span>
       )}
       <h3 className="text-lg font-semibold">{project.name}</h3>
     </div>

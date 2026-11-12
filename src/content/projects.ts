@@ -21,6 +21,9 @@ export type Phase = {
 
 export type Testimonial = { quote: string; name: string; role: string };
 
+/** A generic icon in place of a logo; safe to show when the project can't be named */
+export type ProjectIcon = 'plane';
+
 type Img = { src: string; width: number; height: number; alt: string };
 
 /** Card visuals. Only shown when the project can be named (`publicName`). */
@@ -63,6 +66,7 @@ export type Project = {
   skills?: string[];
   /** File name in src/content/case-studies/ with the long-form case study */
   caseStudy?: string;
+  icon?: ProjectIcon;
   media?: ProjectMedia;
 };
 
@@ -356,6 +360,7 @@ export const PROJECTS: Project[] = [
     // The client is under NDA: never show the app's name, logo or screenshots
     publicName: false,
     anonymizedName: 'Travel app MVP',
+    icon: 'plane',
     role: '',
     start: '',
     end: '',
@@ -395,6 +400,7 @@ export type PublicProject = {
   media: ProjectMedia | null;
   hasCaseStudy: boolean;
   caseStudy: string | null;
+  icon: ProjectIcon | null;
 };
 
 const kebab = (value: string): string =>
@@ -437,7 +443,8 @@ export const toPublic = (project: Project): PublicProject => ({
   // Round-trip drops undefined fields, which getStaticProps can't serialize
   media: project.publicName && project.media ? JSON.parse(JSON.stringify(project.media)) : null,
   hasCaseStudy: project.kind !== 'project',
-  caseStudy: project.caseStudy ?? null
+  caseStudy: project.caseStudy ?? null,
+  icon: project.icon ?? null
 });
 
 const bySlug = (slug: string): Project => {
