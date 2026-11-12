@@ -36,15 +36,13 @@ const SOCIAL_LINKS: { provider: SocialProvider; url: string; logo: string }[] = 
   { provider: 'video', url: BOOKING_URL, logo: '/images/logos/google-meet.svg' }
 ];
 
-export type NavSection = 'work' | 'consulting' | 'blog' | 'contact';
+export type NavSection = 'work' | 'consulting' | 'blog';
 
 /** /clinics is reached from /consulting and direct links, never from the nav */
 const NAV_LINKS: { href: string; section: NavSection }[] = [
   { href: '/work', section: 'work' },
   { href: '/consulting', section: 'consulting' },
-  { href: '/blog', section: 'blog' },
-  // The footer holds each page's contact call to action
-  { href: '#contact', section: 'contact' }
+  { href: '/blog', section: 'blog' }
 ];
 
 const contact = {

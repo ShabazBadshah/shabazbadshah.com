@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { trackConnectLinkClick } from '@/analytics/tracking';
+import { useContactDialog } from '@/components/ContactDialog';
 import { siteConfig, type SocialProvider } from '@/config/site';
 import { content } from '@/content/content';
 
@@ -23,6 +24,7 @@ const externalProps = (href: string) =>
 /** Intro: name, headline, what I'm doing now and contact links */
 export default function Hero(): JSX.Element {
   const [syftableActive, setSyftableActive] = useState(false);
+  const contactDialog = useContactDialog();
   const { syftable } = siteConfig;
 
   return (
@@ -76,15 +78,16 @@ export default function Hero(): JSX.Element {
       </div>
 
       <div className="mt-8 flex gap-3 sm:flex-wrap sm:justify-start">
-        <a
-          href={siteConfig.contact.booking('career')}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="pill pill-accent flex-1 text-sm sm:flex-none"
+        {/* Opens the contact dialog in the nav */}
+        <button
+          type="button"
+          aria-haspopup="dialog"
+          onClick={() => contactDialog.setOpen(true)}
+          className="pill pill-accent flex-1 cursor-pointer text-sm sm:flex-none"
         >
           <Send aria-hidden="true" className="size-5" />
           {hero.ctaPrimary}
-        </a>
+        </button>
         <Link href="/work">
           <a className="pill flex-1 text-center sm:flex-none bg-gray-50 dark:bg-transparent dark:border-gray-50 text-sm">
             {hero.ctaSecondary}

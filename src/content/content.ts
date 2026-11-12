@@ -95,7 +95,13 @@ export const content = {
     label: 'Primary',
     home: 'Home',
     back: 'Back',
-    items: { work: 'Work', consulting: 'Consulting', blog: 'Writing', contact: 'Contact' },
+    items: { work: 'Work', consulting: 'Consulting', blog: 'Blog' },
+    contact: {
+      open: 'Contact',
+      close: 'Close contact',
+      title: 'Get in touch',
+      body: 'Reach out on any of these, or book a call.'
+    },
     theme: {
       toggle: 'Toggle color theme',
       toLight: 'Switch to light theme',
@@ -104,10 +110,10 @@ export const content = {
   },
 
   socials: {
-    linkedin: { name: '/in/shabaz-badshah', label: 'LinkedIn', cta: 'Connect' },
-    github: { name: '@ShabazBadshah', label: 'GitHub', cta: 'Follow' },
+    linkedin: { name: '/in/shabaz-badshah', label: 'Connect on LinkedIn', cta: 'Connect' },
+    github: { name: '@ShabazBadshah', label: 'Follow on GitHub', cta: 'Follow' },
     email: { name: 'badshah.shabaz@gmail.com', label: 'Send an email', cta: 'Email' },
-    video: { name: 'Video call', label: "Let's meet virtually", cta: 'Video call' }
+    video: { name: 'Video call', label: 'Schedule a call', cta: 'Video or phone call' }
   },
 
   /** Email subject per contact source, so each inquiry says where it came from */
@@ -138,7 +144,7 @@ export const content = {
       syftable: 'Syftable',
       after: '. Open to a full-time Product Engineer role on a small team.'
     },
-    ctaPrimary: "Let's talk",
+    ctaPrimary: 'Get in touch',
     ctaSecondary: 'View my work',
     socialsLabel: 'Connect'
   },
@@ -344,7 +350,6 @@ export const content = {
     or: 'Or',
     orBook: 'book a call',
     navLabel: 'Footer',
-    consulting: 'Badshah Consulting Inc.',
     syftable: 'Syftable',
     /** Footer link text per social provider; providers left out are not linked */
     links: { linkedin: 'LinkedIn', github: 'GitHub' } as Record<string, string>

@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { siteConfig, type ContactSource } from '@/config/site';
 import { content } from '@/content/content';
 
@@ -65,11 +63,6 @@ const Footer = ({ narrow = false, source = 'career' }: Props): JSX.Element => {
       <div className="mt-16 flex flex-col gap-6 border-t pt-6 sm:mt-24 sm:flex-row sm:items-center sm:justify-between">
         <nav aria-label={footer.navLabel}>
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <li>
-              <Link href={siteConfig.business.path}>
-                <a className={LINK}>{footer.consulting}</a>
-              </Link>
-            </li>
             {LINKS.map(({ label, href }) => (
               <li key={label}>
                 <a href={href} className={LINK} {...external}>
