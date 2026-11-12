@@ -150,46 +150,7 @@ export const content = {
   },
 
   home: {
-    proof: {
-      title: 'Selected work',
-      syftable: {
-        eyebrow: 'My own product',
-        title: 'Syftable',
-        body: "It keeps track of your work so you don't have to.",
-        link: 'Visit syftable.com'
-      },
-      clients: {
-        eyebrow: 'Independent',
-        title: 'Client work',
-        body: 'Projects for clients through Badshah Consulting, from a clinic website to a mobile app MVP.',
-        link: 'See the timeline'
-      }
-    },
-    howIWork: {
-      title: 'How I work',
-      steps: [
-        {
-          title: 'Frame the problem',
-          body: 'I start with who has the problem, what it costs them, and what would change if it went away.'
-        },
-        {
-          title: 'Design',
-          body: 'I design the smallest flow that solves it and check it with the people who will use it.'
-        },
-        {
-          title: 'Engineer',
-          body: 'I build it myself across the stack, and write down the trade-offs as I make them.'
-        },
-        {
-          title: 'Release',
-          body: 'I ship in small, reversible steps with monitoring in place, so launch day is uneventful.'
-        },
-        {
-          title: 'Support',
-          body: 'After launch I watch how it is used, fix what breaks, and keep improving it.'
-        }
-      ]
-    },
+    proof: { title: 'Selected work', viewAll: 'View all work' },
     blog: { viewAll: 'View all posts' }
   },
 

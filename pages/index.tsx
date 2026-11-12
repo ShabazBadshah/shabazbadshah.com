@@ -1,4 +1,4 @@
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { GetStaticPropsResult } from 'next';
 import Link from 'next/link';
 
@@ -21,44 +21,42 @@ const HOME_POSTS = 3;
 
 const { home } = content;
 
-type Props = { posts: Post[]; mednow: PublicProject; soti: PublicProject };
-
-/** A proof card that is one link: to Syftable's site, or to the timeline on /work */
-function LinkCard({
-  eyebrow,
+/** A section heading, with an optional subtitle, and a link to the page with all of it */
+function SectionHeader({
+  id,
   title,
-  body,
-  link,
-  href
+  subtitle,
+  href,
+  link
 }: {
-  eyebrow: string;
+  id: string;
   title: string;
-  body: string;
-  link: string;
+  subtitle?: string;
   href: string;
+  link: string;
 }): JSX.Element {
-  const externalLink = href.startsWith('http');
-  const Arrow = externalLink ? ArrowUpRight : ArrowRight;
-  // Next's <Link> supplies href to internal links, and only when the <a> has none of its own
-  const card = (
-    <a
-      className="card group h-full gap-3 p-5 no-underline hover:border-line-strong sm:p-6"
-      {...(externalLink && { href, target: '_blank', rel: 'noopener noreferrer' })}
-    >
-      <p className="eyebrow">{eyebrow}</p>
-      <h3 className="text-lg font-semibold">{title}</h3>
-      <p className="text-sm text-fg-muted">{body}</p>
-      <span className="mt-auto inline-flex items-center gap-1 pt-2 text-sm font-medium text-accent">
-        {link}
-        <Arrow
-          aria-hidden="true"
-          className="size-4 transition-transform duration-150 group-hover:translate-x-0.5"
-        />
-      </span>
-    </a>
+  return (
+    <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+      <div>
+        <h2 id={id} className={SECTION_TITLE}>
+          {title}
+        </h2>
+        {subtitle && <p className="text-lg font-medium text-fg-muted">{subtitle}</p>}
+      </div>
+      <Link href={href}>
+        <a className="group inline-flex items-center gap-1 font-medium text-accent no-underline hover:underline">
+          {link}
+          <ArrowRight
+            aria-hidden="true"
+            className="size-4 transition-transform duration-150 group-hover:translate-x-0.5"
+          />
+        </a>
+      </Link>
+    </div>
   );
-  return externalLink ? card : <Link href={href}>{card}</Link>;
 }
+
+type Props = { posts: Post[]; mednow: PublicProject; soti: PublicProject };
 
 const Index = ({ posts, mednow, soti }: Props): JSX.Element => (
   <MainLayout source="career">
@@ -73,57 +71,26 @@ const Index = ({ posts, mednow, soti }: Props): JSX.Element => (
       </section>
 
       <section aria-labelledby="work-heading">
-        <h2 id="work-heading" className={SECTION_TITLE}>
-          {home.proof.title}
-        </h2>
+        <SectionHeader
+          id="work-heading"
+          title={home.proof.title}
+          href="/work"
+          link={home.proof.viewAll}
+        />
         <div className={`mt-6 grid lg:grid-cols-2 ${GRID_GAP}`}>
           <ProjectCard project={mednow} className="lg:col-span-2" />
-          <ProjectCard project={soti} />
-          <div className={`grid ${GRID_GAP}`}>
-            <LinkCard {...home.proof.syftable} href={siteConfig.syftable.url} />
-            <LinkCard {...home.proof.clients} href="/work#independent" />
-          </div>
+          <ProjectCard project={soti} className="lg:col-span-2" />
         </div>
-      </section>
-
-      <section aria-labelledby="how-heading">
-        <h2 id="how-heading" className={SECTION_TITLE}>
-          {home.howIWork.title}
-        </h2>
-        <ol className={`mt-6 grid sm:grid-cols-2 lg:grid-cols-5 ${GRID_GAP}`}>
-          {home.howIWork.steps.map((step, index) => (
-            <li key={step.title} className="card gap-3 p-5">
-              <span
-                aria-hidden="true"
-                className="grid size-9 place-items-center rounded-pill bg-fill text-sm font-semibold"
-              >
-                {index + 1}
-              </span>
-              <h3 className="font-semibold">{step.title}</h3>
-              <p className="text-sm text-fg-muted">{step.body}</p>
-            </li>
-          ))}
-        </ol>
       </section>
 
       <section aria-labelledby="blog-heading">
-        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-          <div>
-            <h2 id="blog-heading" className={SECTION_TITLE}>
-              {content.blog.title}
-            </h2>
-            <p className="text-lg font-medium text-fg-muted">{content.blog.subtitle}</p>
-          </div>
-          <Link href="/blog">
-            <a className="group inline-flex items-center gap-1 font-medium text-accent no-underline hover:underline">
-              {home.blog.viewAll}
-              <ArrowRight
-                aria-hidden="true"
-                className="size-4 transition-transform duration-150 group-hover:translate-x-0.5"
-              />
-            </a>
-          </Link>
-        </div>
+        <SectionHeader
+          id="blog-heading"
+          title={content.blog.title}
+          subtitle={content.blog.subtitle}
+          href="/blog"
+          link={home.blog.viewAll}
+        />
         <PostGrid posts={posts} className="mt-6" />
       </section>
     </div>
