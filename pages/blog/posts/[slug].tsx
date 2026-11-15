@@ -1,12 +1,10 @@
-import dayjs from 'dayjs';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import BlogArticle from '@/components/blog/BlogArticle';
-import { renderPostHtml } from '@/lib/render-html';
 import SEO from '@/components/SEO';
 import { siteConfig } from '@/lib/site';
 import MainLayout from '@/components/MainLayout';
-import { getAllPostSlugs, getPostBySlug, type Post } from '@/lib/blog';
+import { getBlogPostPaths, getRenderedPostBySlug, type Post } from '@/lib/blog';
 import { blogPostStructuredData } from '@/lib/structured-data';
 import { plainText } from '@/lib/utils';
 
@@ -17,7 +15,7 @@ const BlogPost = ({ post }: { post: Post }): JSX.Element => (
       description={plainText(post.shortBody)}
       path={`/blog/posts/${post.slug}`}
       type="article"
-      publishedAt={dayjs(post.publishedAt).format('YYYY-MM-DD')}
+      publishedAt={post.publishedAt}
       jsonLd={blogPostStructuredData(post)}
     />
     <BlogArticle post={post} />
@@ -27,13 +25,10 @@ const BlogPost = ({ post }: { post: Post }): JSX.Element => (
 export default BlogPost;
 
 export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: getAllPostSlugs().map((slug) => `/blog/posts/${slug}`),
+  paths: getBlogPostPaths(),
   fallback: false
 });
 
-export const getStaticProps: GetStaticProps<{ post: Post }> = async ({ params }) => {
-  const post = getPostBySlug(params?.slug as string);
-  return {
-    props: { post: { ...post, body: '', html: await renderPostHtml(post.slug, post.body) } }
-  };
-};
+export const getStaticProps: GetStaticProps<{ post: Post }> = async ({ params }) => ({
+  props: { post: await getRenderedPostBySlug(params?.slug as string) }
+});

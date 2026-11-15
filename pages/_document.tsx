@@ -5,7 +5,11 @@ import { siteConfig } from '@/lib/site';
 export default class MyDocument extends Document {
   render(): JSX.Element {
     return (
-      <Html lang={siteConfig.locale} dir="ltr" className="h-full scroll-smooth scroll-pt-6 sm:scroll-pt-22">
+      <Html
+        lang={siteConfig.locale}
+        dir="ltr"
+        className="h-full scroll-smooth scroll-pt-6 sm:scroll-pt-22"
+      >
         <Head />
         <body>
           <Main />

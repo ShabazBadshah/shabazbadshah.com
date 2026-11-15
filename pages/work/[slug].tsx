@@ -3,9 +3,13 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import SEO from '@/components/SEO';
 import CaseStudyArticle from '@/components/work/CaseStudyArticle';
 import { siteConfig } from '@/lib/site';
-import { caseStudyProjects, type PublicProject } from '@/content/projects';
+import type { PublicProject } from '@/content/projects';
 import MainLayout from '@/components/MainLayout';
-import { getCaseStudy, type CaseStudy as Study } from '@/lib/case-studies';
+import {
+  getCaseStudyPaths,
+  getCaseStudyPageData,
+  type CaseStudy as Study
+} from '@/lib/case-studies';
 
 type Props = { project: PublicProject; study: Study | null };
 
@@ -23,11 +27,12 @@ const CaseStudy = ({ project, study }: Props): JSX.Element => (
 export default CaseStudy;
 
 export const getStaticPaths: GetStaticPaths = async () => ({
-  paths: caseStudyProjects().map((project) => `/work/${project.slug}`),
+  paths: getCaseStudyPaths(),
   fallback: false
 });
 
 export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-  const project = caseStudyProjects().find((p) => p.slug === params?.slug) as PublicProject;
-  return { props: { project, study: await getCaseStudy(project.caseStudy) } };
+  const data = await getCaseStudyPageData(params?.slug as string);
+  if (!data) return { notFound: true };
+  return { props: data };
 };

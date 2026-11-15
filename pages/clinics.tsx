@@ -6,23 +6,17 @@ import SEO from '@/components/SEO';
 import Todo from '@/components/Todo';
 import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
-import { caseStudiesFor, type PublicProject } from '@/content/projects';
 import MainLayout from '@/components/MainLayout';
 import { businessStructuredData } from '@/lib/structured-data';
-import { SHOW_PLACEHOLDERS, shown } from '@/lib/todo';
+import { shown } from '@/lib/todo';
+import { getClinicsPageData, type ClinicsPageData } from '@/lib/clinics';
 
 const PAGE = '/clinics';
 const SECTION_TITLE = 'text-2xl font-semibold tracking-tight sm:text-3xl';
 
 const { clinics } = content;
-const offers = clinics.offers.items.filter((offer) => offer.confirmed || SHOW_PLACEHOLDERS);
-const support = clinics.support.items.filter((item) => shown(item.body));
 
-const Clinics = ({ caseStudies }: { caseStudies: PublicProject[] }): JSX.Element => {
-  const testimonials = caseStudies.filter(
-    (project) => project.testimonial && shown(project.testimonial.quote)
-  );
-
+const Clinics = ({ caseStudies, offers, support, testimonials }: ClinicsPageData): JSX.Element => {
   return (
     <MainLayout source="clinics">
       <SEO
@@ -152,8 +146,6 @@ const Clinics = ({ caseStudies }: { caseStudies: PublicProject[] }): JSX.Element
 
 export default Clinics;
 
-export const getStaticProps = async (): Promise<
-  GetStaticPropsResult<{ caseStudies: PublicProject[] }>
-> => ({
-  props: { caseStudies: caseStudiesFor('clinics') }
+export const getStaticProps = async (): Promise<GetStaticPropsResult<ClinicsPageData>> => ({
+  props: getClinicsPageData()
 });

@@ -9,25 +9,13 @@ import CurrentRole from '@/components/work/CurrentRole';
 import WorkList, { FILTERS, WorkFilter } from '@/components/work/WorkList';
 import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
-import {
-  CURRENT_ROLE,
-  currentRoleProjects,
-  projectsOfKind,
-  type PublicProject,
-  type WorkTab
-} from '@/content/projects';
+import type { PublicProject, WorkTab } from '@/content/projects';
 import MainLayout from '@/components/MainLayout';
-import { caseStudyOrder, getCaseStudy, type CaseStudy } from '@/lib/case-studies';
+import { getWorkPageData, type WorkPageData } from '@/lib/case-studies';
 
 const { work } = content;
 
-type Props = {
-  current: typeof CURRENT_ROLE;
-  groups: Record<WorkTab, PublicProject[]>;
-  clients: PublicProject[];
-  /** Each project's case study by slug, so a row opens it with nothing to load */
-  studies: Record<string, CaseStudy | null>;
-};
+type Props = WorkPageData;
 
 /**
  * The current role and its client work, then the work history as a filterable table. A card or row
@@ -127,21 +115,6 @@ const Work = ({ current, groups, clients, studies }: Props): JSX.Element => {
 
 export default Work;
 
-/** By each case study file's `order`; rows without one keep their place after them */
-const byOrder = (projects: PublicProject[]): PublicProject[] =>
-  [...projects].sort((a, b) => caseStudyOrder(a.caseStudy) - caseStudyOrder(b.caseStudy));
-
-export const getStaticProps = async (): Promise<GetStaticPropsResult<Props>> => {
-  const groups = {
-    employment: byOrder(projectsOfKind('employment')),
-    volunteer: byOrder(projectsOfKind('volunteer'))
-  };
-  const clients = byOrder(currentRoleProjects());
-  const projects = [...clients, ...Object.values(groups).flat()];
-  const studies = Object.fromEntries(
-    await Promise.all(
-      projects.map(async (project) => [project.slug, await getCaseStudy(project.caseStudy)])
-    )
-  );
-  return { props: { current: CURRENT_ROLE, groups, clients, studies } };
-};
+export const getStaticProps = async (): Promise<GetStaticPropsResult<WorkPageData>> => ({
+  props: await getWorkPageData()
+});

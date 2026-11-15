@@ -4,6 +4,14 @@ import { join } from 'path';
 
 import { renderPostHtml } from '@/lib/render-html';
 import { SHOW_PLACEHOLDERS, VERIFY } from '@/lib/todo';
+import {
+  CURRENT_ROLE,
+  currentRoleProjects,
+  projectsOfKind,
+  caseStudyProjects,
+  type PublicProject,
+  type WorkTab
+} from '@/content/projects';
 
 /**
  * Long-form case studies, one Markdown file each in src/content/case-studies/ (see the README
@@ -121,4 +129,42 @@ export const getCaseStudy = async (file: string | null): Promise<CaseStudy | nul
         }
       : null
   };
+};
+
+export type WorkPageData = {
+  current: typeof CURRENT_ROLE;
+  groups: Record<WorkTab, PublicProject[]>;
+  clients: PublicProject[];
+  /** Each project's case study by slug, so a row opens it with nothing to load */
+  studies: Record<string, CaseStudy | null>;
+};
+
+/** By each case study file's `order`; rows without one keep their place after them */
+export const byOrder = (projects: PublicProject[]): PublicProject[] =>
+  [...projects].sort((a, b) => caseStudyOrder(a.caseStudy) - caseStudyOrder(b.caseStudy));
+
+export const getWorkPageData = async (): Promise<WorkPageData> => {
+  const groups = {
+    employment: byOrder(projectsOfKind('employment')),
+    volunteer: byOrder(projectsOfKind('volunteer'))
+  };
+  const clients = byOrder(currentRoleProjects());
+  const projects = [...clients, ...Object.values(groups).flat()];
+  const studies = Object.fromEntries(
+    await Promise.all(
+      projects.map(async (project) => [project.slug, await getCaseStudy(project.caseStudy)])
+    )
+  );
+  return { current: CURRENT_ROLE, groups, clients, studies };
+};
+
+export const getCaseStudyPaths = (): string[] =>
+  caseStudyProjects().map((project) => `/work/${project.slug}`);
+
+export const getCaseStudyPageData = async (
+  slug?: string
+): Promise<{ project: PublicProject; study: CaseStudy | null } | null> => {
+  const project = caseStudyProjects().find((p) => p.slug === slug);
+  if (!project) return null;
+  return { project, study: await getCaseStudy(project.caseStudy) };
 };

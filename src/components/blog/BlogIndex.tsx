@@ -6,19 +6,10 @@ import SEO from '@/components/SEO';
 import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import MainLayout from '@/components/MainLayout';
-import type { Post } from '@/lib/blog';
+import { pageHref, type BlogIndexProps } from '@/lib/blog';
 
 const { blog } = content;
 const { pagination } = blog;
-
-export const POSTS_PER_PAGE = siteConfig.postsPerPage;
-
-export const pageCount = (total: number): number => Math.max(1, Math.ceil(total / POSTS_PER_PAGE));
-
-/** /blog is page 1; later pages live at /blog/page/<n> */
-export const pageHref = (page: number): string => (page === 1 ? '/blog' : `/blog/page/${page}`);
-
-export type BlogIndexProps = { posts: Post[]; page: number; pages: number };
 
 const PILL = 'pill bg-surface';
 

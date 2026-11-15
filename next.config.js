@@ -70,6 +70,11 @@ const nextConfig = {
   },
   webpack: (config, { dev, isServer, webpack }) => {
     if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false
+      };
       // Next's built-in polyfills (flat, flatMap, fromEntries, trimStart/End) are native in our targets
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(

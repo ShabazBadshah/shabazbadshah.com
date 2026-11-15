@@ -3,7 +3,6 @@ import { GetStaticPropsResult } from 'next';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { getRenderedPosts } from '@/lib/render-html';
 import PostGrid from '@/components/blog/PostGrid';
 import { useCardTransition } from '@/components/CardTransition';
 import ArticleSheet from '@/components/ArticleSheet';
@@ -13,16 +12,13 @@ import SEO from '@/components/SEO';
 import CaseStudyArticle from '@/components/work/CaseStudyArticle';
 import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
-import { publicProject, type PublicProject } from '@/content/projects';
+import type { PublicProject } from '@/content/projects';
 import MainLayout from '@/components/MainLayout';
-import { getAllPosts, type Post } from '@/lib/blog';
-import { getCaseStudy, type CaseStudy } from '@/lib/case-studies';
 import { homeStructuredData } from '@/lib/structured-data';
+import { getHomePageData, type HomePageData } from '@/lib/home';
 
 const GRID_GAP = 'gap-4 sm:gap-5 lg:gap-6';
 const SECTION_TITLE = 'text-2xl font-semibold tracking-tight sm:text-3xl';
-/** Featured post plus the two most recent */
-const HOME_POSTS = 3;
 
 const { home } = content;
 
@@ -61,14 +57,7 @@ function SectionHeader({
   );
 }
 
-type Props = {
-  posts: Post[];
-  mednow: PublicProject;
-  planned: PublicProject;
-  syftable: PublicProject;
-  /** The selected work's case studies by slug, so a card opens one with nothing to load */
-  studies: Record<string, CaseStudy | null>;
-};
+type Props = HomePageData;
 
 const Index = ({ posts, mednow, planned, syftable, studies }: Props): JSX.Element => {
   const { remember } = useCardTransition();
@@ -138,24 +127,6 @@ const Index = ({ posts, mednow, planned, syftable, studies }: Props): JSX.Elemen
 
 export default Index;
 
-export const getStaticProps = async (): Promise<GetStaticPropsResult<Props>> => {
-  const mednow = publicProject('mednow');
-  const planned = publicProject('planned');
-  const studies = Object.fromEntries(
-    await Promise.all(
-      [mednow, planned].map(async (project) => [
-        project.slug,
-        await getCaseStudy(project.caseStudy)
-      ])
-    )
-  );
-  return {
-    props: {
-      posts: await getRenderedPosts(getAllPosts().slice(0, HOME_POSTS)),
-      mednow,
-      planned,
-      syftable: publicProject('syftable'),
-      studies
-    }
-  };
-};
+export const getStaticProps = async (): Promise<GetStaticPropsResult<HomePageData>> => ({
+  props: await getHomePageData()
+});
