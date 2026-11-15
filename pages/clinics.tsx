@@ -110,7 +110,7 @@ const Clinics = ({ caseStudies }: { caseStudies: PublicProject[] }): JSX.Element
           <h2 id="background-title" className="eyebrow">
             {clinics.background.label}
           </h2>
-          <p className="max-w-2xl sm:text-lg">{clinics.background.body}</p>
+          <p className="max-w-2xl">{clinics.background.body}</p>
         </section>
 
         {support.length > 0 && (
@@ -142,7 +142,7 @@ const Clinics = ({ caseStudies }: { caseStudies: PublicProject[] }): JSX.Element
             <h2 id="area-title" className="text-lg font-semibold">
               {clinics.area.title}
             </h2>
-            <p className="text-fg-muted sm:text-lg">{clinics.area.body}</p>
+            <p className="text-fg-muted">{clinics.area.body}</p>
           </div>
         </section>
       </div>

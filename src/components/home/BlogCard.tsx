@@ -89,11 +89,7 @@ export default function BlogCard({
             {post.title}
           </h3>
           {row && meta}
-          <p
-            className={`text-fg-muted ${
-              featured ? 'line-clamp-6 sm:text-lg' : 'line-clamp-3 text-[0.9375rem]'
-            }`}
-          >
+          <p className={`text-fg-muted ${featured ? 'line-clamp-6' : 'line-clamp-3'}`}>
             {plainText(post.shortBody)}
           </p>
         </div>

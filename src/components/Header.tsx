@@ -13,17 +13,15 @@ import { content } from '@/content/content';
 
 const LAYOUT_TRANSITION = { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };
 
-/** Active nav item, from the route. /clinics belongs to Consulting. */
+/** Active nav item, from the route */
 const activeSection = (pathname: string): NavSection | null => {
   if (pathname.startsWith('/work')) return 'work';
-  if (pathname === '/consulting' || pathname === '/clinics') return 'consulting';
   if (pathname.startsWith('/blog')) return 'blog';
   return null;
 };
 
 /** Audience of the page, carried into the contact dialog's email and booking links */
 const contactSource = (pathname: string): ContactSource => {
-  if (pathname === '/consulting') return 'consulting';
   if (pathname === '/clinics') return 'clinics';
   return 'career';
 };
@@ -32,14 +30,24 @@ const contactSource = (pathname: string): ContactSource => {
 const ICON_BUTTON =
   'grid size-10 shrink-0 cursor-pointer place-items-center rounded-pill text-fg-muted transition-colors hover:text-fg';
 
-/** Detail pages get a back button to their index */
-const BACK: Record<string, string> = {
-  '/blog/posts/[slug]': '/blog',
-  '/work/[slug]': '/work'
+/**
+ * Detail pages get a back button to their index, lined up from sm with the article's left edge
+ * (--article-left, set on the header), or on a case study from 2xl with its left sidebar: --gap
+ * (4rem) and up to 200px further left (see CaseStudyArticle.tsx). The header has 1rem of padding.
+ */
+const BACK: Record<string, { href: string; align: string }> = {
+  '/blog/posts/[slug]': { href: '/blog', align: 'sm:ml-[calc(var(--article-left)_-_1rem)]' },
+  '/work/[slug]': {
+    href: '/work',
+    align:
+      'sm:ml-[calc(var(--article-left)_-_1rem)] 2xl:ml-[calc(var(--article-left)_-_5rem_-_min(200px,var(--article-left)_-_6rem))]'
+  }
 };
 
 function ThemeToggle(): JSX.Element {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { resolvedTheme, systemTheme, setTheme: setPicked } = useTheme();
+  // Picking the system's own theme goes back to following the system
+  const setTheme = (next: string) => setPicked(next === systemTheme ? 'system' : next);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
@@ -216,10 +224,10 @@ function NavBar({ pathname }: { pathname: string }): JSX.Element {
         // Set here, not as a class, so framer keeps the corners round while the pill scales
         style={{ borderRadius: 24 }}
         aria-label={content.nav.label}
-        // One width open and closed, so the dialog only grows in height. The closed pill leaves room
-        // on the right for the theme toggle; the open dialog runs its rows under the close button.
-        className={`pointer-events-auto relative col-span-3 row-start-2 w-[min(25rem,100%)] justify-self-center sm:w-[25rem] border bg-elevated p-1 shadow-float backdrop-blur-lg backdrop-saturate-180 sm:col-span-1 sm:col-start-2 sm:row-start-1 ${
-          contactOpen ? '' : 'pr-11'
+        // The closed pill is as wide as its links, leaving room on the right for the theme toggle;
+        // the open dialog is wider, and runs its rows under the close button
+        className={`pointer-events-auto relative col-span-3 row-start-2 max-w-full justify-self-center border bg-elevated p-1 shadow-float backdrop-blur-lg backdrop-saturate-180 sm:col-span-1 sm:col-start-2 sm:row-start-1 ${
+          contactOpen ? 'w-[25rem]' : 'pr-11'
         }`}
       >
         {contactOpen ? (
@@ -238,15 +246,24 @@ function NavBar({ pathname }: { pathname: string }): JSX.Element {
             <Link href="/" prefetch={false}>
               <a
                 aria-label={content.nav.home}
+                aria-current={pathname === '/' ? 'page' : undefined}
                 onClick={scrollHome}
-                className="inline-flex size-10 shrink-0 items-center justify-center rounded-pill"
+                className="relative inline-flex size-10 shrink-0 items-center justify-center rounded-pill"
               >
+                {pathname === '/' && (
+                  <m.span
+                    layoutId="nav-active"
+                    transition={LAYOUT_TRANSITION}
+                    className="absolute inset-0 rounded-pill bg-fill"
+                    aria-hidden="true"
+                  />
+                )}
                 <img
                   src={siteConfig.assets.favicon}
                   alt=""
                   width={32}
                   height={32}
-                  className="size-7"
+                  className="relative size-7"
                 />
               </a>
             </Link>
@@ -275,7 +292,7 @@ function NavBar({ pathname }: { pathname: string }): JSX.Element {
                 </Link>
               );
             })}
-            <span aria-hidden="true" className="ml-auto mr-0.5 h-5 w-px bg-line" />
+            <span aria-hidden="true" className="mx-0.5 h-5 w-px bg-line" />
             <button
               ref={sendRef}
               type="button"
@@ -350,7 +367,7 @@ function ScrollToTop(): JSX.Element {
       tabIndex={visible ? 0 : -1}
       aria-hidden={!visible}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className={`col-start-3 row-start-1 grid size-11 justify-self-end cursor-pointer place-items-center rounded-full border bg-elevated text-fg shadow-float backdrop-blur-lg backdrop-saturate-180 transition-[opacity,transform] duration-200 hover:border-line-strong sm:fixed sm:bottom-6 sm:right-6 ${
+      className={`col-start-3 row-start-1 grid size-11 justify-self-end cursor-pointer place-items-center rounded-full bg-elevated text-fg shadow-float backdrop-blur-lg backdrop-saturate-180 transition-[opacity,transform] duration-200 sm:fixed sm:bottom-6 sm:right-6 ${
         visible
           ? 'pointer-events-auto translate-y-0 opacity-100'
           : 'pointer-events-none translate-y-2 opacity-0'
@@ -369,14 +386,19 @@ export default function Header(): JSX.Element | null {
   if (query.post) return null;
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 bottom-6 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 sm:bottom-auto sm:top-8 sm:px-4">
+    <header
+      data-site-header=""
+      // A size container, so --article-left (the article column's left edge, from MainLayout's
+      // max-w-article and its 1.5rem padding) can be worked out from the header's own width
+      className="@container pointer-events-none fixed inset-x-0 bottom-6 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 [--article-left:max(1.5rem,calc((100cqw_-_var(--container-article))/2_+_2.5rem))] sm:bottom-auto sm:top-8 sm:px-4"
+    >
       {/* Detail pages only; the article sheet has its own collapse control */}
       {back && (
-        <Link href={back}>
+        <Link href={back.href}>
           <a
             aria-label={content.nav.back}
             // Lined up with the nav pill, which grows downwards into the contact dialog from sm
-            className="pointer-events-auto col-start-1 row-start-1 inline-flex h-10 items-center gap-1.5 justify-self-start rounded-pill border bg-elevated px-3 text-sm shadow-float font-medium text-fg-muted no-underline backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg sm:mt-1 sm:self-start sm:px-4"
+            className={`pointer-events-auto col-start-1 row-start-1 ${back.align} inline-flex h-10 items-center gap-1.5 justify-self-start rounded-pill border bg-elevated px-3 text-sm shadow-float font-medium text-fg-muted no-underline backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg sm:mt-1 sm:self-start sm:px-4`}
           >
             <ArrowLeft aria-hidden="true" className="size-4" />
             <span className="hidden sm:inline">{content.nav.back}</span>

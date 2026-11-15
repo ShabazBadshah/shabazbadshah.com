@@ -1,3 +1,4 @@
+import { useContactDialog } from '@/components/ContactDialog';
 import { siteConfig, type ContactSource } from '@/config/site';
 import { content } from '@/content/content';
 
@@ -6,6 +7,8 @@ const SOCIAL_LINKS = footer.links;
 
 const external = { target: '_blank', rel: 'noopener noreferrer' };
 const LINK = 'text-fg-muted no-underline transition-colors hover:text-fg';
+const CTA =
+  'mt-3 block break-words text-[clamp(2.25rem,9vw,6.5rem)] font-semibold leading-[0.95] tracking-tighter no-underline transition-colors hover:text-accent';
 
 const LINKS = [
   ...siteConfig.socials
@@ -25,25 +28,34 @@ const Footer = ({ narrow = false, source = 'career' }: Props): JSX.Element => {
   const cta = footer.cta[source];
   const email = siteConfig.contact.email(source);
   const booking = siteConfig.contact.booking(source);
-  // A role inquiry starts with an email; a consulting one with a call
+  // A role inquiry starts with an email; a clinic one with a call
   const bookFirst = source !== 'career';
+  const contactDialog = useContactDialog();
 
   return (
     <footer
       id="contact"
-      className={`mx-auto w-full scroll-mt-8 px-4 pb-24 pt-16 sm:px-6 sm:pb-8 sm:pt-24 ${
+      className={`mx-auto w-full scroll-mt-8 px-4 pb-24 pt-16 sm:px-6 sm:pb-8 sm:pt-2 ${
         narrow ? 'max-w-article' : 'max-w-5xl'
       }`}
     >
-      <p className="text-sm text-fg-muted">{cta.prompt}</p>
-      <a
-        href={bookFirst ? booking : email}
-        {...(bookFirst && external)}
-        className="mt-3 block break-words text-[clamp(2.25rem,9vw,6.5rem)] font-semibold leading-[0.95] tracking-tighter no-underline transition-colors hover:text-accent"
-      >
-        {cta.label}
-      </a>
-      <p className="mt-4 text-sm text-fg-muted">
+      <p className="text-fg-muted">{cta.prompt}</p>
+      {bookFirst ? (
+        <a href={booking} {...external} className={CTA}>
+          {cta.label}
+        </a>
+      ) : (
+        // A role inquiry opens the contact dialog in the nav
+        <button
+          type="button"
+          aria-haspopup="dialog"
+          onClick={() => contactDialog.setOpen(true)}
+          className={`${CTA} cursor-pointer text-left`}
+        >
+          {cta.label}
+        </button>
+      )}
+      <p className="mt-4 text-fg-muted">
         {footer.or}{' '}
         {bookFirst ? (
           <a href={email} className="font-medium text-accent no-underline hover:underline">
@@ -72,7 +84,7 @@ const Footer = ({ narrow = false, source = 'career' }: Props): JSX.Element => {
             ))}
           </ul>
         </nav>
-        <p className="text-sm text-fg-muted">
+        <p className="text-fg-muted">
           ©{new Date().getFullYear()} {siteConfig.name}
         </p>
       </div>

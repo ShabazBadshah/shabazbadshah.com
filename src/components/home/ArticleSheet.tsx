@@ -4,8 +4,10 @@ import Head from 'next/head';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import {
+  COLLAPSE_DURATION,
   EXPAND_DURATION,
   EXPAND_EASE,
+  FADE_SHARE,
   useCardTransition,
   type CardOrigin
 } from '@/components/CardTransition';
@@ -40,8 +42,10 @@ const clipTo = (box: Box, radius: number) => {
 
 /**
  * Full-screen article over the page. It is the clicked card, grown: a viewport-sized frame whose
- * clip-path expands from the card's box to the whole viewport (and back), with the card's snapshot
- * fading out on top. The article is already rendered inside, so there is nothing to load.
+ * clip-path expands from the card's box to the whole viewport (and back). Its content fades through,
+ * like Material's container transform: the card's snapshot fades out early in the growth, then the
+ * article fades in (and the reverse on the way back), so the two never sit half-faded over each
+ * other. The article is already rendered inside, so there is nothing to load.
  */
 export default function ArticleSheet({
   card,
@@ -58,6 +62,15 @@ export default function ArticleSheet({
   // Where the home page was scrolled when the card was opened, restored exactly on the way out
   const [homeScroll] = useState(() => window.scrollY);
   const radius = from?.radius ?? 24;
+  const duration = from ? (closing ? COLLAPSE_DURATION : EXPAND_DURATION) : 0;
+  const frame = { duration, ease: EXPAND_EASE };
+  // The outgoing content fades over the first FADE_SHARE of the move, the incoming over the rest
+  const fadeOut = { duration: duration * FADE_SHARE, ease: 'linear' as const };
+  const fadeIn = {
+    duration: duration * (1 - FADE_SHARE),
+    delay: duration * FADE_SHARE,
+    ease: 'easeOut' as const
+  };
   useCloseSound(!closing);
 
   // Lock the page behind the sheet, keeping its width steady when the scrollbar disappears
@@ -92,7 +105,8 @@ export default function ArticleSheet({
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
+      // An image lightbox open over the article takes its own Escape
+      if (event.key === 'Escape' && !document.querySelector('.yarl__root')) onClose();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -123,10 +137,10 @@ export default function ArticleSheet({
       {/* Darkens the page around the card while it grows and shrinks */}
       <m.div
         aria-hidden="true"
-        className="fixed inset-0 z-50 bg-black/70"
+        className="fixed inset-0 z-50 bg-black/40"
         initial={{ opacity: from ? 0 : 1 }}
         animate={{ opacity: closing ? 0 : 1 }}
-        transition={{ duration: from ? EXPAND_DURATION : 0, ease: EXPAND_EASE }}
+        transition={frame}
         onClick={onClose}
       />
       <m.div
@@ -135,7 +149,7 @@ export default function ArticleSheet({
         style={{ pointerEvents: closing ? 'none' : undefined }}
         initial={{ clipPath: from ? clipTo(from, radius) : open }}
         animate={{ clipPath: target }}
-        transition={{ duration: from ? EXPAND_DURATION : 0, ease: EXPAND_EASE }}
+        transition={frame}
         onAnimationComplete={() => {
           if (!closing) return;
           window.scrollTo(0, homeScroll);
@@ -145,22 +159,31 @@ export default function ArticleSheet({
         <Head>
           <title>{pageTitle}</title>
         </Head>
-        <div
-          ref={scroller}
-          role="dialog"
-          aria-label={label}
-          tabIndex={-1}
-          className="absolute inset-0 scroll-pt-16 overflow-y-auto overscroll-contain outline-none"
+        <m.div
+          className="absolute inset-0"
+          initial={{ opacity: from ? 0 : 1, y: from ? 16 : 0 }}
+          animate={closing ? { opacity: 0, y: 0 } : { opacity: 1, y: 0 }}
+          transition={closing ? fadeOut : fadeIn}
         >
-          <div className="mx-auto w-full max-w-article px-4 pb-16 pt-20 sm:px-6">{children}</div>
-        </div>
-        <CornerButton
-          icon={Minimize2}
-          onClick={onClose}
-          data-close-sound
-          aria-label={content.blog.collapse.label}
-          title={content.blog.collapse.title}
-        />
+          <div
+            ref={scroller}
+            role="dialog"
+            aria-label={label}
+            tabIndex={-1}
+            // The article starts lower on a page of its own (7rem), where the gutters' sticky lists
+            // default to; here they stick level with the article's top instead
+            className="absolute inset-0 scroll-pt-16 overflow-y-auto overscroll-contain outline-none [--article-top:5rem]"
+          >
+            <div className="mx-auto w-full max-w-article px-4 pb-16 pt-20 sm:px-6">{children}</div>
+          </div>
+          <CornerButton
+            icon={Minimize2}
+            onClick={onClose}
+            data-close-sound
+            aria-label={content.blog.collapse.label}
+            title={content.blog.collapse.title}
+          />
+        </m.div>
         {from && (
           <m.div
             aria-hidden="true"
@@ -173,7 +196,7 @@ export default function ArticleSheet({
             }}
             initial={{ opacity: 1 }}
             animate={{ opacity: closing ? 1 : 0 }}
-            transition={{ duration: EXPAND_DURATION, ease: EXPAND_EASE }}
+            transition={closing ? fadeIn : fadeOut}
             dangerouslySetInnerHTML={{ __html: from.html }}
           />
         )}

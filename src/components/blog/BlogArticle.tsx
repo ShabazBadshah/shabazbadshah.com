@@ -9,7 +9,7 @@ import type { Post } from '@/lib/blog';
 const ImageLightbox = dynamic(() => import('./ImageLightbox'), { ssr: false });
 
 export type TocItem = { id: string; text: string; level: 2 | 3 };
-type Slide = { src: string; alt?: string; title?: string };
+type Slide = { src: string; alt?: string; description?: string };
 
 /** "On this page" list with the current section highlighted; `collapsible` folds it into a dropdown. */
 export function Toc({
@@ -23,6 +23,8 @@ export function Toc({
 
   useEffect(() => {
     let frame = 0;
+    // The page, or the sheet the article sits in
+    let scroller: Element | null = document.scrollingElement;
     const update = () => {
       frame = 0;
       let current = items[0]?.id;
@@ -30,9 +32,20 @@ export function Toc({
         const el = document.getElementById(item.id);
         if (el && el.getBoundingClientRect().top <= 140) current = item.id;
       }
+      // At the end the last sections can't scroll up to the line, so the last one is current
+      if (scroller && scroller.scrollTop > 0) {
+        const atEnd = scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2;
+        if (atEnd) current = items[items.length - 1]?.id;
+      }
       setActive(current);
     };
-    const onScroll = () => {
+    const onScroll = (event: Event) => {
+      const { target } = event;
+      // Not a list or code block scrolling inside the article
+      if (target instanceof Element && !target.contains(document.getElementById(items[0]?.id))) {
+        return;
+      }
+      scroller = target instanceof Element ? target : document.scrollingElement;
       if (!frame) frame = window.requestAnimationFrame(update);
     };
 
@@ -48,11 +61,11 @@ export function Toc({
   if (items.length < 2) return null;
 
   const list = (
-    <ul className={`flex flex-col gap-1.5 ${collapsible ? '' : 'items-end'}`}>
+    <ul className="flex flex-col gap-0.5">
       {items.map((item) => {
         const isActive = item.id === active;
         return (
-          <li key={item.id} className={collapsible ? '' : 'flex min-w-0 max-w-full justify-end'}>
+          <li key={item.id} className={collapsible ? '' : 'flex min-w-0 max-w-full'}>
             <a
               href={`#${item.id}`}
               aria-current={isActive ? 'location' : undefined}
@@ -72,7 +85,7 @@ export function Toc({
               }}
               className={`block w-fit rounded-3xl px-3 py-1.5 text-sm leading-snug no-underline transition-colors hover:bg-accent-soft hover:text-fg ${
                 collapsible ? '' : 'max-w-full truncate'
-              } ${item.level === 3 ? 'pr-6 text-[0.8125rem]' : 'font-semibold'} ${
+              } ${item.level === 3 ? 'pr-6 text-[0.8125rem]' : 'font-medium'} ${
                 isActive ? 'bg-accent-soft font-medium text-fg' : 'text-fg-muted'
               }`}
             >
@@ -104,7 +117,7 @@ export function Toc({
   return (
     <nav
       aria-label={content.blog.toc.label}
-      className="sticky top-32 max-h-[calc(100dvh-9rem)] overflow-y-auto whitespace-nowrap text-right"
+      className="sticky top-[var(--article-top,7rem)] max-h-[calc(100dvh_-_var(--article-top,7rem)_-_1rem)] overflow-y-auto whitespace-nowrap"
     >
       <p className="mb-2 px-3 text-sm font-semibold leading-snug">{content.blog.toc.summary}</p>
       {list}
@@ -156,7 +169,12 @@ export default function BlogArticle({
       img.style.cursor = 'zoom-in';
     });
     setSlides(
-      images.map((img) => ({ src: img.currentSrc || img.src, alt: img.alt, title: img.title }))
+      // An image's title is its caption, under the image in the lightbox
+      images.map((img) => ({
+        src: img.currentSrc || img.src,
+        alt: img.alt,
+        description: img.title || undefined
+      }))
     );
   }, [post.html]);
 
@@ -166,7 +184,7 @@ export default function BlogArticle({
   };
 
   return (
-    <article className={`relative text-base leading-[1.75] ${className}`}>
+    <article className={`relative ${className}`}>
       {/* Sits in the gutter beside the article, sized to the space there so it never overlaps the text */}
       <aside className="absolute bottom-0 left-full top-0 ml-6 hidden w-[calc((100vw-100%)/2-3.5rem)] 2xl:block">
         <Toc items={headings} />
