@@ -49,6 +49,7 @@ To run the app, open a shell and run the following
 9. All site copy lives in `src/content/content.ts` and all projects in `src/content/projects.ts`
 10. Sitemap, `robots.txt`, `llms.txt` and `security.txt` are generated at build time
 11. JSON-LD structured data, security headers and 301 redirects from the old routes
+12. Images are served as WebP, and download as PNG from the image lightbox
 
 ❌ I removed the following features:
 
