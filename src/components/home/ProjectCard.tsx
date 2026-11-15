@@ -1,19 +1,15 @@
 import { m, useReducedMotion } from 'framer-motion';
 import {
-  ArrowLeft,
-  ArrowRight,
+  ArrowUpRight,
   BrainCircuit,
-  Briefcase,
-  CalendarDays,
   Globe,
-  Info,
   Maximize,
+  Maximize2,
   Plane,
   ShieldCheck,
   Star
 } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 
 import CornerButton from '@/components/CornerButton';
@@ -21,7 +17,7 @@ import Todo from '@/components/Todo';
 import { content } from '@/content/content';
 import type { ProjectIcon, ProjectMedia, PublicProject } from '@/content/projects';
 import { shown } from '@/lib/todo';
-import { dateRange } from '@/lib/utils';
+import { isPlainLeftClick } from '@/components/work/WorkList';
 
 const FEATURE_ICONS = [Star, Globe, ShieldCheck, BrainCircuit];
 const PROJECT_ICONS: Record<ProjectIcon, typeof Plane> = { plane: Plane };
@@ -103,7 +99,7 @@ export function LazyVideo({
         aria-label={content.projectCard.fullscreen.label(label)}
         title={content.projectCard.fullscreen.title}
         onClick={enterFullscreen}
-        className="absolute bottom-3 right-3 grid size-9 cursor-pointer place-items-center rounded-pill border bg-elevated text-fg-muted backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg"
+        className="absolute bottom-3 right-3 z-30 grid size-9 cursor-pointer place-items-center rounded-pill bg-elevated text-fg-muted backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg"
       >
         <Maximize aria-hidden="true" className="size-4" />
       </button>
@@ -157,6 +153,8 @@ function AppCardStack({ images }: { images: NonNullable<ProjectMedia['appImages'
 type Props = {
   project: PublicProject;
   className?: string;
+  /** Opens the case study in place, from the card */
+  onOpen?: (project: PublicProject, card: HTMLElement) => void;
 };
 
 /** Logo and name, as the card's header; also used by the rows on /work */
@@ -195,84 +193,10 @@ export function Title({
   );
 }
 
-type PanelProps = {
-  project: PublicProject;
-  open: boolean;
-  className?: string;
-  showTitle?: boolean;
-};
-
-function InfoPanel({
-  project,
-  open,
-  className = 'absolute inset-0',
-  showTitle = false
-}: PanelProps): JSX.Element {
-  const label = 'text-xs font-medium uppercase tracking-wide text-fg-muted';
-  const list = 'list-disc space-y-1 pl-5 text-sm marker:text-fg-muted';
-  const dates = dateRange(project.start, project.end);
-  const disciplines = project.disciplines.length > 0 && (
-    <div className="flex flex-col gap-2">
-      <span className={label}>{content.caseStudy.disciplines}</span>
-      <ul className={list}>
-        {project.disciplines.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    </div>
-  );
-  const skills = (
-    <div className="flex flex-col gap-2">
-      <span className={label}>{content.caseStudy.skills}</span>
-      <ul className={list}>
-        {project.stack.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
-    </div>
-  );
-  return (
-    <div
-      data-keep
-      aria-hidden={!open}
-      className={`${className} flex flex-col gap-6 overflow-y-auto ${
-        open ? 'visible opacity-100' : 'invisible opacity-0'
-      }`}
-    >
-      {showTitle && <Title project={project} className="absolute left-5 top-3 h-8 sm:left-6" />}
-      <div className="flex flex-wrap items-end gap-2">
-        {shown(dates) && (
-          <span className="chip">
-            <CalendarDays aria-hidden="true" className="size-3.5" />
-            <Todo value={dates} />
-          </span>
-        )}
-        {project.role && (
-          <span className="chip">
-            <Briefcase aria-hidden="true" className="size-3.5" />
-            {project.role}
-          </span>
-        )}
-      </div>
-      {showTitle ? (
-        <div className="grid gap-6 sm:grid-cols-2 sm:gap-10">
-          {disciplines}
-          {skills}
-        </div>
-      ) : (
-        <>
-          {disciplines}
-          {skills}
-        </>
-      )}
-    </div>
-  );
-}
-
 function Body({ project }: { project: PublicProject }): JSX.Element {
   return (
     <>
-      <p className="text-sm text-fg-muted">{project.summary}</p>
+      <p className="text-fg-muted">{project.summary}</p>
       {shown(project.outcome) && (
         <p className="text-lg font-semibold leading-[1.2] tracking-tight">
           <Todo value={project.outcome} />
@@ -282,105 +206,56 @@ function Body({ project }: { project: PublicProject }): JSX.Element {
   );
 }
 
-function CaseStudyLink({ project }: { project: PublicProject }): JSX.Element | null {
-  if (!project.hasCaseStudy) return null;
-  return (
-    <Link href={`/work/${project.slug}`}>
-      <a className="group inline-flex items-center gap-1 self-start text-sm font-medium text-accent no-underline hover:underline">
-        {content.caseStudy.read}
-        <span className="sr-only">: {project.name}</span>
-        <ArrowRight
-          aria-hidden="true"
-          className="size-4 transition-transform duration-150 group-hover:translate-x-0.5"
-        />
-      </a>
-    </Link>
-  );
-}
-
-// Content below the title is hidden while the info panel is open; [data-keep] elements stay.
-// Below lg it is taken out of the flow so the card sizes to the panel instead.
-const FACE_HIDDEN =
-  '[&>:not([data-keep])]:invisible [&>:not([data-keep])]:opacity-0 max-lg:[&>:not([data-keep])]:hidden';
-// Below lg the open panel sits in the flow (sizing the card); from lg it overlays the face
-const PANEL_OPEN = 'max-lg:relative lg:absolute lg:inset-0';
-
-const FLIP_MS = 220;
-
-export default function ProjectCard({ project, className = '' }: Props): JSX.Element {
-  const [showInfo, setShowInfo] = useState(false);
-  const face = showInfo ? FACE_HIDDEN : '';
+/** To the case study, or to the project's site when it has none (my own product) */
+/**
+ * A project as a card, like the blog cards: the whole card is a link, with a corner cue. With a case
+ * study it opens it (in place through `onOpen`, or as its own page without); without one it opens the
+ * project's site in a new tab.
+ */
+export default function ProjectCard({ project, className = '', onOpen }: Props): JSX.Element {
   const cardRef = useRef<HTMLElement>(null);
-  const flipping = useRef(false);
+  const external = !project.hasCaseStudy && project.externalUrl;
+  const media = project.media;
 
-  // Flip the card edge-on, swap faces at the midpoint, then flip back out
-  const flip = () => {
-    const card = cardRef.current;
-    if (
-      !card ||
-      flipping.current ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    ) {
-      setShowInfo((prev) => !prev);
-      return;
-    }
-    flipping.current = true;
-    const options = { duration: FLIP_MS, fill: 'forwards' as const };
-    card
-      .animate(
-        [
-          { transform: 'perspective(1400px) rotateY(0deg)' },
-          { transform: 'perspective(1400px) rotateY(90deg)' }
-        ],
-        { ...options, easing: 'ease-in' }
-      )
-      .finished.then(() => {
-        setShowInfo((prev) => !prev);
-        return card.animate(
-          [
-            { transform: 'perspective(1400px) rotateY(-90deg)' },
-            { transform: 'perspective(1400px) rotateY(0deg)' }
-          ],
-          { ...options, easing: 'ease-out' }
-        ).finished;
-      })
-      .then((animation) => animation.cancel())
-      .finally(() => {
-        flipping.current = false;
-      });
-  };
-  const { showDetails, hideDetails } = content.projectCard;
-  const toggle = (
-    <CornerButton
-      icon={showInfo ? ArrowLeft : Info}
-      data-keep
-      aria-expanded={showInfo}
-      aria-label={showInfo ? hideDetails.label : showDetails.label}
-      title={showInfo ? hideDetails.title : showDetails.title}
-      onClick={flip}
+  // Spans the card, above its content; the video's fullscreen button sits above it
+  const link = (
+    <a
+      href={external || `/work/${project.slug}`}
+      aria-label={project.name}
+      className="absolute inset-0 z-20 rounded-[inherit]"
+      {...(external
+        ? { target: '_blank', rel: 'noopener noreferrer' }
+        : {
+            onClick: (event: React.MouseEvent<HTMLAnchorElement>) => {
+              if (!onOpen || !cardRef.current || !isPlainLeftClick(event)) return;
+              event.preventDefault();
+              onOpen(project, cardRef.current);
+            }
+          })}
     />
   );
-
-  const media = project.media;
+  const cue = (
+    <CornerButton
+      decorative
+      icon={external ? ArrowUpRight : Maximize2}
+      className="group-hover:text-fg"
+    />
+  );
 
   if (media?.features && media.appImages) {
     return (
       <article
         ref={cardRef}
         data-card={project.slug}
-        className={`card relative gap-6 p-5 sm:p-6 lg:flex-row lg:items-center lg:gap-16 ${className} overflow-visible`}
+        className={`card group relative gap-6 p-5 sm:p-6 lg:flex-row lg:items-center lg:gap-16 ${className} overflow-visible`}
       >
-        <div
-          className={`flex shrink-0 justify-center lg:w-[25%] ${
-            showInfo ? 'invisible opacity-0 max-lg:hidden' : ''
-          }`}
-        >
+        <div className="flex shrink-0 justify-center lg:w-[25%]">
           <AppCardStack images={media.appImages} />
         </div>
 
-        <div className={`flex min-w-0 flex-1 flex-col gap-6 ${showInfo ? 'max-lg:hidden' : ''}`}>
-          <Title project={project} className={`${showInfo ? 'invisible opacity-0' : ''}`} />
-          <div className={`relative flex flex-col gap-6 ${face}`}>
+        <div className="flex min-w-0 flex-1 flex-col gap-6">
+          <Title project={project} />
+          <div className="flex flex-col gap-6">
             <Body project={project} />
             <ul className="grid gap-1">
               {media.features.map((feature, index) => {
@@ -389,25 +264,16 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
                   <li key={feature}>
                     <div className="flex align-middle gap-2">
                       <Icon aria-hidden="true" className="mb-3 size-5 text-fg-muted" />
-                      <p className="text-sm">{feature}</p>
+                      <p>{feature}</p>
                     </div>
                   </li>
                 );
               })}
             </ul>
-            <CaseStudyLink project={project} />
           </div>
         </div>
-        <InfoPanel
-          project={project}
-          open={showInfo}
-          showTitle
-          // In the flow, the negative margin cancels the card padding so the layout matches inset-0
-          className={`px-5 pb-5 pt-16 sm:px-6 sm:pb-6 ${
-            showInfo ? `${PANEL_OPEN} max-lg:-m-5 max-lg:sm:-m-6` : 'absolute inset-0'
-          }`}
-        />
-        {toggle}
+        {link}
+        {cue}
       </article>
     );
   }
@@ -416,12 +282,11 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
     <article
       ref={cardRef}
       data-card={project.slug}
-      className={`card gap-4 p-5 sm:p-6 ${className}`}
+      className={`card group gap-4 p-5 sm:p-6 ${className}`}
     >
       <Title project={project} />
-      <div className={`relative flex flex-1 flex-col gap-4 ${face}`}>
+      <div className="relative flex flex-1 flex-col gap-4">
         <Body project={project} />
-        <CaseStudyLink project={project} />
 
         {(media?.video || media?.image) && (
           <div className="relative mt-auto overflow-hidden rounded-inner border border-line bg-fill">
@@ -445,13 +310,9 @@ export default function ProjectCard({ project, className = '' }: Props): JSX.Ele
             )}
           </div>
         )}
-        <InfoPanel
-          project={project}
-          open={showInfo}
-          className={showInfo ? PANEL_OPEN : 'absolute inset-0'}
-        />
       </div>
-      {toggle}
+      {link}
+      {cue}
     </article>
   );
 }

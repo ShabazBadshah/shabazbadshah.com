@@ -5,12 +5,20 @@
  *
  * Uses relative imports only: bin/generate.ts loads this file through ts-node, which has no `@/` alias.
  */
-import { siteConfig } from '../config/site';
-import { isTodo, SHOW_PLACEHOLDERS, todo } from '../lib/todo';
+import fs from 'fs';
+import matter from 'gray-matter';
+import { join } from 'path';
 
-export type Audience = 'career' | 'consulting' | 'clinics';
-/** Which filter a project sits under on /work: Work, Volunteer or Projects */
+import { siteConfig } from '../config/site';
+import { isTodo, SHOW_PLACEHOLDERS, todo, VERIFY } from '../lib/todo';
+
+export type Audience = 'career' | 'clinics';
+/**
+ * Which tab a project sits under on /work: Work or Volunteer. My own product ('project') sits under
+ * the current role instead, with the client work.
+ */
 export type ProjectKind = 'employment' | 'volunteer' | 'project';
+export type WorkTab = Exclude<ProjectKind, 'project'>;
 
 export type Phase = {
   title: string;
@@ -42,7 +50,7 @@ export type Project = {
   slug: string;
   title: string;
   kind: ProjectKind;
-  /** Client work through Badshah Consulting: under the current role on /work, and on /consulting */
+  /** Client work through Badshah Consulting: under the current role on /work */
   client?: boolean;
   org: string;
   publicName: boolean;
@@ -55,16 +63,17 @@ export type Project = {
   audiences: Audience[];
   summary: string;
   problem: string;
-  whatIBuilt: string;
-  outcome: string;
-  stack: string[];
+  /** Only without a case study, whose file holds these instead */
+  whatIBuilt?: string;
+  outcome?: string;
+  stack?: string[];
   externalUrl?: string;
   testimonial?: Testimonial;
   phases?: Phase[];
   /** Extra detail on the card's flip side */
   disciplines?: string[];
   skills?: string[];
-  /** File name in src/content/case-studies/ with the long-form case study */
+  /** File name in src/content/case-studies/ with the long-form case study; also the page's URL */
   caseStudy?: string;
   icon?: ProjectIcon;
   media?: ProjectMedia;
@@ -92,19 +101,10 @@ export const PROJECTS: Project[] = [
     start: 'Nov 2023',
     end: 'Oct 2024',
     audiences: ['career'],
-    summary: 'Shipped Windows chat and video calling in an enterprise B2B/government product.',
+    summary:
+      'Shipped a realtime Android and Windows chat and video calling app to provide technical support in B2B/government environments.',
     problem:
       'Support teams needed to message and video call managed (MDM) devices to give technical support.',
-    whatIBuilt:
-      'Instant messaging and video calling between support staff and managed devices, with the API and system specifications behind it.',
-    outcome: 'Grew revenue by $27K MRR CAD post-release.',
-    stack: [
-      'Android Enterprise',
-      'WebRTC',
-      'Real-time communication tools',
-      'REST APIs and request/response schemas',
-      'Data modeling'
-    ],
     externalUrl: 'https://soti.net',
     disciplines: [
       'Technical Product Management',
@@ -139,19 +139,10 @@ export const PROJECTS: Project[] = [
     start: 'Nov 2022',
     end: 'May 2023',
     audiences: ['career'],
-    summary: 'Senior PM on an enterprise event management platform.',
+    summary:
+      'Vendor marketplace data consolidation API for reducing onboarding time using LLMs, REST/GraphQL, and Google Maps.',
     problem:
       'Vendor data for the curated marketplace was spread across Google Maps, PDFs, Yelp and other sources, which made onboarding slow.',
-    whatIBuilt:
-      'A REST API that uses LLMs to consolidate vendor data from those sources into the marketplace.',
-    outcome: 'Reduced vendor onboarding time from 48h to 6h.',
-    stack: [
-      'LLMs (ChatGPT)',
-      'Internal REST APIs',
-      'Google Maps API',
-      'Website scraping',
-      'Data enrichment pipelines'
-    ],
     externalUrl: 'https://planned.com/',
     disciplines: [
       'Product Management',
@@ -179,31 +170,15 @@ export const PROJECTS: Project[] = [
     end: 'Sep 2022',
     audiences: ['career'],
     summary:
-      'Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.',
+      'Owned and delivered to market a net-new patient pharmacy app in regulated Canadian healthcare (including Québec).',
     problem: todo('the problem Mednow set out to solve'),
-    whatIBuilt:
-      'A B2C pharmacy app for iOS and Android, localized in English and French, with PharmacyLink, Stream Chat, Stripe payments, social sign-in and push notifications.',
-    outcome: 'Shipped 0→1 to national launch. 400+ 5-star Google reviews.',
-    stack: [
-      'iOS and Android mobile apps',
-      'Figma',
-      'TELUS Kroll PMS',
-      'Stripe',
-      'Stream Chat',
-      'Shopify eCommerce integration',
-      'Social SSO (Apple/Google)',
-      'Native push notifications',
-      'PIPEDA compliance',
-      'PHIPA compliance'
-    ],
     externalUrl: 'https://mednow.ca/',
     disciplines: [
-      'Product Management (0 to 1 scaling)',
-      'Platform and Systems Integration',
-      'Stakeholder Management and Cross-functional Collaboration',
+      'Product Management (0-1)',
+      'Platform Integration',
       'Healthcare Compliance',
-      'E-commerce and Logistics Integration',
-      'Release Management and Quality Assurance'
+      'Mobile Apps',
+      'E-commerce'
     ],
     media: {
       logo: '/images/portfolio/mednow-logo.png',
@@ -288,13 +263,19 @@ export const PROJECTS: Project[] = [
     start: 'Jun 2024',
     end: 'present',
     audiences: ['career'],
-    summary: "My own product. It keeps track of your work so you don't have to.",
+    summary:
+      'My own product: a Mac app that follows your work as you do it, keeping track of the decisions, commitments and files you would otherwise have to remember. It processes and saves everything on your Mac, and acts only with your approval.',
     problem: '',
-    whatIBuilt: '',
-    outcome: '',
-    stack: [],
     externalUrl: siteConfig.syftable.url,
-    media: { logo: siteConfig.syftable.logo }
+    media: {
+      logo: siteConfig.syftable.logo,
+      image: {
+        src: '/images/portfolio/syftable.jpg',
+        width: 1920,
+        height: 1080,
+        alt: 'Syftable website'
+      }
+    }
   },
   {
     slug: 'upper-oakville-chiro',
@@ -305,24 +286,13 @@ export const PROJECTS: Project[] = [
     org: 'Upper Oakville Chiropractic',
     publicName: true,
     anonymizedName: 'Chiropractic clinic, Oakville',
-    role: '',
+    role: 'Product Engineer',
     start: '',
     end: '',
-    audiences: ['career', 'consulting', 'clinics'],
+    audiences: ['career', 'clinics'],
     summary:
-      'Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.',
+      'Brand, website and compliance for a chiropractic clinic, designed, built and launched, with support after launch.',
     problem: 'The clinic needed an online presence that brings in patient bookings.',
-    whatIBuilt:
-      'A new brand and a WordPress website, built to PHIPA, PIPEDA and CCO compliance, with technical SEO and AEO, clear forms, and staff training and documentation.',
-    outcome: todo('UOC outcome'),
-    stack: [
-      'WordPress',
-      'PHP',
-      'Technical SEO and AEO',
-      'Form UX',
-      'PHIPA and PIPEDA compliance',
-      'Post-launch support and maintenance'
-    ],
     externalUrl: 'https://uoc-intake-clone.vercel.app/',
     testimonial: { quote: todo('UOC testimonial'), name: '', role: '' },
     phases: [
@@ -353,30 +323,30 @@ export const PROJECTS: Project[] = [
   {
     slug: 'travel-app',
     caseStudy: 'travel-companion-app',
-    title: 'Travel app MVP',
+    title: 'Collaborative Travel App',
     kind: 'employment',
     client: true,
     org: 'Confidential client',
     // The client is under NDA: never show the app's name, logo or screenshots
     publicName: false,
-    anonymizedName: 'Travel app MVP',
+    anonymizedName: 'Collaborative Travel App',
     icon: 'plane',
-    role: '',
+    role: 'Product Engineer',
     start: '',
     end: '',
-    audiences: ['career', 'consulting'],
-    summary: 'React Native/Expo MVP for iOS and Android, built on Firebase with Google sign-in.',
-    problem: todo('the problem the travel app MVP solves'),
-    whatIBuilt:
-      'An iOS and Android MVP built with React Native and Expo, on Firebase, with Google sign-in.',
-    outcome: todo('travel app MVP outcome'),
-    stack: ['React Native', 'Expo', 'Firebase', 'Google sign-in', 'iOS', 'Android']
+    audiences: ['career'],
+    summary:
+      'Making trip planning in groups easier though collaborative real-time itineraries, AI suggestions, and a social networking system.',
+    problem: todo('the problem the travel app MVP solves')
   }
 ];
 
 /** What components receive: no client name, logo, link or screenshot unless `publicName` */
 export type PublicProject = {
-  /** URL slug; derived from the anonymized name when the client can't be named */
+  /**
+   * URL slug: the case study's file name when it has one, otherwise derived from the anonymized
+   * name when the client can't be named
+   */
   slug: string;
   kind: ProjectKind;
   client: boolean;
@@ -410,42 +380,67 @@ const kebab = (value: string): string =>
     .replace(/^-|-$/g, '');
 
 export const routeSlug = (project: Project): string =>
-  project.publicName ? project.slug : kebab(project.anonymizedName);
+  project.caseStudy ?? (project.publicName ? project.slug : kebab(project.anonymizedName));
 
 /** Production builds drop placeholders here, so they never reach page props either */
-const clean = (value: string): string => (SHOW_PLACEHOLDERS || !isTodo(value) ? value : '');
+const clean = (value = ''): string =>
+  SHOW_PLACEHOLDERS || !(isTodo(value) || VERIFY.test(value)) ? value : '';
 
-export const toPublic = (project: Project): PublicProject => ({
-  slug: routeSlug(project),
-  kind: project.kind,
-  client: project.client ?? false,
-  name: project.publicName ? project.title : project.anonymizedName,
-  company: project.client
-    ? CURRENT_ROLE.company
-    : project.publicName
-    ? project.title
-    : project.anonymizedName,
-  role: project.role || (project.client ? CURRENT_ROLE.role : ''),
-  start: clean(project.start),
-  end: clean(project.end),
-  summary: clean(project.summary),
-  problem: clean(project.problem),
-  whatIBuilt: clean(project.whatIBuilt),
-  outcome: clean(project.outcome),
-  stack: project.stack,
-  disciplines: project.disciplines ?? [],
-  skills: project.skills ?? [],
-  externalUrl: project.publicName ? project.externalUrl ?? null : null,
-  testimonial: project.testimonial && clean(project.testimonial.quote) ? project.testimonial : null,
-  phases: (project.phases ?? [])
-    .filter((phase) => phase.status === 'live')
-    .map((phase) => ({ ...phase, summary: clean(phase.summary), outcome: clean(phase.outcome) })),
-  // Round-trip drops undefined fields, which getStaticProps can't serialize
-  media: project.publicName && project.media ? JSON.parse(JSON.stringify(project.media)) : null,
-  hasCaseStudy: project.kind !== 'project',
-  caseStudy: project.caseStudy ?? null,
-  icon: project.icon ?? null
-});
+/**
+ * What a case study file holds instead of projects.ts, read even while it is a draft: its outcome
+ * and stack, and its "What I built" section as plain text
+ */
+const caseStudyFacts = (file: string): Pick<Project, 'whatIBuilt' | 'outcome' | 'stack'> => {
+  const path = join(process.cwd(), 'src/content/case-studies', `${file}.md`);
+  const { data, content } = matter(fs.readFileSync(path, 'utf8'));
+  const built = content.split(/^## /m).find((section) => section.startsWith('What I built\n'));
+  return {
+    outcome: data.outcome,
+    stack: data.stack,
+    whatIBuilt: (built ?? '')
+      .replace(/^What I built\n/, '')
+      .replace(/```[\s\S]*?```|<!--[\s\S]*?-->|\*\*/g, '')
+      .replace(/^\s*(?:[-*]|\d+\.)\s+/gm, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+  };
+};
+
+export const toPublic = (project: Project): PublicProject => {
+  const facts = project.caseStudy ? caseStudyFacts(project.caseStudy) : project;
+  return {
+    slug: routeSlug(project),
+    kind: project.kind,
+    client: project.client ?? false,
+    name: project.publicName ? project.title : project.anonymizedName,
+    company: project.client
+      ? CURRENT_ROLE.company
+      : project.publicName
+      ? project.title
+      : project.anonymizedName,
+    role: project.role || (project.client ? CURRENT_ROLE.role : ''),
+    start: clean(project.start),
+    end: clean(project.end),
+    summary: clean(project.summary),
+    problem: clean(project.problem),
+    whatIBuilt: clean(facts.whatIBuilt),
+    outcome: clean(facts.outcome),
+    stack: facts.stack ?? [],
+    disciplines: project.disciplines ?? [],
+    skills: project.skills ?? [],
+    externalUrl: project.publicName ? project.externalUrl ?? null : null,
+    testimonial:
+      project.testimonial && clean(project.testimonial.quote) ? project.testimonial : null,
+    phases: (project.phases ?? [])
+      .filter((phase) => phase.status === 'live')
+      .map((phase) => ({ ...phase, summary: clean(phase.summary), outcome: clean(phase.outcome) })),
+    // Round-trip drops undefined fields, which getStaticProps can't serialize
+    media: project.publicName && project.media ? JSON.parse(JSON.stringify(project.media)) : null,
+    hasCaseStudy: project.kind !== 'project',
+    caseStudy: project.caseStudy ?? null,
+    icon: project.icon ?? null
+  };
+};
 
 const bySlug = (slug: string): Project => {
   const project = PROJECTS.find((p) => p.slug === slug);
@@ -455,21 +450,17 @@ const bySlug = (slug: string): Project => {
 
 export const publicProject = (slug: string): PublicProject => toPublic(bySlug(slug));
 
-/**
- * Case studies for an audience's grid. Only client work appears in a client grid, so `clientsOnly`
- * is set everywhere except /work.
- */
-export const caseStudiesFor = (audience: Audience, { clientsOnly = true } = {}): PublicProject[] =>
-  PROJECTS.filter(
-    (p) => p.audiences.includes(audience) && p.kind !== 'project' && (!clientsOnly || p.client)
-  ).map(toPublic);
+/** Client case studies for an audience's grid */
+export const caseStudiesFor = (audience: Audience): PublicProject[] =>
+  PROJECTS.filter((p) => p.audiences.includes(audience) && p.client).map(toPublic);
 
-/** A filter's rows on /work; client work sits under the current role instead */
-export const projectsOfKind = (kind: ProjectKind): PublicProject[] =>
+/** A tab's rows on /work; client work and my own product sit under the current role instead */
+export const projectsOfKind = (kind: WorkTab): PublicProject[] =>
   PROJECTS.filter((p) => p.kind === kind && !p.client).map(toPublic);
 
 export const caseStudyProjects = (): PublicProject[] =>
   PROJECTS.filter((p) => p.kind !== 'project').map(toPublic);
 
-/** Client work through Badshah Consulting, the current role on /work */
-export const clientProjects = (): PublicProject[] => PROJECTS.filter((p) => p.client).map(toPublic);
+/** Under the current role on /work: client work through Badshah Consulting, and my own product */
+export const currentRoleProjects = (): PublicProject[] =>
+  PROJECTS.filter((p) => p.client || p.kind === 'project').map(toPublic);

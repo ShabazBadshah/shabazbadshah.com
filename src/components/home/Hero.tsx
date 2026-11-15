@@ -2,26 +2,13 @@ import { Send } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { trackConnectLinkClick } from '@/analytics/tracking';
 import { useContactDialog } from '@/components/ContactDialog';
-import { siteConfig, type SocialProvider } from '@/config/site';
+import { siteConfig } from '@/config/site';
 import { content } from '@/content/content';
 
-const { socials } = siteConfig;
 const { hero } = content;
 
-// Fill colour that expands from behind the logo on hover
-const HOVER_BG: Record<SocialProvider, string> = {
-  video: 'bg-gray-200',
-  email: 'bg-gray-200',
-  linkedin: 'bg-[#007EBB]',
-  github: 'bg-[#1B1F23]'
-};
-
-const externalProps = (href: string) =>
-  href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {};
-
-/** Intro: name, headline, what I'm doing now and contact links */
+/** Intro: name, headline, what I'm doing now and calls to action */
 export default function Hero(): JSX.Element {
   const [syftableActive, setSyftableActive] = useState(false);
   const contactDialog = useContactDialog();
@@ -37,7 +24,7 @@ export default function Hero(): JSX.Element {
         }`}
       />
 
-      <div className="flex max-w-xl flex-col gap-4">
+      <div className="flex max-w-2xl flex-col gap-4">
         <div className="flex items-center gap-3">
           <img
             src={siteConfig.person.image}
@@ -46,11 +33,16 @@ export default function Hero(): JSX.Element {
             height={80}
             className="size-20 rounded-full border object-cover"
           />
-          <p className="text-lg">{hero.name}</p>
+          <div>
+            <p className="text-lg">{hero.name}</p>
+            <p className="text-fg-muted">{hero.role}</p>
+          </div>
         </div>
-        {/* Body-sized, like the intro line it replaced */}
-        <h1 className="text-base font-normal leading-[1.55] tracking-normal">{hero.title}</h1>
-        <p className="text-fg-muted">
+        {/* Larger than the section titles below, so the intro is read first */}
+        <h1 className="text-2xl font-medium leading-snug tracking-tight sm:text-4xl">
+          {hero.title}
+        </h1>
+        <p className="text-lg text-fg-muted sm:text-xl">
           <span className="font-medium text-fg">{hero.currentlyLabel}: </span>
           {hero.currently.before}{' '}
           <a
@@ -61,7 +53,7 @@ export default function Hero(): JSX.Element {
             onMouseLeave={() => setSyftableActive(false)}
             onFocus={() => setSyftableActive(true)}
             onBlur={() => setSyftableActive(false)}
-            className="group relative z-50 inline-flex items-center gap-1.5 rounded-lg bg-fill px-1.5 align-middle font-medium text-fg no-underline transition-colors hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-white"
+            className="group relative z-50 inline-flex items-center gap-1.5 rounded-lg px-1.5 align-middle font-medium text-fg no-underline transition-colors hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-white"
           >
             <img
               src={syftable.logo}
@@ -89,42 +81,11 @@ export default function Hero(): JSX.Element {
           {hero.ctaPrimary}
         </button>
         <Link href="/work">
-          <a className="pill flex-1 text-center sm:flex-none bg-gray-50 dark:bg-transparent dark:border-gray-50 text-sm">
+          <a className="pill flex-1 text-center sm:flex-none bg-gray-50 dark:bg-transparent border-fg hover:border-fg text-sm">
             {hero.ctaSecondary}
           </a>
         </Link>
       </div>
-
-      <ul
-        aria-label={hero.socialsLabel}
-        className="mt-6 flex justify-center gap-4 sm:justify-start sm:gap-2"
-      >
-        {socials.map(({ provider, url, label, logo }) => (
-          <li key={provider}>
-            <a
-              href={url}
-              aria-label={label}
-              title={label}
-              className="group relative grid size-[46px] place-items-center sm:size-10 overflow-hidden rounded-lg border bg-white transition-colors hover:border-line-strong"
-              {...externalProps(url)}
-              onClick={() => trackConnectLinkClick(provider)}
-            >
-              <span
-                aria-hidden="true"
-                className={`absolute left-1/2 top-1/2 size-[200%] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full transition-transform duration-400 ease-out group-hover:scale-100 group-focus-visible:scale-100 motion-reduce:transition-none ${HOVER_BG[provider]}`}
-              />
-              <img
-                src={logo}
-                alt=""
-                aria-hidden="true"
-                className={`relative size-7 object-contain sm:size-6 ${
-                  provider === 'github' ? 'transition-[filter] group-hover:invert' : ''
-                }`}
-              />
-            </a>
-          </li>
-        ))}
-      </ul>
     </>
   );
 }
