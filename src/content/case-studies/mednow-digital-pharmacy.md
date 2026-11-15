@@ -97,9 +97,9 @@ Dates are when each cycle was scoped.
 - An internal training program for pharmacists on the new tools, with learning modules, quizzes, and live sessions.
 - Jira breakdowns and UAT for each release.
 
-![Mednow app home screen](/case-studies/mednow-digital-pharmacy/home.webp "Home: the latest order's status, an easy prescription transfer, and one tap to fill a prescription or chat with a pharmacist")
-![Mednow refill selection screen](/case-studies/mednow-digital-pharmacy/refills.webp 'Refills: patients choose which prescriptions to refill and see how many refills each has left')
-![Mednow chat with a pharmacist](/case-studies/mednow-digital-pharmacy/chat.webp 'Chat: a patient asks a pharmacist to transfer their prescriptions to Mednow')
+![Mednow app home screen](/images/portfolio/mednow-app.webp "Home: the latest order's status, an easy prescription transfer, and one tap to fill a prescription or chat with a pharmacist")
+![Mednow refill selection screen](/images/portfolio/mednow-app-2.webp 'Refills: patients choose which prescriptions to refill and see how many refills each has left')
+![Mednow chat with a pharmacist](/images/portfolio/mednow-app-3.webp 'Chat: a patient asks a pharmacist to transfer their prescriptions to Mednow')
 
 ## After launch
 
