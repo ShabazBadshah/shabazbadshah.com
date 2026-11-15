@@ -78,9 +78,25 @@ const nextConfig = {
         )
       );
     }
+    const TerserPlugin = require('terser-webpack-plugin');
+    if (!dev && !isServer) {
+      // Next 12's bundled Terser can't parse class static blocks (used by mermaid), so swap it for
+      // the current one, with Next's own options; the CSS minimizer stays
+      config.optimization.minimizer = [
+        ...config.optimization.minimizer.filter(
+          (minimizer) => !String(minimizer).includes('TerserPlugin')
+        ),
+        new TerserPlugin({
+          terserOptions: {
+            compress: { comparisons: false, inline: 2 },
+            mangle: { safari10: true },
+            format: { safari10: true, comments: false, ascii_only: true }
+          }
+        })
+      ];
+    }
     if (dev && !isServer) {
       // Minify client bundles in dev too, with real source maps so they stay debuggable
-      const TerserPlugin = require('terser-webpack-plugin');
       // Next reverts config.devtool, so set it from a plugin before webpack applies its options
       config.plugins.push({
         apply(compiler) {
