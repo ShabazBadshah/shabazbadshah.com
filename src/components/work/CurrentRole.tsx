@@ -2,11 +2,11 @@ import { ArrowUpRight, ChevronRight } from 'lucide-react';
 import type React from 'react';
 
 import { Title } from '@/components/ProjectCard';
-import { Dates, isPlainLeftClick } from '@/components/work/WorkList';
+import { Dates } from '@/components/work/WorkList';
 import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import type { CURRENT_ROLE, PublicProject } from '@/content/projects';
-import { dateRange } from '@/lib/utils';
+import { dateRange, isPlainLeftClick } from '@/lib/utils';
 
 const { current: labels } = content.work;
 

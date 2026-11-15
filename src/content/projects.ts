@@ -11,6 +11,7 @@ import { join } from 'path';
 
 import { siteConfig } from '../lib/site';
 import { isTodo, SHOW_PLACEHOLDERS, todo, VERIFY } from '../lib/todo';
+import { kebab } from '../lib/utils';
 
 export type Audience = 'career' | 'clinics';
 /**
@@ -372,12 +373,6 @@ export type PublicProject = {
   caseStudy: string | null;
   icon: ProjectIcon | null;
 };
-
-const kebab = (value: string): string =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
 
 export const routeSlug = (project: Project): string =>
   project.caseStudy ?? (project.publicName ? project.slug : kebab(project.anonymizedName));

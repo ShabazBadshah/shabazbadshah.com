@@ -1,32 +1,20 @@
-import { ArrowUpRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import type React from 'react';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-import { Toc, type TocItem } from '@/components/blog/BlogArticle';
-import { LazyVideo } from '@/components/ProjectCard';
+import Toc, { type TocItem } from '@/components/Toc';
 import Todo from '@/components/Todo';
-import LockedMedia, { LOCKED_MEDIA_HTML } from '@/components/work/LockedMedia';
+import CaseStudyFacts from '@/components/work/CaseStudyFacts';
+import CaseStudySummary, { Html, Section, Text } from '@/components/work/CaseStudySummary';
 import { content } from '@/content/content';
 import type { PublicProject } from '@/content/projects';
-import type { CaseStudy, LockedMedia as Media } from '@/lib/case-studies';
+import type { CaseStudy } from '@/lib/case-studies';
 import { renderDiagrams } from '@/lib/mermaid';
 import { shown } from '@/lib/todo';
-import { dateRange } from '@/lib/utils';
+import { kebab } from '@/lib/utils';
 
 const ImageLightbox = dynamic(() => import('@/components/ImageLightbox'), { ssr: false });
 
 const { caseStudy } = content;
-const HEADING = 'scroll-mt-8 text-xl font-semibold tracking-tight sm:text-2xl';
-const BODY = 'text-fg-muted';
-/**
- * Rendered Markdown from a case study file. Images on consecutive lines share a paragraph, and
- * sit side by side in one row.
- */
-const PROSE =
-  '[&>:first-child]:mt-0 [&_strong]:font-medium [&_strong]:text-fg [&_table]:text-left [&_table]:text-sm [&_p:has(>img~img)]:grid [&_p:has(>img~img)]:auto-cols-fr [&_p:has(>img~img)]:grid-flow-col [&_p:has(>img~img)]:items-start [&_p:has(>img~img)]:gap-4';
-
 type Slide = { src: string; alt: string; description?: string };
 
 /** Images that open in the lightbox: the Markdown's and the project's screenshot (not locked media) */
@@ -40,117 +28,7 @@ const LAYOUT = 'relative [--gap:4rem]';
 const SIDEBAR =
   'absolute inset-y-0 hidden w-[min(200px,(100vw_-_100%)/2_-_2rem_-_var(--gap))] 2xl:block';
 
-const kebab = (value: string): string =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
-
-const Text = ({ value }: { value: string }): JSX.Element => (
-  <p className={BODY}>
-    <Todo value={value} />
-  </p>
-);
-
-/** Rendered Markdown, with the locked media block where the file marks one */
-const Html = ({ html, lockedMedia }: { html: string; lockedMedia?: Media | null }): JSX.Element => (
-  <>
-    {html.split(LOCKED_MEDIA_HTML).map((part, index) => (
-      <Fragment key={index}>
-        {index > 0 && lockedMedia && <LockedMedia media={lockedMedia} />}
-        {part.trim() && (
-          <div
-            data-prose=""
-            className={`${BODY} ${PROSE}`}
-            dangerouslySetInnerHTML={{ __html: part }}
-          />
-        )}
-      </Fragment>
-    ))}
-  </>
-);
-
 type Block = { id: string; title: string; body: JSX.Element };
-
-function Section({
-  id,
-  title,
-  heading: Heading,
-  children
-}: {
-  id: string;
-  title: string;
-  heading: 'h2' | 'h3';
-  children: React.ReactNode;
-}): JSX.Element {
-  return (
-    <section aria-labelledby={id} className="flex flex-col gap-4">
-      <Heading id={id} className={HEADING}>
-        {title}
-      </Heading>
-      {children}
-    </section>
-  );
-}
-
-/** One fact in the facts list: a label over a value or a stacked list, styled like the contents list */
-function Meta({
-  title,
-  value
-}: {
-  title: string;
-  value: string | string[] | null | undefined | false;
-}): JSX.Element | null {
-  const items = ([] as string[]).concat(value || []).filter(shown);
-  if (items.length === 0) return null;
-  return (
-    <div className="flex flex-col gap-1 px-3 leading-snug">
-      <dt className="text-sm font-semibold">{title}</dt>
-      {items.map((item) => (
-        <dd key={item} className="text-[0.8125rem] text-fg-muted">
-          <Todo value={item} />
-        </dd>
-      ))}
-    </div>
-  );
-}
-
-/**
- * The project's facts, from its case study file when it has one: in the left gutter on wide
- * screens, under the summary otherwise
- */
-function Facts({
-  project,
-  study,
-  className
-}: {
-  project: PublicProject;
-  study: CaseStudy | null;
-  className: string;
-}): JSX.Element {
-  return (
-    <dl className={`flex flex-col gap-5 ${className}`}>
-      <Meta
-        title={caseStudy.company}
-        value={!project.client && study ? study.client : project.company}
-      />
-      <Meta
-        title={caseStudy.client}
-        value={project.client && (study ? study.client : project.name)}
-      />
-      <Meta title={caseStudy.role} value={study ? study.role : project.role} />
-      <Meta
-        title={caseStudy.timeline}
-        value={study ? study.timeline : !project.client && dateRange(project.start, project.end)}
-      />
-      <Meta title={caseStudy.team} value={study?.team} />
-      <Meta title={caseStudy.customers} value={study?.customers} />
-      <Meta title={caseStudy.stack} value={project.stack} />
-      <Meta title={caseStudy.disciplines} value={project.disciplines} />
-      <Meta title={caseStudy.skills} value={project.skills} />
-    </dl>
-  );
-}
 
 type Props = {
   project: PublicProject;
@@ -170,8 +48,6 @@ export default function CaseStudyArticle({
   study = null,
   embedded = false
 }: Props): JSX.Element {
-  const { media, outcome } = project;
-  const Title = embedded ? 'h2' : 'h1';
   const heading = embedded ? 'h3' : 'h2';
   const id = (section: string) => `${section}-${project.slug}`;
   // The header watches #hero on a page of its own
@@ -198,6 +74,7 @@ export default function CaseStudyArticle({
       img.setAttribute('aria-label', content.blog.enlargeImage(img.alt));
     });
   }, [study]);
+
   const openImage = (target: EventTarget) => {
     if (!(target instanceof HTMLImageElement) || !target.matches(ZOOMABLE)) return;
     const images = Array.from(article.current?.querySelectorAll<HTMLImageElement>(ZOOMABLE) ?? []);
@@ -275,7 +152,7 @@ export default function CaseStudyArticle({
         <Toc items={toc} />
       </aside>
       <aside className={`${SIDEBAR} right-full mr-(--gap)`}>
-        <Facts
+        <CaseStudyFacts
           project={project}
           study={study}
           className="sticky top-[var(--article-top,7rem)] max-h-[calc(100dvh_-_var(--article-top,7rem)_-_1rem)] overflow-y-auto"
@@ -287,82 +164,13 @@ export default function CaseStudyArticle({
       </div>
 
       <div className="flex flex-col gap-4 sm:gap-8">
-        <section
-          id={summaryId}
-          aria-label={caseStudy.summary}
-          className="flex scroll-mt-8 flex-col gap-8"
-        >
-          <header className="flex flex-col gap-4">
-            {study?.status && (
-              <p className="chip self-start">
-                <Todo value={study.status} />
-              </p>
-            )}
-            <Title
-              // Fills the column instead of the headings' balanced wrapping
-              className={`mb-3 text-wrap font-semibold tracking-tight ${
-                embedded ? 'text-3xl sm:text-4xl' : 'text-4xl sm:text-5xl'
-              }`}
-            >
-              {study ? <Todo value={study.title} /> : project.name}
-            </Title>
-            <Text value={study ? study.summary : project.summary} />
-          </header>
-
-          {(study?.problemHtml || shown(project.problem)) && (
-            <Section id={id('summary-problem')} title={caseStudy.problem} heading={heading}>
-              {study?.problemHtml ? (
-                <Html html={study.problemHtml} />
-              ) : (
-                <Text value={project.problem} />
-              )}
-            </Section>
-          )}
-          {shown(outcome) && (
-            <Section id={id('summary-outcome')} title={caseStudy.outcome} heading={heading}>
-              <Text value={outcome} />
-            </Section>
-          )}
-
-          {project.externalUrl && (
-            <a
-              href={project.externalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              // The secondary button style of the home page hero
-              className="pill self-start bg-gray-50 text-sm dark:border-gray-50 dark:bg-transparent"
-            >
-              {caseStudy.visit}
-              <ArrowUpRight aria-hidden="true" className="size-4" />
-            </a>
-          )}
-
-          {media?.video ? (
-            <div className="card">
-              <LazyVideo
-                src={media.video.src}
-                poster={media.video.poster}
-                label={content.projectCard.demoLabel(project.name)}
-              />
-            </div>
-          ) : (
-            media?.image && (
-              <div data-zoomable="" className="card aspect-video w-full">
-                <Image
-                  src={media.image.src}
-                  alt={media.image.alt}
-                  layout="fill"
-                  objectFit="cover"
-                  objectPosition="top"
-                  sizes="(max-width: 870px) 100vw, 870px"
-                  priority={!embedded}
-                />
-              </div>
-            )
-          )}
-
-          <Facts project={project} study={study} className="rounded-3xl border py-4 2xl:hidden" />
-        </section>
+        <CaseStudySummary
+          project={project}
+          study={study}
+          embedded={embedded}
+          summaryId={summaryId}
+          heading={heading}
+        />
 
         {blocks.map((block) => (
           <Section key={block.id} id={block.id} title={block.title} heading={heading}>

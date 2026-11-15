@@ -8,11 +8,11 @@ import {
   EXPAND_DURATION,
   EXPAND_EASE,
   FADE_SHARE,
-  useCardTransition,
-  type CardOrigin
+  useCardTransition
 } from '@/components/CardTransition';
 import CornerButton from '@/components/CornerButton';
 import { content } from '@/content/content';
+import { clipTo, usePinnedScroll, useScrollLock, type Box } from '@/lib/article-sheet';
 import { useCloseSound } from '@/lib/close-sound';
 
 type Props = {
@@ -27,17 +27,6 @@ type Props = {
   closing: boolean;
   onClose: () => void;
   onExited: () => void;
-};
-
-type Box = Pick<CardOrigin, 'left' | 'top' | 'width' | 'height'>;
-
-/** clip-path revealing a viewport-space box inside the full-viewport frame */
-const clipTo = (box: Box, radius: number) => {
-  const top = Math.max(box.top, 0);
-  const left = Math.max(box.left, 0);
-  const right = Math.max(window.innerWidth - left - box.width, 0);
-  const bottom = Math.max(window.innerHeight - top - box.height, 0);
-  return `inset(${top}px ${right}px ${bottom}px ${left}px round ${radius}px)`;
 };
 
 /**
@@ -73,35 +62,8 @@ export default function ArticleSheet({
   };
   useCloseSound(!closing);
 
-  // Lock the page behind the sheet, keeping its width steady when the scrollbar disappears
-  useEffect(() => {
-    const { documentElement, body } = document;
-    const previous = [documentElement.style.overflow, body.style.overflow, body.style.paddingRight];
-    const scrollbar = window.innerWidth - documentElement.clientWidth;
-    documentElement.style.overflow = 'hidden';
-    body.style.overflow = 'hidden';
-    if (scrollbar > 0) body.style.paddingRight = `${scrollbar}px`;
-    scroller.current?.focus({ preventScroll: true });
-    return () => {
-      [documentElement.style.overflow, body.style.overflow, body.style.paddingRight] = previous;
-    };
-  }, []);
-
-  // The page behind never moves while the sheet exists: the router (or the browser, on Back) may
-  // try to scroll it, and <html> is scroll-smooth, so undo any such scroll before it is painted
-  useEffect(() => {
-    const root = document.documentElement;
-    const previous = root.style.scrollBehavior;
-    root.style.scrollBehavior = 'auto';
-    const pin = () => {
-      if (window.scrollY !== homeScroll) window.scrollTo(0, homeScroll);
-    };
-    window.addEventListener('scroll', pin);
-    return () => {
-      window.removeEventListener('scroll', pin);
-      root.style.scrollBehavior = previous;
-    };
-  }, [homeScroll]);
+  useScrollLock(scroller);
+  usePinnedScroll(homeScroll);
 
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {

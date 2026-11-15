@@ -35,6 +35,19 @@ const SOCIAL_LINKS: { provider: SocialProvider; url: string; logo: string }[] = 
 
 export type NavSection = 'work' | 'blog';
 
+/** Active nav item, from the route */
+export const activeSection = (pathname: string): NavSection | null => {
+  if (pathname.startsWith('/work')) return 'work';
+  if (pathname.startsWith('/blog')) return 'blog';
+  return null;
+};
+
+/** Audience of the page, carried into the contact dialog's email and booking links */
+export const contactSource = (pathname: string): ContactSource => {
+  if (pathname === '/clinics') return 'clinics';
+  return 'career';
+};
+
 /** /clinics is reached from direct links, never from the nav */
 const NAV_LINKS: { href: string; section: NavSection }[] = [
   { href: '/work', section: 'work' },

@@ -1,155 +1,26 @@
-import { m, useReducedMotion } from 'framer-motion';
 import {
   ArrowUpRight,
   BrainCircuit,
   Globe,
-  Maximize,
   Maximize2,
   Plane,
   ShieldCheck,
   Star
 } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
+import AppCardStack from '@/components/AppCardStack';
 import CornerButton from '@/components/CornerButton';
+import LazyVideo, { POSTER_WIDTH, optimizedImageUrl } from '@/components/LazyVideo';
 import Todo from '@/components/Todo';
 import { content } from '@/content/content';
-import type { ProjectIcon, ProjectMedia, PublicProject } from '@/content/projects';
+import type { ProjectIcon, PublicProject } from '@/content/projects';
 import { shown } from '@/lib/todo';
-import { isPlainLeftClick } from '@/components/work/WorkList';
+import { isPlainLeftClick } from '@/lib/utils';
 
 const FEATURE_ICONS = [Star, Globe, ShieldCheck, BrainCircuit];
 const PROJECT_ICONS: Record<ProjectIcon, typeof Plane> = { plane: Plane };
-
-const STACK_INTERVAL_MS = 4000;
-
-/** Pose per depth: 0 is the front card, the rest fan out behind it. */
-const STACK_POSES = [
-  { x: '0%', rotate: 0, scale: 1 },
-  { x: '8%', rotate: 8, scale: 0.9 },
-  { x: '-8%', rotate: -8, scale: 0.9 }
-];
-
-/** Poster is shown at ~424px; 640 is the nearest Next image size above it */
-const POSTER_WIDTH = 640;
-
-/** next/image's optimizer URL, for attributes that can't take srcset (e.g. video poster) */
-const optimizedImageUrl = (src: string, width: number) =>
-  `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=75`;
-
-/** Demo video that downloads and plays only while on screen */
-export function LazyVideo({
-  src,
-  poster,
-  label
-}: {
-  src: string;
-  poster?: string;
-  label: string;
-}): JSX.Element {
-  const ref = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = ref.current;
-    if (!video) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) video.play().catch(() => {});
-      else video.pause();
-    });
-    observer.observe(video);
-    // Native controls only while fullscreen, so the card itself stays clean
-    const onFullscreenChange = () => {
-      video.controls = document.fullscreenElement === video;
-    };
-    video.addEventListener('fullscreenchange', onFullscreenChange);
-    return () => {
-      observer.disconnect();
-      video.removeEventListener('fullscreenchange', onFullscreenChange);
-    };
-  }, []);
-
-  const enterFullscreen = () => {
-    const video = ref.current as (HTMLVideoElement & { webkitEnterFullscreen?: () => void }) | null;
-    if (!video) return;
-    if (video.requestFullscreen) video.requestFullscreen().catch(() => {});
-    // iOS Safari only supports fullscreen on the video element through this API
-    else video.webkitEnterFullscreen?.();
-  };
-
-  return (
-    <>
-      <video
-        ref={ref}
-        loop
-        // controls
-        muted
-        playsInline
-        preload="none"
-        poster={poster}
-        aria-label={label}
-        width={1280}
-        height={720}
-        className="block aspect-video h-auto w-full"
-      >
-        <source src={src} type="video/mp4" />
-      </video>
-      <button
-        type="button"
-        aria-label={content.projectCard.fullscreen.label(label)}
-        title={content.projectCard.fullscreen.title}
-        onClick={enterFullscreen}
-        className="absolute bottom-3 right-3 z-30 grid size-9 cursor-pointer place-items-center rounded-pill bg-elevated text-fg-muted backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg"
-      >
-        <Maximize aria-hidden="true" className="size-4" />
-      </button>
-    </>
-  );
-}
-
-/** Phone mockups that take turns at the front of a fanned-out stack */
-function AppCardStack({ images }: { images: NonNullable<ProjectMedia['appImages']> }): JSX.Element {
-  const [active, setActive] = useState(0);
-  const reduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (reduceMotion) return undefined;
-    const id = setInterval(
-      () => setActive((current) => (current + 1) % images.length),
-      STACK_INTERVAL_MS
-    );
-    return () => clearInterval(id);
-  }, [images.length, reduceMotion]);
-
-  const { width, height } = images[0];
-
-  return (
-    <div className="relative w-full max-w-56" style={{ aspectRatio: `${width} / ${height}` }}>
-      {images.map((image, index) => {
-        const depth = (index - active + images.length) % images.length;
-        return (
-          // A motion <img>, so each phone can animate between poses. The phones paint together and
-          // are the same size before their transforms, so any of them can be the page's LCP image:
-          // all load eagerly at high priority.
-          <m.img
-            key={image.src}
-            src={image.src}
-            alt={depth === 0 ? image.alt : ''}
-            aria-hidden={depth !== 0}
-            width={image.width}
-            height={image.height}
-            // React 18 only passes the attribute through in its lowercase HTML spelling
-            {...{ fetchpriority: 'high' }}
-            initial={false}
-            animate={{ ...STACK_POSES[depth % STACK_POSES.length], zIndex: images.length - depth }}
-            transition={{ type: 'spring', stiffness: 180, damping: 22 }}
-            className="absolute inset-0 size-full origin-bottom object-contain drop-shadow-md"
-          />
-        );
-      })}
-    </div>
-  );
-}
 
 type Props = {
   project: PublicProject;

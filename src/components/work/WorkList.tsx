@@ -7,15 +7,12 @@ import Todo from '@/components/Todo';
 import { content } from '@/content/content';
 import type { PublicProject, WorkTab } from '@/content/projects';
 import { isTodo } from '@/lib/todo';
-import { dateRange } from '@/lib/utils';
+import { dateRange, isPlainLeftClick } from '@/lib/utils';
 
 const { filters } = content.work;
 /** The tabs, in order */
 export const FILTERS: WorkTab[] = ['employment', 'volunteer'];
 const LAYOUT_TRANSITION = { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };
-
-export const isPlainLeftClick = (event: React.MouseEvent): boolean =>
-  event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
 
 /** The years, as a pill; a placeholder is shown as is (and dropped in production) */
 export function Dates({

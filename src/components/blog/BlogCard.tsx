@@ -8,10 +8,7 @@ import { useCardTransition } from '@/components/CardTransition';
 import CornerButton from '@/components/CornerButton';
 import { content } from '@/content/content';
 import type { Post } from '@/lib/blog';
-import { plainText } from '@/lib/utils';
-
-const isPlainLeftClick = (event: React.MouseEvent): boolean =>
-  event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
+import { isPlainLeftClick, plainText } from '@/lib/utils';
 
 type Props = {
   post: Post;
