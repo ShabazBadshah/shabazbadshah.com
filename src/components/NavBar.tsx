@@ -13,7 +13,7 @@ const LAYOUT_TRANSITION = { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };
 
 /** Every control in the nav pill: icon buttons, the logo and the theme toggle / close slot */
 const ICON_BUTTON =
-  'grid size-10 shrink-0 cursor-pointer place-items-center rounded-pill text-fg-muted transition-colors hover:text-fg';
+  'grid size-11 shrink-0 cursor-pointer place-items-center rounded-pill text-fg-muted transition-colors hover:text-fg';
 
 /**
  * The floating nav pill. The send button grows the pill itself into the contact dialog (and back),
@@ -99,7 +99,7 @@ export default function NavBar({ pathname }: { pathname: string }): JSX.Element 
         // the open dialog is wider, and runs its rows under the close button. Below sm the open
         // dialog takes the whole row, over the back and scroll buttons.
         className={`pointer-events-auto relative z-10 row-start-1 max-w-full justify-self-center border bg-elevated p-1 shadow-float backdrop-blur-lg backdrop-saturate-180 sm:col-span-1 sm:col-start-2 ${
-          contactOpen ? 'col-span-3 col-start-1 w-[25rem]' : 'col-start-2 pr-11'
+          contactOpen ? 'col-span-3 col-start-1 w-[25rem]' : 'col-start-2 pr-12'
         }`}
       >
         {contactOpen ? (
@@ -120,7 +120,7 @@ export default function NavBar({ pathname }: { pathname: string }): JSX.Element 
                 aria-label={content.nav.home}
                 aria-current={pathname === '/' ? 'page' : undefined}
                 onClick={scrollHome}
-                className="relative inline-flex size-10 shrink-0 items-center justify-center rounded-pill"
+                className="relative inline-flex size-11 shrink-0 items-center justify-center rounded-pill"
               >
                 {pathname === '/' && (
                   <m.span
@@ -135,7 +135,7 @@ export default function NavBar({ pathname }: { pathname: string }): JSX.Element 
                   alt=""
                   width={32}
                   height={32}
-                  className="relative size-7"
+                  className="relative size-8"
                 />
               </a>
             </Link>
@@ -147,7 +147,7 @@ export default function NavBar({ pathname }: { pathname: string }): JSX.Element 
                     aria-current={isActive ? 'page' : undefined}
                     // The same at every width; the side padding only tightens on phones too
                     // narrow for the full 1rem
-                    className={`relative inline-flex h-8 items-center rounded-pill px-[clamp(0.5rem,2.5vw,1rem)] text-[0.9375rem] font-medium no-underline transition-colors duration-150 ${
+                    className={`relative inline-flex h-11 items-center rounded-pill px-[clamp(0.5rem,2.5vw,1rem)] text-base font-medium no-underline transition-colors duration-150 ${
                       isActive ? 'text-accent' : 'text-fg-muted hover:text-fg'
                     }`}
                   >
@@ -164,7 +164,7 @@ export default function NavBar({ pathname }: { pathname: string }): JSX.Element 
                 </Link>
               );
             })}
-            <span aria-hidden="true" className="mx-0.5 h-5 w-px bg-line" />
+            <span aria-hidden="true" className="mx-0.5 h-6 w-px bg-line" />
             <button
               ref={sendRef}
               type="button"
@@ -175,7 +175,7 @@ export default function NavBar({ pathname }: { pathname: string }): JSX.Element 
               onClick={() => setContactOpen(true)}
               className={ICON_BUTTON}
             >
-              <Send aria-hidden="true" className="size-[18px]" />
+              <Send aria-hidden="true" className="size-5" />
             </button>
           </m.div>
         )}
@@ -193,7 +193,7 @@ export default function NavBar({ pathname }: { pathname: string }): JSX.Element 
               onClick={() => setContactOpen(false)}
               className={ICON_BUTTON}
             >
-              <X aria-hidden="true" className="size-[18px]" />
+              <X aria-hidden="true" className="size-5" />
             </button>
           ) : (
             <ThemeToggle className={ICON_BUTTON} />

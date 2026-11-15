@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import { useContactOpen } from '@/components/ContactDialog';
 import NavBar from '@/components/NavBar';
 import { content } from '@/content/content';
 
@@ -66,12 +67,45 @@ function ScrollToTop(): JSX.Element {
   );
 }
 
+/** Whether the reader is scrolling down, past the first screenful, so the header can get out of the way */
+function useScrollingDown(): boolean {
+  const [down, setDown] = useState(false);
+
+  useEffect(() => {
+    let frame = 0;
+    let last = window.scrollY;
+    const update = () => {
+      frame = 0;
+      const y = window.scrollY;
+      // Ignore small moves, and the bounce past either end of the page
+      if (Math.abs(y - last) < 8) return;
+      setDown(y > last && y > window.innerHeight / 2);
+      last = y;
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return down;
+}
+
 export default function Header(): JSX.Element | null {
   const { pathname, query } = useRouter();
   const back = BACK[pathname];
+  // Below sm the header slides away while scrolling down and comes back on the way up
+  const scrollingDown = useScrollingDown();
+  const contactOpen = useContactOpen();
+  const hidden = scrollingDown && !contactOpen;
 
   // The article sheet takes over the whole screen
-  if (query.post) return null;
+  if (query.post || query.project) return null;
 
   return (
     <header
@@ -81,7 +115,9 @@ export default function Header(): JSX.Element | null {
       // Below sm the row sits at the bottom of a box as tall as the small viewport, so it stays put
       // while the browser's toolbar shows and hides (a `bottom` offset moves with it). The gaps are
       // tighter, so the back button, nav and scroll button fit on one row on a 360px screen.
-      className="@container pointer-events-none fixed inset-x-0 top-0 z-40 grid h-[calc(100svh-1.25rem)] grid-cols-[1fr_auto_1fr] content-end items-center gap-1 px-2 [--article-left:max(1.5rem,calc((100cqw_-_var(--container-article))/2_+_2.5rem))] sm:top-8 sm:h-auto sm:content-normal sm:gap-2 sm:px-4"
+      className={`@container pointer-events-none fixed inset-x-0 top-0 z-40 grid h-[calc(100svh-0.625rem)] grid-cols-[1fr_auto_1fr] content-end items-center gap-1 px-2 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] [--article-left:max(1.5rem,calc((100cqw_-_var(--container-article))/2_+_2.5rem))] sm:top-8 sm:h-auto sm:content-normal sm:gap-2 sm:px-4 ${
+        hidden ? 'max-sm:translate-y-full' : ''
+      }`}
     >
       {/* Detail pages only; the article sheet has its own collapse control */}
       {back && (
@@ -89,9 +125,9 @@ export default function Header(): JSX.Element | null {
           <a
             aria-label={content.nav.back}
             // Lined up with the nav pill, which grows downwards into the contact dialog from sm
-            className={`pointer-events-auto col-start-1 row-start-1 ${back.align} inline-flex h-10 items-center gap-1.5 justify-self-start rounded-pill border bg-elevated px-3 text-sm shadow-float font-medium text-fg-muted no-underline backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg sm:mt-1 sm:self-start sm:px-4`}
+            className={`pointer-events-auto col-start-1 row-start-1 ${back.align} inline-flex h-11 items-center gap-1.5 justify-self-start rounded-pill border bg-elevated px-3 text-base shadow-float font-medium text-fg-muted no-underline backdrop-blur-lg backdrop-saturate-180 transition-colors hover:text-fg sm:mt-1 sm:self-start sm:px-4`}
           >
-            <ArrowLeft aria-hidden="true" className="size-4" />
+            <ArrowLeft aria-hidden="true" className="size-5" />
             <span className="hidden sm:inline">{content.nav.back}</span>
           </a>
         </Link>

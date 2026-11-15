@@ -57,8 +57,8 @@ export default function ThemeToggle({ className }: { className: string }): JSX.E
   return (
     <button type="button" onClick={toggle} aria-label={label} className={className}>
       {/* Both icons are rendered and swapped with CSS so there is no hydration mismatch or layout shift */}
-      <Sun aria-hidden="true" className="hidden size-[18px] dark:block" />
-      <Moon aria-hidden="true" className="size-[18px] dark:hidden" />
+      <Sun aria-hidden="true" className="hidden size-5 dark:block" />
+      <Moon aria-hidden="true" className="size-5 dark:hidden" />
     </button>
   );
 }
