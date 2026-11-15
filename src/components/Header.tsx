@@ -225,9 +225,10 @@ function NavBar({ pathname }: { pathname: string }): JSX.Element {
         style={{ borderRadius: 24 }}
         aria-label={content.nav.label}
         // The closed pill is as wide as its links, leaving room on the right for the theme toggle;
-        // the open dialog is wider, and runs its rows under the close button
-        className={`pointer-events-auto relative col-span-3 row-start-2 max-w-full justify-self-center border bg-elevated p-1 shadow-float backdrop-blur-lg backdrop-saturate-180 sm:col-span-1 sm:col-start-2 sm:row-start-1 ${
-          contactOpen ? 'w-[25rem]' : 'pr-11'
+        // the open dialog is wider, and runs its rows under the close button. Below sm the open
+        // dialog takes the whole row, over the back and scroll buttons.
+        className={`pointer-events-auto relative z-10 row-start-1 max-w-full justify-self-center border bg-elevated p-1 shadow-float backdrop-blur-lg backdrop-saturate-180 sm:col-span-1 sm:col-start-2 ${
+          contactOpen ? 'col-span-3 col-start-1 w-[25rem]' : 'col-start-2 pr-11'
         }`}
       >
         {contactOpen ? (
@@ -390,7 +391,9 @@ export default function Header(): JSX.Element | null {
       data-site-header=""
       // A size container, so --article-left (the article column's left edge, from MainLayout's
       // max-w-article and its 1.5rem padding) can be worked out from the header's own width
-      className="@container pointer-events-none fixed inset-x-0 bottom-6 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-2 px-3 [--article-left:max(1.5rem,calc((100cqw_-_var(--container-article))/2_+_2.5rem))] sm:bottom-auto sm:top-8 sm:px-4"
+      // Below sm the gaps are tighter, so the back button, nav and scroll button fit on one row on
+      // a 360px screen
+      className="@container pointer-events-none fixed inset-x-0 bottom-10 z-40 grid grid-cols-[1fr_auto_1fr] items-center gap-1 px-2 [--article-left:max(1.5rem,calc((100cqw_-_var(--container-article))/2_+_2.5rem))] sm:bottom-auto sm:top-8 sm:gap-2 sm:px-4"
     >
       {/* Detail pages only; the article sheet has its own collapse control */}
       {back && (
@@ -405,7 +408,7 @@ export default function Header(): JSX.Element | null {
           </a>
         </Link>
       )}
-      {/* Below sm the nav gets its own full-width row, with the back and scroll buttons above it */}
+      {/* Below sm the back and scroll buttons sit either side of the nav, on one row */}
       <NavBar pathname={pathname} />
       <ScrollToTop />
     </header>
