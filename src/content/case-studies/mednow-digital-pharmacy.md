@@ -27,7 +27,7 @@ stack:
   - 'Moneris'
   - 'Stripe'
   - 'Shopify'
-outcome: 'Launched a net-new digital pharmacy that patients loved and that grew revenue through patient acquisition'
+outcome: 'Launched a net-new digital pharmacy that patients loved (4.9/5, 350+ reviews)'
 ---
 
 ## The problem

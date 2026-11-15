@@ -138,7 +138,7 @@ export const content = {
     currentlyLabel: 'Currently',
     /** "<before> [Syftable]<after>" */
     currently: {
-      before: 'Shipping products independently for founders through Badshah Consulting. Building',
+      before: 'Shipping products independently for teams through Badshah Consulting. Building',
       syftable: 'Syftable',
       after: '.'
     },

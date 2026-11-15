@@ -8,7 +8,9 @@ summary: 'I specified an internal tool and built a working POC for it with an ea
 role: 'Senior Product Manager'
 client: 'Planned'
 timeline: 'Nov 2022 - Jun 2023'
-team: 'Business operations team, 4 people'
+team:
+  - '1 PM'
+  - '1 developer'
 stack:
   - 'Next.js'
   - 'React'

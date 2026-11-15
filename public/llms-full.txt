@@ -75,7 +75,7 @@ Role: Product Manager
 
 Owned and delivered to market a net-new patient pharmacy app in regulated Canadian healthcare (including Québec).
 - What I built: Pitches with a time budget, problem, user stories, requirements, and explicit out-of-scope items. Competitor research on Telus Health, PocketPills, Shoppers Drug Mart, Rexall, and messaging apps such as WhatsApp and Discord for notification behaviour. Designs, with the design team. I drew some of the mocks and flows myself. Quebec support: English and French, a province selector that defaults from the user's IP address (Ontario as fallback), and province-specific legal copy. An internal training program for pharmacists on the new tools, with learning modules, quizzes, and live sessions. Jira breakdowns and UAT for each release. ![Mednow app home screen](/images/portfolio/mednow-app.webp "Home: the latest order's status, an easy prescription transfer, and one tap to fill a prescription or chat with a pharmacist") ![Mednow refill selection screen](/images/portfolio/mednow-app-2.webp 'Refills: patients choose which prescriptions to refill and see how many refills each has left') ![Mednow chat with a pharmacist](/images/portfolio/mednow-app-3.webp 'Chat: a patient asks a pharmacist to transfer their prescriptions to Mednow')
-- Outcome: Launched a net-new digital pharmacy that patients loved and that grew revenue through patient acquisition
+- Outcome: Launched a net-new digital pharmacy that patients loved (4.9/5, 350+ reviews)
 - Stack: React (Material UI), Flutter, Go, Postgres, GCP, Kroll PMS, PharmacyLink, StreamChat, Moneris, Stripe, Shopify
 
 ## Project Include

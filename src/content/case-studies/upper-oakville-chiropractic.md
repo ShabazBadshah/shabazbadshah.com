@@ -1,5 +1,5 @@
 ---
-title: "Upper Oakville Chiropractic: a clinic's digital front door"
+title: "Upper Oakville Chiropractic: A clinic's digital front door"
 slug: 'upper-oakville-chiropractic'
 order: 5
 draft: false
