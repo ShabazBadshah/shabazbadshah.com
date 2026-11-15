@@ -1,21 +1,18 @@
 ---
-title: 'SOTI: built-in support chat and calling for frontline devices'
+title: 'SOTI: Building chat and video calling for frontline devices'
 slug: 'soti-frontline-support-chat'
 order: 2
-draft: true
+draft: false
 confidential: false
-summary: "As a Technical PM, I defined the product and drove the architecture for a chat and video calling platform built into SOTI's device management software, so admins could support frontline workers on the device itself. The Windows version shipped."
+summary: "I defined the product and drove the architecture for a chat and video calling platform built into SOTI's device management diagnostics software, so admins could support frontline workers on the device itself. We shipped an Android app, Windows Modern apps, and a web app."
 role: 'Technical Product Manager'
-client: 'SOTI, enterprise mobile device management (MDM)'
-timeline: '9 months '
-team: '3 engineers, 1 designer, 1 QA '
-customers: 'Enterprise and government organizations running on-premise deployments'
-stack:
-  - 'WebRTC'
-  - 'Blob storage'
-  - 'Windows and Android clients'
-  - 'On-premise server deployment'
-outcome: 'Windows chat and video calling shipped to customers'
+client: 'SOTI'
+timeline: 'Nov 2023 - Oct 2024 '
+team:
+  - '3 developers'
+  - '1 PM'
+  - '1 QA'
+outcome: 'Windows, Android, and Web chat and video calling between admins and frontline workers.'
 ---
 
 ## The problem

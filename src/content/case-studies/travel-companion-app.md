@@ -1,8 +1,8 @@
 ---
-title: 'Collaborative Travel Companion App: Owning a 0-1 MVP End-to-End'
+title: 'Collaborative Travel Companion App: Owning a 0-1 Mobile App End-to-End'
 slug: 'travel-companion-app'
 order: 1
-draft: true
+draft: false
 confidential: true
 summary: "I designed a cross-platform travel app with the client's CTO and built it, from an empty repo to iOS and Android builds, including the real-time collaboration layer and the AI features. We gathered the requirements, ran user testing, built the app, and then iterated on feedback."
 role: 'Product Engineer'
@@ -17,7 +17,7 @@ stack:
   - 'Firebase (Auth, Realtime Database, Cloud Functions)'
   - 'Gemini API'
   - 'Apple on-device models (iOS)'
-outcome: 'MVP delivered on iOS and Android for founder demos and early testers'
+outcome: 'App delivered on iOS and Android for founder demos and early testers'
 lockedMedia:
   image: '/case-studies/travel-companion-app/locked-preview.webp'
   alt: "Blurred preview of the app's screens"
@@ -104,11 +104,11 @@ The details are where locks usually fail:
 
 ## After launch
 
-I handed the MVP over with build instructions and a list of known limitations. I fixed the bugs found in founder testing, mainly sign-in configuration differences between iOS and Android.
+I handed the production app over with build instructions and a list of known limitations. I fixed the bugs found in founder testing, mainly sign-in configuration differences between iOS and Android.
 
 ## Outcome
 
-- Working MVP on both platforms in 10 weeks.
+- Working production app on both platforms in 10 weeks (from requirements to launch).
 - No overwrite conflicts in group testing after field locking shipped.
 - The founder used the build for investor and early-user demos.
 

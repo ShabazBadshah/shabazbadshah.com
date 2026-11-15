@@ -2,12 +2,12 @@
 title: "Upper Oakville Chiropractic: a clinic's digital front door"
 slug: 'upper-oakville-chiropractic'
 order: 5
-draft: true
+draft: false
 confidential: false
 summary: "I'm the technology partner for an independent chiropractic clinic in Oakville, Ontario. I took the clinic from brand design to a live, mobile-first website that gives it an online presence to bring in new patients, and I support it on an ongoing basis."
 role: 'Product Engineer'
-client: 'Upper Oakville Chiropractic, Oakville, Ontario'
-timeline: 'Phase 1: 2 weeks, shipped 2026'
+client: 'Upper Oakville Chiropractic'
+timeline: '2 weeks'
 stack:
   - 'WordPress'
   - 'HTML'
@@ -53,8 +53,8 @@ I maintain the site and handle the clinic's change requests. We have started dis
 
 ## Outcome so far
 
-- Site live, giving the clinic an online presence that brings in new patients.
+- Site live, giving the clinic an online presence that brings in new patients and establishes credibility.
 
 ## What comes next
 
-Phase 2: upgrading the booking flows.
+Phase 2: Upgrading the booking pipeline to move to agentic workflows.

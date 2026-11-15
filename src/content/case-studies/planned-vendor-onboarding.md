@@ -1,23 +1,24 @@
 ---
-title: 'Planned: cutting new-market vendor onboarding from 16 hours to 6'
+title: 'Planned: A marketplace search and consolidation API built for internal Ops team'
 slug: 'planned-vendor-onboarding'
 order: 3
-draft: true
+draft: false
 confidential: false
-summary: 'As a Senior PM, I specified an internal tool and built a working proof of concept for it with an early AI coding agent. The tool automated vendor discovery and import for each new market, which cut onboarding time per market from 16 hours to 6.'
-role: 'Senior Product Manager; wrote the requirements and a proof of concept'
-client: 'Planned, enterprise event management platform'
-timeline: '6 weeks to first production use'
+summary: 'I specified an internal tool and built a working POC for it with an early AI coding agent. The tool automated vendor discovery and import for each new market, which cut onboarding time per market from 16 hours to 6. Eventually handed off to a developer to productionise the tool.'
+role: 'Senior Product Manager'
+client: 'Planned'
+timeline: 'Nov 2022 - Jun 2023'
 team: 'Business operations team, 4 people'
 stack:
-  - 'Next.js and React'
+  - 'Next.js'
+  - 'React'
   - 'Firebase'
-  - 'GraphQL and REST APIs'
   - 'Google Places API'
   - 'Yelp Fusion API'
+  - 'Web scraping'
   - 'OpenAI API'
   - 'Flatfile'
-outcome: 'Onboarding per market cut from 16 hours to 6, with a pipeline that works for any market or dataset'
+outcome: 'Onboarding per market cut from ~16 hours to 6 for operations team'
 ---
 
 ## The problem
@@ -43,28 +44,28 @@ I owned the problem end to end. I interviewed the business team, scoped the tool
 ```ts
 type VendorCandidate = {
   source: 'google' | 'yelp' | 'reddit' | 'website';
-  sourceId: string;     // Google place ID, Yelp business ID, page URL
-  fetchedAt: string;    // ISO 8601
+  sourceId: string; // Google place ID, Yelp business ID, page URL
+  fetchedAt: string; // ISO 8601
   name: string;
   address?: { line1: string; city: string; region: string; postalCode: string };
   geo?: { lat: number; lng: number };
-  phone?: string;       // normalized to E.164
-  website?: string;     // normalized to the bare domain
+  phone?: string; // normalized to E.164
+  website?: string; // normalized to the bare domain
   categories: string[]; // mapped to Planned's vendor categories
   rating?: { value: number; count: number };
-  raw: unknown;         // original response, kept for audit and re-mapping
+  raw: unknown; // original response, kept for audit and re-mapping
 };
 ```
 
 **2. A job queue with per-source rate limits and backoff.** A market run fans out into independent jobs, one per category, source, and results page. Each source gets its own rate limiter, set below its published quota. The worker handles each class of response differently:
 
-| Response | Meaning | Handling |
-| --- | --- | --- |
-| 200 with results | Normal | Store raw records; queue the next page |
-| 200, no results | Nothing in this category | Mark the job complete |
-| 429 Too Many Requests | Over quota | Wait for `Retry-After` if sent, else exponential backoff with jitter |
-| 5xx | Source error | Retry with backoff, up to 5 attempts, then move to a dead-letter queue |
-| Other 4xx | Bad request or expired key | No retry; log and alert |
+| Response              | Meaning                    | Handling                                                               |
+| --------------------- | -------------------------- | ---------------------------------------------------------------------- |
+| 200 with results      | Normal                     | Store raw records; queue the next page                                 |
+| 200, no results       | Nothing in this category   | Mark the job complete                                                  |
+| 429 Too Many Requests | Over quota                 | Wait for `Retry-After` if sent, else exponential backoff with jitter   |
+| 5xx                   | Source error               | Retry with backoff, up to 5 attempts, then move to a dead-letter queue |
+| Other 4xx             | Bad request or expired key | No retry; log and alert                                                |
 
 Jobs are idempotent: records are keyed by source and source ID, so a retried job overwrites its own output instead of creating duplicates. Because jobs are independent, every source runs in parallel at the speed its limit allows. A market of about 3,000 candidates finished in under 15 minutes.
 

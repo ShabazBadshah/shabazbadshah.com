@@ -1,13 +1,13 @@
 ---
-title: 'Mednow: building a digital pharmacy from 0 to 1'
+title: 'Mednow: Building a digital pharmacy from 0 to 1'
 slug: 'mednow-digital-pharmacy'
 order: 4
-draft: true
+draft: false
 confidential: false
 summary: "I was one of two Product Managers on the remote team that built Mednow's digital pharmacy from scratch: a patient app on iOS, Android, and web, and a dashboard pharmacists use to run every order, integrated with the pharmacy's dispensing system."
 role: 'Product Manager'
 client: 'Mednow'
-timeline: 'Feb 2021 - Aug 2022'
+timeline: 'Feb 2021 - Jun 2022'
 team:
   - '4 developers'
   - '1 architect'
