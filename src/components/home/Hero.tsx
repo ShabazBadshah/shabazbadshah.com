@@ -11,14 +11,26 @@ const { hero } = content;
 /** Intro: name, headline, what I'm doing now and calls to action */
 export default function Hero(): JSX.Element {
   const [syftableActive, setSyftableActive] = useState(false);
+  // Stays true until the dimming has faded out, so the link isn't dimmed on the way out
+  const [syftableRaised, setSyftableRaised] = useState(false);
+  const activateSyftable = (active: boolean) => {
+    setSyftableActive(active);
+    if (active) setSyftableRaised(true);
+  };
   const contactDialog = useContactDialog();
   const { syftable } = siteConfig;
 
   return (
     <>
-      {/* Dims the page (header included); the Syftable link is raised above it */}
+      {/*
+        Dims the page (header included); the Syftable link is raised above it only while it's
+        lit, so otherwise it stays under the header's layers, like the contact dialog's blur
+      */}
       <div
         aria-hidden="true"
+        onTransitionEnd={() => {
+          if (!syftableActive) setSyftableRaised(false);
+        }}
         className={`pointer-events-none fixed inset-0 z-[45] bg-black/30 transition-opacity duration-300 ${
           syftableActive ? 'opacity-100' : 'opacity-0'
         }`}
@@ -49,11 +61,13 @@ export default function Hero(): JSX.Element {
             href={syftable.url}
             target="_blank"
             rel="noopener noreferrer"
-            onMouseEnter={() => setSyftableActive(true)}
-            onMouseLeave={() => setSyftableActive(false)}
-            onFocus={() => setSyftableActive(true)}
-            onBlur={() => setSyftableActive(false)}
-            className="group relative z-50 inline-flex items-center gap-1.5 rounded-lg px-1.5 align-middle font-medium text-fg no-underline transition-colors hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-white"
+            onMouseEnter={() => activateSyftable(true)}
+            onMouseLeave={() => activateSyftable(false)}
+            onFocus={() => activateSyftable(true)}
+            onBlur={() => activateSyftable(false)}
+            className={`group relative ${
+              syftableRaised ? 'z-50' : ''
+            } inline-flex items-center gap-1.5 rounded-lg px-1.5 align-middle font-medium text-fg no-underline transition-colors hover:bg-black hover:text-white focus-visible:bg-black focus-visible:text-white`}
           >
             <img
               src={syftable.logo}
