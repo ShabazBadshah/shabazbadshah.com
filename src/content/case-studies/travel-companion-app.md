@@ -19,7 +19,7 @@ stack:
   - 'Apple on-device models (iOS)'
 outcome: 'MVP delivered on iOS and Android for founder demos and early testers'
 lockedMedia:
-  image: '/case-studies/travel-companion-app/locked-preview.jpg'
+  image: '/case-studies/travel-companion-app/locked-preview.webp'
   alt: "Blurred preview of the app's screens"
   message: 'These screens are under NDA. Email me to request a private walkthrough.'
 ---
