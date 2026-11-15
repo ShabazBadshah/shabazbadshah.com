@@ -1,4 +1,5 @@
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 /** Seconds the card takes to grow into the article, and to shrink back into its card */
 export const EXPAND_DURATION = 0.45;
@@ -73,3 +74,36 @@ export const openCard = (href: string, card: HTMLElement, mask: string): void =>
   rememberCard(card);
   Router.push(href, mask, { scroll: false, shallow: true });
 };
+
+/**
+ * A case study sheet opened from a card, routed like the blog cards: a shallow route to
+ * `<this page>?project=<slug>`, masked as `/work/<slug>`, so the address bar shows the case study's
+ * own URL and Back closes it. The sheet stays mounted after the route leaves so it can shrink back.
+ */
+export function useProjectSheet<T extends { slug: string }>(
+  projects: T[]
+): {
+  sheet: T | undefined;
+  closing: boolean;
+  open: (project: T, card: HTMLElement) => void;
+  close: () => void;
+  exited: () => void;
+} {
+  const router = useRouter();
+  const routed = projects.find((project) => project.slug === router.query.project);
+  const [shown, setShown] = useState<T>();
+  useEffect(() => {
+    if (routed) setShown(routed);
+  }, [routed]);
+
+  return {
+    sheet: routed ?? shown,
+    closing: !routed,
+    open: (project, card) => {
+      const page = router.asPath.split(/[?#]/)[0];
+      openCard(`${page}?project=${project.slug}`, card, `/work/${project.slug}`);
+    },
+    close: () => router.back(),
+    exited: () => setShown(undefined)
+  };
+}

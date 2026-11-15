@@ -6,7 +6,7 @@ import SEO from '@/components/SEO';
 import CaseStudyArticle from '@/components/work/CaseStudyArticle';
 import CurrentRole from '@/components/work/CurrentRole';
 import WorkList, { FILTERS, WorkFilter } from '@/components/work/WorkList';
-import { rememberCard } from '@/lib/card-transition';
+import { useProjectSheet } from '@/lib/card-transition';
 import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import type { PublicProject, WorkTab } from '@/content/projects';
@@ -22,9 +22,10 @@ type Props = WorkPageData;
  * grows into its case study, like a blog card into its article.
  */
 const Work = ({ current, groups, clients, studies }: Props): JSX.Element => {
-  // Kept mounted after closing so the sheet can shrink back into its card or row
-  const [sheet, setSheet] = useState<PublicProject>();
-  const [sheetOpen, setSheetOpen] = useState(false);
+  const { sheet, closing, open, close, exited } = useProjectSheet<PublicProject>([
+    ...clients,
+    ...Object.values(groups).flat()
+  ]);
   const [filter, setFilter] = useState<WorkTab>('employment');
   // The selected tab's height, kept current as it changes (images loading, the window resizing)
   const panels = useRef<Partial<Record<WorkTab, HTMLDivElement | null>>>({});
@@ -36,12 +37,6 @@ const Work = ({ current, groups, clients, studies }: Props): JSX.Element => {
     observer.observe(panel);
     return () => observer.disconnect();
   }, [filter]);
-
-  const open = (project: PublicProject, card: HTMLElement) => {
-    rememberCard(card);
-    setSheet(project);
-    setSheetOpen(true);
-  };
 
   return (
     <MainLayout source="career">
@@ -101,9 +96,9 @@ const Work = ({ current, groups, clients, studies }: Props): JSX.Element => {
           card={sheet.slug}
           label={sheet.name}
           pageTitle={siteConfig.seo.caseStudyTitle(sheet.name)}
-          closing={!sheetOpen}
-          onClose={() => setSheetOpen(false)}
-          onExited={() => setSheet(undefined)}
+          closing={closing}
+          onClose={close}
+          onExited={exited}
         >
           <CaseStudyArticle project={sheet} study={studies[sheet.slug]} embedded />
         </ArticleSheet>

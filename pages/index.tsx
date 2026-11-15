@@ -1,21 +1,20 @@
 import { ArrowRight } from 'lucide-react';
 import { GetStaticPropsResult } from 'next';
 import Link from 'next/link';
-import { useState } from 'react';
 
-import PostGrid from '@/components/blog/PostGrid';
 import ArticleSheet from '@/components/ArticleSheet';
+import PostGrid from '@/components/blog/PostGrid';
 import Hero from '@/components/home/Hero';
+import MainLayout from '@/components/MainLayout';
 import ProjectCard from '@/components/ProjectCard';
 import SEO from '@/components/SEO';
 import CaseStudyArticle from '@/components/work/CaseStudyArticle';
-import { rememberCard } from '@/lib/card-transition';
-import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import type { PublicProject } from '@/content/projects';
-import MainLayout from '@/components/MainLayout';
-import { homeStructuredData } from '@/lib/structured-data';
+import { useProjectSheet } from '@/lib/card-transition';
 import { getHomePageData, type HomePageData } from '@/lib/home';
+import { siteConfig } from '@/lib/site';
+import { homeStructuredData } from '@/lib/structured-data';
 
 const GRID_GAP = 'gap-4 sm:gap-5 lg:gap-6';
 const SECTION_TITLE = 'text-2xl font-semibold tracking-tight sm:text-3xl';
@@ -37,22 +36,23 @@ function SectionHeader({
   link: string;
 }): JSX.Element {
   return (
-    <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
-      <div>
-        <h2 id={id} className={SECTION_TITLE}>
+    <div>
+      {/* The title and link share a row; the subtitle runs the full width under them */}
+      <div className="flex items-baseline justify-between gap-6">
+        <h2 id={id} className={`min-w-0 ${SECTION_TITLE}`}>
           {title}
         </h2>
-        {subtitle && <p className="text-lg font-medium text-fg-muted">{subtitle}</p>}
+        <Link href={href}>
+          <a className="group inline-flex shrink-0 items-center gap-1 whitespace-nowrap font-medium text-accent no-underline hover:underline">
+            {link}
+            <ArrowRight
+              aria-hidden="true"
+              className="size-4 transition-transform duration-150 group-hover:translate-x-0.5"
+            />
+          </a>
+        </Link>
       </div>
-      <Link href={href}>
-        <a className="group inline-flex items-center gap-1 font-medium text-accent no-underline hover:underline">
-          {link}
-          <ArrowRight
-            aria-hidden="true"
-            className="size-4 transition-transform duration-150 group-hover:translate-x-0.5"
-          />
-        </a>
-      </Link>
+      {subtitle && <p className="text-lg font-medium text-fg-muted">{subtitle}</p>}
     </div>
   );
 }
@@ -60,15 +60,7 @@ function SectionHeader({
 type Props = HomePageData;
 
 const Index = ({ posts, mednow, planned, syftable, studies }: Props): JSX.Element => {
-  // Kept mounted after closing so the sheet can shrink back into its card
-  const [sheet, setSheet] = useState<PublicProject>();
-  const [sheetOpen, setSheetOpen] = useState(false);
-
-  const open = (project: PublicProject, card: HTMLElement) => {
-    rememberCard(card);
-    setSheet(project);
-    setSheetOpen(true);
-  };
+  const { sheet, closing, open, close, exited } = useProjectSheet<PublicProject>([mednow, planned]);
 
   return (
     <MainLayout source="career">
@@ -113,9 +105,9 @@ const Index = ({ posts, mednow, planned, syftable, studies }: Props): JSX.Elemen
           card={sheet.slug}
           label={sheet.name}
           pageTitle={siteConfig.seo.caseStudyTitle(sheet.name)}
-          closing={!sheetOpen}
-          onClose={() => setSheetOpen(false)}
-          onExited={() => setSheet(undefined)}
+          closing={closing}
+          onClose={close}
+          onExited={exited}
         >
           <CaseStudyArticle project={sheet} study={studies[sheet.slug]} embedded />
         </ArticleSheet>
