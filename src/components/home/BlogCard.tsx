@@ -37,7 +37,7 @@ export default function BlogCard({
     <p className={`eyebrow ${row ? '-mt-1.5' : ''}`}>
       {featured && (
         <>
-          <span className="text-accent rounded-pill border border-accent py-1 px-2 bg-blue-50">
+          <span className="text-accent rounded-pill border border-accent py-1 px-2">
             {content.blog.featured}
           </span>
           <span aria-hidden="true"> · </span>
