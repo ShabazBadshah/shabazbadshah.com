@@ -1,4 +1,4 @@
-![logo](./public/images/logo.webp)
+<img src="./public/favicon.svg" alt="logo" width="100" height="100">
 
 # V7 - shabazbadshah.com
 
