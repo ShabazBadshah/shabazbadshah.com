@@ -53,8 +53,7 @@ Role: Technical Product Manager
 Shipped a realtime Android and Windows chat and video calling app to provide technical support in B2B/government environments.
 - Problem: Support teams needed to message and video call managed (MDM) devices to give technical support.
 - What I built: As a PM, I produced the specification and drove the decisions above. The shipped product included: One-to-one and group chat between device users and console admins. In-app notifications for new messages. File attachments, such as screenshots and logs. Voice and video calls. On-premise deployment that fits the customer's existing weekly backups.
-- Outcome: Windows chat and video calling shipped to customers
-- Stack: WebRTC, Blob storage, Windows and Android clients, On-premise server deployment
+- Outcome: Windows, Android, and Web chat and video calling between admins and frontline workers.
 
 ## Planned
 
@@ -65,8 +64,8 @@ Role: Senior Product Manager
 Vendor marketplace data consolidation API for reducing onboarding time using LLMs, REST/GraphQL, and Google Maps.
 - Problem: Vendor data for the curated marketplace was spread across Google Maps, PDFs, Yelp and other sources, which made onboarding slow.
 - What I built: My proof of concept set out the pipeline: Discover. Source adapters search by city and vendor category and collect candidate businesses. Extract. The tool fetches each vendor's website, and the OpenAI API turns the page into structured fields. Resolve. Records for the same vendor are matched and merged, with conflicts flagged. Review. Records open in Flatfile, where the team fixes, removes, or approves them against the production schema. Publish. Approved records go to the main database through the GraphQL API, after an automatic snapshot.
-- Outcome: Onboarding per market cut from 16 hours to 6, with a pipeline that works for any market or dataset
-- Stack: Next.js and React, Firebase, GraphQL and REST APIs, Google Places API, Yelp Fusion API, OpenAI API, Flatfile
+- Outcome: Onboarding per market cut from ~16 hours to 6 for operations team
+- Stack: Next.js, React, Firebase, Google Places API, Yelp Fusion API, Web scraping, OpenAI API, Flatfile
 
 ## Mednow
 
@@ -93,7 +92,7 @@ An informational site for a volunteer nonprofit that empowers low socio-economic
 ## Upper Oakville Chiropractic
 
 URL: https://shabazbadshah.com/work/upper-oakville-chiropractic
-Website: https://uoc-intake-clone.vercel.app/
+Website: https://uochiro.com/
 Role: Product Engineer
 
 Brand, website and compliance for a chiropractic clinic, designed, built and launched, with support after launch.
@@ -109,7 +108,7 @@ Role: Product Engineer
 
 Making trip planning in groups easier though collaborative real-time itineraries, AI suggestions, and a social networking system.
 - What I built: Trip workspaces with invites, member roles, and a shared itinerary that syncs live on every device. The field-locking layer described above, with presence indicators. AI itinerary suggestions from the trip's destination, dates, and group preferences, using Gemini. Passport capture with on-device extraction on iOS, Gemini extraction on Android, and owner-only storage. Google and Apple Sign-In, and iOS and Android builds from one Expo codebase.
-- Outcome: MVP delivered on iOS and Android for founder demos and early testers
+- Outcome: App delivered on iOS and Android for founder demos and early testers
 - Stack: React Native (Expo), Firebase (Auth, Realtime Database, Cloud Functions), Gemini API, Apple on-device models (iOS)
 
 ---
