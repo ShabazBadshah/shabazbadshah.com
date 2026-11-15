@@ -1,6 +1,6 @@
 # Shabaz Badshah (Shabaz Badshah)
 
-> Shabaz Badshah is a Product Engineer based in the Greater Toronto Area, Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
+> Shabaz Badshah is a Product Manager based in the Greater Toronto Area, Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
 
 This site is the personal and consulting website of Shabaz Badshah. Content below is free to summarize and cite with attribution and a link to the source page.
 
@@ -8,18 +8,17 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 
 - [Home](https://shabazbadshah.com/): Introduction, selected work, how I work and recent blog posts
 - [Work](https://shabazbadshah.com/work): Work history timeline and case studies
-- [Badshah Consulting](https://shabazbadshah.com/consulting): Software for Ontario clinics and end-to-end product builds for founders
 - [Clinics](https://shabazbadshah.com/clinics): Clinic websites for Ontario, focused on the GTA
 - [Blog](https://shabazbadshah.com/blog): All blog posts
 
 ## Case studies
 
-- [SOTI](https://shabazbadshah.com/work/soti): Shipped Windows chat and video calling in an enterprise B2B/government product.
-- [Planned](https://shabazbadshah.com/work/planned): Senior PM on an enterprise event management platform.
-- [Mednow](https://shabazbadshah.com/work/mednow): Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
+- [SOTI](https://shabazbadshah.com/work/soti-frontline-support-chat): Shipped a realtime Android and Windows chat and video calling app to provide technical support in B2B/government environments.
+- [Planned](https://shabazbadshah.com/work/planned-vendor-onboarding): Vendor marketplace data consolidation API for reducing onboarding time using LLMs, REST/GraphQL, and Google Maps.
+- [Mednow](https://shabazbadshah.com/work/mednow-digital-pharmacy): Owned and delivered to market a net-new patient pharmacy app in regulated Canadian healthcare (including Québec).
 - [Project Include](https://shabazbadshah.com/work/project-include): An informational site for a volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
-- [Upper Oakville Chiropractic](https://shabazbadshah.com/work/upper-oakville-chiro): Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
-- [Travel app MVP](https://shabazbadshah.com/work/travel-app-mvp): React Native/Expo MVP for iOS and Android, built on Firebase with Google sign-in.
+- [Upper Oakville Chiropractic](https://shabazbadshah.com/work/upper-oakville-chiropractic): Brand, website and compliance for a chiropractic clinic, designed, built and launched, with support after launch.
+- [Collaborative Travel App](https://shabazbadshah.com/work/travel-companion-app): Making trip planning in groups easier though collaborative real-time itineraries, AI suggestions, and a social networking system.
 
 ## Blog
 
@@ -47,38 +46,38 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 
 ## SOTI
 
-URL: https://shabazbadshah.com/work/soti
+URL: https://shabazbadshah.com/work/soti-frontline-support-chat
 Website: https://soti.net
 Role: Technical Product Manager
 
-Shipped Windows chat and video calling in an enterprise B2B/government product.
+Shipped a realtime Android and Windows chat and video calling app to provide technical support in B2B/government environments.
 - Problem: Support teams needed to message and video call managed (MDM) devices to give technical support.
-- What I built: Instant messaging and video calling between support staff and managed devices, with the API and system specifications behind it.
-- Outcome: Grew revenue by $27K MRR CAD post-release.
-- Stack: Android Enterprise, WebRTC, Real-time communication tools, REST APIs and request/response schemas, Data modeling
+- What I built: As a PM, I produced the specification and drove the decisions above. The shipped product included: One-to-one and group chat between device users and console admins. In-app notifications for new messages. File attachments, such as screenshots and logs. Voice and video calls. On-premise deployment that fits the customer's existing weekly backups.
+- Outcome: Windows chat and video calling shipped to customers
+- Stack: WebRTC, Blob storage, Windows and Android clients, On-premise server deployment
 
 ## Planned
 
-URL: https://shabazbadshah.com/work/planned
+URL: https://shabazbadshah.com/work/planned-vendor-onboarding
 Website: https://planned.com/
 Role: Senior Product Manager
 
-Senior PM on an enterprise event management platform.
+Vendor marketplace data consolidation API for reducing onboarding time using LLMs, REST/GraphQL, and Google Maps.
 - Problem: Vendor data for the curated marketplace was spread across Google Maps, PDFs, Yelp and other sources, which made onboarding slow.
-- What I built: A REST API that uses LLMs to consolidate vendor data from those sources into the marketplace.
-- Outcome: Reduced vendor onboarding time from 48h to 6h.
-- Stack: LLMs (ChatGPT), Internal REST APIs, Google Maps API, Website scraping, Data enrichment pipelines
+- What I built: My proof of concept set out the pipeline: Discover. Source adapters search by city and vendor category and collect candidate businesses. Extract. The tool fetches each vendor's website, and the OpenAI API turns the page into structured fields. Resolve. Records for the same vendor are matched and merged, with conflicts flagged. Review. Records open in Flatfile, where the team fixes, removes, or approves them against the production schema. Publish. Approved records go to the main database through the GraphQL API, after an automatic snapshot.
+- Outcome: Onboarding per market cut from 16 hours to 6, with a pipeline that works for any market or dataset
+- Stack: Next.js and React, Firebase, GraphQL and REST APIs, Google Places API, Yelp Fusion API, OpenAI API, Flatfile
 
 ## Mednow
 
-URL: https://shabazbadshah.com/work/mednow
+URL: https://shabazbadshah.com/work/mednow-digital-pharmacy
 Website: https://mednow.ca/
 Role: Product Manager
 
-Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
-- What I built: A B2C pharmacy app for iOS and Android, localized in English and French, with PharmacyLink, Stream Chat, Stripe payments, social sign-in and push notifications.
-- Outcome: Shipped 0→1 to national launch. 400+ 5-star Google reviews.
-- Stack: iOS and Android mobile apps, Figma, TELUS Kroll PMS, Stripe, Stream Chat, Shopify eCommerce integration, Social SSO (Apple/Google), Native push notifications, PIPEDA compliance, PHIPA compliance
+Owned and delivered to market a net-new patient pharmacy app in regulated Canadian healthcare (including Québec).
+- What I built: Pitches with a time budget, problem, user stories, requirements, and explicit out-of-scope items. Competitor research on Telus Health, PocketPills, Shoppers Drug Mart, Rexall, and messaging apps such as WhatsApp and Discord for notification behaviour. Designs, with the design team. I drew some of the mocks and flows myself. Quebec support: English and French, a province selector that defaults from the user's IP address (Ontario as fallback), and province-specific legal copy. An internal training program for pharmacists on the new tools, with learning modules, quizzes, and live sessions. Jira breakdowns and UAT for each release. ![Mednow app home screen](/case-studies/mednow-digital-pharmacy/home.webp "Home: the latest order's status, an easy prescription transfer, and one tap to fill a prescription or chat with a pharmacist") ![Mednow refill selection screen](/case-studies/mednow-digital-pharmacy/refills.webp 'Refills: patients choose which prescriptions to refill and see how many refills each has left') ![Mednow chat with a pharmacist](/case-studies/mednow-digital-pharmacy/chat.webp 'Chat: a patient asks a pharmacist to transfer their prescriptions to Mednow')
+- Outcome: Launched a net-new digital pharmacy that patients loved and that grew revenue through patient acquisition
+- Stack: React (Material UI), Flutter, Go, Postgres, GCP, Kroll PMS, PharmacyLink, StreamChat, Moneris, Stripe, Shopify
 
 ## Project Include
 
@@ -93,23 +92,25 @@ An informational site for a volunteer nonprofit that empowers low socio-economic
 
 ## Upper Oakville Chiropractic
 
-URL: https://shabazbadshah.com/work/upper-oakville-chiro
+URL: https://shabazbadshah.com/work/upper-oakville-chiropractic
 Website: https://uoc-intake-clone.vercel.app/
-Role: Product Engineer Consultant
+Role: Product Engineer
 
-Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
+Brand, website and compliance for a chiropractic clinic, designed, built and launched, with support after launch.
 - Problem: The clinic needed an online presence that brings in patient bookings.
-- What I built: A new brand and a WordPress website, built to PHIPA, PIPEDA and CCO compliance, with technical SEO and AEO, clear forms, and staff training and documentation.
-- Stack: WordPress, PHP, Technical SEO and AEO, Form UX, PHIPA and PIPEDA compliance, Post-launch support and maintenance
+- What I built: A mobile-first website covering services, the practitioner, hours, location, and insurance information. The custom editing template described above. Book and Call actions on every page that route into the clinic's own booking agents. Content structure and metadata for local search engine optimization (SEO) and answer engine optimization (AEO).
+- Outcome: Site live, giving the clinic an online presence that brings in new patients
+- Stack: WordPress, HTML, Shadcn CSS, Google Business tools
 
-## Travel app MVP
+## Collaborative Travel App
 
-URL: https://shabazbadshah.com/work/travel-app-mvp
-Role: Product Engineer Consultant
+URL: https://shabazbadshah.com/work/travel-companion-app
+Role: Product Engineer
 
-React Native/Expo MVP for iOS and Android, built on Firebase with Google sign-in.
-- What I built: An iOS and Android MVP built with React Native and Expo, on Firebase, with Google sign-in.
-- Stack: React Native, Expo, Firebase, Google sign-in, iOS, Android
+Making trip planning in groups easier though collaborative real-time itineraries, AI suggestions, and a social networking system.
+- What I built: Trip workspaces with invites, member roles, and a shared itinerary that syncs live on every device. The field-locking layer described above, with presence indicators. AI itinerary suggestions from the trip's destination, dates, and group preferences, using Gemini. Passport capture with on-device extraction on iOS, Gemini extraction on Android, and owner-only storage. Google and Apple Sign-In, and iOS and Android builds from one Expo codebase.
+- Outcome: MVP delivered on iOS and Android for founder demos and early testers
+- Stack: React Native (Expo), Firebase (Auth, Realtime Database, Cloud Functions), Gemini API, Apple on-device models (iOS)
 
 ---
 

@@ -1,6 +1,6 @@
 # Shabaz Badshah (Shabaz Badshah)
 
-> Shabaz Badshah is a Product Engineer based in the Greater Toronto Area, Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
+> Shabaz Badshah is a Product Manager based in the Greater Toronto Area, Ontario, Canada. He is a hybrid product manager and full-stack engineer building zero-to-one applications. He offers end-to-end software development skillsets, from system architecture to final market launch, implementing features end-to-end, from problem definition to design, development, testing, deployment, and post-launch support.
 
 This site is the personal and consulting website of Shabaz Badshah. Content below is free to summarize and cite with attribution and a link to the source page.
 
@@ -8,18 +8,17 @@ This site is the personal and consulting website of Shabaz Badshah. Content belo
 
 - [Home](https://shabazbadshah.com/): Introduction, selected work, how I work and recent blog posts
 - [Work](https://shabazbadshah.com/work): Work history timeline and case studies
-- [Badshah Consulting](https://shabazbadshah.com/consulting): Software for Ontario clinics and end-to-end product builds for founders
 - [Clinics](https://shabazbadshah.com/clinics): Clinic websites for Ontario, focused on the GTA
 - [Blog](https://shabazbadshah.com/blog): All blog posts
 
 ## Case studies
 
-- [SOTI](https://shabazbadshah.com/work/soti): Shipped Windows chat and video calling in an enterprise B2B/government product.
-- [Planned](https://shabazbadshah.com/work/planned): Senior PM on an enterprise event management platform.
-- [Mednow](https://shabazbadshah.com/work/mednow): Helped build a net-new patient pharmacy app through national launch, in regulated Canadian healthcare.
+- [SOTI](https://shabazbadshah.com/work/soti-frontline-support-chat): Shipped a realtime Android and Windows chat and video calling app to provide technical support in B2B/government environments.
+- [Planned](https://shabazbadshah.com/work/planned-vendor-onboarding): Vendor marketplace data consolidation API for reducing onboarding time using LLMs, REST/GraphQL, and Google Maps.
+- [Mednow](https://shabazbadshah.com/work/mednow-digital-pharmacy): Owned and delivered to market a net-new patient pharmacy app in regulated Canadian healthcare (including Québec).
 - [Project Include](https://shabazbadshah.com/work/project-include): An informational site for a volunteer nonprofit that empowers low socio-economic communities through free coding bootcamps and workshops.
-- [Upper Oakville Chiropractic](https://shabazbadshah.com/work/upper-oakville-chiro): Brand, website and compliance for a chiropractic clinic, designed, built and launched end to end, with support after launch.
-- [Travel app MVP](https://shabazbadshah.com/work/travel-app-mvp): React Native/Expo MVP for iOS and Android, built on Firebase with Google sign-in.
+- [Upper Oakville Chiropractic](https://shabazbadshah.com/work/upper-oakville-chiropractic): Brand, website and compliance for a chiropractic clinic, designed, built and launched, with support after launch.
+- [Collaborative Travel App](https://shabazbadshah.com/work/travel-companion-app): Making trip planning in groups easier though collaborative real-time itineraries, AI suggestions, and a social networking system.
 
 ## Blog
 
