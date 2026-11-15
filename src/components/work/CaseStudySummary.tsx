@@ -34,7 +34,13 @@ export const Html = ({
   <>
     {html.split(LOCKED_MEDIA_HTML).map((part, index) => (
       <Fragment key={index}>
-        {index > 0 && lockedMedia && <LockedMedia media={lockedMedia} />}
+        {index > 0 && lockedMedia && (
+          <LockedMedia
+            image={lockedMedia.image}
+            alt={lockedMedia.alt}
+            message={lockedMedia.message}
+          />
+        )}
         {part.trim() && (
           <div
             data-prose=""

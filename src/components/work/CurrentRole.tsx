@@ -65,7 +65,13 @@ export default function CurrentRole({ current, clients, onOpen }: Props): JSX.El
                 className="group flex items-center gap-4 rounded-inner px-3 py-4 text-fg no-underline transition-colors hover:bg-accent-soft"
               >
                 <div className="flex min-w-0 flex-1 flex-col gap-1">
-                  <Title project={project} className="[&_h3]:text-base" />
+                  <Title
+                    name={project.name}
+                    logo={project.media?.logo}
+                    logoInvertOnDark={project.media?.logoInvertOnDark}
+                    icon={project.icon}
+                    className="[&_h3]:text-base"
+                  />
                   {/* In line with the name, past the logo (size-7) and its gap (2.5) */}
                   <p className="pl-9.5 text-fg-muted">{project.summary}</p>
                 </div>

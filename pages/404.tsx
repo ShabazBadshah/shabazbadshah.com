@@ -8,7 +8,12 @@ import MainLayout from '@/components/MainLayout';
 export default function PageNotFound(): JSX.Element {
   return (
     <MainLayout>
-      <SEO {...siteConfig.seo.notFound} path="/404" noindex />
+      <SEO
+        title={siteConfig.seo.notFound.title}
+        description={siteConfig.seo.notFound.description}
+        path="/404"
+        noindex
+      />
 
       <div className="card mx-auto max-w-xl items-center px-6 py-16 text-center">
         <h1 className="mb-6 text-7xl font-semibold">{content.notFound.code}</h1>

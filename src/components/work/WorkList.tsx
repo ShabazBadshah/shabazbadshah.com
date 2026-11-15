@@ -114,7 +114,13 @@ export default function WorkList({ projects, onOpen }: Props): JSX.Element {
               // Stacked below md, with the icon at the right; a row of columns from md
               className="group relative flex flex-col gap-1.5 rounded-inner px-3 py-4 pr-12 text-fg no-underline transition-colors hover:bg-accent-soft md:col-span-5 md:grid md:grid-cols-subgrid md:items-center md:gap-x-5 md:py-4 md:pr-3"
             >
-              <Title project={project} className="whitespace-nowrap [&_h3]:text-base" />
+              <Title
+                name={project.name}
+                logo={project.media?.logo}
+                logoInvertOnDark={project.media?.logoInvertOnDark}
+                icon={project.icon}
+                className="whitespace-nowrap [&_h3]:text-base"
+              />
               <p className="md:whitespace-nowrap">{project.role}</p>
               <p className="text-fg-muted">{project.summary}</p>
               <p className="mt-1 md:mt-0">

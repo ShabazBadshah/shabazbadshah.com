@@ -178,7 +178,13 @@ export default function CaseStudyArticle({
           </Section>
         ))}
       </div>
-      {lightbox && <ImageLightbox {...lightbox} onClose={() => setLightbox(undefined)} />}
+      {lightbox && (
+        <ImageLightbox
+          slides={lightbox.slides}
+          index={lightbox.index}
+          onClose={() => setLightbox(undefined)}
+        />
+      )}
     </article>
   );
 }

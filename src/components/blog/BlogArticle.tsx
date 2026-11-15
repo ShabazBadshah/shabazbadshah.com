@@ -4,17 +4,23 @@ import { useEffect, useRef, useState } from 'react';
 
 import Toc, { type TocItem } from '@/components/Toc';
 import { content } from '@/content/content';
-import type { Post } from '@/lib/blog';
 
 const ImageLightbox = dynamic(() => import('@/components/ImageLightbox'), { ssr: false });
 
 type Slide = { src: string; alt?: string; description?: string };
 
 export default function BlogArticle({
-  post,
+  title,
+  publishedAt,
+  readingTime,
+  html = '',
   className = 'pb-10'
 }: {
-  post: Post;
+  title: string;
+  publishedAt: string;
+  readingTime: string;
+  /** Pre-rendered article HTML */
+  html?: string;
   className?: string;
 }): JSX.Element {
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -61,7 +67,7 @@ export default function BlogArticle({
         description: img.title || undefined
       }))
     );
-  }, [post.html]);
+  }, [html]);
 
   const openImage = (target: EventTarget | null) => {
     if (!(target instanceof HTMLImageElement) || !bodyRef.current) return;
@@ -80,15 +86,15 @@ export default function BlogArticle({
       </div>
 
       <header className="mb-14 text-center">
-        <h1 className="mb-4 mt-3 text-3xl font-semibold sm:text-4xl">{post.title}</h1>
+        <h1 className="mb-4 mt-3 text-3xl font-semibold sm:text-4xl">{title}</h1>
         <p className="mt-3 inline-block rounded-pill text-fg-muted px-3 py-2 text-sm font-medium">
-          <time dateTime={dayjs(post.publishedAt).format('YYYY-MM-DD')}>
-            {dayjs(post.publishedAt).format('MMM D, YYYY')}
+          <time dateTime={dayjs(publishedAt).format('YYYY-MM-DD')}>
+            {dayjs(publishedAt).format('MMM D, YYYY')}
           </time>
 
           <span aria-hidden="true"> | </span>
           <span className="sr-only">, </span>
-          {post.readingTime}
+          {readingTime}
         </p>
       </header>
 
@@ -105,7 +111,7 @@ export default function BlogArticle({
             openImage(event.target);
           }
         }}
-        dangerouslySetInnerHTML={{ __html: post.html ?? '' }}
+        dangerouslySetInnerHTML={{ __html: html }}
       />
       {lightbox >= 0 && (
         <ImageLightbox slides={slides} index={lightbox} onClose={() => setLightbox(-1)} />

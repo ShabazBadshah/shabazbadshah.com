@@ -18,7 +18,12 @@ const BlogPost = ({ post }: { post: Post }): JSX.Element => (
       publishedAt={post.publishedAt}
       jsonLd={blogPostStructuredData(post)}
     />
-    <BlogArticle post={post} />
+    <BlogArticle
+      title={post.title}
+      publishedAt={post.publishedAt}
+      readingTime={post.readingTime}
+      html={post.html}
+    />
   </MainLayout>
 );
 

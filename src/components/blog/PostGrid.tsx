@@ -51,18 +51,42 @@ export default function PostGrid({
         <ul className={`grid ${columns} ${GRID_GAP}`}>
           {featured && (
             <BlogCard
-              post={featured}
+              slug={featured.slug}
+              title={featured.title}
+              summary={featured.shortBody}
+              publishedAt={featured.publishedAt}
+              readingTime={featured.readingTime}
               featured
               className={cards.length > 1 ? 'sm:col-span-2 lg:row-span-2' : ''}
             />
           )}
-          {rest.map((post) => post && <BlogCard key={post.slug} post={post} />)}
+          {rest.map(
+            (post) =>
+              post && (
+                <BlogCard
+                  key={post.slug}
+                  slug={post.slug}
+                  title={post.title}
+                  summary={post.shortBody}
+                  publishedAt={post.publishedAt}
+                  readingTime={post.readingTime}
+                />
+              )
+          )}
         </ul>
       )}
       {rows.length > 0 && (
         <ul>
           {rows.map((post) => (
-            <BlogCard key={post.slug} post={post} row />
+            <BlogCard
+              key={post.slug}
+              slug={post.slug}
+              title={post.title}
+              summary={post.shortBody}
+              publishedAt={post.publishedAt}
+              readingTime={post.readingTime}
+              row
+            />
           ))}
         </ul>
       )}
@@ -76,7 +100,12 @@ export default function PostGrid({
           onClose={close}
           onExited={() => setShown(undefined)}
         >
-          <BlogArticle post={sheetPost} />
+          <BlogArticle
+            title={sheetPost.title}
+            publishedAt={sheetPost.publishedAt}
+            readingTime={sheetPost.readingTime}
+            html={sheetPost.html}
+          />
         </ArticleSheet>
       )}
     </div>

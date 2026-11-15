@@ -7,11 +7,15 @@ import { trackPinnedPostClicked } from '@/lib/tracking';
 import { useCardTransition } from '@/components/CardTransition';
 import CornerButton from '@/components/CornerButton';
 import { content } from '@/content/content';
-import type { Post } from '@/lib/blog';
 import { isPlainLeftClick, plainText } from '@/lib/utils';
 
 type Props = {
-  post: Post;
+  slug: string;
+  title: string;
+  /** The post's short body, with light markdown */
+  summary: string;
+  publishedAt: string;
+  readingTime: string;
   /** Larger treatment for the lead article */
   featured?: boolean;
   /** A plain list row instead of a card: title, then the date and reading time, then a chevron */
@@ -20,14 +24,18 @@ type Props = {
 };
 
 export default function BlogCard({
-  post,
+  slug,
+  title,
+  summary,
+  publishedAt,
+  readingTime,
   featured = false,
   row = false,
   className = ''
 }: Props): JSX.Element {
   const router = useRouter();
   const { open } = useCardTransition();
-  const href = `/blog/posts/${post.slug}`;
+  const href = `/blog/posts/${slug}`;
 
   // Above the title on a grid card; under it on a list row, laid out like the article's own
   const meta = (
@@ -41,12 +49,12 @@ export default function BlogCard({
           <span className="sr-only">, </span>
         </>
       )}
-      <time dateTime={dayjs(post.publishedAt).format('YYYY-MM-DD')}>
-        {dayjs(post.publishedAt).format('MMM D, YYYY')}
+      <time dateTime={dayjs(publishedAt).format('YYYY-MM-DD')}>
+        {dayjs(publishedAt).format('MMM D, YYYY')}
       </time>
       <span aria-hidden="true">{row ? ' | ' : ' · '}</span>
       <span className="sr-only">, </span>
-      {post.readingTime}
+      {readingTime}
     </p>
   );
 
@@ -54,7 +62,7 @@ export default function BlogCard({
     <li className={className}>
       <a
         href={href}
-        data-card={post.slug}
+        data-card={slug}
         className={
           row
             ? // No card: a row with a chevron, like the rows on /work
@@ -71,7 +79,7 @@ export default function BlogCard({
           trackPinnedPostClicked();
           // Shallow route: this page already holds the article, so nothing is fetched
           const page = router.asPath.split(/[?#]/)[0];
-          open(`${page}?post=${post.slug}`, event.currentTarget, href);
+          open(`${page}?post=${slug}`, event.currentTarget, href);
         }}
       >
         {/* Visual cue only: the whole card opens the article, this is part of that same link */}
@@ -83,11 +91,11 @@ export default function BlogCard({
               featured ? 'text-2xl sm:text-3xl lg:text-4xl' : 'text-xl'
             }`}
           >
-            {post.title}
+            {title}
           </h3>
           {row && meta}
           <p className={`text-fg-muted ${featured ? 'line-clamp-6' : 'line-clamp-3'}`}>
-            {plainText(post.shortBody)}
+            {plainText(summary)}
           </p>
         </div>
         {row && (

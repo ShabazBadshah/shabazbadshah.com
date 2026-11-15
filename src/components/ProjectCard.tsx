@@ -31,14 +31,19 @@ type Props = {
 
 /** Logo and name, as the card's header; also used by the rows on /work */
 export function Title({
-  project,
+  name,
+  logo,
+  logoInvertOnDark = false,
+  icon,
   className = ''
 }: {
-  project: PublicProject;
+  name: string;
+  logo?: string;
+  logoInvertOnDark?: boolean;
+  icon?: ProjectIcon | null;
   className?: string;
 }): JSX.Element {
-  const logo = project.media?.logo;
-  const Icon = project.icon && PROJECT_ICONS[project.icon];
+  const Icon = icon && PROJECT_ICONS[icon];
   return (
     <div data-keep className={`flex items-center gap-2.5 ${className}`}>
       {logo && (
@@ -47,9 +52,7 @@ export function Title({
           alt=""
           width={28}
           height={28}
-          className={`size-7 object-contain ${
-            project.media?.logoInvertOnDark ? 'dark:invert' : ''
-          }`}
+          className={`size-7 object-contain ${logoInvertOnDark ? 'dark:invert' : ''}`}
         />
       )}
       {!logo && Icon && (
@@ -60,18 +63,18 @@ export function Title({
           <Icon className="size-4" />
         </span>
       )}
-      <h3 className="text-lg font-semibold">{project.name}</h3>
+      <h3 className="text-lg font-semibold">{name}</h3>
     </div>
   );
 }
 
-function Body({ project }: { project: PublicProject }): JSX.Element {
+function Body({ summary, outcome }: { summary: string; outcome: string }): JSX.Element {
   return (
     <>
-      <p className="text-fg-muted">{project.summary}</p>
-      {shown(project.outcome) && (
+      <p className="text-fg-muted">{summary}</p>
+      {shown(outcome) && (
         <p className="text-lg font-semibold leading-[1.2] tracking-tight">
-          <Todo value={project.outcome} />
+          <Todo value={outcome} />
         </p>
       )}
     </>
@@ -126,9 +129,14 @@ export default function ProjectCard({ project, className = '', onOpen }: Props):
         </div>
 
         <div className="flex min-w-0 flex-1 flex-col gap-6">
-          <Title project={project} />
+          <Title
+            name={project.name}
+            logo={media?.logo}
+            logoInvertOnDark={media?.logoInvertOnDark}
+            icon={project.icon}
+          />
           <div className="flex flex-col gap-6">
-            <Body project={project} />
+            <Body summary={project.summary} outcome={project.outcome} />
             <ul className="grid gap-1">
               {media.features.map((feature, index) => {
                 const Icon = FEATURE_ICONS[index % FEATURE_ICONS.length];
@@ -156,9 +164,14 @@ export default function ProjectCard({ project, className = '', onOpen }: Props):
       data-card={project.slug}
       className={`card group gap-4 p-5 sm:p-6 ${className}`}
     >
-      <Title project={project} />
+      <Title
+        name={project.name}
+        logo={media?.logo}
+        logoInvertOnDark={media?.logoInvertOnDark}
+        icon={project.icon}
+      />
       <div className="relative flex flex-1 flex-col gap-4">
-        <Body project={project} />
+        <Body summary={project.summary} outcome={project.outcome} />
 
         {(media?.video || media?.image) && (
           <div className="relative mt-auto overflow-hidden rounded-inner border border-line bg-fill">
