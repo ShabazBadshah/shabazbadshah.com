@@ -1,0 +1,13 @@
+<svg width="20" height="21" viewBox="0 -28 512 548" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Pointing-hand cursor for interactive elements, drawn to match cursor.svg: black outline with
+  a
+white halo; the index fingertip is the hotspot -->
+  <path
+    d="M168 300V58A43 43 0 0 1 254 58V165A36 36 0 0 1 326 165V190A36 36 0 0 1 398 190V215A34 34 0 0 1 466 215V360C466 430 410 478 340 478C290 478 262 466 230 438L55 300A35 35 0 0 1 98 245L168 300Z"
+    stroke="#ffffff" stroke-width="60" stroke-linecap="round" stroke-linejoin="round" />
+  <path
+    d="M168 300V58A43 43 0 0 1 254 58V165A36 36 0 0 1 326 165V190A36 36 0 0 1 398 190V215A34 34 0 0 1 466 215V360C466 430 410 478 340 478C290 478 262 466 230 438L55 300A35 35 0 0 1 98 245L168 300Z"
+    fill="#ffffff" stroke="#000000" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M254 165V212M326 190V234M398 215V248" stroke="#000000" stroke-width="32"
+    stroke-linecap="round" />
+</svg>

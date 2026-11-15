@@ -8,10 +8,13 @@ import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from 'ne
 import { trackPageView } from '@/analytics/tracking';
 import CardTransitionProvider from '@/components/CardTransition';
 import ContactDialogProvider from '@/components/ContactDialog';
+import CursorName from '@/components/CursorName';
+import usePageTransitions from '@/components/PageTransition';
 import { siteConfig } from '@/config/site';
 import { content } from '@/content/content';
 import { useClickRipple } from '@/lib/click-ripple';
 import { useClickSound } from '@/lib/click-sound';
+import { useImageSkeletons } from '@/lib/image-skeleton';
 import '@/styles/globals.css';
 
 // next-themes is typed for React 18 children; this repo still pins @types/react 17
@@ -30,6 +33,8 @@ export default function App(props: AppProps): React.ReactNode {
 
   useClickSound();
   useClickRipple();
+  usePageTransitions();
+  useImageSkeletons();
 
   useEffect(() => {
     router.events.on('routeChangeComplete', handleRouteChange);
@@ -86,6 +91,7 @@ export default function App(props: AppProps): React.ReactNode {
             <CardTransitionProvider>
               <ContactDialogProvider>
                 <Component {...pageProps} />
+                <CursorName />
               </ContactDialogProvider>
             </CardTransitionProvider>
           </MotionConfig>

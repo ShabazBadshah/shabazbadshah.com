@@ -2,9 +2,13 @@ import { useReducedMotion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import React, { createContext, useCallback, useContext, useMemo, useRef } from 'react';
 
-/** Seconds the card takes to grow into the article (and shrink back); the only timing to tune. */
-export const EXPAND_DURATION = 0.2;
-export const EXPAND_EASE = 'easeOut';
+/** Seconds the card takes to grow into the article, and to shrink back into its card */
+export const EXPAND_DURATION = 0.45;
+export const COLLAPSE_DURATION = 0.35;
+/** Material's emphasized curve: leaves quickly, then settles slowly into place */
+export const EXPAND_EASE = [0.2, 0, 0, 1] as const;
+/** Share of the duration the outgoing content takes to fade, before the incoming fades in */
+export const FADE_SHARE = 0.3;
 
 /** Where the opened card was, so the article can grow out of it and collapse back into it */
 export type CardOrigin = {
@@ -30,6 +34,31 @@ type Transition = {
 };
 
 const noop = () => undefined;
+
+/**
+ * The card's HTML for its snapshot. A subgrid row (the /work list) takes its columns from the grid
+ * around it, which the snapshot is outside of, so it keeps those column widths inline: the grid's,
+ * less the padding the row and any subgrid between them take from the first and last columns.
+ */
+const snapshot = (card: HTMLElement): string => {
+  const clone = card.cloneNode(true) as HTMLElement;
+  let grid: HTMLElement | null = card;
+  let left = 0;
+  let right = 0;
+  while (grid && getComputedStyle(grid).gridTemplateColumns.startsWith('subgrid')) {
+    const style = getComputedStyle(grid);
+    left += parseFloat(style.paddingLeft) + parseFloat(style.borderLeftWidth);
+    right += parseFloat(style.paddingRight) + parseFloat(style.borderRightWidth);
+    grid = grid.parentElement;
+  }
+  if (grid && grid !== card) {
+    const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').map(parseFloat);
+    columns[0] -= left;
+    columns[columns.length - 1] -= right;
+    clone.style.gridTemplateColumns = columns.map((width) => `${width}px`).join(' ');
+  }
+  return clone.outerHTML;
+};
 const CardTransitionContext = createContext<Transition>({
   open: noop,
   remember: noop,
@@ -58,7 +87,7 @@ export default function CardTransitionProvider({
             width: rect.width,
             height: rect.height,
             radius: parseFloat(getComputedStyle(card).borderTopLeftRadius) || 24,
-            html: card.outerHTML
+            html: snapshot(card)
           };
     },
     [reduceMotion]

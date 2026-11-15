@@ -19,9 +19,9 @@
   --accent: #0066cc;
   --accent-contrast: #ffffff;
   /* A lighter tint of the logo's background (#daedfc); list row hovers */
-  --accent-soft: #edf6fe;
+  --accent-soft: #d0e9ff;
   /* The logo's background; the click ripple */
-  --accent-ripple: #daedfc;
+  --accent-ripple: #46a5fe;
   --shadow-card: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.04);
   /* Lifts the fixed nav off the page */
   --shadow-float: 0 2px 6px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.08);
@@ -42,7 +42,7 @@
   --text-secondary: #a1a1a6;
   --accent: #2997ff;
   --accent-contrast: #000000;
-  --accent-soft: rgb(41 151 255 / 0.16); 
+  --accent-soft: rgb(41 151 255 / 0.16);
   --accent-ripple: rgb(41 151 255 / 0.32);
   --shadow-card: 0 0 0 rgb(0 0 0 / 0);
   --shadow-float: 0 2px 6px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.4);
@@ -112,9 +112,10 @@
   }
 
   /*
-   * Custom cursors replace the system ones: the arrow everywhere (its tip is the hotspot), and a
-   * matching I-beam over selectable text and text fields (centred hotspot). All three rules use
-   * zero-specificity selectors, so the later one wins: a link inside a paragraph keeps the arrow.
+   * Custom cursors replace the system ones: the arrow everywhere (its tip is the hotspot), a
+   * matching I-beam over selectable text and text fields (centred hotspot), and a pointing hand
+   * over anything interactive (the fingertip is the hotspot). All three rules use zero-specificity
+   * selectors, so the later one wins: a link inside a paragraph shows the hand.
    */
   *,
   *::before,
@@ -127,18 +128,27 @@
   :where(
       textarea,
       [contenteditable]:not([contenteditable='false']),
-      input:not([type='checkbox'], [type='radio'], [type='button'], [type='submit'], [type='reset'], [type='range'], [type='color'], [type='file'])
+      input:not(
+          [type='checkbox'],
+          [type='radio'],
+          [type='button'],
+          [type='submit'],
+          [type='reset'],
+          [type='range'],
+          [type='color'],
+          [type='file']
+        )
     ) {
     cursor: url('/cursor-text.svg?v=3') 10 10, text !important;
   }
 
   :where(a[href], button, [role='button'], summary, label, select, .select-none),
   :where(a[href], button, [role='button'], summary, label, select, .select-none) * {
-    cursor: url('/cursor.svg?v=3') 2 2, default !important;
+    cursor: url('/cursor-pointer.svg?v=3') 8 2, pointer !important;
   }
 
   body {
-    @apply bg-bg text-base leading-[1.55] text-fg antialiased;
+    @apply bg-bg text-sm leading-[1.65] text-fg antialiased;
     text-rendering: optimizeLegibility;
   }
 
@@ -194,12 +204,98 @@
   }
 }
 
+/* Code highlighted at build time by Shiki: GitHub Light inline, GitHub Dark in its variables */
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
+/* An image still loading shows a shimmering skeleton in its place (see lib/image-skeleton.ts) */
+img[data-loading] {
+  background: linear-gradient(
+      90deg,
+      transparent 25%,
+      color-mix(in srgb, var(--text) 6%, transparent) 50%,
+      transparent 75%
+    )
+    var(--fill);
+  background-size: 200% 100%;
+  animation: skeleton 1.4s ease-in-out infinite;
+}
+
+@keyframes skeleton {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
 /* Theme switch: the new theme is revealed as a circle growing from the toggle (see Header.tsx),
    so the browser's default cross-fade of the snapshots is turned off */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+}
+
+/*
+ * Page change from the header (see PageTransition.tsx): the page shrinks into a card, slides out to
+ * the left as the next page's card slides in from the right, then that one grows back to full
+ * screen. The site header and the cursor's name tag stay where they are above it.
+ */
+html.page-transition::view-transition {
+  background: color-mix(in srgb, var(--text) 8%, var(--bg));
+}
+
+/* The new page jumps to its top before it is snapshotted, rather than gliding there */
+html.page-transition {
+  scroll-behavior: auto;
+}
+
+html.page-transition [data-site-header] {
+  view-transition-name: site-header;
+}
+
+html.page-transition [data-cursor-name] {
+  view-transition-name: cursor-name;
+}
+
+html.page-transition::view-transition-old(root),
+html.page-transition::view-transition-new(root) {
+  animation-duration: 1.1s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  animation-fill-mode: both;
+}
+
+html.page-transition::view-transition-old(root) {
+  animation-name: page-out;
+}
+
+html.page-transition::view-transition-new(root) {
+  animation-name: page-in;
+}
+
+@keyframes page-out {
+  30% {
+    transform: scale(0.86);
+  }
+  70%,
+  100% {
+    transform: translateX(-100vw) scale(0.86);
+  }
+}
+
+@keyframes page-in {
+  0%,
+  30% {
+    transform: translateX(100vw) scale(0.86);
+  }
+  70% {
+    transform: scale(0.86);
+  }
 }
 
 /* Reduced motion: no transforms, no layout animation, no smooth scroll */
