@@ -82,7 +82,7 @@ export type Project = {
 /** The current role, at the top of /work. Client projects are done through it. */
 export const CURRENT_ROLE = {
   company: 'Badshah Consulting',
-  role: 'Product Engineer Consultant',
+  role: 'Independent Product Work',
   start: '2024',
   end: 'present'
 };
@@ -137,7 +137,7 @@ export const PROJECTS: Project[] = [
     anonymizedName: 'Event management platform',
     role: 'Senior Product Manager',
     start: 'Nov 2022',
-    end: 'May 2023',
+    end: 'Jun 2023',
     audiences: ['career'],
     summary:
       'Vendor marketplace data consolidation API for reducing onboarding time using LLMs, REST/GraphQL, and Google Maps.',
@@ -167,7 +167,7 @@ export const PROJECTS: Project[] = [
     anonymizedName: 'Digital pharmacy',
     role: 'Product Manager',
     start: 'Feb 2021',
-    end: 'Sep 2022',
+    end: 'Jun 2022',
     audiences: ['career'],
     summary:
       'Owned and delivered to market a net-new patient pharmacy app in regulated Canadian healthcare (including Québec).',
@@ -293,7 +293,7 @@ export const PROJECTS: Project[] = [
     summary:
       'Brand, website and compliance for a chiropractic clinic, designed, built and launched, with support after launch.',
     problem: 'The clinic needed an online presence that brings in patient bookings.',
-    externalUrl: 'https://uoc-intake-clone.vercel.app/',
+    externalUrl: 'https://uochiro.com/',
     testimonial: { quote: todo('UOC testimonial'), name: '', role: '' },
     phases: [
       {
