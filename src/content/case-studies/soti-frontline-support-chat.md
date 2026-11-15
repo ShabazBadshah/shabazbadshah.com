@@ -1,7 +1,7 @@
 ---
 title: 'SOTI: built-in support chat and calling for frontline devices'
 slug: 'soti-frontline-support-chat'
-order: 4
+order: 2
 draft: true
 confidential: false
 summary: "As a Technical PM, I defined the product and drove the architecture for a chat and video calling platform built into SOTI's device management software, so admins could support frontline workers on the device itself. The Windows version shipped."

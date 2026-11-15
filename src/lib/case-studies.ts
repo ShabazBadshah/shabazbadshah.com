@@ -13,6 +13,14 @@ import { SHOW_PLACEHOLDERS, VERIFY } from '@/lib/todo';
 
 export type CaseStudySection = { title: string; html: string };
 
+/** Screens under NDA, shown where a section has a `<!-- locked-media -->` comment */
+export type LockedMedia = {
+  /** A pre-blurred preview in public/; null until the file is added */
+  image: string | null;
+  alt: string;
+  message: string;
+};
+
 export type CaseStudy = {
   title: string;
   summary: string;
@@ -22,11 +30,10 @@ export type CaseStudy = {
   timeline: string;
   team: string | null;
   customers: string | null;
-  stack: string[];
-  outcome: string;
   /** "The problem", shown in the summary rather than the body */
   problemHtml: string | null;
   sections: CaseStudySection[];
+  lockedMedia: LockedMedia | null;
 };
 
 const DIR = join(process.cwd(), 'src/content/case-studies');
@@ -40,6 +47,24 @@ const markVerify = (html: string): string =>
       `<span class="rounded-chip border border-dashed border-line-strong px-1.5 text-fg-muted">${marker}</span>`
   );
 
+/**
+ * MDX has no HTML comments: the locked media one becomes a marker element (LOCKED_MEDIA_HTML once
+ * rendered), any other is dropped
+ */
+const replaceComments = (markdown: string): string =>
+  markdown
+    .replace(/<!--\s*locked-media\s*-->/g, '<div data-locked-media="" />')
+    .replace(/<!--[\s\S]*?-->/g, '');
+
+const read = (file: string) => {
+  const source = fs.readFileSync(join(DIR, `${file}.md`), 'utf8');
+  return { source, ...matter(source) };
+};
+
+/** A file's position on /work, from its `order` field; one without comes last */
+export const caseStudyOrder = (file: string | null): number =>
+  (file && read(file).data.order) ?? Infinity;
+
 /** Splits the body at its "## " headings, which are the sections */
 const splitSections = (body: string): { title: string; markdown: string }[] =>
   body
@@ -52,9 +77,14 @@ const splitSections = (body: string): { title: string; markdown: string }[] =>
 
 export const getCaseStudy = async (file: string | null): Promise<CaseStudy | null> => {
   if (!file) return null;
-  const source = fs.readFileSync(join(DIR, `${file}.md`), 'utf8');
-  const { data, content } = matter(source);
+  const { source, data, content } = read(file);
 
+  // The file name is the page's URL (see routeSlug in projects.ts)
+  if (data.slug !== file) {
+    throw new Error(
+      `src/content/case-studies/${file}.md has slug "${data.slug}"; it must match the file name`
+    );
+  }
   if (!data.draft && VERIFY.test(source)) {
     throw new Error(
       `src/content/case-studies/${file}.md is published (draft: false) but still has  markers`
@@ -65,7 +95,7 @@ export const getCaseStudy = async (file: string | null): Promise<CaseStudy | nul
   const sections = await Promise.all(
     splitSections(content).map(async ({ title, markdown }) => ({
       title,
-      html: markVerify(await renderPostHtml(file, markdown))
+      html: markVerify(await renderPostHtml(file, replaceComments(markdown)))
     }))
   );
   const problem = sections.find((section) => section.title === PROBLEM);
@@ -79,9 +109,16 @@ export const getCaseStudy = async (file: string | null): Promise<CaseStudy | nul
     timeline: data.timeline,
     team: data.team ?? null,
     customers: data.customers ?? null,
-    stack: data.stack ?? [],
-    outcome: data.outcome,
     problemHtml: problem?.html ?? null,
-    sections: sections.filter((section) => section !== problem)
+    sections: sections.filter((section) => section !== problem),
+    lockedMedia: data.lockedMedia
+      ? {
+          image: fs.existsSync(join(process.cwd(), 'public', data.lockedMedia.image))
+            ? data.lockedMedia.image
+            : null,
+          alt: data.lockedMedia.alt,
+          message: data.lockedMedia.message
+        }
+      : null
   };
 };

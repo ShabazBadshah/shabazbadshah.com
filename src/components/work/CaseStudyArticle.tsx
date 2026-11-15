@@ -1,22 +1,44 @@
 import { ArrowUpRight } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import type React from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Toc, type TocItem } from '@/components/blog/BlogArticle';
 import { LazyVideo } from '@/components/home/ProjectCard';
 import Todo from '@/components/Todo';
+import LockedMedia, { LOCKED_MEDIA_HTML } from '@/components/work/LockedMedia';
 import { content } from '@/content/content';
 import type { PublicProject } from '@/content/projects';
-import type { CaseStudy } from '@/lib/case-studies';
+import type { CaseStudy, LockedMedia as Media } from '@/lib/case-studies';
+import { renderDiagrams } from '@/lib/mermaid';
 import { shown } from '@/lib/todo';
 import { dateRange } from '@/lib/utils';
 
+const ImageLightbox = dynamic(() => import('@/components/blog/ImageLightbox'), { ssr: false });
+
 const { caseStudy } = content;
 const HEADING = 'scroll-mt-8 text-xl font-semibold tracking-tight sm:text-2xl';
-/** The article's body text, used by the summary's text too */
-const BODY = 'leading-[1.75] text-fg-muted';
-/** Rendered Markdown from a case study file */
+const BODY = 'text-fg-muted';
+/**
+ * Rendered Markdown from a case study file. Images on consecutive lines share a paragraph, and
+ * sit side by side in one row.
+ */
 const PROSE =
-  '[&>:first-child]:mt-0 [&_strong]:font-medium [&_strong]:text-fg [&_table]:text-left [&_table]:text-sm';
+  '[&>:first-child]:mt-0 [&_strong]:font-medium [&_strong]:text-fg [&_table]:text-left [&_table]:text-sm [&_p:has(>img~img)]:grid [&_p:has(>img~img)]:auto-cols-fr [&_p:has(>img~img)]:grid-flow-col [&_p:has(>img~img)]:items-start [&_p:has(>img~img)]:gap-4';
+
+type Slide = { src: string; alt: string; description?: string };
+
+/** Images that open in the lightbox: the Markdown's and the project's screenshot (not locked media) */
+const ZOOMABLE = '[data-prose] img, [data-zoomable] img';
+/**
+ * The wide-screen layout: the article keeps the column's width (the footer's), with the sidebars
+ * in the gutters beside it, --gap away (Header.tsx lines the back button up with the left one)
+ */
+const LAYOUT = 'relative [--gap:4rem]';
+/** A list in a gutter beside the article on wide screens, 200px wide */
+const SIDEBAR =
+  'absolute inset-y-0 hidden w-[min(200px,(100vw_-_100%)/2_-_2rem_-_var(--gap))] 2xl:block';
 
 const kebab = (value: string): string =>
   value
@@ -24,27 +46,68 @@ const kebab = (value: string): string =>
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '');
 
-function Section({ title, value }: { title: string; value: string }): JSX.Element | null {
-  if (!shown(value)) return null;
+const Text = ({ value }: { value: string }): JSX.Element => (
+  <p className={BODY}>
+    <Todo value={value} />
+  </p>
+);
+
+/** Rendered Markdown, with the locked media block where the file marks one */
+const Html = ({ html, lockedMedia }: { html: string; lockedMedia?: Media | null }): JSX.Element => (
+  <>
+    {html.split(LOCKED_MEDIA_HTML).map((part, index) => (
+      <Fragment key={index}>
+        {index > 0 && lockedMedia && <LockedMedia media={lockedMedia} />}
+        {part.trim() && (
+          <div
+            data-prose=""
+            className={`${BODY} ${PROSE}`}
+            dangerouslySetInnerHTML={{ __html: part }}
+          />
+        )}
+      </Fragment>
+    ))}
+  </>
+);
+
+type Block = { id: string; title: string; body: JSX.Element };
+
+function Section({
+  id,
+  title,
+  heading: Heading,
+  children
+}: {
+  id: string;
+  title: string;
+  heading: 'h2' | 'h3';
+  children: React.ReactNode;
+}): JSX.Element {
   return (
-    <div className="flex flex-col gap-4">
-      <h2 className={HEADING}>{title}</h2>
-      <p className={BODY}>
-        <Todo value={value} />
-      </p>
-    </div>
+    <section aria-labelledby={id} className="flex flex-col gap-4">
+      <Heading id={id} className={HEADING}>
+        {title}
+      </Heading>
+      {children}
+    </section>
   );
 }
 
 /** One fact in the facts list: a label over a value or a stacked list, styled like the contents list */
-function Meta({ title, value }: { title: string; value: string | string[] }): JSX.Element | null {
-  const items = (Array.isArray(value) ? value : [value]).filter(shown);
+function Meta({
+  title,
+  value
+}: {
+  title: string;
+  value: string | string[] | null | undefined | false;
+}): JSX.Element | null {
+  const items = ([] as string[]).concat(value || []).filter(shown);
   if (items.length === 0) return null;
   return (
-    <div className="flex flex-col gap-1">
-      <dt className="px-3 text-sm font-semibold leading-snug">{title}</dt>
+    <div className="flex flex-col gap-1 px-3 leading-snug">
+      <dt className="text-sm font-semibold">{title}</dt>
       {items.map((item) => (
-        <dd key={item} className="px-3 text-[0.8125rem] leading-snug text-fg-muted">
+        <dd key={item} className="text-[0.8125rem] text-fg-muted">
           <Todo value={item} />
         </dd>
       ))}
@@ -71,20 +134,18 @@ function Facts({
         title={caseStudy.company}
         value={!project.client && study ? study.client : project.company}
       />
-      {project.client && (
-        <Meta title={caseStudy.client} value={study ? study.client : project.name} />
-      )}
+      <Meta
+        title={caseStudy.client}
+        value={project.client && (study ? study.client : project.name)}
+      />
       <Meta title={caseStudy.role} value={study ? study.role : project.role} />
-      {study ? (
-        <Meta title={caseStudy.timeline} value={study.timeline} />
-      ) : (
-        !project.client && (
-          <Meta title={caseStudy.timeline} value={dateRange(project.start, project.end)} />
-        )
-      )}
-      {study?.team && <Meta title={caseStudy.team} value={study.team} />}
-      {study?.customers && <Meta title={caseStudy.customers} value={study.customers} />}
-      <Meta title={caseStudy.stack} value={study ? study.stack : project.stack} />
+      <Meta
+        title={caseStudy.timeline}
+        value={study ? study.timeline : !project.client && dateRange(project.start, project.end)}
+      />
+      <Meta title={caseStudy.team} value={study?.team} />
+      <Meta title={caseStudy.customers} value={study?.customers} />
+      <Meta title={caseStudy.stack} value={project.stack} />
       <Meta title={caseStudy.disciplines} value={project.disciplines} />
       <Meta title={caseStudy.skills} value={project.skills} />
     </dl>
@@ -109,41 +170,115 @@ export default function CaseStudyArticle({
   study = null,
   embedded = false
 }: Props): JSX.Element {
-  const media = project.media;
-  const testimonial = project.testimonial;
+  const { media, outcome } = project;
   const Title = embedded ? 'h2' : 'h1';
-  const Heading = embedded ? 'h3' : 'h2';
+  const heading = embedded ? 'h3' : 'h2';
   const id = (section: string) => `${section}-${project.slug}`;
-  // A case study file replaces the fields' body sections; the testimonial still comes from the fields
-  const sections = study?.sections.map((section) => ({ ...section, id: id(kebab(section.title)) }));
   // The header watches #hero on a page of its own
   const summaryId = embedded ? id('summary') : 'hero';
 
+  const article = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const draw = () => {
+      renderDiagrams(article.current).catch(() => undefined);
+    };
+    draw();
+    // Redraw in the other theme's colours when <html> switches between light and dark
+    const observer = new MutationObserver(draw);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, [study]);
+
+  // The article's images open in a lightbox, by click or keyboard, which steps through all of them
+  const [lightbox, setLightbox] = useState<{ slides: Slide[]; index: number }>();
+  useEffect(() => {
+    article.current?.querySelectorAll<HTMLImageElement>(ZOOMABLE).forEach((img) => {
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', content.blog.enlargeImage(img.alt));
+    });
+  }, [study]);
+  const openImage = (target: EventTarget) => {
+    if (!(target instanceof HTMLImageElement) || !target.matches(ZOOMABLE)) return;
+    const images = Array.from(article.current?.querySelectorAll<HTMLImageElement>(ZOOMABLE) ?? []);
+    setLightbox({
+      index: images.indexOf(target),
+      // The image's Markdown title is its caption
+      slides: images.map((img) => ({
+        src: img.currentSrc || img.src,
+        alt: img.alt,
+        description: img.title || undefined
+      }))
+    });
+  };
+
+  // The sections after the summary, each one also an entry in the contents. A case study file
+  // replaces the fields' sections.
+  const blocks = [
+    ...(study
+      ? study.sections.map((section) => ({
+          id: id(kebab(section.title)),
+          title: section.title,
+          body: <Html html={section.html} lockedMedia={study.lockedMedia} />
+        }))
+      : [
+          shown(project.whatIBuilt) && {
+            id: id('built'),
+            title: caseStudy.whatIBuilt,
+            body: <Text value={project.whatIBuilt} />
+          },
+          project.phases.length > 0 && {
+            id: id('phases'),
+            title: caseStudy.phases,
+            body: (
+              <ol className="mt-2 grid gap-4 sm:gap-5 lg:grid-cols-2">
+                {project.phases.map((phase, index) => (
+                  <li key={phase.title} className="card gap-3 p-6">
+                    <p className="eyebrow">{caseStudy.phase(index + 1)}</p>
+                    <h3 className="text-lg font-semibold">{phase.title}</h3>
+                    {shown(phase.summary) && (
+                      <p className="text-fg-muted">
+                        <Todo value={phase.summary} />
+                      </p>
+                    )}
+                    {shown(phase.outcome) && (
+                      <p className="font-medium">
+                        <Todo value={phase.outcome} />
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            )
+          }
+        ])
+  ].filter((block): block is Block => Boolean(block));
+
   const toc: TocItem[] = [
     { id: summaryId, text: caseStudy.summary, level: 2 },
-    ...(sections
-      ? sections.map((section) => ({ id: section.id, text: section.title, level: 2 as const }))
-      : [
-          shown(project.whatIBuilt) && { id: id('built'), text: caseStudy.whatIBuilt, level: 2 },
-          project.phases.length > 0 && { id: id('phases'), text: caseStudy.phases, level: 2 }
-        ]),
-    testimonial &&
-      shown(testimonial.quote) && { id: id('testimonial'), text: caseStudy.testimonial, level: 2 }
-  ].filter((item): item is TocItem => Boolean(item));
+    ...blocks.map((block) => ({ id: block.id, text: block.title, level: 2 as const }))
+  ];
 
   return (
-    <article className="relative">
-      {/* Sits in the gutter beside the article, sized to the space there so it never overlaps the text */}
-      <aside className="absolute bottom-0 left-full top-0 ml-6 hidden w-[calc((100vw-100%)/2-3.5rem)] 2xl:block">
+    <article
+      ref={article}
+      className={LAYOUT}
+      onClick={(event) => openImage(event.target)}
+      onKeyDown={(event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        if (!(event.target instanceof HTMLImageElement)) return;
+        event.preventDefault();
+        openImage(event.target);
+      }}
+    >
+      <aside className={`${SIDEBAR} left-full ml-(--gap)`}>
         <Toc items={toc} />
       </aside>
-
-      {/* Mirrors the contents list in the gutter on the other side */}
-      <aside className="absolute bottom-0 right-full top-0 mr-6 hidden w-[calc((100vw-100%)/2-3.5rem)] 2xl:block">
+      <aside className={`${SIDEBAR} right-full mr-(--gap)`}>
         <Facts
           project={project}
           study={study}
-          className="sticky top-32 max-h-[calc(100dvh-9rem)] overflow-y-auto"
+          className="sticky top-[var(--article-top,7rem)] max-h-[calc(100dvh_-_var(--article-top,7rem)_-_1rem)] overflow-y-auto"
         />
       </aside>
 
@@ -171,23 +306,23 @@ export default function CaseStudyArticle({
             >
               {study ? <Todo value={study.title} /> : project.name}
             </Title>
-            <p className={BODY}>
-              <Todo value={study ? study.summary : project.summary} />
-            </p>
+            <Text value={study ? study.summary : project.summary} />
           </header>
 
-          {study?.problemHtml ? (
-            <div className="flex flex-col gap-4">
-              <h2 className={HEADING}>{caseStudy.problem}</h2>
-              <div
-                className={`${BODY} ${PROSE}`}
-                dangerouslySetInnerHTML={{ __html: study.problemHtml }}
-              />
-            </div>
-          ) : (
-            <Section title={caseStudy.problem} value={project.problem} />
+          {(study?.problemHtml || shown(project.problem)) && (
+            <Section id={id('summary-problem')} title={caseStudy.problem} heading={heading}>
+              {study?.problemHtml ? (
+                <Html html={study.problemHtml} />
+              ) : (
+                <Text value={project.problem} />
+              )}
+            </Section>
           )}
-          <Section title={caseStudy.outcome} value={study ? study.outcome : project.outcome} />
+          {shown(outcome) && (
+            <Section id={id('summary-outcome')} title={caseStudy.outcome} heading={heading}>
+              <Text value={outcome} />
+            </Section>
+          )}
 
           {project.externalUrl && (
             <a
@@ -212,7 +347,7 @@ export default function CaseStudyArticle({
             </div>
           ) : (
             media?.image && (
-              <div className="card aspect-video w-full">
+              <div data-zoomable="" className="card aspect-video w-full">
                 <Image
                   src={media.image.src}
                   alt={media.image.alt}
@@ -229,74 +364,13 @@ export default function CaseStudyArticle({
           <Facts project={project} study={study} className="rounded-3xl border py-4 2xl:hidden" />
         </section>
 
-        {sections?.map((section) => (
-          <section key={section.id} aria-labelledby={section.id} className="flex flex-col gap-4">
-            <Heading id={section.id} className={HEADING}>
-              {section.title}
-            </Heading>
-            <div
-              className={`${BODY} ${PROSE}`}
-              dangerouslySetInnerHTML={{ __html: section.html }}
-            />
-          </section>
+        {blocks.map((block) => (
+          <Section key={block.id} id={block.id} title={block.title} heading={heading}>
+            {block.body}
+          </Section>
         ))}
-
-        {!sections && shown(project.whatIBuilt) && (
-          <section aria-labelledby={id('built')} className="flex flex-col gap-4">
-            <Heading id={id('built')} className={HEADING}>
-              {caseStudy.whatIBuilt}
-            </Heading>
-            <p className="text-fg-muted sm:text-lg">
-              <Todo value={project.whatIBuilt} />
-            </p>
-          </section>
-        )}
-
-        {!sections && project.phases.length > 0 && (
-          <section aria-labelledby={id('phases')}>
-            <Heading id={id('phases')} className={HEADING}>
-              {caseStudy.phases}
-            </Heading>
-            <ol className="mt-6 grid gap-4 sm:gap-5 lg:grid-cols-2">
-              {project.phases.map((phase, index) => (
-                <li key={phase.title} className="card gap-3 p-6">
-                  <p className="eyebrow">{caseStudy.phase(index + 1)}</p>
-                  <h3 className="text-lg font-semibold">{phase.title}</h3>
-                  {shown(phase.summary) && (
-                    <p className="text-fg-muted">
-                      <Todo value={phase.summary} />
-                    </p>
-                  )}
-                  {shown(phase.outcome) && (
-                    <p className="font-medium">
-                      <Todo value={phase.outcome} />
-                    </p>
-                  )}
-                </li>
-              ))}
-            </ol>
-          </section>
-        )}
-
-        {testimonial && shown(testimonial.quote) && (
-          <section aria-labelledby={id('testimonial')} className="flex flex-col gap-6">
-            <Heading id={id('testimonial')} className={HEADING}>
-              {caseStudy.testimonial}
-            </Heading>
-            <figure className="card gap-4 p-6 sm:p-8">
-              <blockquote className="text-lg sm:text-xl">
-                <Todo value={testimonial.quote} />
-              </blockquote>
-              {testimonial.name && (
-                <figcaption className="text-fg-muted">
-                  {testimonial.name}
-                  {testimonial.role && `, ${testimonial.role}`}
-                </figcaption>
-              )}
-            </figure>
-          </section>
-        )}
       </div>
+      {lightbox && <ImageLightbox {...lightbox} onClose={() => setLightbox(undefined)} />}
     </article>
   );
 }

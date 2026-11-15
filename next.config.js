@@ -129,7 +129,13 @@ const nextConfig = {
       moved('/writing/:path*', '/blog'),
       // Syftable lives on its own domain
       moved('/syftable', SYFTABLE_URL),
-      moved('/syftable/:path*', SYFTABLE_URL)
+      moved('/syftable/:path*', SYFTABLE_URL),
+      // Case studies moved to their files' slugs
+      moved('/work/soti', '/work/soti-frontline-support-chat'),
+      moved('/work/planned', '/work/planned-vendor-onboarding'),
+      moved('/work/mednow', '/work/mednow-digital-pharmacy'),
+      moved('/work/upper-oakville-chiro', '/work/upper-oakville-chiropractic'),
+      moved('/work/travel-app-mvp', '/work/travel-companion-app')
     ];
   }
 };

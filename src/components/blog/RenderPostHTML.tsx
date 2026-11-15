@@ -3,9 +3,28 @@ import type { ComponentProps, ComponentType } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import * as jsxDevRuntime from 'react/jsx-dev-runtime';
 import * as jsxRuntime from 'react/jsx-runtime';
+import rehypeShiki from '@shikijs/rehype';
 import remarkGfm from 'remark-gfm';
 
 import type { Post } from '@/lib/blog';
+
+/**
+ * Languages highlighted at build time; others (and mermaid, which is drawn as a diagram in the
+ * browser) stay plain text
+ */
+const CODE_LANGUAGES = [
+  'bash',
+  'css',
+  'diff',
+  'html',
+  'js',
+  'json',
+  'jsx',
+  'sql',
+  'ts',
+  'tsx',
+  'yaml'
+];
 
 // The post title is the page's only <h1>, so a "# Heading" inside an article renders as an <h2>
 const H2 = (props: ComponentProps<'h2'>) => (
@@ -24,16 +43,26 @@ const createComponents = (slug: string) => ({
     <blockquote className="my-4 border-l border-fg-muted pl-2 italic" {...props} />
   ),
   table: (props: ComponentProps<'table'>) => (
-    <div className="mb-8 overflow-x-auto rounded-lg border border-line">
+    <div className="my-8 overflow-x-auto rounded-lg border border-line">
       <table className="w-full border-collapse" {...props} />
     </div>
   ),
   tr: (props: ComponentProps<'tr'>) => <tr className="[&:not(:last-child)]:border-b" {...props} />,
   th: (props: ComponentProps<'th'>) => (
-    <th className="border-b border-line px-3 pb-3 pt-4 font-medium" {...props} />
+    <th
+      className="border-b border-r border-line px-3 pb-3 pt-4 font-medium last:border-r-0"
+      {...props}
+    />
   ),
   td: (props: ComponentProps<'td'>) => (
     <td className="border-r border-line px-3 pb-4 pt-3 last:border-r-0" {...props} />
+  ),
+  // Highlighted by Shiki: GitHub Light colours inline, GitHub Dark's in variables (globals.css)
+  pre: ({ className = '', ...props }: ComponentProps<'pre'>) => (
+    <pre
+      className={`my-8 overflow-x-auto rounded-lg border border-line p-4 text-[0.8125rem] leading-relaxed ${className}`}
+      {...props}
+    />
   ),
   ul: (props: ComponentProps<'ul'>) => <ul className="mb-3 pl-8" {...props} />,
   ol: (props: ComponentProps<'ol'>) => <ol className="mb-3 pl-8 [&>li]:list-decimal" {...props} />,
@@ -60,7 +89,8 @@ const createComponents = (slug: string) => ({
   ),
   img: ({ src, alt, title }: ComponentProps<'img'>) => (
     <img
-      src={src?.startsWith('https') ? src : `/images/blog/${slug}/${src}`}
+      // A full URL or a site path as written; a bare file name is the post's own image
+      src={src?.startsWith('https') || src?.startsWith('/') ? src : `/images/blog/${slug}/${src}`}
       alt={alt || ''}
       title={title}
       loading="lazy"
@@ -77,7 +107,15 @@ const createComponents = (slug: string) => ({
  */
 export const renderPostHtml = async (slug: string, markdown: string): Promise<string> => {
   const { compiledSource } = await serialize(markdown, {
-    mdxOptions: { remarkPlugins: [remarkGfm] }
+    mdxOptions: {
+      remarkPlugins: [remarkGfm],
+      rehypePlugins: [
+        [
+          rehypeShiki,
+          { themes: { light: 'github-light', dark: 'github-dark' }, langs: CODE_LANGUAGES }
+        ]
+      ]
+    }
   });
   // Run the compiled MDX directly with components as a prop instead of through <MDXRemote>, whose
   // MDXProvider context is shared across the separately bundled renderers of each page and makes

@@ -1,29 +1,29 @@
 import { GetStaticPropsResult } from 'next';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { useCardTransition } from '@/components/CardTransition';
 import ArticleSheet from '@/components/home/ArticleSheet';
 import SEO from '@/components/SEO';
 import CaseStudyArticle from '@/components/work/CaseStudyArticle';
 import CurrentRole from '@/components/work/CurrentRole';
-import WorkList from '@/components/work/WorkList';
+import WorkList, { FILTERS, WorkFilter } from '@/components/work/WorkList';
 import { siteConfig } from '@/config/site';
 import { content } from '@/content/content';
 import {
-  clientProjects,
   CURRENT_ROLE,
+  currentRoleProjects,
   projectsOfKind,
-  type ProjectKind,
-  type PublicProject
+  type PublicProject,
+  type WorkTab
 } from '@/content/projects';
 import MainLayout from '@/layouts/MainLayout';
-import { getCaseStudy, type CaseStudy } from '@/lib/case-studies';
+import { caseStudyOrder, getCaseStudy, type CaseStudy } from '@/lib/case-studies';
 
 const { work } = content;
 
 type Props = {
   current: typeof CURRENT_ROLE;
-  groups: Record<ProjectKind, PublicProject[]>;
+  groups: Record<WorkTab, PublicProject[]>;
   clients: PublicProject[];
   /** Each project's case study by slug, so a row opens it with nothing to load */
   studies: Record<string, CaseStudy | null>;
@@ -38,6 +38,17 @@ const Work = ({ current, groups, clients, studies }: Props): JSX.Element => {
   // Kept mounted after closing so the sheet can shrink back into its card or row
   const [sheet, setSheet] = useState<PublicProject>();
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [filter, setFilter] = useState<WorkTab>('employment');
+  // The selected tab's height, kept current as it changes (images loading, the window resizing)
+  const panels = useRef<Partial<Record<WorkTab, HTMLDivElement | null>>>({});
+  const [height, setHeight] = useState<number>();
+  useEffect(() => {
+    const panel = panels.current[filter];
+    if (!panel) return;
+    const observer = new ResizeObserver(() => setHeight(panel.offsetHeight));
+    observer.observe(panel);
+    return () => observer.disconnect();
+  }, [filter]);
 
   const open = (project: PublicProject, card: HTMLElement) => {
     remember(card);
@@ -60,8 +71,42 @@ const Work = ({ current, groups, clients, studies }: Props): JSX.Element => {
           <p className="text-lg text-fg-muted sm:text-xl">{work.subtitle}</p>
         </section>
 
-        <CurrentRole current={current} clients={clients} onOpen={open} />
-        <WorkList groups={groups} onOpen={open} />
+        {/*
+          The tabs come first; Work also shows the current role above its history. Every tab's list
+          is laid out side by side in one track that slides to the one picked, while the area eases
+          to that list's height. The others are clipped out of view (the margin keeps the card's
+          shadow) and out of reach of the keyboard and screen readers.
+        */}
+        <div className="flex flex-col gap-6">
+          <WorkFilter filter={filter} onChange={setFilter} />
+          <div
+            className="overflow-clip transition-[height] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] [overflow-clip-margin:1.5rem]"
+            style={{ height }}
+          >
+            <div
+              className="flex items-start gap-12 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+              style={{ transform: `translateX(calc(${-FILTERS.indexOf(filter)} * (100% + 3rem)))` }}
+            >
+              {FILTERS.map((kind) => (
+                <div
+                  key={kind}
+                  ref={(element) => {
+                    panels.current[kind] = element;
+                  }}
+                  aria-hidden={kind !== filter || undefined}
+                  // inert isn't in this React version's types
+                  {...(kind !== filter && { inert: '' })}
+                  className="flex w-full shrink-0 flex-col gap-6"
+                >
+                  {kind === 'employment' && (
+                    <CurrentRole current={current} clients={clients} onOpen={open} />
+                  )}
+                  <WorkList projects={groups[kind]} onOpen={open} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
       {sheet && (
         <ArticleSheet
@@ -82,13 +127,16 @@ const Work = ({ current, groups, clients, studies }: Props): JSX.Element => {
 
 export default Work;
 
+/** By each case study file's `order`; rows without one keep their place after them */
+const byOrder = (projects: PublicProject[]): PublicProject[] =>
+  [...projects].sort((a, b) => caseStudyOrder(a.caseStudy) - caseStudyOrder(b.caseStudy));
+
 export const getStaticProps = async (): Promise<GetStaticPropsResult<Props>> => {
   const groups = {
-    employment: projectsOfKind('employment'),
-    volunteer: projectsOfKind('volunteer'),
-    project: projectsOfKind('project')
+    employment: byOrder(projectsOfKind('employment')),
+    volunteer: byOrder(projectsOfKind('volunteer'))
   };
-  const clients = clientProjects();
+  const clients = byOrder(currentRoleProjects());
   const projects = [...clients, ...Object.values(groups).flat()];
   const studies = Object.fromEntries(
     await Promise.all(
