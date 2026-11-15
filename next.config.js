@@ -3,7 +3,7 @@ dotenv.config();
 
 const isProd = process.env.NODE_ENV === 'production';
 
-/** Keep in sync with SYFTABLE_URL in src/config/site.ts */
+/** Keep in sync with SYFTABLE_URL in src/lib/site.ts */
 const SYFTABLE_URL = 'https://syftable.com';
 
 // Next injects inline bootstrap scripts (and next-themes an inline no-flash script), so

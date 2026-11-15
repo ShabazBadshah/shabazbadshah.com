@@ -5,12 +5,12 @@ import type { AppProps } from 'next/app';
 import { LazyMotion, MotionConfig } from 'framer-motion';
 import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from 'next-themes';
 
-import { trackPageView } from '@/analytics/tracking';
+import { trackPageView } from '@/lib/tracking';
 import CardTransitionProvider from '@/components/CardTransition';
 import ContactDialogProvider from '@/components/ContactDialog';
 import CursorName from '@/components/CursorName';
 import usePageTransitions from '@/components/PageTransition';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import { useClickRipple } from '@/lib/click-ripple';
 import { useClickSound } from '@/lib/click-sound';

@@ -2,9 +2,9 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
 import BlogArticle from '@/components/blog/BlogArticle';
-import ArticleSheet from '@/components/home/ArticleSheet';
-import BlogCard from '@/components/home/BlogCard';
-import { siteConfig } from '@/config/site';
+import ArticleSheet from '@/components/ArticleSheet';
+import BlogCard from '@/components/blog/BlogCard';
+import { siteConfig } from '@/lib/site';
 import type { Post } from '@/lib/blog';
 
 const GRID_GAP = 'gap-4 sm:gap-5 lg:gap-6';

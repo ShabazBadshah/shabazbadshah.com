@@ -9,7 +9,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { join } from 'path';
 
-import { siteConfig } from '../config/site';
+import { siteConfig } from '../lib/site';
 import { isTodo, SHOW_PLACEHOLDERS, todo, VERIFY } from '../lib/todo';
 
 export type Audience = 'career' | 'clinics';

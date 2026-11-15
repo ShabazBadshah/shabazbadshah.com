@@ -2,10 +2,10 @@ import dayjs from 'dayjs';
 import { GetStaticPaths, GetStaticProps } from 'next';
 
 import BlogArticle from '@/components/blog/BlogArticle';
-import { renderPostHtml } from '@/components/blog/RenderPostHTML';
+import { renderPostHtml } from '@/lib/render-html';
 import SEO from '@/components/SEO';
-import { siteConfig } from '@/config/site';
-import MainLayout from '@/layouts/MainLayout';
+import { siteConfig } from '@/lib/site';
+import MainLayout from '@/components/MainLayout';
 import { getAllPostSlugs, getPostBySlug, type Post } from '@/lib/blog';
 import { blogPostStructuredData } from '@/lib/structured-data';
 import { plainText } from '@/lib/utils';

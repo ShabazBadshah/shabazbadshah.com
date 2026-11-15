@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { SocialProvider } from '@/config/site';
+import type { SocialProvider } from '@/lib/site';
 
 // gtag only exists once the (lazy-loaded) Google Analytics script has run
 const gtag = (...args: unknown[]): void => (window as any).gtag?.(...args);

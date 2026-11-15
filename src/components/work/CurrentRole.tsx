@@ -1,9 +1,9 @@
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
 import type React from 'react';
 
-import { Title } from '@/components/home/ProjectCard';
+import { Title } from '@/components/ProjectCard';
 import { Dates, isPlainLeftClick } from '@/components/work/WorkList';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import type { CURRENT_ROLE, PublicProject } from '@/content/projects';
 import { dateRange } from '@/lib/utils';

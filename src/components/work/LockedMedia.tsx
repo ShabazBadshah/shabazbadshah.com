@@ -1,7 +1,7 @@
 import { Lock } from 'lucide-react';
 import Image from 'next/image';
 
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import type { LockedMedia as Media } from '@/lib/case-studies';
 

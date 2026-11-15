@@ -2,12 +2,12 @@ import { GetStaticPropsResult } from 'next';
 import { useEffect, useRef, useState } from 'react';
 
 import { useCardTransition } from '@/components/CardTransition';
-import ArticleSheet from '@/components/home/ArticleSheet';
+import ArticleSheet from '@/components/ArticleSheet';
 import SEO from '@/components/SEO';
 import CaseStudyArticle from '@/components/work/CaseStudyArticle';
 import CurrentRole from '@/components/work/CurrentRole';
 import WorkList, { FILTERS, WorkFilter } from '@/components/work/WorkList';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import {
   CURRENT_ROLE,
@@ -16,7 +16,7 @@ import {
   type PublicProject,
   type WorkTab
 } from '@/content/projects';
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@/components/MainLayout';
 import { caseStudyOrder, getCaseStudy, type CaseStudy } from '@/lib/case-studies';
 
 const { work } = content;

@@ -1,6 +1,6 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/site';
 
 export default class MyDocument extends Document {
   render(): JSX.Element {

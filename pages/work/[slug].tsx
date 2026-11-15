@@ -2,9 +2,9 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 
 import SEO from '@/components/SEO';
 import CaseStudyArticle from '@/components/work/CaseStudyArticle';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/site';
 import { caseStudyProjects, type PublicProject } from '@/content/projects';
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@/components/MainLayout';
 import { getCaseStudy, type CaseStudy as Study } from '@/lib/case-studies';
 
 type Props = { project: PublicProject; study: Study | null };

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { useContactDialog } from '@/components/ContactDialog';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 
 const { hero } = content;

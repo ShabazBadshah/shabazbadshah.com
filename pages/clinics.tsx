@@ -1,13 +1,13 @@
 import { CalendarCheck, MapPin } from 'lucide-react';
 import { GetStaticPropsResult } from 'next';
 
-import ProjectCard from '@/components/home/ProjectCard';
+import ProjectCard from '@/components/ProjectCard';
 import SEO from '@/components/SEO';
 import Todo from '@/components/Todo';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import { caseStudiesFor, type PublicProject } from '@/content/projects';
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@/components/MainLayout';
 import { businessStructuredData } from '@/lib/structured-data';
 import { SHOW_PLACEHOLDERS, shown } from '@/lib/todo';
 

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/site';
 import type { Post } from '@/lib/blog';
 import { plainText } from '@/lib/utils';
 

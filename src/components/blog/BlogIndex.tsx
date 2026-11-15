@@ -3,9 +3,9 @@ import Link from 'next/link';
 
 import PostGrid from '@/components/blog/PostGrid';
 import SEO from '@/components/SEO';
-import { siteConfig } from '@/config/site';
+import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
-import MainLayout from '@/layouts/MainLayout';
+import MainLayout from '@/components/MainLayout';
 import type { Post } from '@/lib/blog';
 
 const { blog } = content;

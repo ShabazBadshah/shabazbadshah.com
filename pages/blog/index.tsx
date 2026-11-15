@@ -5,7 +5,7 @@ import BlogIndex, {
   POSTS_PER_PAGE,
   type BlogIndexProps
 } from '@/components/blog/BlogIndex';
-import { getRenderedPosts } from '@/components/blog/RenderPostHTML';
+import { getRenderedPosts } from '@/lib/render-html';
 import { getAllPosts } from '@/lib/blog';
 
 export default BlogIndex;

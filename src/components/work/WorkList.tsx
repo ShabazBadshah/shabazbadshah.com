@@ -2,7 +2,7 @@ import { m } from 'framer-motion';
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
 import type React from 'react';
 
-import { Title } from '@/components/home/ProjectCard';
+import { Title } from '@/components/ProjectCard';
 import Todo from '@/components/Todo';
 import { content } from '@/content/content';
 import type { PublicProject, WorkTab } from '@/content/projects';

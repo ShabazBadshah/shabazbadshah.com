@@ -1,5 +1,5 @@
 import { useContactDialog } from '@/components/ContactDialog';
-import { siteConfig, type ContactSource } from '@/config/site';
+import { siteConfig, type ContactSource } from '@/lib/site';
 import { content } from '@/content/content';
 
 const { footer } = content;

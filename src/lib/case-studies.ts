@@ -2,7 +2,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { join } from 'path';
 
-import { renderPostHtml } from '@/components/blog/RenderPostHTML';
+import { renderPostHtml } from '@/lib/render-html';
 import { SHOW_PLACEHOLDERS, VERIFY } from '@/lib/todo';
 
 /**

@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { content } from '@/content/content';
 import type { Post } from '@/lib/blog';
 
-const ImageLightbox = dynamic(() => import('./ImageLightbox'), { ssr: false });
+const ImageLightbox = dynamic(() => import('@/components/ImageLightbox'), { ssr: false });
 
 export type TocItem = { id: string; text: string; level: 2 | 3 };
 type Slide = { src: string; alt?: string; description?: string };

@@ -2,14 +2,14 @@ import dayjs from 'dayjs';
 import fs from 'fs';
 import path from 'path';
 
-import { siteConfig } from '../src/config/site';
+import { siteConfig } from '../src/lib/site';
 import { caseStudyProjects, type PublicProject } from '../src/content/projects';
 import { getAllPosts } from '../src/lib/blog';
 import { filled } from '../src/lib/todo';
 import { plainText } from '../src/lib/utils';
 
 /**
- * Writes every machine-readable file in public/ from src/config/site.ts, src/content/projects.ts
+ * Writes every machine-readable file in public/ from src/lib/site.ts, src/content/projects.ts
  * and content/*.mdx: robots.txt, sitemap.xml, manifest.webmanifest, llms.txt, llms-full.txt and
  * .well-known/security.txt. The outputs are git-ignored; this runs before `dev` and `build`.
  */

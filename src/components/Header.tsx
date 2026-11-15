@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { flushSync } from 'react-dom';
 
-import { trackConnectLinkClick } from '@/analytics/tracking';
+import { trackConnectLinkClick } from '@/lib/tracking';
 import { useContactDialog } from '@/components/ContactDialog';
-import { siteConfig, type ContactSource, type NavSection } from '@/config/site';
+import { siteConfig, type ContactSource, type NavSection } from '@/lib/site';
 import { content } from '@/content/content';
 
 const LAYOUT_TRANSITION = { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };

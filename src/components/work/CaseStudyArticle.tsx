@@ -5,7 +5,7 @@ import type React from 'react';
 import { Fragment, useEffect, useRef, useState } from 'react';
 
 import { Toc, type TocItem } from '@/components/blog/BlogArticle';
-import { LazyVideo } from '@/components/home/ProjectCard';
+import { LazyVideo } from '@/components/ProjectCard';
 import Todo from '@/components/Todo';
 import LockedMedia, { LOCKED_MEDIA_HTML } from '@/components/work/LockedMedia';
 import { content } from '@/content/content';
@@ -15,7 +15,7 @@ import { renderDiagrams } from '@/lib/mermaid';
 import { shown } from '@/lib/todo';
 import { dateRange } from '@/lib/utils';
 
-const ImageLightbox = dynamic(() => import('@/components/blog/ImageLightbox'), { ssr: false });
+const ImageLightbox = dynamic(() => import('@/components/ImageLightbox'), { ssr: false });
 
 const { caseStudy } = content;
 const HEADING = 'scroll-mt-8 text-xl font-semibold tracking-tight sm:text-2xl';

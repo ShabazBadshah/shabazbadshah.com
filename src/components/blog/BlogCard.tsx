@@ -3,7 +3,7 @@ import { ChevronRight, Maximize2 } from 'lucide-react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import { trackPinnedPostClicked } from '@/analytics/tracking';
+import { trackPinnedPostClicked } from '@/lib/tracking';
 import { useCardTransition } from '@/components/CardTransition';
 import CornerButton from '@/components/CornerButton';
 import { content } from '@/content/content';

@@ -1,6 +1,6 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import type { ContactSource } from '@/config/site';
+import type { ContactSource } from '@/lib/site';
 import { content } from '@/content/content';
 
 type Props = {

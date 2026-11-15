@@ -1,6 +1,6 @@
 /**
  * Every piece of copy on the site: page and component text, accessible labels and SEO text.
- * Components read from here directly; src/config/site.ts reads its text from here too, so
+ * Components read from here directly; src/lib/site.ts reads its text from here too, so
  * bin/generate.ts picks up edits as well. Projects live in src/content/projects.ts and blog posts
  * in content/.
  *
