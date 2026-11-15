@@ -128,7 +128,9 @@ function AppCardStack({ images }: { images: NonNullable<ProjectMedia['appImages'
       {images.map((image, index) => {
         const depth = (index - active + images.length) % images.length;
         return (
-          // Plain <img>: next/image does not optimize SVG
+          // A motion <img>, so each phone can animate between poses. The phones paint together and
+          // are the same size before their transforms, so any of them can be the page's LCP image:
+          // all load eagerly at high priority.
           <m.img
             key={image.src}
             src={image.src}
@@ -136,9 +138,8 @@ function AppCardStack({ images }: { images: NonNullable<ProjectMedia['appImages'
             aria-hidden={depth !== 0}
             width={image.width}
             height={image.height}
-            loading={index === 0 ? 'eager' : 'lazy'}
             // React 18 only passes the attribute through in its lowercase HTML spelling
-            {...(index === 0 && { fetchpriority: 'high' })}
+            {...{ fetchpriority: 'high' }}
             initial={false}
             animate={{ ...STACK_POSES[depth % STACK_POSES.length], zIndex: images.length - depth }}
             transition={{ type: 'spring', stiffness: 180, damping: 22 }}

@@ -105,7 +105,7 @@ export const siteConfig = {
 
   /** Brand assets referenced by <head>, the manifest and structured data */
   assets: {
-    logo: '/images/logo.png',
+    logo: '/images/logo.webp',
     favicon: '/favicon.svg',
     touchIcon: '/images/favicon.png'
   },

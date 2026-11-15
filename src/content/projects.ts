@@ -114,16 +114,16 @@ export const PROJECTS: Project[] = [
       'Systems Integration Architecture'
     ],
     media: {
-      logo: '/images/portfolio/soti-logo.png',
+      logo: '/images/portfolio/soti-logo.webp',
       image: {
-        src: '/images/portfolio/soti-poster.jpg',
+        src: '/images/portfolio/soti-poster.webp',
         width: 1280,
         height: 720,
         alt: 'SOTI instant messaging and video calling tool'
       },
       video: {
         src: '/images/portfolio/xsight-video.mp4',
-        poster: '/images/portfolio/soti-poster.jpg'
+        poster: '/images/portfolio/soti-poster.webp'
       }
     }
   },
@@ -152,9 +152,9 @@ export const PROJECTS: Project[] = [
       'System Design and Architecture'
     ],
     media: {
-      logo: '/images/portfolio/planned-logo.png',
+      logo: '/images/portfolio/planned-logo.webp',
       logoInvertOnDark: true,
-      image: { src: '/images/portfolio/planned.png', width: 1866, height: 1007, alt: 'Planned' }
+      image: { src: '/images/portfolio/planned.webp', width: 1866, height: 1007, alt: 'Planned' }
     }
   },
   {
@@ -181,7 +181,7 @@ export const PROJECTS: Project[] = [
       'E-commerce'
     ],
     media: {
-      logo: '/images/portfolio/mednow-logo.png',
+      logo: '/images/portfolio/mednow-logo.webp',
       image: {
         src: '/images/portfolio/mednow.webp',
         width: 1500,
@@ -190,19 +190,19 @@ export const PROJECTS: Project[] = [
       },
       appImages: [
         {
-          src: '/images/portfolio/mednow-app.svg',
+          src: '/images/portfolio/mednow-app.webp',
           width: 851,
           height: 1726,
           alt: 'Mednow pharmacy app on a phone'
         },
         {
-          src: '/images/portfolio/mednow-app-2.svg',
+          src: '/images/portfolio/mednow-app-2.webp',
           width: 851,
           height: 1726,
           alt: 'Mednow pharmacy app screen'
         },
         {
-          src: '/images/portfolio/mednow-app-3.svg',
+          src: '/images/portfolio/mednow-app-3.webp',
           width: 851,
           height: 1726,
           alt: 'Mednow pharmacy app screen'
@@ -243,9 +243,9 @@ export const PROJECTS: Project[] = [
       'Web Analytics'
     ],
     media: {
-      logo: '/images/portfolio/project-include-logo.png',
+      logo: '/images/portfolio/project-include-logo.webp',
       image: {
-        src: '/images/portfolio/project-include.png',
+        src: '/images/portfolio/project-include.webp',
         width: 1842,
         height: 983,
         alt: 'Project Include'
@@ -270,7 +270,7 @@ export const PROJECTS: Project[] = [
     media: {
       logo: siteConfig.syftable.logo,
       image: {
-        src: '/images/portfolio/syftable.jpg',
+        src: '/images/portfolio/syftable.webp',
         width: 1920,
         height: 1080,
         alt: 'Syftable website'
@@ -313,7 +313,7 @@ export const PROJECTS: Project[] = [
     media: {
       logo: '/images/portfolio/uoc-logo.svg',
       image: {
-        src: '/images/portfolio/uoc.png',
+        src: '/images/portfolio/uoc.webp',
         width: 1866,
         height: 1007,
         alt: 'Upper Oakville Chiropractic homepage hero section'
