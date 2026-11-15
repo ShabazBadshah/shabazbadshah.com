@@ -29,7 +29,7 @@ const person = {
   address: { '@type': 'PostalAddress', addressRegion: me.region, addressCountry: me.country }
 };
 
-/** Badshah Consulting Inc., on /consulting and /clinics */
+/** Badshah Consulting Inc., on /clinics */
 const organization = {
   '@type': 'ProfessionalService',
   '@id': ORG_ID,

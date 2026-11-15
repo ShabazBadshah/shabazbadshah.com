@@ -16,14 +16,14 @@ export const content = {
     name: 'Shabaz Badshah',
     /** One-liner used by structured data, the manifest and llms.txt */
     description:
-      'Product engineer. I take products from the problem to production, then keep them running.'
+      'Product Manager. I take products from the problem to production, then keep them running.'
   },
 
   seo: {
-    title: 'Shabaz Badshah - Product Engineer',
+    title: 'Shabaz Badshah - Product Manager',
     /** Home page meta description */
     description:
-      'Shabaz Badshah is a product engineer in the GTA. I own products end to end: problem framing, design, engineering, release and support after launch.',
+      'Shabaz Badshah is a product manager in the GTA. I own products end-to-end: problem framing, design, engineering, release and support after launch.',
     keywords: [
       'product management',
       'product engineering',
@@ -40,10 +40,6 @@ export const content = {
     caseStudy: {
       /** "<project> - <suffix>" */
       suffix: 'Case study'
-    },
-    consulting: {
-      title: 'Badshah Consulting - Software for Ontario clinics',
-      description: BUSINESS_DESCRIPTION
     },
     clinics: {
       title: 'Clinic websites in Ontario - Badshah Consulting',
@@ -67,7 +63,7 @@ export const content = {
 
   person: {
     name: 'Shabaz Badshah',
-    jobTitle: 'Product Engineer',
+    jobTitle: 'Product Manager',
     location: 'the Greater Toronto Area, Ontario, Canada',
     knowsAbout: [
       'Product management',
@@ -96,7 +92,7 @@ export const content = {
     label: 'Primary',
     home: 'Home',
     back: 'Back',
-    items: { work: 'Work', consulting: 'Consulting', blog: 'Blog' },
+    items: { work: 'Work', blog: 'Blog' },
     contact: {
       open: 'Contact',
       close: 'Close contact',
@@ -120,8 +116,7 @@ export const content = {
   /** Email subject per contact source, so each inquiry says where it came from */
   contact: {
     subject: {
-      career: 'Hey Shabaz 👋 (product engineer role)',
-      consulting: 'Hey Shabaz 👋 (product build)',
+      career: 'Hey Shabaz 👋 (product manager role)',
       clinics: 'Hey Shabaz 👋 (free website review)'
     },
     /** Appended to the email body: "<signature> <source>" */
@@ -130,24 +125,25 @@ export const content = {
 
   layout: {
     skipToContent: 'Skip to content',
-    scrollToTop: { label: 'Scroll to top', title: 'Back to top' }
+    scrollToTop: { label: 'Scroll to top', title: 'Back to top' },
+    /** The name tag that follows the mouse */
+    cursorName: 'You'
   },
 
   hero: {
     sectionLabel: 'Introduction',
     name: 'Shabaz Badshah',
-    title:
-      'Product engineer. I take products from the problem to production, then keep them running.',
+    role: 'Technical Product Manager',
+    title: 'I take products from the problem to production, then keep them running.',
     currentlyLabel: 'Currently',
     /** "<before> [Syftable]<after>" */
     currently: {
-      before: 'Shipping software for Ontario clinics through Badshah Consulting. Building',
+      before: 'Shipping products independently for founders through Badshah Consulting. Building',
       syftable: 'Syftable',
-      after: '. Open to a full-time Product Engineer role on a small team.'
+      after: '.'
     },
     ctaPrimary: 'Get in touch',
-    ctaSecondary: 'View my work',
-    socialsLabel: 'Connect'
+    ctaSecondary: 'View my work'
   },
 
   home: {
@@ -159,14 +155,12 @@ export const content = {
     title: 'Work',
     subtitle:
       'The titles change, but the purpose remains. Solve meaningful problems and create lasting value for users.',
-    resume: 'Download resume',
     /** The role at the top of the page (CURRENT_ROLE in projects.ts); its description is the business description */
     current: { label: 'Current role', clientsLabel: 'Client work' },
     filters: {
       label: 'Filter work history',
       employment: 'Work',
-      volunteer: 'Volunteer',
-      project: 'Projects'
+      volunteer: 'Volunteer'
     }
   },
 
@@ -187,51 +181,9 @@ export const content = {
     stack: 'Stack',
     phases: 'Phases',
     phase: (n: number): string => `Phase ${n}`,
-    testimonial: 'Testimonial',
     visit: 'Visit site',
-    read: 'Read case study'
-  },
-
-  consulting: {
-    hero: {
-      title: 'Badshah Consulting builds and supports software for Ontario clinics.',
-      subtitle: 'I also take on a limited number of end-to-end product builds for founders.',
-      cta: 'Book a call'
-    },
-    clinics: {
-      title: 'Clinics',
-      body: 'Clinic websites that are clear for patients and easy on the front desk, built with Ontario’s privacy and advertising rules in mind. I design, build and launch the site, then keep it running.',
-      link: 'Software for clinics'
-    },
-    builds: {
-      title: 'End-to-end product builds',
-      scopeTitle: 'What’s included',
-      scope: ['Product definition', 'Design', 'Build', 'Release', 'Support'],
-      processTitle: 'How an engagement works',
-      steps: [
-        {
-          title: 'Discovery',
-          body: 'We talk through the problem, the users and the constraints, and agree on what success looks like.'
-        },
-        {
-          title: 'Scoped proposal',
-          body: 'You get a written scope, timeline and price before any work starts.'
-        },
-        {
-          title: 'Build in short milestones',
-          body: 'I build in short milestones, and you see working software at the end of each one.'
-        },
-        {
-          title: 'Launch',
-          body: 'I handle the release, from hosting and app stores to monitoring and handover notes.'
-        },
-        {
-          title: 'Support period',
-          body: 'After launch, a support period covers fixes and small changes while real users settle in.'
-        }
-      ],
-      caseStudiesTitle: 'Client work'
-    }
+    /** Subject of the email a locked media block opens */
+    walkthroughSubject: 'Walkthrough request: travel companion app'
   },
 
   clinics: {
@@ -282,8 +234,6 @@ export const content = {
   },
 
   projectCard: {
-    showDetails: { label: 'Show project details', title: 'Project details' },
-    hideDetails: { label: 'Back to project', title: 'Back' },
     demoLabel: (project: string): string => `${project} product demo`,
     fullscreen: {
       label: (video: string): string => `View ${video} fullscreen`,
@@ -309,8 +259,7 @@ export const content = {
   footer: {
     /** The large call to action at the bottom of every page, per audience */
     cta: {
-      career: { prompt: 'Hiring a product engineer?', label: "Let's talk." },
-      consulting: { prompt: 'Have a product to build?', label: 'Book a call.' },
+      career: { prompt: 'Hiring a product manager?', label: "Let's talk." },
       clinics: { prompt: 'Curious how your website is doing?', label: 'Get a free website review.' }
     },
     /** "<or> [email]" under a booking call to action, "<or> [book a call]" under an email one */

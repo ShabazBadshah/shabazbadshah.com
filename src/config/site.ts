@@ -14,7 +14,7 @@ const HOST = 'shabazbadshah.com';
 const SYFTABLE_URL = 'https://syftable.com';
 
 /** Which audience a contact link came from; carried into the email and the booking link */
-export type ContactSource = 'career' | 'consulting' | 'clinics';
+export type ContactSource = 'career' | 'clinics';
 
 export type SocialProvider = 'linkedin' | 'email' | 'video' | 'github';
 
@@ -33,12 +33,11 @@ const SOCIAL_LINKS: { provider: SocialProvider; url: string; logo: string }[] = 
   { provider: 'video', url: BOOKING_URL, logo: '/images/logos/google-meet.svg' }
 ];
 
-export type NavSection = 'work' | 'consulting' | 'blog';
+export type NavSection = 'work' | 'blog';
 
-/** /clinics is reached from /consulting and direct links, never from the nav */
+/** /clinics is reached from direct links, never from the nav */
 const NAV_LINKS: { href: string; section: NavSection }[] = [
   { href: '/work', section: 'work' },
-  { href: '/consulting', section: 'consulting' },
   { href: '/blog', section: 'blog' }
 ];
 
@@ -67,7 +66,6 @@ export const siteConfig = {
     ogImage: '/images/og-image.png',
     work: { ...content.seo.work, title: `${content.seo.work.title} | ${HOST}` },
     caseStudyTitle: (name: string) => `${name} - ${content.seo.caseStudy.suffix} | ${HOST}`,
-    consulting: content.seo.consulting,
     clinics: content.seo.clinics,
     blog: { ...content.seo.blog, title: `${content.seo.blog.title} | ${HOST}` },
     blogPageTitle: (page: number) =>
@@ -89,7 +87,7 @@ export const siteConfig = {
 
   business: {
     ...content.business,
-    path: '/consulting',
+    path: '/clinics',
     /** Ontario, focused on the GTA */
     areaServed: 'Ontario'
   },

@@ -41,7 +41,7 @@ const robots = [
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-  ...['/', '/work', '/consulting', '/clinics', '/blog'].map(
+  ...['/', '/work', '/clinics', '/blog'].map(
     (route) => `  <url><loc>${URL}${route}</loc></url>`
   ),
   ...projects.map((project) => `  <url><loc>${projectUrl(project)}</loc></url>`),
@@ -93,7 +93,6 @@ const llmsIndex = [
   '',
   `- [Home](${URL}/): Introduction, selected work, how I work and recent blog posts`,
   `- [Work](${URL}/work): Work history timeline and case studies`,
-  `- [Badshah Consulting](${URL}/consulting): Software for Ontario clinics and end-to-end product builds for founders`,
   `- [Clinics](${URL}/clinics): Clinic websites for Ontario, focused on the GTA`,
   `- [Blog](${URL}/blog): All blog posts`,
   '',

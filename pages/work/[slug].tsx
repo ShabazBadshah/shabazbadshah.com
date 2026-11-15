@@ -10,7 +10,7 @@ import { getCaseStudy, type CaseStudy as Study } from '@/lib/case-studies';
 type Props = { project: PublicProject; study: Study | null };
 
 const CaseStudy = ({ project, study }: Props): JSX.Element => (
-  <MainLayout narrow source={project.client ? 'consulting' : 'career'}>
+  <MainLayout narrow source="career">
     <SEO
       title={siteConfig.seo.caseStudyTitle(project.name)}
       description={project.summary}
