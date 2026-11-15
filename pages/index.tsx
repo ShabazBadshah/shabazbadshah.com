@@ -4,12 +4,12 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import PostGrid from '@/components/blog/PostGrid';
-import { useCardTransition } from '@/components/CardTransition';
 import ArticleSheet from '@/components/ArticleSheet';
 import Hero from '@/components/home/Hero';
 import ProjectCard from '@/components/ProjectCard';
 import SEO from '@/components/SEO';
 import CaseStudyArticle from '@/components/work/CaseStudyArticle';
+import { rememberCard } from '@/lib/card-transition';
 import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import type { PublicProject } from '@/content/projects';
@@ -60,13 +60,12 @@ function SectionHeader({
 type Props = HomePageData;
 
 const Index = ({ posts, mednow, planned, syftable, studies }: Props): JSX.Element => {
-  const { remember } = useCardTransition();
   // Kept mounted after closing so the sheet can shrink back into its card
   const [sheet, setSheet] = useState<PublicProject>();
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const open = (project: PublicProject, card: HTMLElement) => {
-    remember(card);
+    rememberCard(card);
     setSheet(project);
     setSheetOpen(true);
   };

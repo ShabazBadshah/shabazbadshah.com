@@ -4,9 +4,9 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 import { trackPinnedPostClicked } from '@/lib/tracking';
-import { useCardTransition } from '@/components/CardTransition';
 import CornerButton from '@/components/CornerButton';
 import { content } from '@/content/content';
+import { openCard } from '@/lib/card-transition';
 import { isPlainLeftClick, plainText } from '@/lib/utils';
 
 type Props = {
@@ -34,7 +34,6 @@ export default function BlogCard({
   className = ''
 }: Props): JSX.Element {
   const router = useRouter();
-  const { open } = useCardTransition();
   const href = `/blog/posts/${slug}`;
 
   // Above the title on a grid card; under it on a list row, laid out like the article's own
@@ -79,7 +78,7 @@ export default function BlogCard({
           trackPinnedPostClicked();
           // Shallow route: this page already holds the article, so nothing is fetched
           const page = router.asPath.split(/[?#]/)[0];
-          open(`${page}?post=${slug}`, event.currentTarget, href);
+          openCard(`${page}?post=${slug}`, event.currentTarget, href);
         }}
       >
         {/* Visual cue only: the whole card opens the article, this is part of that same link */}

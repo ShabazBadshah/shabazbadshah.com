@@ -2,7 +2,7 @@ import { Send } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { useContactDialog } from '@/components/ContactDialog';
+import { setContactOpen } from '@/components/ContactDialog';
 import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 
@@ -17,7 +17,6 @@ export default function Hero(): JSX.Element {
     setSyftableActive(active);
     if (active) setSyftableRaised(true);
   };
-  const contactDialog = useContactDialog();
   const { syftable } = siteConfig;
 
   return (
@@ -88,7 +87,7 @@ export default function Hero(): JSX.Element {
         <button
           type="button"
           aria-haspopup="dialog"
-          onClick={() => contactDialog.setOpen(true)}
+          onClick={() => setContactOpen(true)}
           className="pill pill-accent flex-1 cursor-pointer text-sm sm:flex-none"
         >
           <Send aria-hidden="true" className="size-5" />

@@ -3,16 +3,16 @@ import { Minimize2 } from 'lucide-react';
 import Head from 'next/head';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import {
-  COLLAPSE_DURATION,
-  EXPAND_DURATION,
-  EXPAND_EASE,
-  FADE_SHARE,
-  useCardTransition
-} from '@/components/CardTransition';
 import CornerButton from '@/components/CornerButton';
 import { content } from '@/content/content';
 import { clipTo, usePinnedScroll, useScrollLock, type Box } from '@/lib/article-sheet';
+import {
+  cardOrigin,
+  COLLAPSE_DURATION,
+  EXPAND_DURATION,
+  EXPAND_EASE,
+  FADE_SHARE
+} from '@/lib/card-transition';
 import { useCloseSound } from '@/lib/close-sound';
 
 type Props = {
@@ -45,8 +45,7 @@ export default function ArticleSheet({
   onClose,
   onExited
 }: Props): JSX.Element {
-  const { origin } = useCardTransition();
-  const [from] = useState(origin);
+  const [from] = useState(cardOrigin);
   const scroller = useRef<HTMLDivElement>(null);
   // Where the home page was scrolled when the card was opened, restored exactly on the way out
   const [homeScroll] = useState(() => window.scrollY);

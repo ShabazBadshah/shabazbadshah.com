@@ -3,9 +3,10 @@ import { Send, X } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef, type MouseEvent } from 'react';
 
-import { ContactPanel, useContactDialog } from '@/components/ContactDialog';
+import { ContactPanel, setContactOpen, useContactOpen } from '@/components/ContactDialog';
 import ThemeToggle from '@/components/ThemeToggle';
 import { content } from '@/content/content';
+import { useCloseSound } from '@/lib/close-sound';
 import { activeSection, contactSource, siteConfig } from '@/lib/site';
 
 const LAYOUT_TRANSITION = { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };
@@ -20,7 +21,8 @@ const ICON_BUTTON =
  */
 export default function NavBar({ pathname }: { pathname: string }): JSX.Element {
   const active = activeSection(pathname);
-  const { open: contactOpen, setOpen: setContactOpen } = useContactDialog();
+  const contactOpen = useContactOpen();
+  useCloseSound(contactOpen);
   const navRef = useRef<HTMLElement>(null);
   const sendRef = useRef<HTMLButtonElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
@@ -54,8 +56,8 @@ export default function NavBar({ pathname }: { pathname: string }): JSX.Element 
       window.removeEventListener('keydown', onKey);
       document.removeEventListener('pointerdown', onPointer);
     };
-  }, [contactOpen, setContactOpen]);
-  useEffect(() => setContactOpen(false), [pathname, setContactOpen]);
+  }, [contactOpen]);
+  useEffect(() => setContactOpen(false), [pathname]);
 
   // Next's router jumps to the top on a route change; on the home page glide there instead,
   // like the hash links do, and drop any #contact from the URL

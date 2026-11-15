@@ -6,8 +6,6 @@ import { LazyMotion, MotionConfig } from 'framer-motion';
 import { ThemeProvider as NextThemesProvider, type ThemeProviderProps } from 'next-themes';
 
 import { trackPageView } from '@/lib/tracking';
-import CardTransitionProvider from '@/components/CardTransition';
-import ContactDialogProvider from '@/components/ContactDialog';
 import CursorName from '@/components/CursorName';
 import usePageTransitions from '@/components/PageTransition';
 import { siteConfig } from '@/lib/site';
@@ -88,12 +86,8 @@ export default function App(props: AppProps): React.ReactNode {
         {/* Layout/shared-element animation features load after first paint */}
         <LazyMotion features={loadMotionFeatures}>
           <MotionConfig reducedMotion="user">
-            <CardTransitionProvider>
-              <ContactDialogProvider>
-                <Component {...pageProps} />
-                <CursorName />
-              </ContactDialogProvider>
-            </CardTransitionProvider>
+            <Component {...pageProps} />
+            <CursorName />
           </MotionConfig>
         </LazyMotion>
       </ThemeProvider>

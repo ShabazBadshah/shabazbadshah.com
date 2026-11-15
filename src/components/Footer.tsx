@@ -1,4 +1,4 @@
-import { useContactDialog } from '@/components/ContactDialog';
+import { setContactOpen } from '@/components/ContactDialog';
 import { siteConfig, type ContactSource } from '@/lib/site';
 import { content } from '@/content/content';
 
@@ -30,7 +30,6 @@ const Footer = ({ narrow = false, source = 'career' }: Props): JSX.Element => {
   const booking = siteConfig.contact.booking(source);
   // A role inquiry starts with an email; a clinic one with a call
   const bookFirst = source !== 'career';
-  const contactDialog = useContactDialog();
 
   return (
     <footer
@@ -49,7 +48,7 @@ const Footer = ({ narrow = false, source = 'career' }: Props): JSX.Element => {
         <button
           type="button"
           aria-haspopup="dialog"
-          onClick={() => contactDialog.setOpen(true)}
+          onClick={() => setContactOpen(true)}
           className={`${CTA} cursor-pointer text-left`}
         >
           {cta.label}

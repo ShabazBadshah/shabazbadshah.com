@@ -1,33 +1,30 @@
-import React, { createContext, useContext, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { content } from '@/content/content';
-import { useCloseSound } from '@/lib/close-sound';
 import { siteConfig, type ContactSource } from '@/lib/site';
 import { trackConnectLinkClick } from '@/lib/tracking';
 
-type ContactDialog = {
-  /** The nav pill is expanded into the contact dialog */
-  open: boolean;
-  setOpen: (open: boolean) => void;
-};
-
-const ContactDialogContext = createContext<ContactDialog>({
-  open: false,
-  setOpen: () => undefined
-});
+/** The nav pill is expanded into the contact dialog */
+let open = false;
+const listeners = new Set<(open: boolean) => void>();
 
 /** Lets anything on the page (the hero's call to action) open the contact dialog in the nav */
-export const useContactDialog = (): ContactDialog => useContext(ContactDialogContext);
+export const setContactOpen = (next: boolean): void => {
+  open = next;
+  listeners.forEach((listener) => listener(next));
+};
 
-export default function ContactDialogProvider({
-  children
-}: {
-  children: React.ReactNode;
-}): JSX.Element {
-  const [open, setOpen] = useState(false);
-  useCloseSound(open);
-  const value = useMemo(() => ({ open, setOpen }), [open]);
-  return <ContactDialogContext.Provider value={value}>{children}</ContactDialogContext.Provider>;
+/** Whether the contact dialog is open, re-rendering when it opens or closes */
+export function useContactOpen(): boolean {
+  const [value, setValue] = useState(open);
+  useEffect(() => {
+    listeners.add(setValue);
+    setValue(open);
+    return () => {
+      listeners.delete(setValue);
+    };
+  }, []);
+  return value;
 }
 
 /** The nav pill's contents while it is expanded into the contact dialog */

@@ -1,12 +1,12 @@
 import { GetStaticPropsResult } from 'next';
 import { useEffect, useRef, useState } from 'react';
 
-import { useCardTransition } from '@/components/CardTransition';
 import ArticleSheet from '@/components/ArticleSheet';
 import SEO from '@/components/SEO';
 import CaseStudyArticle from '@/components/work/CaseStudyArticle';
 import CurrentRole from '@/components/work/CurrentRole';
 import WorkList, { FILTERS, WorkFilter } from '@/components/work/WorkList';
+import { rememberCard } from '@/lib/card-transition';
 import { siteConfig } from '@/lib/site';
 import { content } from '@/content/content';
 import type { PublicProject, WorkTab } from '@/content/projects';
@@ -22,7 +22,6 @@ type Props = WorkPageData;
  * grows into its case study, like a blog card into its article.
  */
 const Work = ({ current, groups, clients, studies }: Props): JSX.Element => {
-  const { remember } = useCardTransition();
   // Kept mounted after closing so the sheet can shrink back into its card or row
   const [sheet, setSheet] = useState<PublicProject>();
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -39,7 +38,7 @@ const Work = ({ current, groups, clients, studies }: Props): JSX.Element => {
   }, [filter]);
 
   const open = (project: PublicProject, card: HTMLElement) => {
-    remember(card);
+    rememberCard(card);
     setSheet(project);
     setSheetOpen(true);
   };
